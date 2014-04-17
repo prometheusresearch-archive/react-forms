@@ -59,42 +59,6 @@ describe('forms', () => {
       });
     });
 
-    describe('date', () => {
-      var date = validators.date;
-
-      it('works', () => {
-        assertValidates(date('1982-08-12'));
-        assertValidates(date('2012-02-29'));
-        assertValidates(date(new Date('1982-08-12')));
-        assertValidates(date(null));
-        assertValidates(date(undefined));
-
-        assertFails(date('2014-02-29'));
-        assertFails(date('1982-08-32'));
-        assertFails(date('12.08.1982'));
-      });
-    });
-
-    describe('number', () => {
-      var number = validators.number;
-
-      it('works', () => {
-        assertValidates(number(1));
-        assertValidates(number('1'));
-        assertValidates(number('1.'));
-        assertValidates(number('.1'));
-        assertValidates(number('0.1'));
-        assertValidates(number('-0.1'));
-        assertValidates(number('-1.1e-10'));
-        assertValidates(number('21.1e10'));
-        assertValidates(number(null));
-        assertValidates(number(undefined));
-
-        assertFails(number('1e'));
-        assertFails(number('string'));
-      });
-    });
-
     describe('validator factory', () => {
       var validator = validators.validator;
 
