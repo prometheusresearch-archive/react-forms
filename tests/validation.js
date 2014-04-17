@@ -272,6 +272,22 @@ describe('forms', () => {
         });
       });
 
+      describe('array validation', () => {
+        var type = {
+          deserialize: (v) => {
+            return {wrap: v};
+          }
+        };
+
+        it('deserializes and validates', () => {
+          var schema = (
+            <List type={type}>
+              <Property type="number" />
+            </List>
+          );
+          assertValidates(schema, [1], {wrap: [1]});
+        });
+      });
     });
 
   });
