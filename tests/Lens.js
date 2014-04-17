@@ -266,5 +266,14 @@ describe('forms', () => {
 
     });
 
+    describe('transform()', () => {
+
+      it('transforms the value via a function', () => {
+        var addOne = (x) => x + 1;
+        assert.equal(Lens.make(1).transform(addOne).val(), 2);
+      });
+
+    });
+
   });
 });
