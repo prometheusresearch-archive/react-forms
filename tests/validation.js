@@ -46,22 +46,22 @@ describe('forms', () => {
 
     describe('scalar validation', () => {
 
+      var number = validators.validator((val) => val > 0 && val < 42);
+
       it('validates scalars', () => {
-        var schema = <Property validate={validators.number} />;
+        var schema = <Property validate={number} />;
 
         assertValidates(validate(schema, 1));
         assertValidates(validate(schema, '1'));
-        assertSelfFails(validate(schema, 'x'), 'should be a number');
         assertValidates(validate(schema, null));
         assertValidates(validate(schema, undefined));
       });
 
       it('validates required scalars', () => {
-        var schema = <Property required validate={validators.number} />;
+        var schema = <Property required validate={number} />;
 
         assertValidates(validate(schema, 1));
         assertValidates(validate(schema, '1'));
-        assertSelfFails(validate(schema, 'x'), 'should be a number');
         assertSelfFails(validate(schema, null), 'value is required');
         assertSelfFails(validate(schema, undefined), 'value is required');
       });
@@ -70,13 +70,14 @@ describe('forms', () => {
 
     describe('object validation', () => {
 
+      var number = validators.validator((val) => val > 0 && val < 42);
+
       it('validates object', () => {
 
         var schema = (
           <Schema>
             <Property name="name" />
-            <Property name="count" validate={validators.number} />
-            <Property name="dob" validate={validators.date} />
+            <Property name="count" validate={number} />
           </Schema>
         );
 
@@ -91,7 +92,7 @@ describe('forms', () => {
         assertChildrenFail(validation, 'count');
         assertFails(validation.children.count);
 
-        validation = validate(schema, {name: 'name', count: 1, dob: '2012-12-12'});
+        validation = validate(schema, {name: 'name', count: 1});
         assertValidates(validation);
       });
 
@@ -100,7 +101,7 @@ describe('forms', () => {
         var schema = (
           <Schema required>
             <Property name="name" required />
-            <Property name="count" validate={validators.number} />
+            <Property name="count" validate={number} />
           </Schema>
         );
 
@@ -122,10 +123,10 @@ describe('forms', () => {
         var schema = (
           <Schema> 
             <Property name="name" required />
-            <Property name="count" validate={validators.number} />
+            <Property name="count" validate={number} />
             <Schema name="subschema" required>
               <Property name="name" required />
-              <Property name="count" validate={validators.number} />
+              <Property name="count" validate={number} />
             </Schema>
           </Schema>
         );
@@ -150,11 +151,13 @@ describe('forms', () => {
 
     describe('array validation', () => {
 
+      var number = validators.validator((val) => val > 0 && val < 42);
+
       it('validates array', () => {
 
         var schema = (
           <List>
-            <Property validate={validators.number} />
+            <Property validate={number} />
           </List>
         );
 
