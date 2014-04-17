@@ -64,7 +64,7 @@ describe('forms', () => {
       assert.strictEqual(onValueUpdate.callCount, 1);
       assert.deepEqual(onValueUpdate.firstCall.args, [
         'newvalue',
-        {validation: {failure: undefined}, isSuccess: true, isFailure: false}
+        {validation: {failure: undefined}, isSuccess: true, isFailure: false, children: {}}
       ]);
     });
 
