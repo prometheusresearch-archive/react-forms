@@ -8,13 +8,15 @@ var types  = require('../lib/types');
 
 describe('forms', () => {
 
-  describe.only('types', () => {
+  describe('types', () => {
 
     var json = JSON.stringify;
 
     function serializes(type, cases) {
       cases.forEach((c, idx) => {
-        it(`serializes ${c[0]} into ${json(c[1])}`, () => {
+        var arg = c[0];
+        var expectation = c[1];
+        it(`serializes ${json(arg)} into ${json(expectation)}`, () => {
           assert.strictEqual(type.serialize(c[0]), c[1]);
         });
       });
@@ -22,17 +24,19 @@ describe('forms', () => {
 
     function deserializes(type, cases) {
       cases.forEach((c, idx) => {
-        if (c[1] instanceof Error) {
-          it(`throws on deserializing from ${json(c[0])}`, () => {
-            assert.throws(() => type.deserialize(c[0]), c[1].message);
+        var arg = c[0];
+        var expectation = c[1];
+        if (expectation instanceof Error) {
+          it(`throws on deserializing from ${json(arg)}`, () => {
+            assert.throws(() => type.deserialize(arg), expectation.message);
           });
-        } else if (typeof c[1] === 'function') {
-          it(`deserializes from ${json(c[0])} correctly`, () => {
-            assert.ok(c[1](type.deserialize(c[0])));
+        } else if (typeof expectation === 'function') {
+          it(`deserializes from ${json(arg)} correctly`, () => {
+            assert.ok(expectation(type.deserialize(arg)));
           });
         } else {
-          it(`deserializes from ${json(c[0])} into ${c[1]}`, () => {
-            assert.strictEqual(type.deserialize(c[0]), c[1]);
+          it(`deserializes from ${json(arg)} into ${expectation}`, () => {
+            assert.strictEqual(type.deserialize(arg), expectation);
           });
         }
       });
