@@ -14,7 +14,7 @@ var Lens             = require('../lib/Lens');
 
 describe('forms', () => {
 
-  describe.only('FormElementMixin', () => {
+  describe('FormElementMixin', () => {
 
     var Form = React.createClass({
 
