@@ -40,6 +40,9 @@ var SexField = schema.createType((props) => {
 
 var name = {
   deserialize: function(s) {
+    if (s === '') {
+      return null;
+    }
     return s.split(/\s+/)
       .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
       .join(' ');
