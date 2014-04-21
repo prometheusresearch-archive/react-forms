@@ -1,0 +1,2 @@
+start:
+	node ./server.js

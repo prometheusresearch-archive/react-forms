@@ -1,0 +1,287 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700&subset=latin,latin-ext,cyrillic-ext,cyrillic);
+// bootstrap customization
+@import "./variables.less";
+
+// bootstrap
+@import (npm) "twbs/less/mixins.less";
+@import (npm) "twbs/less/normalize.less";
+@import (npm) "twbs/less/print.less";
+@import (npm) "twbs/less/scaffolding.less";
+@import (npm) "twbs/less/type.less";
+@import (npm) "twbs/less/code.less";
+@import (npm) "twbs/less/grid.less";
+@import (npm) "twbs/less/tables.less";
+@import (npm) "twbs/less/forms.less";
+@import (npm) "twbs/less/buttons.less";
+@import (npm) "twbs/less/component-animations.less";
+@import (npm) "twbs/less/glyphicons.less";
+@import (npm) "twbs/less/dropdowns.less";
+@import (npm) "twbs/less/button-groups.less";
+@import (npm) "twbs/less/input-groups.less";
+@import (npm) "twbs/less/navs.less";
+@import (npm) "twbs/less/navbar.less";
+@import (npm) "twbs/less/breadcrumbs.less";
+@import (npm) "twbs/less/pagination.less";
+@import (npm) "twbs/less/pager.less";
+@import (npm) "twbs/less/labels.less";
+@import (npm) "twbs/less/badges.less";
+@import (npm) "twbs/less/jumbotron.less";
+@import (npm) "twbs/less/thumbnails.less";
+@import (npm) "twbs/less/alerts.less";
+@import (npm) "twbs/less/progress-bars.less";
+@import (npm) "twbs/less/media.less";
+@import (npm) "twbs/less/list-group.less";
+@import (npm) "twbs/less/panels.less";
+@import (npm) "twbs/less/wells.less";
+@import (npm) "twbs/less/close.less";
+@import (npm) "twbs/less/modals.less";
+@import (npm) "twbs/less/tooltip.less";
+@import (npm) "twbs/less/popovers.less";
+@import (npm) "twbs/less/carousel.less";
+@import (npm) "twbs/less/utilities.less";
+@import (npm) "twbs/less/responsive-utilities.less";
+
+// react-forms bootstrap theme
+@import (npm) "react-forms/themes/bootstrap/";
+@import (npm) "react-forms/themes/bootstrap/RadioButtonGroup";
+@import (npm) "react-forms/themes/bootstrap/CheckboxGroup";
+
+@color-base-0: #16193B;
+@color-base-1: #35478C;
+@color-base-2: #4E7AC7;
+@color-base-3: #7FB2F0;
+@color-base-4: #ADD5F7;
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  padding-top: 50px;
+}
+
+p {
+  code, a {
+    margin: 0 2px;
+  }
+}
+
+pre, code {
+  border: none;
+  background: lighten(@color-base-4, 15%);
+  color: darken(@color-base-2, 10%);
+}
+
+.NavigationBar {
+  @color: lighten(@color-base-4, 20%);
+  @background: @color-base-2;
+  @background-hover: darken(@background, 10%);
+  @border: 1px solid @background-hover;
+
+  background: @background;
+  border-bottom: @border;
+
+  &.navbar-default .navbar-brand {
+    font-weight: bold;
+  }
+
+  &.navbar-default li.dropdown {
+    & > .dropdown-menu a {
+      color: @background;
+      &:hover {
+        color: @color;
+      }
+    }
+
+    &:hover {
+      & > .dropdown-menu {
+        display: block;
+      }
+    }
+  }
+
+  &.navbar-default .navbar-brand,
+  &.navbar-default li > a {
+    color: @color;
+
+    &:hover {
+      background: @background-hover;
+      color: @color;
+    }
+  }
+}
+
+.Page {
+  .PageHeader {
+    background: @color-base-4;
+    color: lighten(@color-base-4, 20%);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: left;
+    border-bottom: 1px solid darken(@color-base-4, 10%);
+
+    .title {
+      font-size: 36px;
+    }
+    .tagline {
+      font-size: 16px;
+    }
+  }
+
+  .PageContent {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.Demo {
+  .DemoHeader {
+    background: @gray-lighter;
+    color: @gray-light;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    font-size: 24px;
+    text-align: left;
+  }
+
+  .DemoStage {
+    padding: 0 20px;
+    width: 80%;
+    margin: 0 auto;
+
+    .title {
+      padding-bottom: 40px;
+    }
+  }
+}
+
+.Section {
+  padding-bottom: 20px;
+
+  .SectionRow {
+  }
+
+  & > .SectionTitle {
+    padding-bottom: 20px;
+  }
+}
+
+.ShowValue {
+  .ShowValueValue > .text,
+  .ShowValueComponent > .text {
+    font-size: 80%;
+  }
+
+  .ShowValueValue {
+    padding: 10px 0;
+
+    .value {
+      border: none;
+      background: #fff;
+      color: @gray-light;
+    }
+  }
+}
+
+/**
+ * Form styling
+ */
+
+.Form {
+  padding: 15px;
+}
+
+.FormErrors {
+}
+
+.UndoFormDemo {
+  .Form {
+    position: relative;
+    padding-top: 30px;
+  }
+  .UndoControls {
+    .user-select(none);
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 150%;
+    button {
+      border: none;
+      background: transparent;
+    }
+  }
+}
+
+.ArrayFormDemo {
+
+  .ArrayEditor {
+    .Item {
+      position: relative;
+      padding-right: 40px;
+    }
+    .Remove {
+      color: @gray-lighter;
+      font-size: 190%;
+      position: absolute;
+      top: 0;
+      right: 15px;
+      background: none;
+      border: none;
+
+      &:hover {
+        color: @gray;
+      }
+    }
+  }
+}
+
+.SortableRepeatingFieldSet {
+  .react-forms-repeating-fieldset-item {
+    position: relative;
+    &:hover {
+      .SortableHandle {
+        display: block;
+      }
+    }
+  }
+  .SortablePlaceholder {
+    .form-group();
+    height: 30px;
+    width: 100%;
+    background: @gray-lighter;
+  }
+  .SortableHandle {
+    background: @gray-lighter;
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15px;
+    height: 100%;
+    cursor: move;
+  }
+  &.SortableActive {
+    cursor: move;
+    .SortableHandle {
+      display: none !important;
+    }
+  }
+}
+
+.API {
+  h4 {
+    margin-bottom: 20px;
+    color: @color-base-4;
+  }
+  background: lighten(@color-base-4, 15%);
+  padding: 30px;
+}
+
+.APIDoc {
+  .sig pre, .description {
+    padding: 0;
+  }
+}

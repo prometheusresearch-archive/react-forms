@@ -2,8 +2,8 @@ BIN   = ./node_modules/.bin
 PATH := $(BIN):$(PATH)
 TESTS = $(shell find ./tests -name '*.js' -not -path './tests/assertions/*')
 
-demo::
-	@$(MAKE) --no-print-directory -C demo
+docs::
+	@$(MAKE) --no-print-directory -C docs
 
 lint:
 	@eslint-jsx lib/ tests/
