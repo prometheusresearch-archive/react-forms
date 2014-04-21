@@ -19,7 +19,7 @@ var List        = schema.List;
 
 describe('forms', () => {
 
-  describe.only('validation', () => {
+  describe('validation', () => {
 
     describe('validation', () => {
 
