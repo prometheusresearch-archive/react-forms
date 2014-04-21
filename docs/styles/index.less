@@ -85,6 +85,10 @@ pre, code {
     font-weight: bold;
   }
 
+  .nav li {
+    cursor: default;
+  }
+
   &.navbar-default li.dropdown {
     & > .dropdown-menu a {
       color: @background;
@@ -237,15 +241,11 @@ pre, code {
   }
 }
 
-.SortableRepeatingFieldSet {
+.SortableRepeatingFieldset {
   .react-forms-repeating-fieldset-item {
     position: relative;
-    &:hover {
-      .SortableHandle {
-        display: block;
-      }
-    }
   }
+
   .SortablePlaceholder {
     .form-group();
     height: 30px;
@@ -253,8 +253,7 @@ pre, code {
     background: @gray-lighter;
   }
   .SortableHandle {
-    background: @gray-lighter;
-    display: none;
+    background: lighten(@gray-lighter, 2%);
     position: absolute;
     top: 0;
     bottom: 0;

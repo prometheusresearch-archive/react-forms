@@ -6,7 +6,6 @@
 var React         = require('react');
 var Router        = require('react-router-component');
 var NavigationBar = require('./NavigationBar');
-var MainPage      = require('./MainPage');
 
 var Locations = Router.Locations;
 var Location  = Router.Location;
@@ -25,9 +24,7 @@ var App = React.createClass({
   },
 
   renderRoutes: function(pages, routes) {
-    if (routes === undefined) {
-      routes = [<Location path="/" handler={MainPage} />];
-    }
+    var routes = [];
     pages.forEach((page) => {
       if (page.handler) {
         routes.push(Location(page));

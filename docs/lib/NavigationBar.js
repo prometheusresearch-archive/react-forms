@@ -48,7 +48,7 @@ var NavigationBar = React.createClass({
       <nav className="NavigationBar navbar navbar-default navbar-fixed-top" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" href="/">Rex Component</Link>
+            <Link className="navbar-brand" href="/">React Forms</Link>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">{this.renderLinks(this.props.pages)}</ul>

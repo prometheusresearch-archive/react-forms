@@ -229,20 +229,12 @@ var Form = React.createClass({
 
 function createSchema(instrument) {
   var children = instrument.record.map((rec) => {
-    var validate, convert;
-
     switch (rec.type) {
       case 'integer':
-        validate = forms.validators.number;
-        convert = forms.converters.toNumber;
-        break;
+        return Property({name: rec.id, type: 'number'});
+      default:
+        return Property({name: rec.id});
     }
-
-    return Property({
-      validate, 
-      convert,
-      name: rec.id
-    });
   });
   return <Schema>{children}</Schema>;
 }

@@ -18,7 +18,7 @@ module.exports = React.createClass({
         <Section>
           <Column>
             <p>
-              Rex Component Forms allows to customize input components on
+              React Forms allows to customize input components on
               per-field basis.
             </p>
             <p>

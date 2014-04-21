@@ -112,11 +112,11 @@ var FormWithUndo = React.createClass({
   },
 
   getStateSnapshot: function() {
-    return {value: this.value()};
+    return {value: this.value(), validation: this.validation()};
   },
 
   setStateSnapshot: function(snapshot) {
-    this.updateValue(snapshot.value);
+    this.onValueUpdate(snapshot.value, snapshot.validation);
   },
 
   render: function() {

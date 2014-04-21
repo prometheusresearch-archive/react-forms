@@ -109,6 +109,7 @@ var SortableRepeatingFieldset = React.createClass({
 
   mixins: [
     forms.FormElementMixin, // we need forms.FormElementMixin cause we want to update the form value
+    forms.FormContextMixin,
     DraggableMixin // DraggableMixin provides basic dragging functionality
   ],
 
@@ -207,7 +208,7 @@ module.exports = React.createClass({
             sort items in a list.
           </p>
         </Section>
-        <ShowValue horizontal>
+        <ShowValue onUpdate horizontal>
           <Form schema={Persons} value={[
               {firstName: 'Jane', lastName: 'Roe'},
               {firstName: 'Richard', lastName: 'Miles'},
