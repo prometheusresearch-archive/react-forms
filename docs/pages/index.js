@@ -12,10 +12,21 @@ module.exports = React.createClass({
         tagline="Forms library for React">
         <Section>
           <p>
-            React Forms library provides a set of tools to describe, render and
-            process forms. It is designed to handle arbitraty complex data
-            structures and to be customizable and extendable at any level.
+            React Forms library provides a set of tools to handle forms. It is
+            designed with the intention to handle arbitraty complex data
+            structures and to be customizable and extendable.
           </p>
+          <h3>Getting started</h3>
+          <p>
+            To get started, use <code>npm</code> to install both React and React Forms:
+          </p>
+          <Code>
+            % npm install react react-forms
+          </Code>
+          <p>
+            Then consult the <Link href="/documentation/">documentation</Link> for the introduction.
+          </p>
+          <h3>Credits</h3>
           <p>
             This package is a part of the <a href="http://rexdb.org">RexDB</a>®
             platform for medical research data management. RexDB is free
