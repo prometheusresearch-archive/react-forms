@@ -1,0 +1,11 @@
+{
+  "globals": {
+    "describe": false,
+    "it": false,
+    "beforeEach": false,
+    "afterEach": false
+  },
+  "rules": {
+    "max-len": [1, 120, 4]
+  }
+}
