@@ -109,13 +109,15 @@ pre, code {
     }
   }
 
-  &.navbar-default .navbar-brand,
-  &.navbar-default li > a {
-    color: @color;
-
-    &:hover {
-      background: @background-hover;
-      color: @color;
+  &.navbar-default {
+    .navbar-header, li {
+      & > a {
+        color: @color;
+      }
+      &:hover > a {
+        background: @background-hover;
+        color: @color;
+      }
     }
   }
 }
