@@ -40,28 +40,40 @@ var pages = [
     pages: [
       {
         name: 'Family editor form',
-        path: '/pages/family-editor-example',
-        handler: require('./pages/family-editor-example')
+        path: '/pages/examples/family-editor-example',
+        handler: require('./pages/examples/family-editor-example')
       },
       {
         name: 'Array editor form',
-        path: '/pages/array-form',
-        handler: require('./pages/array-form-example')
+        path: '/pages/examples/array-form',
+        handler: require('./pages/examples/array-form-example')
       },
       {
         name: 'Sortable list',
-        path: '/pages/sortable-list',
-        handler: require('./pages/sortable-list-example')
+        path: '/pages/examples/sortable-list',
+        handler: require('./pages/examples/sortable-list-example')
       },
       {
         name: 'Form with undo stack',
-        path: '/pages/undo-features',
-        handler: require('./pages/undo-form-example')
+        path: '/pages/examples/undo-features',
+        handler: require('./pages/examples/undo-form-example')
       },
       {
         name: 'Instrument/Form demo',
-        path: '/pages/instrument',
-        handler: require('./pages/instrument')
+        path: '/pages/examples/instrument',
+        handler: require('./pages/examples/instrument')
+      },
+      NavigationBar.divider,
+      NavigationBar.header('Input components'),
+      {
+        name: 'RadioButtonGroup',
+        path: '/pages/input/radio-button-group',
+        handler: require('./pages/input/radio-button-group')
+      },
+      {
+        name: 'CheckboxGroup',
+        path: '/pages/input/checkbox-group',
+        handler: require('./pages/input/checkbox-group')
       },
     ]
   },

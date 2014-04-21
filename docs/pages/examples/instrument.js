@@ -3,11 +3,11 @@
 var React             = require('react');
 var merge             = require('react/lib/merge');
 var cx                = require('react/lib/cx');
-var Demo              = require('../lib/Demo');
-var Section           = require('../lib/Section');
-var Column            = require('../lib/Column');
-var Code              = require('../lib/Code');
-var ShowValue         = require('../lib/ShowValue');
+var Demo              = require('../../lib/Demo');
+var Section           = require('../../lib/Section');
+var Column            = require('../../lib/Column');
+var Code              = require('../../lib/Code');
+var ShowValue         = require('../../lib/ShowValue');
 
 var forms             = require('react-forms');
 
