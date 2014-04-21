@@ -48,7 +48,7 @@ var NavigationBar = React.createClass({
       <nav className="NavigationBar navbar navbar-default navbar-fixed-top" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" href="/">{this.props.title}</Link>
+            <Link className="navbar-brand" href={this.props.main.path}>{this.props.main.name}</Link>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">{this.renderLinks(this.props.pages)}</ul>

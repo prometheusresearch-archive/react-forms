@@ -20,9 +20,14 @@ mergeInto(g, require('./lib/API'));
 
 var pages = [
   {
-    name: 'Documentation',
+    name: 'React Forms',
     path: '/',
     handler: require('./pages'),
+  },
+  {
+    name: 'Documentation',
+    path: '/documentation/',
+    handler: require('./pages/documentation'),
     pages: [
       {
         name: 'Overview',
@@ -111,4 +116,4 @@ var pages = [
     ]
   }
 ]
-React.renderComponent(App({pages, title: 'React Forms'}), document.body);
+React.renderComponent(App({pages}), document.body);
