@@ -11,7 +11,6 @@ Repository structure is as follows:
     ├── docs            React Forms site with docs and demos
     ├── lib             Source code
     ├── package.json    Package metadata
-    ├── tests           Test suite
     └── themes          Themes for (only Bootstrap 3 theme currenlty)
 
 ## Credits
