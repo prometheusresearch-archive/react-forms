@@ -3,15 +3,8 @@
  */
 'use strict';
 
-var React             = require('react');
 var cloneWithProps    = require('react/lib/cloneWithProps');
-var cx                = require('react/lib/cx');
 var merge             = require('react/lib/merge');
-var Demo              = require('../../lib/Demo');
-var Section           = require('../../lib/Section');
-var Column            = require('../../lib/Column');
-var Code              = require('../../lib/Code');
-var ShowValue         = require('../../lib/ShowValue');
 var forms             = require('react-forms');
 
 var schema            = forms.schema;

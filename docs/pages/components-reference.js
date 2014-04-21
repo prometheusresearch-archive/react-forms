@@ -3,15 +3,6 @@
  */
 'use strict';
 
-var React            = require('react');
-var cx               = require('react/lib/cx');
-var Link             = require('react-router-component').Link;
-
-var Demo             = require('../lib/Demo');
-var Section          = require('../lib/Section');
-var Column           = require('../lib/Column');
-var Code             = require('../lib/Code');
-
 var APIDoc = React.createClass({
 
   render: function() {

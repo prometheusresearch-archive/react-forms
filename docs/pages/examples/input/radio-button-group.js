@@ -3,17 +3,11 @@
  */
 'use strict';
 
-var React               = require('react');
-var RadioButtonGroup    = require('react-forms/lib/input/RadioButtonGroup');
-var Demo                = require('../../lib/Demo');
-var Section             = require('../../lib/Section');
-var Column              = require('../../lib/Column');
-var Code                = require('../../lib/Code');
-var ShowValue           = require('../../lib/ShowValue');
+var RadioButtonGroup = require('react-forms/lib/input/RadioButtonGroup');
 
 var options = [
   {value: 'female', name: 'Female'},
-  {value: 'male', name: 'Male'} 
+  {value: 'male', name: 'Male'}
 ];
 
 var RadioButtonGroupDemo = React.createClass({
@@ -30,7 +24,7 @@ var RadioButtonGroupDemo = React.createClass({
             <Code>{`
               var options = [
                 {value: 'female', name: 'Female'},
-                {value: 'male', name: 'Male'} 
+                {value: 'male', name: 'Male'}
               ]`}
             </Code>
             <p>

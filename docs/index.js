@@ -4,6 +4,18 @@ var React         = require('react');
 var App           = require('./lib/App');
 var NavigationBar = require('./lib/NavigationBar');
 
+var g = typeof window !== 'undefined' ? window : global;
+
+// bring common components into scope
+g.React      = require('react');
+g.cx         = require('react/lib/cx');
+g.Link       = require('react-router-component').Link;
+g.Demo       = require('./lib/Demo');
+g.Section    = require('./lib/Section');
+g.Column     = require('./lib/Column');
+g.Code       = require('./lib/Code');
+g.ShowValue  = require('./lib/ShowValue');
+
 var pages = [
   {
     name: 'Documentation',
@@ -12,30 +24,30 @@ var pages = [
     pages: [
       {
         name: 'Overview',
-        path: '/',
-        handler: require('./pages')
+        path: '/pages/documentation/',
+        handler: require('./pages/documentation')
       },
       NavigationBar.divider,
       NavigationBar.header('Customizations and extensions'),
       {
         name: 'Input components',
-        path: '/pages/custom-input-components',
-        handler: require('./pages/custom-input-components')
+        path: '/pages/documentation/custom-input-components',
+        handler: require('./pages/documentation/custom-input-components')
       },
       {
         name: 'Form rendering',
-        path: '/pages/custom-form-rendering',
-        handler: require('./pages/custom-form-rendering')
+        path: '/pages/documentation/custom-form-rendering',
+        handler: require('./pages/documentation/custom-form-rendering')
       },
       {
         name: 'Fieldset rendering',
-        path: '/pages/custom-fieldset-rendering',
-        handler: require('./pages/custom-fieldset-rendering')
+        path: '/pages/documentation/custom-fieldset-rendering',
+        handler: require('./pages/documentation/custom-fieldset-rendering')
       },
       {
         name: 'Repeating fieldset rendering',
-        path: '/pages/custom-repeating-fieldset-rendering',
-        handler: require('./pages/custom-repeating-fieldset-rendering')
+        path: '/pages/documentation/custom-repeating-fieldset-rendering',
+        handler: require('./pages/documentation/custom-repeating-fieldset-rendering')
       }
     ]
   },
@@ -71,13 +83,13 @@ var pages = [
       NavigationBar.header('Input components'),
       {
         name: 'RadioButtonGroup',
-        path: '/pages/input/radio-button-group',
-        handler: require('./pages/input/radio-button-group')
+        path: '/pages/examples/input/radio-button-group',
+        handler: require('./pages/examples/input/radio-button-group')
       },
       {
         name: 'CheckboxGroup',
-        path: '/pages/input/checkbox-group',
-        handler: require('./pages/input/checkbox-group')
+        path: '/pages/examples/input/checkbox-group',
+        handler: require('./pages/examples/input/checkbox-group')
       },
     ]
   },

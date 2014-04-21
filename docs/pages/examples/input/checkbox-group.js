@@ -3,13 +3,7 @@
  */
 'use strict';
 
-var React               = require('react');
-var CheckboxGroup       = require('react-forms/lib/input/CheckboxGroup');
-var Demo                = require('../../lib/Demo');
-var Section             = require('../../lib/Section');
-var Column              = require('../../lib/Column');
-var Code                = require('../../lib/Code');
-var ShowValue           = require('../../lib/ShowValue');
+var CheckboxGroup = require('react-forms/lib/input/CheckboxGroup');
 
 var options = [
   {value: 'female', name: 'Female'},
