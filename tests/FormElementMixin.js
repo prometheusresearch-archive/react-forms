@@ -73,7 +73,7 @@ describe('forms', () => {
 
     it('allows access to validation state via validation()', () => {
       var v = component.validation();
-      assert.deepEqual(v, {});
+      assert.deepEqual(v, {isSuccess: true, isFailure: false, children: {}});
     });
 
     it('allows updateing value via updateValue()', () => {

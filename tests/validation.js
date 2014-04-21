@@ -9,8 +9,8 @@ var schema      = require('../lib/schema');
 var validators  = require('../lib/validators');
 var validation  = require('../lib/validation');
 
-var validate                = validation.validate;
-var validateSerializedOnly  = validation.validateSerializedOnly;
+var validate      = validation.validate;
+var validateOnly  = validation.validateOnly;
 
 var Schema      = schema.Schema;
 var Property    = schema.Property;
@@ -20,7 +20,7 @@ describe('forms', () => {
 
   describe('validation', () => {
 
-    describe('batch validation of deserialized values', () => {
+    describe('validation', () => {
 
       function assertValidates(validation) {
         assert.strictEqual(validation.isSuccess, true, 'isSuccess should be true');
@@ -54,19 +54,19 @@ describe('forms', () => {
         it('validates scalars', () => {
           var schema = <Property validate={number} />;
 
-          assertValidates(validate(schema, 1));
-          assertValidates(validate(schema, '1'));
-          assertValidates(validate(schema, null));
-          assertValidates(validate(schema, undefined));
+          assertValidates(validate(schema, 1).validation);
+          assertValidates(validate(schema, '1').validation);
+          assertValidates(validate(schema, null).validation);
+          assertValidates(validate(schema, undefined).validation);
         });
 
         it('validates required scalars', () => {
           var schema = <Property required validate={number} />;
 
-          assertValidates(validate(schema, 1));
-          assertValidates(validate(schema, '1'));
-          assertSelfFails(validate(schema, null), 'value is required');
-          assertSelfFails(validate(schema, undefined), 'value is required');
+          assertValidates(validate(schema, 1).validation);
+          assertValidates(validate(schema, '1').validation);
+          assertSelfFails(validate(schema, null).validation, 'value is required');
+          assertSelfFails(validate(schema, undefined).validation, 'value is required');
         });
 
       });
@@ -86,16 +86,16 @@ describe('forms', () => {
 
           var validation;
 
-          assertValidates(validate(schema, {}));
-          assertValidates(validate(schema, {name: 'name'}));
-          assertValidates(validate(schema, {name: 'name', count: 1}));
+          assertValidates(validate(schema, {}).validation);
+          assertValidates(validate(schema, {name: 'name'}).validation);
+          assertValidates(validate(schema, {name: 'name', count: 1}).validation);
 
-          validation = validate(schema, {name: 'name', count: 'x'});
+          validation = validate(schema, {name: 'name', count: 'x'}).validation;
           assertFails(validation);
           assertChildrenFail(validation, 'count');
           assertFails(validation.children.count);
 
-          validation = validate(schema, {name: 'name', count: 1});
+          validation = validate(schema, {name: 'name', count: 1}).validation;
           assertValidates(validation);
         });
 
@@ -110,21 +110,21 @@ describe('forms', () => {
 
           var validation;
 
-          assertValidates(validate(schema, {name: 'name'}));
+          assertValidates(validate(schema, {name: 'name'}).validation);
 
-          validation = validate(schema, {});
+          validation = validate(schema, {}).validation;
           assertChildrenFail(validation, 'name');
           assertFails(validation);
           assertFails(validation.children.name);
 
-          assertSelfFails(validate(schema, null), 'value is required');
-          assertSelfFails(validate(schema, undefined), 'value is required');
+          assertSelfFails(validate(schema, null).validation, 'value is required');
+          assertSelfFails(validate(schema, undefined).validation, 'value is required');
         });
 
         it('validates nested objects', () => {
 
           var schema = (
-            <Schema> 
+            <Schema>
               <Property name="name" required />
               <Property name="count" validate={number} />
               <Schema name="subschema" required>
@@ -136,13 +136,13 @@ describe('forms', () => {
 
           var validation;
 
-          validation = validate(schema, {});
+          validation = validate(schema, {}).validation;
           assertFails(validation);
           assertChildrenFail(validation, 'name', 'subschema');
           assertFails(validation.children.name);
           assertFails(validation.children.subschema);
 
-          validation = validate(schema, {subschema: {}});
+          validation = validate(schema, {subschema: {}}).validation;
           assertFails(validation);
           assertChildrenFail(validation, 'name', 'subschema');
           assertFails(validation.children.name);
@@ -166,17 +166,17 @@ describe('forms', () => {
 
           var validation;
 
-          assertValidates(validate(schema, []));
+          assertValidates(validate(schema, []).validation);
 
-          validation = validate(schema, ['x']);
+          validation = validate(schema, ['x']).validation;
           assertFails(validation);
           assertFails(validation.children[0]);
 
-          assertValidates(validate(schema, [1]));
+          assertValidates(validate(schema, [1]).validation);
 
-          assertValidates(validate(schema, [1, 2]));
+          assertValidates(validate(schema, [1, 2]).validation);
 
-          validation = validate(schema, [1, 'x']);
+          validation = validate(schema, [1, 'x']).validation;
           assertFails(validation);
           assertFails(validation.children[1]);
         });
@@ -185,10 +185,10 @@ describe('forms', () => {
 
     });
 
-    describe('incremental validation of serialized values', () => {
+    describe('incremental validation', () => {
 
       function assertValidates(schema, value, expectation) {
-        var validation = validateSerializedOnly(schema, value);
+        var validation = validateOnly(schema, value, {});
         assert.strictEqual(validation.validation.isSuccess, true);
         assert.strictEqual(validation.validation.isFailure, false);
         if (typeof expectation === 'object') {
@@ -199,7 +199,7 @@ describe('forms', () => {
       }
 
       function assertFails(schema, value, expectation) {
-        var validation = validateSerializedOnly(schema, value);
+        var validation = validateOnly(schema, value, {});
         assert.strictEqual(validation.validation.isSuccess, false);
         assert.strictEqual(validation.validation.isFailure, true);
         if (typeof expectation === 'object') {

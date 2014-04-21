@@ -9,6 +9,7 @@ var React                 = require('react');
 var ReactTestUtils        = require('react/lib/ReactTestUtils');
 var FormMixin             = require('../lib/FormMixin');
 var schema                = require('../lib/schema');
+var validation            = require('../lib/validation');
 var Property              = schema.Property;
 
 describe('forms', () => {
@@ -78,7 +79,7 @@ describe('forms', () => {
       });
 
       it('responds when updating value', () => {
-        form.onValueUpdate(1);
+        form.onValueUpdate(1, validation.success);
         assert.deepEqual(form.value(), 1);
         assertValid(form);
         assertRenderedCount(2);
@@ -103,28 +104,28 @@ describe('forms', () => {
     describe('callbacks', () => {
 
       it('calls onUpdate on new value', () => {
-        form.onValueUpdate(1);
+        form.onValueUpdate(1, validation.success);
         assertValid(form);
         assert.equal(onUpdate.callCount, 1);
         assert.deepEqual(onUpdate.firstCall.args, [1]);
       });
 
       it('calls onUpdate on new invalid value', () => {
-        form.onValueUpdate(-1);
+        form.onValueUpdate(-1, validation.failure('invalid value'));
         assertInvalid(form);
         assert.equal(onUpdate.callCount, 1);
         assert.deepEqual(onUpdate.firstCall.args, [-1]);
       });
 
       it('calls onChange on new value', () => {
-        form.onValueUpdate(1);
+        form.onValueUpdate(1, validation.success);
         assertValid(form);
         assert.equal(onChange.callCount, 1);
         assert.deepEqual(onChange.firstCall.args, [1]);
       });
 
       it('does not call onChange on new invalid value', () => {
-        form.onValueUpdate(-1);
+        form.onValueUpdate(-1, validation.failure('invalid value'));
         assertInvalid(form);
         assert.equal(onChange.callCount, 0);
       });
