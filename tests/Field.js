@@ -102,15 +102,16 @@ describe('forms', () => {
     describe('label rendering', () => {
 
       function assertLabel(form, value) {
-        var label = ReactTestUtils.findRenderedDOMComponentWithTag(form, 'label');
-        assert.strictEqual(label.getDOMNode().innerHTML, value);
+        var label = ReactTestUtils.findRenderedDOMComponentWithClass(form, 'react-forms-label');
+        var node = label.getDOMNode();
+        assert.strictEqual((node.textContent || node.innerText).trim(), value);
       }
 
       it('renders no label if no label is provided via schema or props', () => {
         var form = ReactTestUtils.renderIntoDocument(Form({
           field: Field()
         }));
-        var labels = ReactTestUtils.scryRenderedDOMComponentsWithTag(form, 'label');
+        var labels = ReactTestUtils.scryRenderedDOMComponentsWithClass(form, 'react-forms-label');
         assert.strictEqual(labels.length, 0);
       });
 
@@ -127,6 +128,38 @@ describe('forms', () => {
           field: Field({label: 'label via props'})
         }));
         assertLabel(form, 'label via props');
+      });
+    });
+
+    describe('hint rendering', () => {
+
+      function assertHint(form, value) {
+        var hint = ReactTestUtils.findRenderedDOMComponentWithClass(form, 'react-forms-hint');
+        var node = hint.getDOMNode();
+        assert.strictEqual((node.textContent || node.innerText).trim(), value);
+      }
+
+      it('renders no hint if no hint is provided via schema or props', () => {
+        var form = ReactTestUtils.renderIntoDocument(Form({
+          field: Field()
+        }));
+        var hints = ReactTestUtils.scryRenderedDOMComponentsWithClass(form, 'react-forms-hint');
+        assert.strictEqual(hints.length, 0);
+      });
+
+      it('renders hint via schema', () => {
+        var form = ReactTestUtils.renderIntoDocument(Form({
+          field: Field(),
+          schema: schema.Property({hint: 'hint via schema'})
+        }));
+        assertHint(form, 'hint via schema');
+      });
+
+      it('renders hint passed via props', () => {
+        var form = ReactTestUtils.renderIntoDocument(Form({
+          field: Field({hint: 'hint via props'})
+        }));
+        assertHint(form, 'hint via props');
       });
     });
   });

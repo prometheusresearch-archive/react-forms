@@ -56,6 +56,7 @@ var NameField = schema.createType((props) =>
   <Property
     name={props.name || 'name'}
     label={props.label || 'Name'}
+    hint="Should contain only alphanumeric characters"
     type={name}
     validate={validateName}
     />
@@ -65,6 +66,7 @@ var DateOfBirthField = schema.createType((props) =>
   <Property
     name={props.name || 'dob'}
     label={props.label || 'Date of Birth'}
+    hint="YYYY-MM-DD format"
     type="date"
     />
 );
