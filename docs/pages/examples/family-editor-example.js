@@ -66,7 +66,7 @@ var DateOfBirthField = schema.createType((props) =>
   <Property
     name={props.name || 'dob'}
     label={props.label || 'Date of Birth'}
-    hint="YYYY-MM-DD format"
+    hint="Should be in YYYY-MM-DD format"
     type="date"
     />
 );
