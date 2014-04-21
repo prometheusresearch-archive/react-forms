@@ -5,7 +5,7 @@ var mergeInto     = require('react/lib/mergeInto');
 var App           = require('./lib/App');
 var NavigationBar = require('./lib/NavigationBar');
 
-var g = typeof window !== 'undefined' ? window : global;
+var g = typeof window !== 'undefined' ? window : GLOBAL;
 
 // bring common components into scope
 g.React      = require('react');
@@ -121,4 +121,31 @@ var pages = [
     ]
   }
 ]
-React.renderComponent(App({pages}), document.body);
+
+function renderMarkup(path) {
+  var markup = React.renderComponentToString(App({pages, path}));
+  return markup;
+}
+
+function printPages(pages) {
+  pages.forEach((p) => {
+    if (p.pages) {
+      printPages(p.pages);
+    } else if (p.path) {
+      console.log(p.path);
+    }
+  });
+}
+
+if (typeof window !== 'undefined') {
+  React.renderComponent(App({pages}), document.body);
+} else {
+  var p = GLOBAL.process; // not to confuse browserify
+  if (p.argv[2] === '--pages') {
+    printPages(pages);
+  } else {
+    console.log(renderMarkup(p.argv[2] || '/'));
+  }
+}
+
+module.exports = {pages};

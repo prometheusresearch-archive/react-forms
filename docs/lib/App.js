@@ -16,7 +16,7 @@ var App = React.createClass({
     return (
       <div>
         <NavigationBar main={this.props.pages[0]} pages={this.props.pages.slice(1)} />
-        <Locations onNavigation={this.onNavigation} className="wrapper">
+        <Locations path={this.props.path} onNavigation={this.onNavigation} className="wrapper">
           {this.renderRoutes(this.props.pages)}
         </Locations>
       </div>
