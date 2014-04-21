@@ -11,6 +11,7 @@ var validation  = require('../lib/validation');
 
 var validate      = validation.validate;
 var validateOnly  = validation.validateOnly;
+var failure       = validation.failure;
 
 var Schema      = schema.Schema;
 var Property    = schema.Property;
@@ -18,7 +19,7 @@ var List        = schema.List;
 
 describe('forms', () => {
 
-  describe('validation', () => {
+  describe.only('validation', () => {
 
     describe('validation', () => {
 
@@ -187,8 +188,7 @@ describe('forms', () => {
 
     describe('incremental validation', () => {
 
-      function assertValidates(schema, value, expectation) {
-        var validation = validateOnly(schema, value, {});
+      function assertValidates(validation, expectation) {
         assert.strictEqual(validation.validation.isSuccess, true);
         assert.strictEqual(validation.validation.isFailure, false);
         if (typeof expectation === 'object') {
@@ -198,8 +198,7 @@ describe('forms', () => {
         }
       }
 
-      function assertFails(schema, value, expectation) {
-        var validation = validateOnly(schema, value, {});
+      function assertFails(validation, expectation) {
         assert.strictEqual(validation.validation.isSuccess, false);
         assert.strictEqual(validation.validation.isFailure, true);
         if (typeof expectation === 'object') {
@@ -213,44 +212,44 @@ describe('forms', () => {
 
         it('deserializes and validates via built-in type', () => {
           var schema = <Property type="number" />;
-          assertValidates(schema, '1', 1);
-          assertValidates(schema, '12.1', 12.1);
-          assertFails(schema, 'string', 'string');
-          assertValidates(schema, '', null);
+          assertValidates(validateOnly(schema, '1'), 1);
+          assertValidates(validateOnly(schema, '12.1'), 12.1);
+          assertFails(validateOnly(schema, 'string'), 'string');
+          assertValidates(validateOnly(schema, ''), null);
         });
 
         it('deserializes and validates via built-in type + required', () => {
           var schema = <Property required type="number" />;
-          assertValidates(schema, '1', 1);
-          assertValidates(schema, '12.1', 12.1);
-          assertFails(schema, 'string', 'string');
-          assertFails(schema, '', null);
+          assertValidates(validateOnly(schema, '1'), 1);
+          assertValidates(validateOnly(schema, '12.1'), 12.1);
+          assertFails(validateOnly(schema, 'string'), 'string');
+          assertFails(validateOnly(schema, ''), null);
         });
 
         it('deserializes and validates via built-in type + validator', () => {
           var positive = (v) => v > 0;
           var schema = <Property validate={positive} type="number" />;
-          assertValidates(schema, '1', 1);
-          assertValidates(schema, '12.1', 12.1);
-          assertFails(schema, 'string', 'string');
-          assertFails(schema, '-10', -10);
-          assertValidates(schema, '', null);
+          assertValidates(validateOnly(schema, '1'), 1);
+          assertValidates(validateOnly(schema, '12.1'), 12.1);
+          assertFails(validateOnly(schema, 'string'), 'string');
+          assertFails(validateOnly(schema, '-10'), -10);
+          assertValidates(validateOnly(schema, ''), null);
         });
 
         it('deserializes and validates via built-in type + required + validator', () => {
           var positive = (v) => v > 0;
           var schema = <Property required validate={positive} type="number" />;
-          assertValidates(schema, '1', 1);
-          assertValidates(schema, '12.1', 12.1);
-          assertFails(schema, 'string', 'string');
-          assertFails(schema, '-10', -10);
-          assertFails(schema, '', null);
+          assertValidates(validateOnly(schema, '1'), 1);
+          assertValidates(validateOnly(schema, '12.1'), 12.1);
+          assertFails(validateOnly(schema, 'string'), 'string');
+          assertFails(validateOnly(schema, '-10'), -10);
+          assertFails(validateOnly(schema, ''), null);
         });
 
         it('deserializes and validates via custom type', () => {
           var type = {deserialize: (v) => {return {v}}};
           var schema = <Property type={type} />;
-          assertValidates(schema, '1', {v: '1'});
+          assertValidates(validateOnly(schema, '1'), {v: '1'});
         });
 
       });
@@ -262,13 +261,18 @@ describe('forms', () => {
           }
         };
 
+        var schema = (
+          <Schema type={type}>
+            <Property type="number" name="count" />
+          </Schema>
+        );
+
         it('deserializes and validates', () => {
-          var schema = (
-            <Schema type={type}>
-              <Property type="number" name="count" />
-            </Schema>
-          );
-          assertValidates(schema, {count: 1}, {wrap: {count: 1}});
+          assertValidates(validateOnly(schema, {count: 1}), {wrap: {count: 1}});
+        });
+
+        it('fails if children are not valid', () => {
+          assertFails(validateOnly(schema, {count: 1}, {count: failure('error')}), {count: 1});
         });
       });
 
@@ -279,13 +283,18 @@ describe('forms', () => {
           }
         };
 
+        var schema = (
+          <List type={type}>
+            <Property type="number" />
+          </List>
+        );
+
         it('deserializes and validates', () => {
-          var schema = (
-            <List type={type}>
-              <Property type="number" />
-            </List>
-          );
-          assertValidates(schema, [1], {wrap: [1]});
+          assertValidates(validateOnly(schema, [1]), {wrap: [1]});
+        });
+
+        it('fails if children are not valid', () => {
+          assertFails(validateOnly(schema, [1], {'0': failure('error')}), [1]);
         });
       });
     });
