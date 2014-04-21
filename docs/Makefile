@@ -31,14 +31,14 @@ build/bundle.css::
 
 render-pages::
 	@node ./build/bundle.deopt.js --pages | while read p; do\
-		mkdir -p ./build$$p;\
-		echo '<!doctype html><html><head>' > ./build$${p}index.html;\
-		echo '<meta charset="utf8">' >> ./build$${p}index.html;\
-		echo '<link rel="stylesheet" href="/bundle.css">' >>\
-			./build$${p}index.html;\
-		echo '</head><body>' >> ./build$${p}index.html;\
-		node ./build/bundle.deopt.js $$p >> ./build$${p}index.html; \
-		echo '<script src="/bundle.js"></script></body></html>' >>\
-			./build$${p}index.html;\
+		P=./build`echo $$p | sed -e 's_^/react-forms/_/_'`index.html;\
+		mkdir -p `dirname $$P`;\
+		echo '<!doctype html><html><head>' > $$P;\
+		echo '<meta charset="utf8">' >> $$P;\
+		echo '<link rel="stylesheet" href="/react-forms/bundle.css">' >> $$P;\
+		echo '</head><body>' >> $$P;\
+		node ./build/bundle.deopt.js $$p >> $$P; \
+		echo '<script src="/react-forms/bundle.js"></script></body></html>' >>\
+			$$P;\
 	done;
 

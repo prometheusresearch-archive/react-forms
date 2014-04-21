@@ -34,6 +34,6 @@ app.use(page);
 var argv = process.argv.slice(2);
 var port = argv[0] || 8080;
 
-app.listen(port, function() {
-  console.log('Started rex.component-demo on http://localhost:' + port + '/')
+express().use('/react-forms', app).listen(port, function() {
+  console.log('Started rex.component-demo on http://localhost:' + port + '/react-forms/')
 });
