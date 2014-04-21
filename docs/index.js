@@ -34,26 +34,31 @@ var pages = [
         path: '/documentation/',
         handler: require('./pages/documentation')
       },
+      {
+        name: 'Form Schema',
+        path: '/documentation/schema/',
+        handler: require('./pages/documentation/schema')
+      },
       NavigationBar.divider,
       NavigationBar.header('Customizations and extensions'),
       {
         name: 'Input components',
-        path: '/documentation/custom-input-components',
+        path: '/documentation/custom-input-components/',
         handler: require('./pages/documentation/custom-input-components')
       },
       {
         name: 'Form rendering',
-        path: '/documentation/custom-form-rendering',
+        path: '/documentation/custom-form-rendering/',
         handler: require('./pages/documentation/custom-form-rendering')
       },
       {
         name: 'Fieldset rendering',
-        path: '/documentation/custom-fieldset-rendering',
+        path: '/documentation/custom-fieldset-rendering/',
         handler: require('./pages/documentation/custom-fieldset-rendering')
       },
       {
         name: 'Repeating fieldset rendering',
-        path: '/documentation/custom-repeating-fieldset-rendering',
+        path: '/documentation/custom-repeating-fieldset-rendering/',
         handler: require('./pages/documentation/custom-repeating-fieldset-rendering')
       }
     ]
@@ -63,39 +68,39 @@ var pages = [
     pages: [
       {
         name: 'Family editor form',
-        path: '/examples/family-editor-example',
+        path: '/examples/family-editor-example/',
         handler: require('./pages/examples/family-editor-example')
       },
       {
         name: 'Array editor form',
-        path: '/examples/array-form',
+        path: '/examples/array-form/',
         handler: require('./pages/examples/array-form-example')
       },
       {
         name: 'Sortable list',
-        path: '/examples/sortable-list',
+        path: '/examples/sortable-list/',
         handler: require('./pages/examples/sortable-list-example')
       },
       {
         name: 'Form with undo stack',
-        path: '/examples/undo-features',
+        path: '/examples/undo-features/',
         handler: require('./pages/examples/undo-form-example')
       },
       {
         name: 'Instrument/Form demo',
-        path: '/examples/instrument',
+        path: '/examples/instrument/',
         handler: require('./pages/examples/instrument')
       },
       NavigationBar.divider,
       NavigationBar.header('Input components'),
       {
         name: 'RadioButtonGroup',
-        path: '/examples/input/radio-button-group',
+        path: '/examples/input/radio-button-group/',
         handler: require('./pages/examples/input/radio-button-group')
       },
       {
         name: 'CheckboxGroup',
-        path: '/examples/input/checkbox-group',
+        path: '/examples/input/checkbox-group/',
         handler: require('./pages/examples/input/checkbox-group')
       },
     ]
@@ -105,12 +110,12 @@ var pages = [
     pages: [
       {
         name: 'Components',
-        path: '/api/components',
+        path: '/api/components/',
         handler: require('./pages/api/components')
       },
       {
         name: 'Mixins',
-        path: '/api/mixins',
+        path: '/api/mixins/',
         handler: require('./pages/api/mixins')
       }
     ]

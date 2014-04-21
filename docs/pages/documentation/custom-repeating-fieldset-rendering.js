@@ -30,7 +30,7 @@ module.exports = React.createClass({
           <Column>
             <Code>{`
               var SpecialRepeatingFieldset = React.createClass({
-                mixins: [forms.RepeatingFieldsetMixin],
+                mixins: [ReactForms.RepeatingFieldsetMixin],
 
                 render: function() {
                   return (

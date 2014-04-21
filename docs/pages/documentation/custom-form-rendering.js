@@ -43,10 +43,10 @@ module.exports = React.createClass({
           </Column>
           <Column>
             <Code>{`
-              var FormFor = forms.FormFor
+              var FormFor = ReactForms.FormFor
 
               var MyForm = React.createClass({
-                mixins: [forms.FormMixin],
+                mixins: [ReactForms.FormMixin],
 
                 render: function() {
                   return (

@@ -13,6 +13,7 @@ module.exports = React.createClass({
             There are three central concepts — form schemas, form components and
             input components.
           </p>
+          <h4>Form Schemas</h4>
           <p>
             <em>Form schemas</em> are high level declarative descriptions of how
             forms should operate: what's shape of the data form should handle,
@@ -21,6 +22,7 @@ module.exports = React.createClass({
             metadata and are subject to interpretation by form components of
             React Forms library.
           </p>
+          <h4>Form Components</h4>
           <p>
             <em>Form components</em> are React components which interpret form
             schemas to render form UI and handle validation and data flow. They
@@ -34,6 +36,7 @@ module.exports = React.createClass({
             this is how users enter form values, this is handled by input
             components instead.
           </p>
+          <h4>Input Components</h4>
           <p>
             <em>Input components</em> are React components which handle user
             input of form values. At a basic level these are <code>{"<input />"}
@@ -42,6 +45,8 @@ module.exports = React.createClass({
             React Forms context and are typical components which conform to
             "value/onChange" contract.
           </p>
+        </Section>
+        <Section title="Workflow">
           <p>
             A typical workflow for an application which wishes to use React Forms library is:
           </p>
@@ -68,16 +73,16 @@ module.exports = React.createClass({
             then iterate smoothly to a greater user experience.
           </p>
         </Section>
-        <Section title="Customization and extension story">
+        <Section title="Customizations and extensions">
           <p>
-            There are several directions in which React Forms can be customized
-            and extended:
+            There are several ways in which React Forms can be customized and
+            extended:
           </p>
           <ul>
             <li>
-              Form schemas can contain additional metadata which can be used by
-              form components to implement such functionality as show/hide
-              specific form fields, focus control, advanced validation, ...
+              Form schemas can include additional metadata which can be used by
+              form components to implement functionality as show/hide specific
+              form fields, focus control, advanced validation, ...
             </li>
             <li>
               Custom components for form, fieldset, repeating fieldset and field
@@ -110,11 +115,11 @@ module.exports = React.createClass({
           </Column>
           <Column>
             <Code>{`
-              var forms    = require('react-forms')
+              var ReactForms = require('react-forms')
 
-              var Schema   = forms.schema.Schema
-              var Property = forms.schema.Property
-              var Form     = forms.Form
+              var Schema   = ReactForms.schema.Schema
+              var Property = ReactForms.schema.Property
+              var Form     = ReactForms.Form
             `}</Code>
           </Column>
         </Section>

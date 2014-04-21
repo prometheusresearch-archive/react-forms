@@ -30,8 +30,10 @@ module.exports = React.createClass({
           </Column>
           <Column>
             <Code>{`
+              var FormFor = ReactForms.FormFor
+
               var SpecialFieldset = React.createClass({
-                mixins: [forms.FieldsetMixin],
+                mixins: [ReactForms.FieldsetMixin],
 
                 render: function() {
                   return (
