@@ -6,13 +6,17 @@ var NavigationBar = require('./lib/NavigationBar');
 
 var pages = [
   {
-    name: 'Overview',
+    name: 'Documentation',
     path: '/',
-    handler: require('./pages')
-  },
-  {
-    name: 'Customizations and extensions',
+    handler: require('./pages'),
     pages: [
+      {
+        name: 'Overview',
+        path: '/',
+        handler: require('./pages')
+      },
+      NavigationBar.divider,
+      NavigationBar.header('Customizations and extensions'),
       {
         name: 'Input components',
         path: '/pages/custom-input-components',
@@ -78,7 +82,7 @@ var pages = [
     ]
   },
   {
-    name: 'Reference',
+    name: 'API Reference',
     pages: [
       {
         name: 'Components',
