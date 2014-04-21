@@ -247,7 +247,7 @@ describe('forms', () => {
         });
 
         it('deserializes and validates via custom type', () => {
-          var type = {deserialize: (v) => {return {v}}};
+          var type = {deserialize: (v) => {return {v};}};
           var schema = <Property type={type} />;
           assertValidates(validateOnly(schema, '1'), {v: '1'});
         });

@@ -8,7 +8,6 @@ var sinon            = require('sinon');
 var React            = require('react');
 var ReactTestUtils   = require('react/lib/ReactTestUtils');
 var FormElementMixin = require('../lib/FormElementMixin');
-var validation       = require('../lib/validation');
 var schema           = require('../lib/schema');
 var Lens             = require('../lib/Lens');
 

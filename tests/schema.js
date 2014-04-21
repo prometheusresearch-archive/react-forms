@@ -59,7 +59,7 @@ describe('forms', () => {
 
       it('throws when one of the properties does not have name', () => {
         assert.throws(() => {
-          <Schema><Property /></Schema>
+          return <Schema><Property /></Schema>;
         });
       });
     });
@@ -73,16 +73,18 @@ describe('forms', () => {
 
       it('throws when no children is defined', () => {
         assert.throws(() => {
-          <List></List>;
+          return <List></List>;
         });
       });
 
       it('throws when more than one child is defined', () => {
         assert.throws(() => {
-          <List>
-            <Property />
-            <Property />
-          </List>
+          return (
+            <List>
+              <Property />
+              <Property />
+            </List>
+          );
         });
       });
 
