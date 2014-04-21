@@ -12,6 +12,7 @@ function assertLensPointsTo(lens, data) {
 }
 
 describe('forms', () => {
+
   describe('Lens', () => {
 
     describe('creating lenses', () => {
