@@ -88,4 +88,4 @@ var pages = [
     ]
   }
 ]
-React.renderComponent(App({pages}), document.body);
+React.renderComponent(App({pages, title: 'React Forms'}), document.body);

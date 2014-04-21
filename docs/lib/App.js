@@ -15,7 +15,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <NavigationBar pages={this.props.pages} />
+        <NavigationBar title={this.props.title} pages={this.props.pages} />
         <Locations onNavigation={this.onNavigation} className="wrapper">
           {this.renderRoutes(this.props.pages)}
         </Locations>
