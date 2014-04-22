@@ -124,7 +124,7 @@ pre, code {
 
 .Page {
   .PageHeader {
-    background: @color-base-4;
+    background: darken(@color-base-4, 8%);
     color: lighten(@color-base-4, 20%);
     padding-top: 40px;
     padding-bottom: 40px;
@@ -136,6 +136,20 @@ pre, code {
     }
     .tagline {
       font-size: 16px;
+    }
+
+    code, pre {
+      background: lighten(@color-base-4, 15%);
+      color: @color-base-2;
+    }
+
+    a {
+      background: #fff;
+      color: darken(@color-base-4, 8%);
+      padding: 0 5px;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
@@ -168,14 +182,24 @@ pre, code {
   }
 }
 
+.Quickstart {
+  margin: 30px 0;
+  p, h4 {
+    text-align: right;
+  }
+}
+
 .Section {
-  padding-bottom: 20px;
+  h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0;
+  }
+  padding-bottom: 30px;
 
   .SectionRow {
+
   }
 
   & > .SectionTitle {
-    padding-bottom: 20px;
   }
 }
 
