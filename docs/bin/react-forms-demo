@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 var fs          = require('fs');
@@ -7,6 +8,7 @@ var less        = require('less-file');
 
 function cur() {
   var args = Array.prototype.slice.call(arguments);
+  args.unshift('..');
   args.unshift(__dirname);
   return path.join.apply(path, args);
 }
@@ -24,7 +26,7 @@ function page(req, res, next) {
 var app = express();
 
 var browserify  = require('connect-browserify');
-app.get('/bundle.js', browserify(__dirname, {debug: true}));
+app.get('/bundle.js', browserify(cur('.'), {debug: true}));
 
 app.use(less(cur('styles/index.less')));
 app.use('/assets', express.static(cur('assets')));

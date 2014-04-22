@@ -1,7 +1,7 @@
 PATH := ../node_modules/.bin:./node_modules/.bin:$(PATH)
 
 start:
-	@node ./server.js
+	@./bin/react-forms-demo
 
 publish:
 	@REPO=`git config --local --get remote.origin.url`;\
@@ -27,18 +27,20 @@ build/bundle.js::
 	@cat build/bundle.deopt.js | uglifyjs -cm > $@
 
 build/bundle.css::
-	@node ./build-less.js > $@
+	@./bin/react-forms-demo-build-less > $@
 
 render-pages::
 	@node ./build/bundle.deopt.js --pages | while read p; do\
 		P=./build`echo $$p | sed -e 's_^/react-forms/_/_'`index.html;\
+		R=`node ./build/bundle.deopt.js $$p`;\
 		mkdir -p `dirname $$P`;\
-		echo '<!doctype html><html><head>' > $$P;\
+		echo '<!doctype html>' > $$P;\
+		echo '<html><head>'   >> $$P;\
 		echo '<meta charset="utf8">' >> $$P;\
 		echo '<link rel="stylesheet" href="/react-forms/bundle.css">' >> $$P;\
 		echo '</head><body>' >> $$P;\
-		node ./build/bundle.deopt.js $$p >> $$P; \
-		echo '<script src="/react-forms/bundle.js"></script></body></html>' >>\
-			$$P;\
+		echo $$R >> $$P; \
+		echo '<script src="/react-forms/bundle.js"></script>' >> $$P;\
+	  echo '</body></html>' >> $$P;\
 	done;
 
