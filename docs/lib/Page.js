@@ -5,6 +5,7 @@
 
 var React  = require('react');
 var Link   = require('react-router-component').Link;
+var GitHubRibbon = require('../lib/GitHubRibbon');
 
 var Page = React.createClass({
 
@@ -26,6 +27,7 @@ var Page = React.createClass({
         <div className="PageContent container-fluid">
           {this.props.children}
         </div>
+        <GitHubRibbon project="prometheusresearch/react-forms" />
       </div>
     );
   }

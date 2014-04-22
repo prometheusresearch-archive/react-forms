@@ -5,6 +5,7 @@
 
 var reactVersion = require('react/package.json').version;
 var reactFormsVersion = require('react-forms/package.json').version;
+var GitHubRibbon = require('../lib/GitHubRibbon');
 
 module.exports = React.createClass({
 
@@ -128,6 +129,7 @@ module.exports = React.createClass({
             </p>
           </Section>
         </div>
+        <GitHubRibbon project="prometheusresearch/react-forms" />
       </div>
     );
   }
