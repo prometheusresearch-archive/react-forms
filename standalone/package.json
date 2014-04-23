@@ -1,0 +1,34 @@
+{
+  "name": "react-forms-standalone",
+  "main": "./index.js",
+  "browserify": {
+    "transform": [
+      [
+        "browserify-shim",
+        {"global": true}
+      ],
+      [
+        "envify",
+        {"global": true}
+      ]
+    ]
+  },
+  "browserify-shim": {
+    "react": "global:__ReactShim.React",
+    "react/lib/cx": "global:__ReactShim.cx",
+    "react/lib/cloneWithProps": "global:__ReactShim.cloneWithProps",
+    "react/lib/invariant": "global:__ReactShim.invariant",
+    "react/lib/merge": "global:__ReactShim.merge",
+    "react/lib/mergeInto": "global:__ReactShim.mergeInto",
+    "react/lib/ReactUpdates": "global:__ReactShim.ReactUpdates",
+    "react/lib/ExecutionEnvironment": "global:__ReactShim.ExecutionEnvironment",
+    "react/lib/emptyFunction": "global:__ReactShim.emptyFunction"
+  },
+  "devDependencies": {
+    "browserify": "^3.33.0",
+    "browserify-shim": "^3.3.2",
+    "derequire": "^0.8.0",
+    "envify": "^1.2.1",
+    "uglify-js": "^2.4.13"
+  }
+}
