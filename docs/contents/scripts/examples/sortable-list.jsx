@@ -107,9 +107,7 @@ var SortableItem = React.createClass({
     if (!this.props.sorting) {
       return;
     }
-    var box = this.getDOMNode().getBoundingClientRect();
-    var sortUp = e.clientY - box.top < box.height / 2;
-    this.props.onSortOver(e, this.props.name, sortUp);
+    this.props.onSortOver(e, this.props.name);
   }
 });
 
@@ -192,7 +190,7 @@ var SortableRepeatingFieldset = React.createClass({
     this.setState({sorting: info});
   },
 
-  onSortOver: function(e, name, sortUp) {
+  onSortOver: function(e, name) {
     if (!this.state.sorting) {
       return;
     }
