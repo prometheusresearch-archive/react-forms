@@ -1,35 +1,15 @@
 {
   "name": "react-forms-docs",
   "version": "0.0.0",
-  "description": "Docs and demos for React Forms library",
+  "description": "",
   "main": "index.js",
-  "style": "styles/index.less",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "AGPLv3",
   "dependencies": {
-    "envify": "^1.2.1",
-    "jquery": "^2.1.0",
-    "less-file": "0.0.8",
-    "reactify": "^0.11.0",
-    "twbs": "0.0.6"
-  },
-  "peerDependencies": {
-    "react": "^0.10.0",
-    "react-async": "^0.8.0",
-    "react-router-component": "^0.15.2"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true,
-          "everything": true
-        }
-      ]
-    ]
+    "node-jsx": "^0.10.0",
+    "wintersmith": "^2.0.10"
   }
 }

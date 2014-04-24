@@ -1,0 +1,314 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+// bootstrap customization
+@import "./variables.less";
+
+// bootstrap
+@import (npm) "twbs/less/mixins.less";
+@import (npm) "twbs/less/normalize.less";
+@import (npm) "twbs/less/print.less";
+@import (npm) "twbs/less/scaffolding.less";
+@import (npm) "twbs/less/type.less";
+@import (npm) "twbs/less/code.less";
+@import (npm) "twbs/less/grid.less";
+@import (npm) "twbs/less/tables.less";
+@import (npm) "twbs/less/forms.less";
+@import (npm) "twbs/less/buttons.less";
+@import (npm) "twbs/less/component-animations.less";
+@import (npm) "twbs/less/glyphicons.less";
+@import (npm) "twbs/less/dropdowns.less";
+@import (npm) "twbs/less/button-groups.less";
+@import (npm) "twbs/less/input-groups.less";
+@import (npm) "twbs/less/navs.less";
+@import (npm) "twbs/less/navbar.less";
+@import (npm) "twbs/less/breadcrumbs.less";
+@import (npm) "twbs/less/pagination.less";
+@import (npm) "twbs/less/pager.less";
+@import (npm) "twbs/less/labels.less";
+@import (npm) "twbs/less/badges.less";
+@import (npm) "twbs/less/jumbotron.less";
+@import (npm) "twbs/less/thumbnails.less";
+@import (npm) "twbs/less/alerts.less";
+@import (npm) "twbs/less/progress-bars.less";
+@import (npm) "twbs/less/media.less";
+@import (npm) "twbs/less/list-group.less";
+@import (npm) "twbs/less/panels.less";
+@import (npm) "twbs/less/wells.less";
+@import (npm) "twbs/less/close.less";
+@import (npm) "twbs/less/modals.less";
+@import (npm) "twbs/less/tooltip.less";
+@import (npm) "twbs/less/popovers.less";
+@import (npm) "twbs/less/carousel.less";
+@import (npm) "twbs/less/utilities.less";
+@import (npm) "twbs/less/responsive-utilities.less";
+
+// react-forms bootstrap theme
+@import (npm) "react-forms/themes/bootstrap/";
+@import (npm) "react-forms/themes/bootstrap/RadioButtonGroup";
+@import (npm) "react-forms/themes/bootstrap/CheckboxGroup";
+
+@color-bg: lighten(#445878, 60%);
+@color-txt: lighten(#445878, 10%);
+@color-hx: lighten(#445878, 10%);
+
+@padding-section: 2em 1em;
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+  background: @color-bg;
+  color: @color-txt;
+  line-height: 1.5em;
+}
+
+body {
+  padding-top: 50px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: @color-hx;
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+h1, h2, h3 {
+  text-shadow: 0px 0px 2px lighten(@color-hx, 20%);
+}
+
+
+a {
+  @txt: @color-txt;
+  @bg: @color-bg;
+
+  color: @txt;
+  background: @bg;
+  padding: 0px 3px;
+  border-bottom: 1px solid lighten(@txt, 30%);
+
+  &:hover {
+    color: @bg;
+    background: lighten(@txt, 20%);
+    border-bottom: 1px solid lighten(@txt, 20%);
+    text-decoration: none;
+  }
+}
+
+ul {
+  list-style: square;
+}
+
+p, pre, ul, ol {
+  margin-bottom: 1.5em;
+}
+
+.container, .container-fluid {
+  max-width: 900px;
+}
+
+pre {
+  padding: 15px;
+  border: none;
+}
+
+code, pre, .Code {
+  border: none;
+  color: lighten(@color-txt, 15%);
+  background: #fff;
+}
+
+.Index {
+
+  .HeaderWrapper {
+    @bg: lighten(#445878, 60%);
+    @txt: lighten(#445878, 10%);
+
+    background: @bg;
+
+    .Header {
+      text-align: left;
+      padding: @padding-section;
+
+      h1 {
+        color: @txt;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        color: @txt;
+      }
+    }
+  }
+
+  @bg: lighten(#445878, 60%);
+  @txt: lighten(#445878, 10%);
+
+  background: @bg;
+
+  .Usage {
+    padding: @padding-section;
+
+    color: @txt;
+
+    .Text {
+      color: @txt;
+      h4 {
+        font-weight: bold;
+        color: @txt;
+      }
+      text-align: right;
+    }
+  }
+
+  .Footer {
+    padding: @padding-section;
+    opacity: 0.7;
+    font-size: 90%;
+  }
+
+}
+
+.Content {
+  padding: @padding-section;
+}
+
+.Section {
+  padding: 1em;
+}
+
+.NavigationBar {
+  @txt: @color-txt; 
+  @bg: @color-bg;
+  @bg-hover: lighten(@txt, 20%);
+  @txt-hover: @bg;
+
+  background: @bg;
+  border: none;
+  box-shadow: 0px 0px 10px 1px darken(@bg, 10%);
+
+  .divider {
+    background-color: darken(@bg, 20%);
+  }
+  
+  .dropdown-header {
+    color: darken(@bg, 10%);
+    padding-bottom: 10px;
+  }
+
+  &.navbar-default .navbar-brand {
+    text-shadow: 0px 0px 1px lighten(@bg, 40%);
+    font-weight: bold;
+  }
+
+  .nav li {
+    cursor: default;
+  }
+
+  .dropdown-menu {
+    background: @bg;
+    border: none;
+    box-shadow: 0 4px 7px -2px rgba(0, 0, 0, 0.175);
+  }
+
+  &.navbar-default li.dropdown {
+    background: @bg;
+    & > .dropdown-menu a {
+      color: @txt-hover;
+      background: @bg-hover;
+      &:hover {
+        background: @txt;
+        color: @bg;
+      }
+    }
+
+    &:hover {
+      & > .dropdown-menu {
+        color: @txt-hover;
+        background: @bg-hover;
+        display: block;
+      }
+    }
+  }
+
+  &.navbar-default {
+    background: @bg;
+    .navbar-header, li {
+      & > a {
+        border: none;
+        color: @txt;
+      }
+      &:hover > a {
+        text-shadow: none;
+        background: @bg-hover;
+        color: @txt-hover;
+        border: none;
+      }
+    }
+  }
+}
+
+.ArrayEditor {
+  .Item {
+    position: relative;
+    padding-right: 40px;
+  }
+  .Remove {
+    color: @gray;
+    font-size: 190%;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    background: none;
+    border: none;
+  }
+}
+
+.SortableRepeatingFieldset {
+  .react-forms-repeating-fieldset-item {
+    position: relative;
+  }
+
+  .SortablePlaceholder {
+    .form-group();
+    height: 30px;
+    width: 100%;
+    background-color: #ccc;
+    background-size: 10px 10px;
+    #gradient > .striped();
+  }
+  .SortableHandle {
+    background-color: #ccc;
+    background-size: 10px 10px;
+    #gradient > .striped();
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15px;
+    height: 100%;
+    cursor: move;
+  }
+  &.SortableActive {
+    cursor: move;
+    .SortableHandle {
+      display: none !important;
+    }
+  }
+}
+
+.ShowValue {
+  .ShowValueValue > .text,
+  .ShowValueComponent > .text {
+    font-size: 80%;
+  }
+
+  .ShowValueValue {
+    padding: 10px 0;
+
+    .value {
+      border: none;
+      background: #fff;
+      color: @gray-light;
+    }
+  }
+}
+
