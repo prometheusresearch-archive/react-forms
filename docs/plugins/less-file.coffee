@@ -17,7 +17,7 @@ module.exports = (env, callback) ->
 
     getView: ->
       return (env, locals, contents, templates, callback) ->
-        compile(@filepath.full, {}).done(
+        compile(@filepath.full, {minify: true}).done(
           (result) -> callback(null, result.raw),
           (err) -> callback(err)
         )
