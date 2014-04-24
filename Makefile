@@ -2,8 +2,11 @@ BIN   = ./node_modules/.bin
 PATH := $(BIN):$(PATH)
 TESTS = $(shell find ./lib -path '**/tests/*.js')
 
-docs::
-	@$(MAKE) --no-print-directory -C docs
+docs-preview::
+	@$(MAKE) --no-print-directory -C docs preview
+
+docs-publish::
+	@$(MAKE) --no-print-directory -C docs publish
 
 lint:
 	@eslint-jsx lib/
