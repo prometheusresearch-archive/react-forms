@@ -86,17 +86,21 @@ var SortableItem = React.createClass({
   render: function() {
     return this.transferPropsTo(
       <Item className="SortableItem" onMouseMove={this.onSortOver}>
-        {this.props.children}
         <div
           className="SortableHandle"
           onMouseDown={this.onSortStart}
           />
+        {this.props.children}
       </Item>
     );
   },
 
   onSortStart: function(e) {
-    this.props.onSortStart(e, this.props.name);
+    var box = this.getDOMNode().getBoundingClientRect();
+    this.props.onSortStart(e, {
+      name: this.props.name,
+      size: {height: box.height, width: box.width}
+    });
   },
 
   onSortOver: function(e) {
@@ -138,11 +142,15 @@ var SortableRepeatingFieldset = React.createClass({
    * fieldset is in sortable state.
    */
   renderItem: function(props, child) {
-    if (this.state.sorting && this.state.sorting.name === props.name) {
-      return <div key={props.name} className="SortablePlaceholder" />
+    var sorting = this.state.sorting;
+    if (sorting && sorting.name === props.name) {
+      return <div
+        key={props.name}
+        style={sorting.size}
+        className="SortablePlaceholder" />;
     } else {
       props = merge(props, {
-        sorting: this.state.sorting,
+        sorting: sorting,
         onSortStart: this.onSortStart,
         onSortOver: this.onSortOver,
       });
@@ -155,12 +163,33 @@ var SortableRepeatingFieldset = React.createClass({
    */
   onDragEnd: function() {
     this.setState({sorting: null});
+    if (this._image) {
+      document.body.removeChild(this._image);
+      this._image = undefined;
+    }
   },
 
-  onSortStart: function(e, name) {
+  onDrag: function(e) {
+    if (this._image) {
+      setImagePositionFromEvent(this._image, e);
+    }
+  },
+
+  onSortStart: function(e, info) {
     // call into DraggableMixin to start dragging
-    this.onMouseDown(e, name);
-    this.setState({sorting: {name}});
+    this.onMouseDown(e);
+
+    var node = this._image = document.createElement('div');
+    React.renderComponent(<Form schema={this.schema().children} value={this.value()[info.name]} />, node);
+    node.classList.add('SortableImage');
+    node.innerHTML
+    node.style.position = 'absolute';
+    node.style.width = '' + info.size.width + 'px';
+    node.style.height = '' + info.size.height + 'px';
+    setImagePositionFromEvent(node, e);
+    document.body.appendChild(node);
+
+    this.setState({sorting: info});
   },
 
   onSortOver: function(e, name, sortUp) {
@@ -168,15 +197,16 @@ var SortableRepeatingFieldset = React.createClass({
       return;
     }
 
-    if (sortUp && this.state.sorting.name > name ||
-        !sortUp && this.state.sorting.name < name) {
-      
-      // update sorting state and swap values
-      this.setState({sorting: {name}});
-      this.updateValue(swap(this.value(), name, this.state.sorting.name));
-    }
+    // update sorting state and swap values
+    this.setState({sorting: merge(this.state.sorting, {name: name})});
+    this.updateValue(swap(this.value(), name, this.state.sorting.name));
   }
 });
+
+function setImagePositionFromEvent(node, e) {
+  node.style.left = '' + (e.pageX + 10) + 'px';
+  node.style.top = '' + (e.pageY + 10) + 'px';
+}
 
 /**
  * Swap values in an array

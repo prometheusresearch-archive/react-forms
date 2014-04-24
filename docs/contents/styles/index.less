@@ -262,35 +262,38 @@ code, pre, .Code {
   }
 }
 
+.SortableImage {
+  background: white;
+  padding: 15px;
+  box-shadow: 2px 2px 15px 0px #ccc;
+}
+
 .SortableRepeatingFieldset {
   .react-forms-repeating-fieldset-item {
     position: relative;
+    &:hover .SortableHandle {
+      opacity: 1;
+    }
   }
 
   .SortablePlaceholder {
     .form-group();
-    height: 30px;
-    width: 100%;
-    background-color: #ccc;
-    background-size: 10px 10px;
-    #gradient > .striped();
+    border: 3px dashed darken(@color-bg, 10%);
+    
   }
   .SortableHandle {
-    background-color: #ccc;
-    background-size: 10px 10px;
-    #gradient > .striped();
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 15px;
-    height: 100%;
+    background: url(sortable.svg);
+    background-size: contain;
+    top: 8px;
+    left: 15px;
+    width: 20px;
+    height: 20px;
     cursor: move;
+    opacity: 0.3;
   }
   &.SortableActive {
     cursor: move;
     .SortableHandle {
-      display: none !important;
     }
   }
 }
