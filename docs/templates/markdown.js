@@ -10,7 +10,7 @@ var Markdown = React.createClass({
   render: function() {
     var page = this.props.page;
     return this.transferPropsTo(
-      <Page scripts={page.metadata.scripts}>
+      <Page scripts={this.props.scripts || page.metadata.scripts}>
         <div 
           className="Content container" 
           dangerouslySetInnerHTML={{__html: page.html}}

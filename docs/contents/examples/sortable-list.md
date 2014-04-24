@@ -1,8 +1,5 @@
 ---
-template: markdown.js
-scripts:
-  - "scripts/ShowValue.js"
-  - "scripts/examples/sortable-list.js"
+template: example.js
 ---
 
 # Sortable list example

@@ -1,8 +1,5 @@
 ---
-template: markdown.js
-scripts:
-  - "scripts/ShowValue.js"
-  - "scripts/examples/family-editor.js"
+template: example.js
 ---
 
 # Family editor form example

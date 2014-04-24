@@ -1,8 +1,5 @@
 ---
-template: markdown.js
-scripts:
-  - "scripts/ShowValue.js"
-  - "scripts/examples/array-editor.js"
+template: example.js
 ---
 
 # Array editor example

@@ -1,8 +1,5 @@
 ---
-template: markdown.js
-scripts:
-  - "scripts/ShowValue.js"
-  - "scripts/examples/undo.js"
+template: example.js
 ---
 
 # Form with undo/redo stack
