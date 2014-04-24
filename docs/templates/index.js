@@ -207,19 +207,13 @@ var Index = React.createClass({
         <div className="container">
           <h3>Features</h3>
           <p>
-            React Forms takes a minimalistic approach to forms.
+            React Forms provides a <strong>schema language</strong> to define form structure and validation and a set of <strong>form components</strong> to render schemas into UI.
           </p>
           <p>
-            It provides a way to define schemas which declare data structures and their validation rules and a set of generic form components which can render schemas into UI.
+            Data flow between React Forms components provides strong <strong>immutability</strong> guarantees. Form state accessible from a single location and can be snapshoted with almost no overhead.
           </p>
           <p>
-            React Forms organizes data flow which builds up on immutability. That enables users of the library to implement such complex features such as undo/redo in a couple of lines of code.
-          </p>
-          <p>
-            It <strong>does not provide</strong> form input components (such as autocomplete, WYSIWYG widgets, ...) but makes it easy to use 3rd-party ones.
-          </p>
-          <p>
-            Almost every aspect of React Forms is designed to be extendable. It is easy to customize the behaviour of the existing components or create completely new ones.
+            Almost every aspect of React Forms is designed to be <strong>extendable</strong>. It is easy to customize the behaviour of the existing components or create completely new ones.
           </p>
         </div>
         <StandaloneUsage />
