@@ -26,7 +26,7 @@ var NavigationBar = React.createClass({
         var sublinks = this.renderLinks(page.pages, page);
         return (
           <li className="dropdown" key={key}>
-            <a className="dropdown-toggle" href={baseUrl + page.path}>
+            <a className="dropdown-toggle" href={page.path ? baseUrl + page.path : null}>
               {page.name} <b className="caret"></b>
             </a>
             <ul className="dropdown-menu">{sublinks}</ul>
