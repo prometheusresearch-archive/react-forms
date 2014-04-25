@@ -299,8 +299,8 @@ code, pre, .Code {
 }
 
 .ShowValue {
-  .ShowValueValue > .text,
-  .ShowValueComponent > .text {
+  .ShowValueValue .text,
+  .ShowValueComponent .text {
     font-size: 80%;
   }
 
@@ -311,6 +311,14 @@ code, pre, .Code {
       border: none;
       background: #fff;
       color: @gray-light;
+    }
+  }
+
+  .ShowDebugInfoToggle {
+    font-size: 70%;
+    float: right;
+    & > label {
+      font-weight: normal;
     }
   }
 }
