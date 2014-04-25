@@ -54,44 +54,50 @@ function Name(props) {
 }
 ```
 
-### Properties
+### Schema metadata
 
-There are a couple of schema properties (alongside `name`) supported by form
+There are a couple of schema metadata (alongside `name`) supported by form
 components out of the box.
 
-Schema properties related to validation:
+Schema metadata related to validation:
 
   * `type` property can be used to specify type of the schema which defines how
     object is serialized to/deserialize from DOM value. You can read more about
     schema types below.
   * `validate` property is used to specify validators for
     values corresponding to schema.
+  * `defaultValue` is used to define a value which will be used when a
+    corresponding value for schema node is absent
 
-Schema properties related to presentation:
+Schema metadata related to presentation:
 
   * `label` property is used by form components to render `<label />`
     elements for form fields
   * `hint` property if specified
 
-Example of schema declarations which uses all the available properties:
+Example of schema declarations which define all the available metadata
+properties:
 
 ```
 <Property
-  name="name"
-  type="string"
+  name="age"
+  type="number"
+  defaultValue={27}
   validate={function(v) { return v > 0 }}
-  label="Name"
-  hint="First and last name"
+  label="Age"
+  hint="How old are you?"
   />
 ```
 
-### Types
+### Property types
 
-Schema nodes can specify type of the value they represent. Type defines how
-value is serialized to/deserialized from its DOM representation. For example if
-you work with dates you would want to define type which would marshal strings in
-format `"YYYY-MM-DD"` into `Date` objects and vice versa. Fortunately there's
-built-in `date` type for that:
+Properties (schema nodes corresponding to scalars) can specify type of the value
+they represent.
+
+Type defines how value is serialized to/deserialized from its DOM
+representation. For example if you work with dates you would want to define type
+which would marshal strings in format `"YYYY-MM-DD"` into `Date` objects and
+vice versa. Fortunately there's built-in `date` type for that:
 
 ```
 <Schema>
@@ -101,17 +107,17 @@ built-in `date` type for that:
 </Schema>
 ```
 
-As you can see you can refer to built-in types by specifying a `type` property
-which has type name as its string value. Currently React Forms provide a limited
-set of built-in types: `date`, `number` and `string` (used by default if no type
-is specified). But you can create a custom one easily.
+You can refer to built-in types by specifying a `type` property which has type
+name as its string value. Currently React Forms provide a limited set of
+built-in types: `date`, `number` and `string` (used by default if no type is
+specified). But you can create a custom one easily.
 
 Schema types are simply objects with `serialize` and `deserialize` methods.
-Method `serialized` is called before value is sent to input component and
+Method `serialize` is called before value is sent to input component and
 `deserialize` is called on change before validation occurs.
 
 Method `deserialize` could also throw an exception in case it cannot deserialize
-passed value.
+a passed value.
 
 ```
 var MyType = {
