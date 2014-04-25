@@ -178,7 +178,9 @@ var SortableRepeatingFieldset = React.createClass({
     this.onMouseDown(e);
 
     var node = this._image = document.createElement('div');
-    React.renderComponent(<Form schema={this.schema().children} value={this.value()[info.name]} />, node);
+    var schema = this.schema().children;
+    var value = this.valueLens().val()[info.name];
+    React.renderComponent(Form({schema, value}), node);
     node.classList.add('SortableImage');
     node.innerHTML
     node.style.position = 'absolute';
@@ -197,7 +199,7 @@ var SortableRepeatingFieldset = React.createClass({
 
     // update sorting state and swap values
     this.setState({sorting: merge(this.state.sorting, {name: name})});
-    this.updateValue(swap(this.value(), name, this.state.sorting.name));
+    this.updateValue(swap(this.valueLens().val(), name, this.state.sorting.name));
   }
 });
 

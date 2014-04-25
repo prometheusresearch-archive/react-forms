@@ -15,13 +15,13 @@ var ArrayEditor = React.createClass({
   mixins: [ReactForms.RepeatingFieldsetMixin],
 
   onFocus: function(idx, e) {
-    if (this.value().length - 1 === idx) {
+    if (this.valueLens().val().length - 1 === idx) {
       this.addItem();
     }
   },
 
   onRemoveItem: function(idx) {
-    if (idx === 0 && this.value().length === 1) {
+    if (idx === 0 && this.valueLens().val().length === 1) {
       this.updateValue([null]);
     } else {
       this.removeItem(idx);

@@ -10,26 +10,29 @@ var cloneWithProps   = React.addons.cloneWithProps;
 window.ShowValue = React.createClass({
 
   propTypes: {
-    children: React.PropTypes.component.isRequired,
-    onUpdate: React.PropTypes.bool
+    children: React.PropTypes.component.isRequired
   },
 
   getInitialState: function() {
     return {
       value: this.props.children.props.value,
       validation: this.props.children.props.validation,
-      deserializedValue: this.props.children.props.deserializedValue ||
-        this.props.children.props.value,
-      showDebugInfo: true
+      serializedValue: this.props.children.props.serializedValue,
+      showDebugInfo: false
     };
   },
 
-  onChange: function(value, validation, deserializedValue) {
-    this.setState({
-      value: value,
+  onUpdate: function(value, validation, serializedValue) {
+    var nextState = {
       validation: validation,
-      deserializedValue: deserializedValue
-    });
+      serializedValue: serializedValue
+    };
+
+    if (validation.isSuccess) {
+      nextState.value = value;
+    }
+
+    this.setState(nextState);
   },
 
   toggleDebugInfo: function() {
@@ -40,23 +43,20 @@ window.ShowValue = React.createClass({
     var props = {
       value: this.state.value,
       validation: this.state.validation,
-      deserializedValue: this.state.deserializedValue
+      serializedValue: this.state.serializedValue,
+      onUpdate: this.onUpdate
     };
-
-    if (this.props.onUpdate) {
-      props.onUpdate = this.onChange;
-    } else {
-      props.onChange = this.onChange;
-    }
 
     var horizontal = this.props.horizontal;
 
     return this.transferPropsTo(
       <div className={cx({ShowValue: true, row: horizontal})}>
+
         <div className={cx({ShowValueComponent: true, 'col-md-6': horizontal})}>
           <p className="text">Component:</p>
           {cloneWithProps(this.props.children, props)}
         </div>
+
         <div className={cx({ShowValueValue: true, 'col-md-6': horizontal})}>
           <div className="ShowDebugInfoToggle">
             <label>
@@ -74,11 +74,11 @@ window.ShowValue = React.createClass({
           </pre>
           {this.state.showDebugInfo &&
             <div className="DebugInfo">
-              <p className="text">DeserializedValue:</p>
+              <p className="text">Serialized value:</p>
               <pre className="value">
-                {this.state.deserializedValue === undefined ?
+                {this.state.serializedValue === undefined ?
                   'null' :
-                  JSON.stringify(this.state.deserializedValue, undefined, 2)}
+                  JSON.stringify(this.state.serializedValue, undefined, 2)}
               </pre>
               <p className="text">Validation:</p>
               <pre className="value">

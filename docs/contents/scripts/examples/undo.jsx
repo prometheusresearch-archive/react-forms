@@ -103,16 +103,12 @@ var UndoControls = React.createClass({
 var FormWithUndo = React.createClass({
   mixins: [ReactForms.FormMixin, UndoStack],
 
-  getDefaultProps: function() {
-    return {value: []};
-  },
-
   getStateSnapshot: function() {
-    return {value: this.value(), validation: this.validation()};
+    return {value: this.valueLens().val()};
   },
 
   setStateSnapshot: function(snapshot) {
-    this.onValueUpdate(snapshot.value, snapshot.validation);
+    this.onValueUpdate(snapshot.value);
   },
 
   render: function() {

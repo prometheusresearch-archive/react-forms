@@ -94,7 +94,7 @@ var SpecialFieldset = React.createClass({
       <div>
         <FormFor name="name" />
         <FormFor name="anotherField" />
-        {this.value().age > 18 &&
+        {this.valueLens().val().age > 18 &&
           <FormFor name="specialField" />}
       </div>
     )
