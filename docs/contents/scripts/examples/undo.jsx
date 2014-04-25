@@ -68,7 +68,7 @@ function Product(props) {
   return (
     <Schema required={props.required} name={props.name} label={props.label}>
       <Property name="name" label="Name" />
-      <Property name="price" label="Price" />
+      <Property type="number" name="price" label="Price" />
     </Schema>
   );
 }
@@ -134,7 +134,7 @@ var FormWithUndo = React.createClass({
 
 React.renderComponent(
   <ShowValue onUpdate horizontal>
-    <FormWithUndo schema={Products} />
+    <FormWithUndo schema={Products} value={[{name: 'TV', price: 1000}]} />
   </ShowValue>,
   document.getElementById('example')
 );
