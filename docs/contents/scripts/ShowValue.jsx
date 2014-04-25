@@ -15,15 +15,21 @@ window.ShowValue = React.createClass({
   },
 
   getInitialState: function() {
-    return {value: this.props.children.props.value};
+    return {
+      value: this.props.children.props.value,
+      validation: this.props.children.props.validation
+    };
   },
 
-  onChange: function(value) {
-    this.setState({value: value});
+  onChange: function(value, validation) {
+    this.setState({value: value, validation: validation});
   },
 
   render: function() {
-    var props = {value: this.state.value};
+    var props = {
+      value: this.state.value,
+      validation: this.state.validation
+    };
 
     if (this.props.onUpdate) {
       props.onUpdate = this.onChange;
