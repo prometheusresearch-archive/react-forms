@@ -3,7 +3,7 @@
  */
 
 var React = require('react');
-var Page = require('./page');
+var Page  = require('./page');
 
 var Markdown = React.createClass({
 

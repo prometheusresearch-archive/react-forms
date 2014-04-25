@@ -3,12 +3,13 @@
  */
 
 var React = require('react');
-var Markdown = require('./markdown');
+var Page  = require('./page');
 
 var Example = React.createClass({
 
   render: function() {
     var page = this.props.page;
+    var base = this.props.env.config.baseUrl;
     var name = page.filepath.relative.replace(/\.md$/, '');
 
     var scripts = page.metadata.scripts || [];
@@ -16,7 +17,15 @@ var Example = React.createClass({
     scripts.unshift('scripts/ShowValue.js');
 
     return this.transferPropsTo(
-      <Markdown scripts={scripts} page={page} />
+      <Page scripts={scripts}>
+        <div className="ExampleDownload container">
+          <a href={base + `scripts/${name}.js`}>Download example code</a>
+        </div>
+        <div 
+          className="Content container" 
+          dangerouslySetInnerHTML={{__html: page.html}}
+          />
+      </Page>
     );
   }
 });
