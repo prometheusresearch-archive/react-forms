@@ -2,45 +2,107 @@
 template: example.js
 ---
 
-# Family editor form example
+# Family form example
 
 This example showcases several aspects of React Forms library, most notably
-defining reusable schema pieces, creating custom fieldset component and
-repeating fieldset usage.
+defining **reusable schemas**, creating **custom fieldset components** and
+custom input components for **user input formatting**.
+
+The example form is a form for entering information about family.
 
 <div id="example"></div>
 
 ## Implementation
 
-### Schema to model family
+### Schema
 
-We start with defining fields for family data structure which will be used
-across several parts.
+We start with defining schemas for commonly used fields.
 
-This snippet defines `NameField` property which is validated with a custom
-validator and have default values `name` and `label` properties (which can be
-overriden if needed).
+##### SexField
+
+`SexField` represents sex of a person. We want to use a radio button group as an
+input component for this type of values.
+
+```
+var RadioButtonGroup = ReactForms.input.RadioButtonGroup
+
+function SexField(props) {
+  props = props || {}
+  var options = [
+    {value: 'male', name: 'Male'},
+    {value: 'female', name: 'Female'}
+  ]
+  return (
+    <Property
+      name={props.name || 'sex'}
+      label={props.label || 'Sex'}
+      required={props.required}
+      input={<RadioButtonGroup options={options} />}
+      />
+  )
+}
+```
+
+After that we can use this field in a different schemas `<SexField name="sex"
+/>`. Note how we provide a default values for `name` and `label`.
+
+##### NameField
+
+Now let's define a schema for fields which represent a name of a person. We want
+to autoformat name so it appears capitalized and we want to perform additional
+validation on name value so it cannot contain number or any other non-letters.
+
+First we define a validator:
+
 
 ```
 function validateName(v) {
-  return /^[a-z\\s]+$/i.test(v)
+  return /^[a-z\s]+$/i.test(v)
 }
+```
 
+Now we can use it in schema definition:
+
+```
 function NameField(props) {
   props = props || {}
   return (
     <Property
       name={props.name || 'name'}
       label={props.label || 'Name'}
+      hint="Should contain only alphanumeric characters"
+      input={<NameInput />}
       validate={validateName}
       />
   )
 }
 ```
 
+Note that we referenced the `<NameInput />` component. This the thin wrapper on
+for `<input type="text" />` which autoformats user input by capitalizing it.
+
+##### DateOfBirthField
+
+`DateOfBirthField` is define similar to previous fields:
+
+```
+function DateOfBirthField(props) {
+  props = props || {}
+  return (
+    <Property
+      name={props.name || 'dob'}
+      label={props.label || 'Date of Birth'}
+      hint="Should be in YYYY-MM-DD format"
+      type="date"
+      />
+  )
+}
+```
+
+##### Adult and Child
+
 Now we can define schemas for adults and children, both using already defined
-`NameField`, `DateOfBirthField` and `SexField` (the latter two are defined
-similarly to `NameField`).
+`NameField`, `DateOfBirthField` and `SexField`.
 
 Note the `component` property of `Child` schema what defines which fieldset
 component should be used to render schemas of such type. We will show how to
@@ -75,6 +137,8 @@ function Child(props) {
 }
 ```
 
+##### Family
+
 Finally the schema for family would look like a composition of schema types we
 defined previously.
 
@@ -96,6 +160,57 @@ function Family(props) {
 }
 ```
 
+### Custom input component for name formatting
+
+Now let's define `<NameInput />` component which is used by `NameField` field to
+capitalize user input automatically.
+
+```
+var NameInput = React.createClass({
+
+  getInitialState: function() {
+    return {selection: {start: 0, end: 0}}
+  },
+
+  onChange: function(e) {
+    var value = e.target.value
+    var node = this.getDOMNode()
+    this.setState({
+      selection: {start: node.selectionStart, end: node.selectionEnd}
+    })
+    this.props.onChange(value)
+  },
+
+  componentDidUpdate: function() {
+    var node = this.getDOMNode()
+    if (document.activeElement === node) {
+      node.setSelectionRange(this.state.selection.start, this.state.selection.end)
+    }
+  },
+
+  format: function(value) {
+    return value.split(/\s+/)
+      .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
+      .join(' ')
+  },
+
+  render: function() {
+    var value = this.format(this.props.value)
+    return this.transferPropsTo(
+      <input
+        type="text"
+        value={value}
+        onChange={this.onChange} />
+    )
+  }
+})
+```
+
+It is a little verbose because we need to take care of cursor position in input
+box. But other than that it is a thin wrapper for `<input type="text" />` which
+just capitalizes every word in a value.
+
+
 ### Custom fieldset component for Child
 
 Now we define `ChildFieldset` component which is used to render values described
@@ -105,8 +220,8 @@ different set of fields based on a sex of a child.
 Note that creating a fieldset component reduces down to using `FieldsetMixin`
 mixin and defining `render()` method.
 
-`FieldsetMixin` provides `value()` method which allows accessing a current form
-value for this particular schema node.
+`FieldsetMixin` provides `valueLens()` method which allows accessing a current form
+value for this particular schema node via `valueLens().val()`.
 
 To render its fields `ChildFieldset` component uses a `FormFor` component which
 automatically receives a corresponding schema and value based on its `name`
@@ -117,7 +232,7 @@ var ChildFieldset = React.createClass({
   mixins: [ReactForms.FieldsetMixin],
 
   render: function() {
-    var sex = this.valueLens().val().sex;
+    var sex = this.valueLens().val().sex
     return this.transferPropsTo(
       <div className="react-forms-fieldset">
         <FormFor name="name" />
@@ -133,7 +248,7 @@ var ChildFieldset = React.createClass({
 })
 ```
 
-### Rendering family
+### Rendering forms
 
 Finally we can render our *Family form* by simply using `Form` component with
 out `Family` schema.
