@@ -12,10 +12,6 @@ var List             = ReactForms.schema.List;
 var Property         = ReactForms.schema.Property;
 var RadioButtonGroup = ReactForms.input.RadioButtonGroup;
 
-function validateName(v) {
-  return /^[a-z\s]+$/i.test(v);
-}
-
 function SexField(props) {
   props = props || {};
   var options = [
@@ -32,19 +28,48 @@ function SexField(props) {
   );
 }
 
-var name = {
-  deserialize: function(s) {
-    if (s === '') {
-      return null;
+var NameInput = React.createClass({
+
+  getInitialState: function() {
+    return {selection: {start: 0, end: 0}};
+  },
+
+  onChange: function(e) {
+    var value = e.target.value;
+    var node = this.getDOMNode();
+    this.setState({
+      selection: {start: node.selectionStart, end: node.selectionEnd}
+    });
+    this.props.onChange(value);
+  },
+
+  componentDidUpdate: function() {
+    var node = this.getDOMNode();
+    if (document.activeElement === node) {
+      node.setSelectionRange(this.state.selection.start, this.state.selection.end);
     }
-    return s.split(/\s+/)
+  },
+
+  format: function(value) {
+    return value.split(/\s+/)
       .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
       .join(' ');
   },
-  serialize: function(s) {
-    return s === null ? '' : s;
+
+  render: function() {
+    var value = this.format(this.props.value);
+    return this.transferPropsTo(
+      <input
+        type="text"
+        value={value}
+        onChange={this.onChange} />
+    );
   }
-};
+});
+
+function validateName(v) {
+  return /^[a-z\s]+$/i.test(v);
+}
 
 function NameField(props) {
   props = props || {};
@@ -53,7 +78,7 @@ function NameField(props) {
       name={props.name || 'name'}
       label={props.label || 'Name'}
       hint="Should contain only alphanumeric characters"
-      type={name}
+      input={<NameInput />}
       validate={validateName}
       />
   );
