@@ -118,8 +118,8 @@ code, pre, .Code {
 .Index {
 
   .HeaderWrapper {
-    @bg: lighten(#445878, 60%);
-    @txt: lighten(#445878, 10%);
+    @bg: @color-bg;
+    @txt: @color-txt;
 
     background: @bg;
 
@@ -139,8 +139,8 @@ code, pre, .Code {
     }
   }
 
-  @bg: lighten(#445878, 60%);
-  @txt: lighten(#445878, 10%);
+  @bg: @color-bg;
+  @txt: @color-txt;
 
   background: @bg;
 
@@ -153,7 +153,6 @@ code, pre, .Code {
       color: @txt;
       h4 {
         font-weight: bold;
-        color: @txt;
       }
       text-align: right;
     }
