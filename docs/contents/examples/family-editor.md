@@ -10,6 +10,8 @@ repeating fieldset usage.
 
 <div id="example"></div>
 
+## Implementation
+
 ### Schema to model family
 
 We start with defining fields for family data structure which will be used
@@ -20,16 +22,20 @@ validator and have default values `name` and `label` properties (which can be
 overriden if needed).
 
 ```
-var validateName = (s) =>
-  /^[a-z\\s]+$/i.test(s)
+function validateName(v) {
+  return /^[a-z\\s]+$/i.test(v)
+}
 
-var NameField = schema.createType((props) =>
-  <Property
-    name={props.name || 'name'}
-    label={props.label || 'Name'}
-    validate={validateName}
-    />
-)
+function NameField(props) {
+  props = props || {}
+  return (
+    <Property
+      name={props.name || 'name'}
+      label={props.label || 'Name'}
+      validate={validateName}
+      />
+  )
+}
 ```
 
 Now we can define schemas for adults and children, both using already defined
@@ -41,26 +47,32 @@ component should be used to render schemas of such type. We will show how to
 define `ChildFieldset` below.
 
 ```
-var Adult = schema.createType((props) =>
-  <Schema label={props.label} name={props.name}>
-    <NameField />
-    <DateOfBirthField />
-  </Schema>
-)
+function Adult(props) {
+  props = props || {}
+  return (
+    <Schema label={props.label} name={props.name}>
+      <NameField />
+      <DateOfBirthField />
+    </Schema>
+  )
+}
 
-var Child = schema.createType((props) =>
-  <Schema component={ChildFieldset} name={props.name}>
-    <NameField />
-    <DateOfBirthField />
-    <SexField required />
-    <Property
-      label="Female specific value"
-      name="femaleSpecificValue" />
-    <Property
-      label="Male specific value"
-      name="maleSpecificValue" />
-  </Schema>
-)
+function Child(props) {
+  props = props || {}
+  return (
+    <Schema component={ChildFieldset} name={props.name}>
+      <NameField />
+      <DateOfBirthField />
+      <SexField required />
+      <Property
+        label="Female specific value"
+        name="femaleSpecificValue" />
+      <Property
+        label="Male specific value"
+        name="maleSpecificValue" />
+    </Schema>
+  )
+}
 ```
 
 Finally the schema for family would look like a composition of schema types we
@@ -71,15 +83,17 @@ family can have multiple children and form would have a corresponding UI
 controls to add and remove children records.
 
 ```
-var Family = schema.createType((props) =>
-  <Schema name={props.name}>
-    <Adult name="mother" label="Mother" />
-    <Adult name="father" label="Father" />
-    <List label="Children" name="children">
-      <Child />
-    </List>
-  </Schema>
-)
+function Family(props) {
+  return (
+    <Schema name={props.name}>
+      <Adult name="mother" label="Mother" />
+      <Adult name="father" label="Father" />
+      <List label="Children" name="children">
+        <Child />
+      </List>
+    </Schema>
+  )
+}
 ```
 
 ### Custom fieldset component for Child
@@ -100,7 +114,7 @@ property.
 
 ```
 var ChildFieldset = React.createClass({
-  mixins: [forms.FieldsetMixin],
+  mixins: [ReactForms.FieldsetMixin],
 
   render: function() {
     var sex = this.value().sex;
@@ -109,11 +123,10 @@ var ChildFieldset = React.createClass({
         <FormFor name="name" />
         <FormFor name="dob" />
         <FormFor name="sex" />
-        {sex === 'male' ?
-        <FormFor name="maleSpecificValue" /> :
-        sex === 'female' ?
-        <FormFor name="femaleSpecificValue" /> :
-        null}
+        {sex === 'male' &&
+          <FormFor name="maleSpecificValue" />}
+        {sex === 'female' &&
+          <FormFor name="femaleSpecificValue" />}
       </div>
     )
   }
