@@ -16,7 +16,7 @@ var ArrayEditor = React.createClass({
 
   onFocus: function(idx, e) {
     if (this.valueLens().val().length - 1 === idx) {
-      this.addItem();
+      this.add();
     }
   },
 
@@ -24,11 +24,11 @@ var ArrayEditor = React.createClass({
     if (idx === 0 && this.valueLens().val().length === 1) {
       this.updateValue([null]);
     } else {
-      this.removeItem(idx);
+      this.remove(idx);
     }
   },
 
-  decorateItem: function(item) {
+  decorate: function(item) {
     item = React.addons.cloneWithProps(
       item,
       {onFocus: this.onFocus.bind(null, item.props.name)}
@@ -46,8 +46,8 @@ var ArrayEditor = React.createClass({
   },
 
   render: function() {
-    var items = this.items().map(this.decorateItem);
-    return this.transferPropsTo(<div className="ArrayEditor">{items}</div>);
+    var fields = this.renderFields().map(this.decorate);
+    return this.transferPropsTo(<div className="ArrayEditor">{fields}</div>);
   }
 
 });

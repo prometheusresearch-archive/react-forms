@@ -121,8 +121,8 @@ var FormWithUndo = React.createClass({
           onRedo={this.redo}
           />
         <RepeatingFieldset
-          onRemoveItem={this.snapshot}
-          onAddItem={this.snapshot} />
+          onRemove={this.snapshot}
+          onAdd={this.snapshot} />
       </form>
     );
   }
