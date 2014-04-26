@@ -46,6 +46,10 @@
             "path": "examples/undo.html"
           }
         ]
+      },
+      {
+        "name": "API",
+        "path": "api.html"
       }
     ]
   },
