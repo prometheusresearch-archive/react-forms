@@ -1,6 +1,7 @@
 {
   "baseUrl": "/react-forms/",
   "locals": {
+    "repo": "https://github.com/prometheusresearch/react-forms",
     "title": "React Forms",
     "pages": [
       {

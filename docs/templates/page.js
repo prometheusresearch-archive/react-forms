@@ -15,7 +15,12 @@ var Page = React.createClass({
       }) : null;
     var body = this.transferPropsTo(
       <body>
-        <NavigationBar baseUrl={base} main={this.props.pages[0]} pages={this.props.pages.slice(1)} />
+        <NavigationBar
+          baseUrl={base}
+          repo={this.props.repo}
+          title={this.props.title}
+          main={this.props.pages[0]}
+          pages={this.props.pages.slice(1)} />
         <div className="wrapper">
           {this.props.children}
         </div>

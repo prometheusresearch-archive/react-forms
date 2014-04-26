@@ -52,6 +52,10 @@ var NavigationBar = React.createClass({
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">{this.renderLinks(this.props.pages)}</ul>
+            {this.props.repo &&
+              <div className="navbar-repo">
+                <a href={this.props.repo}>{this.props.title} on GitHub &rarr;</a>
+              </div>}
           </div>
         </div>
       </nav>
