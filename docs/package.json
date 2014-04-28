@@ -9,7 +9,10 @@
   "author": "",
   "license": "AGPLv3",
   "dependencies": {
+    "less-file": "0.0.8",
     "node-jsx": "^0.10.0",
+    "react-tools": "^0.10.0",
+    "twbs": "0.0.6",
     "wintersmith": "^2.0.10"
   }
 }
