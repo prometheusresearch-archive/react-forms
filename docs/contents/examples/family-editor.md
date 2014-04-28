@@ -14,7 +14,7 @@ The example form is a form for entering information about family.
 
 ## Implementation
 
-### Schema
+#### Schema
 
 We start with defining schemas for commonly used fields.
 
@@ -160,7 +160,7 @@ function Family(props) {
 }
 ```
 
-### Custom input component for name formatting
+#### Custom input component for name formatting
 
 Now let's define `<NameInput />` component which is used by `NameField` field to
 capitalize user input automatically.
@@ -211,7 +211,7 @@ box. But other than that it is a thin wrapper for `<input type="text" />` which
 just capitalizes every word in a value.
 
 
-### Custom fieldset component for Child
+#### Custom fieldset component for Child
 
 Now we define `ChildFieldset` component which is used to render values described
 with `Child` schema. The reason we want to do this is that we want to show a
@@ -248,7 +248,7 @@ var ChildFieldset = React.createClass({
 })
 ```
 
-### Rendering forms
+#### Rendering forms
 
 Finally we can render our *Family form* by simply using `Form` component with
 out `Family` schema.
