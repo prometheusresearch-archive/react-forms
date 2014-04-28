@@ -230,6 +230,10 @@ to represent schema nodes of type `List`.
 Key which is used to extract value and validation state from the current form
 context.
 
+###### callback `onAdd(value)`
+
+###### callback `onRemove(value, index)`
+
 #### ReactForms.`FormFor`
 
 A "proxy" component which decides what component to render based on a current
@@ -302,7 +306,7 @@ Render a field for a `schemaNode`.
 
 Return an array of components rendered for each item in a value.
 
-###### method `add()`
+###### method `add(value)`
 
 Add new element to the value.
 
