@@ -1,17 +1,20 @@
 # React Forms
 
-Forms library for [React][].
+React Forms library provides a set of tools for [React][] to handle form
+rendering and validation.
 
-## Development
+It provides a **schema language** to define form structure and
+validation and a set of **form components** to render schemas into UI.
 
-Repository structure is as follows:
+Data flow between React Forms components provides strong **immutability**
+guarantees. Form state accessible from a single location and can be snapshoted
+with almost no overhead.
 
-    ├── Makefile        Common operations
-    ├── README.md       This file
-    ├── docs            React Forms site with docs and demos
-    ├── lib             Source code
-    ├── package.json    Package metadata
-    └── themes          Themes for (only Bootstrap 3 theme currenlty)
+Almost every aspect of React Forms is designed to be **extendable**. It is easy
+to customize the behaviour of the existing components or create completely new
+ones.
+
+See [documentation][docs] for more information on how to use React Forms.
 
 ## Credits
 
@@ -27,3 +30,4 @@ R43MH099826.
 [React]: http://facebook.github.io/react/
 [RexDB]: http://rexdb.org
 [Prometheus Research, LLC]: http://prometheusresearch.com
+[docs]: http://prometheusresearch.github.io/react-forms/
