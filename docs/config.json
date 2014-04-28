@@ -28,6 +28,7 @@
       },
       {
         "name": "Examples",
+        "path": "examples/family-editor.html",
         "pages": [
           {
             "name": "Family editor form",
