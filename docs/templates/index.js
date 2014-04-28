@@ -210,7 +210,7 @@ var Index = React.createClass({
             React Forms provides a <strong>schema language</strong> to define form structure and validation and a set of <strong>form components</strong> to render schemas into UI.
           </p>
           <p>
-            Data flow between React Forms components provides strong <strong>immutability</strong> guarantees. Form state accessible from a single location and can be snapshoted with almost no overhead.
+            Data flow between React Forms components provides strong <strong>immutability</strong> guarantees. Form state accessible from a single location and can be snapshotted with almost no overhead.
           </p>
           <p>
             Almost every aspect of React Forms is designed to be <strong>extendable</strong>. It is easy to customize the behaviour of the existing components or create completely new ones.

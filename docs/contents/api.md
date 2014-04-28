@@ -42,7 +42,7 @@ JavaScript instead.
 
 ### Nodes
 
-#### ReactForms.schema.`Schema`
+#### `ReactForms.schema.Schema`
 
 Nodes of type `Schema` are used to describe plain JavaScript objects (JSON
 objects). Children of the schema node describe keys of the object. Each child
@@ -57,7 +57,7 @@ should have `name` property to define what key it describes.
 
 The example above describe objects of shape `{"a": …, "b": …}`.
 
-#### ReactForms.schema.`List`
+#### `ReactForms.schema.List`
 
 `List` schema nodes are used to describe arrays. They can have only a single
 child which describes the schema of the elements of an array:
@@ -70,7 +70,7 @@ child which describes the schema of the elements of an array:
 
 The example above describes the array of numbers `[1, 2, 4, …]`.
 
-#### ReactForms.`Property`
+#### `ReactForms.Property`
 
 `Property` schema nodes are used to describe values such as strings, numbers, dates, …
 
@@ -134,15 +134,15 @@ which validates an array only if it has at least one element.
 
 ### Functions
 
-###### ReactForms.schema.`isSchema`
+###### `ReactForms.schema.isSchema`
 
 Returns true if schema node is of type `Schema`.
 
-###### ReactForms.schema.`isList`
+###### `ReactForms.schema.isList`
 
 Returns true if schema node is of type `List`.
 
-###### ReactForms.schema.`isProperty`
+###### `ReactForms.schema.isProperty`
 
 Returns true if schema node is of type `Property`.
 
@@ -150,7 +150,7 @@ Returns true if schema node is of type `Property`.
 
 ## Form components
 
-#### ReactForms.`Form`
+#### `ReactForms.Form`
 
 A component which represents an entire form: holds form value and validation
 state.
@@ -182,7 +182,7 @@ Called every time form value **is updated**.
 
 Called every time form value **is updated and is valid**.
 
-#### ReactForms.`Field`
+#### `ReactForms.Field`
 
 A component which represents a single form field which contains a rendered input
 component along with `<label />` element. This component is used to represent
@@ -210,7 +210,7 @@ a corresponding schema node.
 Text used to render a part of a `<label>` element. Takes precedence over the
 value used in a corresponding schema node.
 
-#### ReactForms.`Fieldset`
+#### `ReactForms.Fieldset`
 
 A component which represents a fieldset. This component is used to represent
 schema nodes of type `Schema`.
@@ -220,7 +220,7 @@ schema nodes of type `Schema`.
 Key which is used to extract value and validation state from the current form
 context.
 
-#### ReactForms.`RepeatingFieldset`
+#### `ReactForms.RepeatingFieldset`
 
 A component which represents a list of fields/fieldsets. This component is used
 to represent schema nodes of type `List`.
@@ -234,7 +234,7 @@ context.
 
 ###### callback `onRemove(value, index)`
 
-#### ReactForms.`FormFor`
+#### `ReactForms.FormFor`
 
 A "proxy" component which decides what component to render based on a current
 schema node it receives from a current form context.
@@ -286,21 +286,21 @@ Returns a schema node the component is attached to.
 
 Notify that the value of the form component is updated.
 
-#### ReactForms.`FormMixin`
+#### `ReactForms.FormMixin`
 
-#### ReactForms.`FieldMixin`
+#### `ReactForms.FieldMixin`
 
 ###### method `renderInputComponent(props)`
 
 Return an input component.
 
-#### ReactForms.`FieldsetMixin`
+#### `ReactForms.FieldsetMixin`
 
 ###### method `renderField(schemaNode)`
 
 Render a field for a `schemaNode`.
 
-#### ReactForms.`RepeatingFieldsetMixin`
+#### `ReactForms.RepeatingFieldsetMixin`
 
 ###### method `renderFields()`
 
@@ -318,10 +318,13 @@ Remove an element from value by `index`.
 
 ## Input components
 
-#### ReactForms.input.`RadioButtonGroup`
+While input components are out of scope of React Forms we provide some of them
+for convenience.
+
+#### `ReactForms.input.RadioButtonGroup`
 
 An input component which is represented in DOM as a set of radio buttons.
 
-#### ReactForms.input.`CheckboxGroup`
+#### `ReactForms.input.CheckboxGroup`
 
 An input component which is represented in DOM as a set of checkboxes.
