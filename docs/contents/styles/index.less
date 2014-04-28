@@ -335,10 +335,26 @@ code, pre, .Code {
 }
 
 .API {
-  p {
+  p.desc {
     margin-left: 40px;
   }
-  div.reset > p {
-    margin-left: 0px;
+
+  p.note {
+    padding: 2em;
+    font-size: 90%;
+    background: lighten(@color-bg, 5%);
+    color: lighten(@color-txt, 5%);
+    &:before {
+      content: 'note';
+      text-transform: uppercase;
+      font-weight: bold;
+      padding-right: 1em;
+      color: #aeaeae;
+    }
+  }
+
+  h4, h5, h6 {
+    background: lighten(@color-bg, 5%);
+    padding: 5px;
   }
 }
