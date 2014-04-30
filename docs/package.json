@@ -1,13 +1,7 @@
 {
   "name": "react-forms-docs",
   "version": "0.0.0",
-  "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "AGPLv3",
   "dependencies": {
     "less-file": "0.0.8",
     "node-jsx": "^0.10.0",

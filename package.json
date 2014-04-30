@@ -34,8 +34,8 @@
       ]
     ]
   },
-  "author": "Prometheus Research LLC",
-  "license": "AGPLv3",
+  "author": "Prometheus Research",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
