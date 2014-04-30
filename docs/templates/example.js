@@ -19,7 +19,9 @@ var Example = React.createClass({
     return this.transferPropsTo(
       <Page scripts={scripts}>
         <div className="ExampleDownload container">
-          <a href={base + `scripts/${name}.js`}>Download example code</a>
+          <a href={`${this.props.repo}/blob/master/docs/contents/scripts/${name}.jsx`}>
+            See example code
+          </a>
         </div>
         <div 
           className="Content container" 
