@@ -1,7 +1,8 @@
 {
   "name": "react-forms-build",
-  "main": "./index.js",
   "version": "0.0.0",
+  "homepage": "http://prometheusresearch.github.io/react-forms/",
+  "main": "./index.js",
   "browserify": {
     "transform": [
       [
@@ -22,6 +23,8 @@
     "react-forms.js",
     "react-forms.min.js",
     "themes",
+    "LICENSE",
+    "README.md",
     "bower.json"
   ],
   "scripts": {
@@ -44,5 +47,10 @@
     "derequire": "^0.8.0",
     "envify": "^1.2.1",
     "uglify-js": "^2.4.13"
+  },
+  "author": "Prometheus Research",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prometheusresearch/react-forms/issues"
   }
 }

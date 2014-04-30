@@ -23,11 +23,11 @@ clean:
 	@rm -rf ./themes
 	@rm -rf ./package
 
-themes README.md:
+themes README.md LICENSE:
 	cp -r ../$@ ./$@
 
 # called by npm
-prepublish: clean build themes README.md
+prepublish: clean build themes README.md LICENSE
 
 publish: publish-repo
 
