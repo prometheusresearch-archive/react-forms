@@ -2,3 +2,7 @@ node_modules
 docs/build
 standalone/react-forms.min.js
 standalone/react-forms.js
+standalone/themes
+standalone/README.md
+standalone/package
+standalone/react-forms-build-*.tgz

@@ -1,17 +1,31 @@
 {
-  "name": "react-forms-standalone",
+  "name": "react-forms-build",
   "main": "./index.js",
+  "version": "0.0.0",
   "browserify": {
     "transform": [
       [
         "browserify-shim",
-        {"global": true}
+        {
+          "global": true
+        }
       ],
       [
         "envify",
-        {"global": true}
+        {
+          "global": true
+        }
       ]
     ]
+  },
+  "files": [
+    "react-forms.js",
+    "react-forms.min.js",
+    "themes",
+    "bower.json"
+  ],
+  "scripts": {
+    "prepublish": "make prepublish"
   },
   "browserify-shim": {
     "react": "global:__ReactShim.React",

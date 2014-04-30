@@ -1,0 +1,27 @@
+{
+  "name": "react-forms",
+  "main": "react-forms.js",
+  "version": "0.0.0",
+  "homepage": "http://prometheusresearch.github.io/react-forms/",
+  "authors": [
+    "Prometheus Research"
+  ],
+  "description": "Forms library for React",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "react",
+    "forms"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
