@@ -10,6 +10,7 @@ var Code    = require('./Code');
 
 var reactVersion = require('react/package.json').version;
 var reactFormsVersion = require('react-forms/package.json').version;
+var buildHref = "https://raw.githubusercontent.com/prometheusresearch/react-forms-build/master/react-forms.js";
 
 var StandaloneUsage = React.createClass({
 
@@ -19,7 +20,7 @@ var StandaloneUsage = React.createClass({
         <Section>
           <h3>Getting started</h3>
           <p>
-            We provide a <a href="https://github.com/prometheusresearch/react-forms">standalone build</a> (also installable via bower with <code>bower install react-forms</code>) of React Forms which can be included in your application using <code>{`<script>`}</code> element or loaded using an AMD loader similar to <a href="http://requirejs.org">RequireJS</a>. Alternatively you might want to use React Forms within a CommonJS module system, see instructions below on that.
+            We provide a <a href={buildHref}>standalone build</a> (also installable via bower with <code>bower install react-forms</code>) of React Forms which can be included in your application using <code>{`<script>`}</code> element or loaded using an AMD loader similar to <a href="http://requirejs.org">RequireJS</a>. Alternatively you might want to use React Forms within a CommonJS module system, see instructions below on that.
           </p>
         </Section>
         <Section>
