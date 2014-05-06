@@ -1,7 +1,14 @@
-PATH := ./node_modules/.bin:$(PATH)
+BIN = ./node_modules/.bin
 
 preview build::
-	@wintersmith $@
+	@$(BIN)/wintersmith $@
+
+install: node_modules/react-forms
+	@npm install
+
+node_modules/react-forms:
+	@mkdir -p $(@D)
+	@(cd node_modules && ln -s ../../ react-forms)
 
 clean:
 	@rm -rf build
