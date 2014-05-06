@@ -13,8 +13,8 @@ var Page = React.createClass({
       this.props.scripts.map(function(s, idx) {
         return <script key={idx} src={base + s}></script>;
       }) : null;
-    var body = this.transferPropsTo(
-      <body>
+    var body = (
+      <body className={this.props.className}>
         <NavigationBar
           baseUrl={base}
           repo={this.props.repo}
