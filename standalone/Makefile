@@ -31,13 +31,15 @@ prepublish: clean build themes README.md LICENSE
 
 publish: publish-repo
 
-publish-repo:
+pack:
 	BUILD_REPO=$(REPO:%.git=%-build.git);\
 	npm pack;\
 	git clone $$BUILD_REPO package;\
 	tar xzf react-forms-build-*.tgz;\
 	rm -rf ./package/*;\
 	tar xzf react-forms-build-*.tgz;\
+
+publish-repo: pack
 	cd package;\
 	git add --all .;\
 	git commit -m "Build.";\
