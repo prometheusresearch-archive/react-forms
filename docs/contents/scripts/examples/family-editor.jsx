@@ -68,7 +68,7 @@ var NameInput = React.createClass({
 });
 
 function validateName(v) {
-  return /^[a-z\s]+$/i.test(v);
+  return /^[a-z\s]+$/i.test(v) ? true : 'should contain only letters';
 }
 
 function NameField(props) {
@@ -76,6 +76,7 @@ function NameField(props) {
   return (
     <Property
       required={props.required}
+      defaultValue={props.defaultValue}
       name={props.name || 'name'}
       label={props.label || 'Name'}
       hint="Should contain only alphanumeric characters"
