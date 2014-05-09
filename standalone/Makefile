@@ -1,7 +1,7 @@
 .DELETE_ON_ERROR:
 .INTERMEDIATE: react-forms.prod.js
 REPO = $(shell git config --local --get remote.origin.url)
-BRANCH =? master
+BRANCH = master
 
 TARGETS = react-forms.js react-forms.min.js
 
