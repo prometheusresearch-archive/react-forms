@@ -31,15 +31,8 @@
     "prepublish": "make prepublish"
   },
   "browserify-shim": {
-    "react": "global:__ReactShim.React",
-    "react/lib/cx": "global:__ReactShim.cx",
-    "react/lib/cloneWithProps": "global:__ReactShim.cloneWithProps",
-    "react/lib/invariant": "global:__ReactShim.invariant",
-    "react/lib/merge": "global:__ReactShim.merge",
-    "react/lib/mergeInto": "global:__ReactShim.mergeInto",
-    "react/lib/ReactUpdates": "global:__ReactShim.ReactUpdates",
-    "react/lib/ExecutionEnvironment": "global:__ReactShim.ExecutionEnvironment",
-    "react/lib/emptyFunction": "global:__ReactShim.emptyFunction"
+    "react": "global:React",
+    "react/addons": "global:React"
   },
   "devDependencies": {
     "browserify": "^3.33.0",
