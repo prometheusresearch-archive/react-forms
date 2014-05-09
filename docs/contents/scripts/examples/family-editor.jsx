@@ -75,6 +75,7 @@ function NameField(props) {
   props = props || {};
   return (
     <Property
+      required={props.required}
       name={props.name || 'name'}
       label={props.label || 'Name'}
       hint="Should contain only alphanumeric characters"
@@ -100,7 +101,7 @@ function Adult(props) {
   props = props || {};
   return (
     <Schema label={props.label || 'Adult'} name={props.name}>
-      <NameField />
+      <NameField required />
       <DateOfBirthField />
     </Schema>
   );
@@ -110,7 +111,7 @@ function Child(props) {
   props = props || {};
   return (
     <Schema component={ChildFieldset} name={props.name}>
-      <NameField />
+      <NameField required />
       <DateOfBirthField />
       <SexField required />
       <Property label="Female specific value" name="femaleSpecificValue" />
