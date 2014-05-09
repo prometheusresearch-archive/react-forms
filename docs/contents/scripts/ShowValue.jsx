@@ -28,7 +28,7 @@ window.ShowValue = React.createClass({
       serializedValue: serializedValue
     };
 
-    if (validation.isSuccess) {
+    if (ReactForms.validation.isSuccess(validation)) {
       nextState.value = value;
     }
 
