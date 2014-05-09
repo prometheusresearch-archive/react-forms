@@ -1,6 +1,7 @@
 .DELETE_ON_ERROR:
 .INTERMEDIATE: react-forms.prod.js
 REPO = $(shell git config --local --get remote.origin.url)
+BRANCH =? master
 
 TARGETS = react-forms.js react-forms.min.js
 
@@ -35,6 +36,7 @@ pack:
 	BUILD_REPO=$(REPO:%.git=%-build.git);\
 	npm pack;\
 	git clone $$BUILD_REPO package;\
+	(cd package && git checkout $(BRANCH));\
 	tar xzf react-forms-build-*.tgz;\
 	rm -rf ./package/*;\
 	tar xzf react-forms-build-*.tgz;\
@@ -43,7 +45,7 @@ publish-repo: pack
 	cd package;\
 	git add --all .;\
 	git commit -m "Build.";\
-	git push origin master;
+	git push origin $(BRANCH);
 
 define browserify
 	@NODE_ENV=$(1) browserify -t [ reactify --es6] . \
