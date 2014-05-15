@@ -54,7 +54,7 @@ var StandaloneUsage = React.createClass({
               <script type="text/jsx">
                 var Schema    = ReactForms.schema.Schema
                 var Property  = ReactForms.schema.Property
-                var Form      = ReactForms.schema.Form
+                var Form      = ReactForms.Form
               </script>
               `}
             </Code>
