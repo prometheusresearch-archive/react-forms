@@ -28,7 +28,7 @@ module.exports = (env, callback) ->
 
     @fromFile = (filepath, callback) ->
 
-      fs.readFile filepath.full, 'utf8', (err, content) -> 
+      fs.readFile filepath.full, 'utf8', (err, content) ->
         if err
           callback(err)
         else
@@ -37,4 +37,3 @@ module.exports = (env, callback) ->
   env.registerContentPlugin 'js', '**/*.jsx', JSXPlugin
 
   callback()
-

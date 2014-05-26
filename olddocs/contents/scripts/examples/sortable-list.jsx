@@ -90,7 +90,7 @@ var SortableItem = React.createClass({
           className="SortableHandle"
           onMouseDown={this.onSortStart}>
           drag to sort</div>
-          
+
         {this.props.children}
       </Item>
     );

@@ -23,8 +23,8 @@ var Example = React.createClass({
             See example code
           </a>
         </div>
-        <div 
-          className="Content container" 
+        <div
+          className="Content container"
           dangerouslySetInnerHTML={{__html: page.html}}
           />
       </Page>

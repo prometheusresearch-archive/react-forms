@@ -64,7 +64,7 @@ var Field = React.createClass({displayName: 'Field',
     var input = this.renderInputComponent({id:id, onBlur: this.onBlur});
 
     return (
-      React.DOM.div( {className:className}, 
+      React.DOM.div( {className:className},
         this.renderLabel({htmlFor: id}),
         this.transferPropsTo(input),
         isFailure(externalValidation) &&
@@ -169,7 +169,7 @@ var Fieldset = React.createClass({displayName: 'Fieldset',
   render: function() {
     var schema = this.value().schema;
     return this.transferPropsTo(
-      React.DOM.div( {className:"react-forms-fieldset"}, 
+      React.DOM.div( {className:"react-forms-fieldset"},
         schema.props.label && React.DOM.h4(null, schema.props.label),
         schema.map(this.renderField)
       )
@@ -235,7 +235,7 @@ var Form = React.createClass({displayName: 'Form',
   render: function() {
     var component = this.props.component;
     return this.transferPropsTo(
-      component(null, 
+      component(null,
         FormFor(null )
       )
     );
@@ -751,7 +751,7 @@ var Message = React.createClass({displayName: 'Message',
 
   render: function() {
     return this.transferPropsTo(
-      React.DOM.span( {className:"react-forms-message"}, 
+      React.DOM.span( {className:"react-forms-message"},
         this.props.children
       )
     );
@@ -773,7 +773,7 @@ var Item = React.createClass({displayName: 'Item',
 
   render: function() {
     return this.transferPropsTo(
-      React.DOM.div( {className:"react-forms-repeating-fieldset-item"}, 
+      React.DOM.div( {className:"react-forms-repeating-fieldset-item"},
         this.props.children,
         React.DOM.button(
           {onClick:this.onRemove,
@@ -804,16 +804,16 @@ var RepeatingFieldset = React.createClass({displayName: 'RepeatingFieldset',
   render: function() {
     var schema = this.value().schema;
     var Component = this.props.item;
-    var fields = this.renderFields().map(function(item) 
+    var fields = this.renderFields().map(function(item)
       {return Component(
         {key:item.props.name,
         name:item.props.name,
-        onRemove:this.remove}, 
+        onRemove:this.remove},
         item
       );}.bind(this)
     );
     return this.transferPropsTo(
-      React.DOM.div( {className:"react-forms-repeating-fieldset"}, 
+      React.DOM.div( {className:"react-forms-repeating-fieldset"},
         schema.props.label && React.DOM.h4(null, schema.props.label),
         fields,
         React.DOM.button(
@@ -868,9 +868,15 @@ var RepeatingFieldsetMixin = {
   renderFields: function() {
     // prevent circular require
     var createComponentFromSchema = require('./createComponentFromSchema');
+<<<<<<< HEAD:docs/contents/scripts/react-forms.js
     var value = this.value();
     var children = createComponentFromSchema(value.schema.children);
     return value.serializedValue.map(function(item, name) 
+=======
+    var schema = this.schema();
+    var children = createComponentFromSchema(schema.children);
+    return this.serializedValueLens().val().map(function(item, name)
+>>>>>>> New getting started with CommonJS guide, move old docs:olddocs/contents/scripts/react-forms.js
       {return cloneWithProps(children, {name:name, key: name});});
   },
 
@@ -1099,8 +1105,8 @@ var CheckboxGroup = React.createClass({displayName: 'CheckboxGroup',
       return (
         React.DOM.div(
           {className:"react-forms-checkbox-group-button",
-          key:option.value}, 
-          React.DOM.label( {className:"react-forms-checkbox-group-label"}, 
+          key:option.value},
+          React.DOM.label( {className:"react-forms-checkbox-group-label"},
             React.DOM.input(
               {onChange:this.onChange,
               checked:checked,
@@ -1108,7 +1114,7 @@ var CheckboxGroup = React.createClass({displayName: 'CheckboxGroup',
               type:"checkbox",
               name:name,
               value:option.value} ),
-            React.DOM.span( {className:"react-forms-checkbox-group-caption"}, 
+            React.DOM.span( {className:"react-forms-checkbox-group-caption"},
               option.name
             )
           )
@@ -1117,7 +1123,7 @@ var CheckboxGroup = React.createClass({displayName: 'CheckboxGroup',
     }.bind(this));
 
     return (
-      React.DOM.div( {className:"react-forms-checkbox-group"}, 
+      React.DOM.div( {className:"react-forms-checkbox-group"},
         options
       )
     );
@@ -1138,9 +1144,9 @@ function renderEmptyOption(props, onChange) {
   return (
     React.DOM.div(
         {className:"react-forms-radio-button-group-button",
-        key:""}, 
+        key:""},
       React.DOM.label(
-        {className:"react-forms-radio-button-group-label"}, 
+        {className:"react-forms-radio-button-group-label"},
         React.DOM.input(
           {checked:props.checked,
           className:"react-forms-radio-button-group-radio",
@@ -1148,7 +1154,7 @@ function renderEmptyOption(props, onChange) {
           name:props.name,
           onChange:onChange.bind(null, null),
           value:""} ),
-        React.DOM.span( {className:"react-forms-radio-button-group-caption"}, 
+        React.DOM.span( {className:"react-forms-radio-button-group-caption"},
           "none"
         )
       )
@@ -1176,7 +1182,7 @@ var RadioButtonGroup = React.createClass({displayName: 'RadioButtonGroup',
       }
 
       return (
-        React.DOM.div( {className:"react-forms-radio-button-group"}, 
+        React.DOM.div( {className:"react-forms-radio-button-group"},
           options
         )
       );
@@ -1190,9 +1196,9 @@ var RadioButtonGroup = React.createClass({displayName: 'RadioButtonGroup',
       return (
         React.DOM.div(
           {className:"react-forms-radio-button-group-button",
-          key:option.value}, 
+          key:option.value},
           React.DOM.label(
-            {className:"react-forms-radio-button-group-label"}, 
+            {className:"react-forms-radio-button-group-label"},
             React.DOM.input(
               {checked:checked,
               className:"react-forms-radio-button-group-radio",
@@ -1200,7 +1206,7 @@ var RadioButtonGroup = React.createClass({displayName: 'RadioButtonGroup',
               name:name,
               onChange:this.onChange.bind(null, option.value),
               value:option.value} ),
-            React.DOM.span( {className:"react-forms-radio-button-group-caption"}, 
+            React.DOM.span( {className:"react-forms-radio-button-group-caption"},
               option.name
             )
           )
@@ -2017,7 +2023,7 @@ function validator(func) {
     return func;
   }
 
-  var wrapper = function(value, schema) 
+  var wrapper = function(value, schema)
     {return value === null || value === undefined ?
       true :
       func(value, schema);};
@@ -2042,12 +2048,12 @@ function andThen(first, second) {
   return make(wrapper);
 }
 
-var exists = validatorEmpty(function(value, schema) 
+var exists = validatorEmpty(function(value, schema)
   {return schema.required && (value === null || value === undefined) ?
     messages.VALUE_IS_REQUIRED :
     true;});
 
-var nonEmpty = validator(function(value, schema) 
+var nonEmpty = validator(function(value, schema)
   {return schema.nonEmpty && value.length === 0 ?
     messages.AT_LEAST_ONE_ITEM_IS_REQUIRED :
     true;});

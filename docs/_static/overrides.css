@@ -1,0 +1,67 @@
+.section {
+  clear: both;
+}
+
+.reference.internal em {
+  font-style: normal;
+}
+
+.codeblock,
+pre.literal-block,
+.rst-content .literal-block,
+.rst-content pre.literal-block,
+div[class^='highlight'] {
+  border: none;
+  border-left: 1px solid #f1f1f1;
+}
+
+code,
+.rst-content tt {
+  border: none;
+}
+
+hr {
+  border-top: 1px solid #f1f1f1;
+}
+
+.wy-breadcrumbs,
+.wy-breadcrumbs + hr,
+.wy-breadcrumbs li.wy-breadcrumbs-aside {
+  display: none;
+}
+
+.wy-nav-top i {
+  padding: 10px 0;
+}
+
+footer {
+  font-size: 70%;
+  text-align: center;
+}
+footer .rst-footer-buttons {
+  text-align: left;
+}
+
+.admonition p {
+  font-size: 90%;
+  line-height: 1.5em;
+}
+.admonition .admonition-title {
+  background: none !important;
+  color: #9E9D9D !important;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: 70%;
+}
+.admonition .admonition-title:before {
+  content: normal;
+}
+
+@media (min-width: 1100px) {
+  .admonition.inline {
+    float: right;
+    margin-right: -50px;
+    margin-left: 20px;
+    width: 40%;
+  }
+}

@@ -14,7 +14,7 @@ There are several ways in which React Forms can be customized and extended:
 * Custom components for form, fieldset, repeating fieldset and field rendering
   can be created. Such components can be used to customize form rendering or
   even provide some custom interpretation for extended form schemas.
-  
+
 * Custom input components can be created and used for any specific form fields.
   For example date pickers, WYSIWYG editors and so on.
 
