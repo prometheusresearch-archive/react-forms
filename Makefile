@@ -1,6 +1,6 @@
 BIN   = ./node_modules/.bin
 PATH := $(BIN):$(PATH)
-TESTS = $(shell find ./lib -path '**/tests/*.js')
+TESTS = $(shell find ./lib -path '**/__tests__/*.js')
 MAKE_DOCS = $(MAKE) --no-print-directory -C docs
 
 docs-preview docs-publish::
