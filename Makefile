@@ -3,9 +3,6 @@ PATH := $(BIN):$(PATH)
 TESTS = $(shell find ./lib -path '**/__tests__/*.js')
 MAKE_DOCS = $(MAKE) --no-print-directory -C docs
 
-docs-preview docs-publish::
-	@$(MAKE_DOCS) $(@:docs-%=%)
-
 lint:
 	@eslint-jsx lib/
 
