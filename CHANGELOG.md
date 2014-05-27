@@ -7,7 +7,9 @@
 
   - Allow passing form value via props to form elements.
 
-  - Add support for external validation
+  - Add support for external validation.
+
+  - Rewritten documentation.
 
 ## 0.1.0
 
