@@ -1,8 +1,8 @@
 Overview
 ========
 
-There are three central concepts — form schemas, form components and input
-components.
+There are three central concepts in React Forms — form schemas, form components
+and input components.
 
 Form Schemas
 ------------
@@ -11,10 +11,10 @@ Form schemas are high level declarative descriptions of how forms should
 operate: what's shape of the data form should handle, how to render any specific
 field, how to validate user input and so on.
 
-Form schemas doesn't do anything by themselves they are just metadata and are
-subject to interpretation by form components of React Forms library.
+Form schemas don't do anything by themselves they are just metadata and are
+subject to interpretation by form components (see :ref:`form-components`) of React Forms library.
 
-A basic example of form schema would look like::
+A basic example of a form schema looks like::
 
   function Person(props) {
     props = props || {}
@@ -36,9 +36,16 @@ A basic example of form schema would look like::
     </Schema>
   )
 
-Note that this example uses JSX syntax to define schema (similar to how React
-uses JSX to describe UI) but it's not required. You can read more about schemas
-on :doc:`Schemas and validation` documentation page.
+
+.. note::
+  :class: inline
+
+  The example uses JSX syntax to describe schema (similar to how React uses JSX
+  to describe UI) but it's not required.
+
+You can read more about schemas on :doc:`schema` documentation page.
+
+.. _form-components:
 
 Form Components
 ---------------
@@ -47,24 +54,50 @@ Form components are React components which interpret form schemas to render
 form UI and handle validation and data flow. They are designed to be as generic
 as possible and so to be reusable across as many form schemas as possible.
 
-There are four types of form components, each for different schema type and on
-for form itself:
+There are four types of form components, each for different schema type and one
+component which serves as a form controller: ``<Form />``, ``<Field />``,
+``<Fieldset />`` and ``<RepeatingFieldset />``.
 
-  * ``Form`` (and corresponding ``FormMixin``) is the only stateful component, which
-    holds form value and manages its validation.
-  * ``Field`` (and corresponding ``FieldMixin``) is used to render values which
-    corresponds to ``<Property />`` schema nodes, scalars such as strings, numbers
-    and so on.
-  * ``Fieldset`` (and corresponding ``FieldsetMixin``) is used to render values which
-    corresponds to ``<Schema />`` schema nodes.
-  * ``RepeatingFieldset`` (and corresponding ``RepeatingFieldsetMixin``) is used to
-    render values which corresponds to ``<List />`` schema nodes.
+The functional scope of form components is to decide where to render ``<label
+/>`` elements, when to show hide any specific field, how to handle array values
+and so on. What falls outside of this is how users enter form values, this is
+handled by input components (see :ref:`input-components`) instead.
 
+<Form />
+~~~~~~~~
 
-The functional scope of form components is to decide where to render ``<label />``
-elements, when to show hide any specific field, how to handle array values and
-so on. What falls outside of this is how users enter form values, this is
-handled by input components instead.
+``<Form />`` component is the only stateful component provided by React Forms.
+It serves as a form controller, holds form value and validation state and
+updates it accordingly.
+
+Every change made by user through an input component is propagated up to the
+form component.
+
+<Field />
+~~~~~~~~~
+
+``<Field />`` component is used to represent scalar values (strings, numbers,
+dates and so on), values which correspond to schema nodes of type ``Property``.
+
+This component renders input component and corresponding ``<label>`` component
+with field label and hint text.
+
+<Fieldset />
+~~~~~~~~~~~~
+
+``<Fieldset />`` component is used to render objects, values which correspond to
+schema nodes of type ``Schema``.
+
+<RepeatingFieldset />
+~~~~~~~~~~~~~~~~~~~~~
+
+<RepeatingFieldset /> is used to render values which corresponds to ``List``
+schema nodes.
+
+It renders a form component for each item in a value and also provides controls
+to create a new item and to remove existent items.
+
+.. _input-components:
 
 Input Components
 ----------------
