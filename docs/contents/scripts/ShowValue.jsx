@@ -16,23 +16,12 @@ window.ShowValue = React.createClass({
   getInitialState: function() {
     return {
       value: this.props.children.props.value,
-      validation: this.props.children.props.validation,
-      serializedValue: this.props.children.props.serializedValue,
       showDebugInfo: false
     };
   },
 
-  onUpdate: function(value, validation, serializedValue) {
-    var nextState = {
-      validation: validation,
-      serializedValue: serializedValue
-    };
-
-    if (ReactForms.validation.isSuccess(validation)) {
-      nextState.value = value;
-    }
-
-    this.setState(nextState);
+  onUpdate: function(_, value) {
+    this.setState({value});
   },
 
   toggleDebugInfo: function() {
@@ -42,8 +31,6 @@ window.ShowValue = React.createClass({
   render: function() {
     var props = {
       value: this.state.value,
-      validation: this.state.validation,
-      serializedValue: this.state.serializedValue,
       onUpdate: this.onUpdate
     };
 
@@ -70,21 +57,21 @@ window.ShowValue = React.createClass({
           <pre className="value">
             {this.state.value === undefined ?
               'null' :
-              JSON.stringify(this.state.value, undefined, 2)}
+              JSON.stringify(this.state.value.value, undefined, 2)}
           </pre>
           {this.state.showDebugInfo &&
             <div className="DebugInfo">
               <p className="text">Serialized value:</p>
               <pre className="value">
-                {this.state.serializedValue === undefined ?
+                {this.state.value === undefined ?
                   'null' :
-                  JSON.stringify(this.state.serializedValue, undefined, 2)}
+                  JSON.stringify(this.state.value.serializedValue, undefined, 2)}
               </pre>
               <p className="text">Validation:</p>
               <pre className="value">
-                {this.state.validation === undefined ?
+                {this.state.value === undefined ?
                   'null' :
-                  JSON.stringify(this.state.validation, undefined, 2)}
+                  JSON.stringify(this.state.value.validation, undefined, 2)}
               </pre>
             </div>}
         </div>

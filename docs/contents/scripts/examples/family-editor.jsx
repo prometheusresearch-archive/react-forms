@@ -138,7 +138,7 @@ var ChildFieldset = React.createClass({
   mixins: [ReactForms.FieldsetMixin],
 
   render: function() {
-    var sex = this.valueLens().val().sex;
+    var sex = this.value().value.sex;
     return this.transferPropsTo(
       <div className="react-forms-fieldset">
         <FormFor name="name" />
