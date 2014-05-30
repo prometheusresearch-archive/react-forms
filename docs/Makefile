@@ -60,7 +60,13 @@ publish: clean html
 clean:
 	rm -rf $(BUILDDIR)/*
 
-html:
+_static/bundle.js: $(shell find ../lib -name '*.js')
+	@../node_modules/.bin/browserify -d \
+		-r ../:react-forms \
+		-r react/addons:react \
+		../ > $@
+
+html: _static/bundle.js
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
