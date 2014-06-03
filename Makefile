@@ -10,7 +10,9 @@ lint:
 clean:
 	@rm -rf ./node_modules/
 
-test: test-phantomjs integration-test
+test: unit-test integration-test
+
+unit-test: test-phantomjs
 
 integration-ci:
 	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(INTEGRATION_TESTS)
@@ -18,7 +20,7 @@ integration-ci:
 integration-test:
 	@NODE_PATH=$(NODE_PATH) mochify -R dot $(INTEGRATION_TESTS)
 
-ci:
+unit-ci:
 	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(TESTS)
 
 test-phantomjs:
