@@ -181,7 +181,7 @@ var SortableRepeatingFieldset = React.createClass({
     var node = this._image = document.createElement('div');
     var schema = this.schema().children;
     var value = this.valueLens().val()[info.name];
-    React.renderComponent(Form({schema, value}), node);
+    React.renderComponent(Form({schema: schema, value: value}), node);
     node.classList.add('SortableImage');
     node.innerHTML
     node.style.position = 'absolute';
