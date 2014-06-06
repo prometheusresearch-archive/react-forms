@@ -83,7 +83,7 @@ footer .rst-footer-buttons {
   color: red;
 }
 .react-forms-field input {
-  width: 50%;
+  width: 100%;
 }
 
 .react-forms-message {
@@ -108,4 +108,10 @@ footer .rst-footer-buttons {
 }
 
 .react-forms-repeating-fieldset {
+}
+
+@media (min-width: 900px) {
+  .react-forms-field input {
+    width: 50%;
+  }
 }
