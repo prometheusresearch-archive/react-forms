@@ -65,3 +65,47 @@ footer .rst-footer-buttons {
     width: 40%;
   }
 }
+
+/**
+ * ReactForms styling
+ */
+
+.react-forms-form,
+.react-forms-fieldset,
+.react-forms-repeating-fieldset {
+  margin-bottom: 1.5em;
+}
+
+.react-forms-field {
+  margin-bottom: 1em;
+}
+.react-forms-field.invalid {
+  color: red;
+}
+.react-forms-field input {
+  width: 50%;
+}
+
+.react-forms-message {
+  display: block;
+  font-size: 80%;
+  padding: 5px;
+}
+
+.react-forms-label {
+  font-weight: bold;
+}
+.react-forms-label .react-forms-hint {
+  display: block;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+.react-forms-form {
+}
+
+.react-forms-fieldset {
+}
+
+.react-forms-repeating-fieldset {
+}

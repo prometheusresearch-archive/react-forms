@@ -171,7 +171,7 @@ controls to add and remove children records:
   function Family(props) {
     props = props || {}
     return (
-      <Schema name={props.name}>
+      <Schema name={props.name} label={props.label || 'Family'}>
         <Adult name="mother" label="Mother" />
         <Adult name="father" label="Father" />
         <List label="Children" name="children">
