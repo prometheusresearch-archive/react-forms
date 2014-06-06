@@ -10,153 +10,23 @@ The example form is a form for entering information about family.
 .. raw:: html
 
   <div id="example"></div>
-  <script>
-  window.onload = function() {
-  var React            = require('react');
-  var ReactForms       = require('react-forms');
-
-  var Form             = ReactForms.Form;
-  var FormFor          = ReactForms.FormFor;
-  var Schema           = ReactForms.schema.Schema;
-  var List             = ReactForms.schema.List;
-  var Property         = ReactForms.schema.Property;
-  var RadioButtonGroup = ReactForms.input.RadioButtonGroup;
-
-  function SexField(props) {
-    props = props || {};
-    var options = [
-      {value: 'male', name: 'Male'},
-      {value: 'female', name: 'Female'}
-    ];
-    return Property({
-      name: props.name || 'sex',
-      label: props.label || 'Sex',
-      required: props.required,
-      input: RadioButtonGroup({options: options})
-    });
-  }
-
-  var NameInput = React.createClass({
-
-    getInitialState: function() {
-      return {selection: {start: 0, end: 0}};
-    },
-
-    onChange: function(e) {
-      var value = e.target.value;
-      var node = this.getDOMNode();
-      this.setState({
-        selection: {start: node.selectionStart, end: node.selectionEnd}
-      });
-      this.props.onChange(value);
-    },
-
-    componentDidUpdate: function() {
-      var node = this.getDOMNode();
-      if (document.activeElement === node) {
-        node.setSelectionRange(this.state.selection.start, this.state.selection.end);
-      }
-    },
-
-    format: function(value) {
-      return value.split(/\s+/)
-        .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1); })
-        .join(' ');
-    },
-
-    render: function() {
-      var value = this.format(this.props.value);
-      return this.transferPropsTo(
-        React.DOM.input({
-          type: "text",
-          value: value,
-          onChange: this.onChange
-        })
-      );
-    }
-  });
-
-  function validateName(v) {
-    return /^[a-z\s]+$/i.test(v) ? true : 'should contain only letters';
-  }
-
-  function NameField(props) {
-    props = props || {};
-    return Property({
-      required: props.required,
-      defaultValue: props.defaultValue,
-      name: props.name || 'name',
-      label: props.label || 'Name',
-      hint: "Should contain only alphanumeric characters",
-      input: NameInput(),
-      validate: validateName
-    });
-  }
-
-  function DateOfBirthField(props) {
-    props = props || {};
-    return Property({
-      name: props.name || 'dob',
-      label: props.label || 'Date of Birth',
-      hint: "Should be in YYYY-MM-DD format",
-      type: "date",
-    });
-  }
-
-  function Adult(props) {
-    props = props || {};
-    return Schema({label: props.label || 'Adult', name: props.name},
-      NameField({required: true}),
-      DateOfBirthField()
-    );
-  }
-
-  function Child(props) {
-    props = props || {};
-    return Schema({component: ChildFieldset, name: props.name},
-      NameField({required: true}),
-      DateOfBirthField(),
-      SexField({required: true}),
-      Property({label: "Female specific value", name: "femaleSpecificValue"}),
-      Property({label: "Male specific value", name: "maleSpecificValue"})
-    );
-  }
-
-  function Family(props) {
-    props = props || {};
-    return Schema({name: props.name},
-      Adult({name: "mother", label: "Mother"}),
-      Adult({name: "father", label: "Father"}),
-      List({label: "Children", name: "children"}, Child())
-    );
-  }
-
-  var ChildFieldset = React.createClass({
-    mixins: [ReactForms.FieldsetMixin],
-
-    render: function() {
-      var sex = this.value().value.sex;
-      return this.transferPropsTo(
-        React.DOM.div({className: "react-forms-fieldset"},
-          FormFor({name: "name"}),
-          FormFor({name: "dob"}),
-          FormFor({name: "sex"}),
-          sex === 'male' && FormFor({name: "maleSpecificValue"}),
-          sex === 'female' && FormFor({name: "femaleSpecificValue"})
-        )
-      );
-    }
-  });
-
-  React.renderComponent(
-    Form({schema: Family()}),
-    document.getElementById('example')
-  );
-  }
-  </script>
 
 Implementation
 --------------
+
+First we need to bring needed components and utilities into scope:
+
+.. jsx::
+
+  var React            = require('react')
+  var ReactForms       = require('react-forms')
+
+  var Form             = ReactForms.Form
+  var FormFor          = ReactForms.FormFor
+  var Schema           = ReactForms.schema.Schema
+  var List             = ReactForms.schema.List
+  var Property         = ReactForms.schema.Property
+  var RadioButtonGroup = ReactForms.input.RadioButtonGroup
 
 Schema
 ~~~~~~
@@ -167,9 +37,9 @@ SexField
 ~~~~~~~~
 
 ``SexField`` represents sex of a person. We want to use a radio button group as an
-input component for this type of values::
+input component for this type of values:
 
-  var RadioButtonGroup = ReactForms.input.RadioButtonGroup
+.. jsx::
 
   function SexField(props) {
     props = props || {}
@@ -197,22 +67,28 @@ Now let's define a schema for fields which represent a name of a person. We want
 to autoformat name so it appears capitalized and we want to perform additional
 validation on name value so it cannot contain number or any other non-letters.
 
-First we define a validator::
+First we define a validator:
+
+.. jsx::
 
   function validateName(v) {
-    return /^[a-z\s]+$/i.test(v)
+    return /^[a-z\s]+$/i.test(v) ? true : 'should contain only letters'
   }
 
-Now we can use it in schema definition::
+Now we can use it in schema definition:
+
+.. jsx::
 
   function NameField(props) {
     props = props || {}
     return (
       <Property
+        required={props.required}
+        defaultValue={props.defaultValue}
         name={props.name || 'name'}
         label={props.label || 'Name'}
         hint="Should contain only alphanumeric characters"
-        input={<NameInput />}
+        input={NameInput()}
         validate={validateName}
         />
     )
@@ -224,7 +100,9 @@ for ``<input type="text" />`` which autoformats user input by capitalizing it.
 DateOfBirthField
 ~~~~~~~~~~~~~~~~
 
-``DateOfBirthField`` is define similar to previous fields::
+``DateOfBirthField`` is define similar to previous fields:
+
+.. jsx::
 
   function DateOfBirthField(props) {
     props = props || {}
@@ -246,12 +124,14 @@ Now we can define schemas for adults and children, both using already defined
 
 Note the ``component`` property of ``Child`` schema what defines which fieldset
 component should be used to render schemas of such type. We will show how to
-define ``ChildFieldset`` below::
+define ``ChildFieldset`` below:
+
+.. jsx::
 
   function Adult(props) {
     props = props || {}
     return (
-      <Schema label={props.label} name={props.name}>
+      <Schema label={props.label || 'Adult'} name={props.name}>
         <NameField />
         <DateOfBirthField />
       </Schema>
@@ -275,6 +155,7 @@ define ``ChildFieldset`` below::
     )
   }
 
+
 Family
 ~~~~~~
 
@@ -283,9 +164,12 @@ defined previously.
 
 Note how we have defined ``Children`` as a list of ``Child``. That describes that a
 family can have multiple children and form would have a corresponding UI
-controls to add and remove children records::
+controls to add and remove children records:
+
+.. jsx::
 
   function Family(props) {
+    props = props || {}
     return (
       <Schema name={props.name}>
         <Adult name="mother" label="Mother" />
@@ -301,7 +185,9 @@ Custom input component for name formatting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Now let's define ``<NameInput />`` component which is used by ``NameField`` field to
-capitalize user input automatically::
+capitalize user input automatically:
+
+.. jsx::
 
   var NameInput = React.createClass({
 
@@ -337,7 +223,8 @@ capitalize user input automatically::
         <input
           type="text"
           value={value}
-          onChange={this.onChange} />
+          onChange={this.onChange}
+          />
       )
     }
   })
@@ -356,18 +243,20 @@ different set of fields based on a sex of a child.
 Note that creating a fieldset component reduces down to using ``FieldsetMixin``
 mixin and defining ``render()`` method.
 
-``FieldsetMixin`` provides ``valueLens()`` method which allows accessing a current form
-value for this particular schema node via ``valueLens().val()``.
+``FieldsetMixin`` provides ``value()`` method which allows accessing a current
+form value for this particular schema node via ``value().value``.
 
-To render its fields ``ChildFieldset`` component uses a ``FormFor`` component which
-automatically receives a corresponding schema and value based on its ``name``
-property::
+To render its fields ``ChildFieldset`` component uses a ``FormFor`` component
+which automatically receives a corresponding schema and value based on its
+``name`` property:
+
+.. jsx::
 
   var ChildFieldset = React.createClass({
     mixins: [ReactForms.FieldsetMixin],
 
     render: function() {
-      var sex = this.valueLens().val().sex
+      var sex = this.value().value.sex
       return this.transferPropsTo(
         <div className="react-forms-fieldset">
           <FormFor name="name" />
@@ -386,6 +275,11 @@ Rendering forms
 ~~~~~~~~~~~~~~~
 
 Finally we can render our *Family form* by simply using ``Form`` component with
-out ``Family`` schema::
+out ``Family`` schema:
 
-  <Form schema={<Family />} />
+.. jsx::
+
+  React.renderComponent(
+    <Form schema={<Family />} />,
+    document.getElementById('example')
+  )
