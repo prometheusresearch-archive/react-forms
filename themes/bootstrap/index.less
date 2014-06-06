@@ -1,11 +1,11 @@
-.react-forms-fieldset {
+.rf-fieldset {
   .form-group();
 }
 
-.react-forms-field {
+.rf-field {
   .form-group();
 
-  &.react-forms-invalid {
+  &.rf-invalid {
     @border-color: @state-danger-text;
 
 
@@ -53,16 +53,16 @@
   }
 }
 
-.react-forms-repeating-fieldset {
+.rf-repeating-fieldset {
   .form-group();
 
-  .react-forms-repeating-fieldset-add {
+  .rf-repeating-fieldset-add {
     .btn();
     .btn-sm();
     .btn-success();
   }
 
-  .react-forms-repeating-fieldset-item {
+  .rf-repeating-fieldset-item {
     @padding: 15px;
     .form-group();
 
@@ -70,7 +70,7 @@
     position: relative;
     padding: @padding;
 
-    .react-forms-repeating-fieldset-remove {
+    .rf-repeating-fieldset-remove {
       .close();
       border: none;
       background: transparent;
@@ -82,21 +82,21 @@
 }
 
 
-.react-forms-field {
+.rf-field {
   padding: 5px;
 }
 
-.react-forms-hint {
+.rf-hint {
   font-size: 70%;
   font-weight: normal;
   display: block;
 }
 
-.react-forms-invalid {
+.rf-invalid {
   background: lighten(@brand-danger, 35%);
 }
 
-.react-forms-message {
+.rf-message {
   margin: 5px;
   font-size: 80%;
   color: @state-danger-text;
