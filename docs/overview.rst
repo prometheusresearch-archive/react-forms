@@ -132,4 +132,4 @@ notifies form via callback (also exposed via context).
 Thus React Forms guarantees that the entire form state is accessible from a
 single location and is immutable. That enables such complex functionality as
 undo/redo to be implemented in about 50 LOC, see the
-:doc:`examples/undo-example`.
+:doc:`examples/undo`.
