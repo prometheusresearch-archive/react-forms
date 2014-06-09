@@ -2,6 +2,8 @@ API reference
 =============
 
 .. contents::
+  :local:
+  :depth: 2
 
 Schema
 ------
@@ -96,6 +98,18 @@ In addition to common schema properties, ``List`` supports the following ones:
   Used as a shortcut for a validator which validates an array only if it has at
   least one element.
 
+Functions
+~~~~~~~~~
+
+``ReactForms.schema.isProperty(schema)``
+  Check if ``schema`` node has type ``Property``.
+
+``ReactForms.schema.isSchema(schema)``
+  Check if ``schema`` node has type ``Schema``.
+
+``ReactForms.schema.isList(schema)``
+  Check if ``schema`` node has type ``List``.
+
 Components
 ----------
 
@@ -104,6 +118,35 @@ Components
 
 A component which represents an entire form: holds form value and validation
 state.
+
+props
+`````
+
+``schema``
+  Schema to use.
+
+``defaultValue``
+  Value which is used to set default value of the form. This only used for first
+  render of the component.
+
+``externalValidation``
+  Validation structure which represents some external validation (like
+  validation from a server side).
+
+``component``
+  Component to render form as. By default ``<form />`` component is used.
+
+``onChange(value)``
+  Callback which fires on every change which results in a valid form value.
+
+``onUpdate(value, isValid)``
+  Callback which fires on every change.
+
+methods
+```````
+
+``value()``
+  Return form value object.
 
 ``ReactForms.Field``
 ~~~~~~~~~~~~~~~~~~~~
@@ -140,11 +183,58 @@ boilerplate.
 ``ReactForms.FormMixin``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+methods
+```````
+
+``value()``
+  Return form value object.
+
 ``ReactForms.FieldMixin``
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+methods
+```````
+
+``value()``
+  Return field value object.
 
 ``ReactForms.FieldsetMixin``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+methods
+```````
+
+``value()``
+  Return fieldset value object.
+
 ``ReactForms.RepeatingFieldsetMixin``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+methods
+```````
+
+``value()``
+  Return repeating fieldset value object.
+
+Validation
+----------
+
+``ReactForms.validation.validate(schema, value)``
+  Validate ``value`` against ``schema`` and return validation object which can
+  be checked with ``isSuccess`` or ``isFailure`` function for validness.
+
+``ReactForms.validation.isSuccess(validation)``
+  Return ``true`` is validation successful.
+
+``ReactForms.validation.isFailure(validation)``
+  Return ``true`` is validation failed.
+
+Input components
+----------------
+
+``ReactForms.input.CheckboxGroup``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``ReactForms.input.RadioButtonGroup``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
