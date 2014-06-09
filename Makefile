@@ -25,3 +25,21 @@ unit-ci:
 
 test-phantomjs:
 	@NODE_PATH=$(NODE_PATH) mochify -R dot $(TESTS)
+
+release-patch: test lint
+	@$(call release,patch)
+
+release-minor: test lint
+	@$(call release,minor)
+
+release-major: test lint
+	@$(call release,major)
+
+publish:
+	@git push --tags origin HEAD:master
+	@npm publish
+	@$(MAKE) -C docs publish
+
+define release
+	npm version $(1)
+endef
