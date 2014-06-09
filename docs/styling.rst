@@ -4,6 +4,11 @@ Styling
 React Forms defines the following classes for each component. Each class is
 prefixed with ``rf`` prefix.
 
+.. note::
+  :class: inline
+
+  React Forms uses BEM_ syntax for CSS classes.
+
 Form
 ----
 
@@ -67,3 +72,5 @@ Message
 
 ``.rf-Message``
   Error message
+
+.. _BEM: http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
