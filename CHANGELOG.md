@@ -2,14 +2,17 @@
 
 ## 0.2.0
 
-  - Consolidate form value, serialized value and validation state into FormValue
-    object. This dramatically simplified Form components implementation.
+  - Form/form element value is now consolidated together with validation state
+    and serialized value in a single data structure which is accessible via
+    ``value()`` method.
 
-  - Allow passing form value via props to form elements.
+  - Form value can be passed to form elements via ``value`` prop and not only
+    via context as before.
 
-  - Add support for external validation.
+  - Add support for external validation via ``externalValidation`` property of
+    ``Form`` component.
 
-  - Rewritten documentation.
+  - Move documentation to Sphinx.
 
 ## 0.1.0
 
