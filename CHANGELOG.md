@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0
+
+  - Use BEM syntax for CSS class names.
+
 ## 0.2.0
 
   - Form/form element value is now consolidated together with validation state
