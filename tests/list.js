@@ -43,7 +43,7 @@ describe('list form integration test', function() {
 
     removeButtons = TestUtils.scryRenderedDOMComponentsWithClass(
       form,
-      'rf-repeating-fieldset-remove'
+      'rf-RepeatingFieldset__remove'
     );
 
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
@@ -57,7 +57,10 @@ describe('list form integration test', function() {
     onUpdate = sinon.spy();
     form = TestUtils.renderIntoDocument(Form({schema, onChange, onUpdate}));
     findFieldsInputs();
-    addButton = TestUtils.findRenderedDOMComponentWithClass(form, 'rf-repeating-fieldset-add');
+    addButton = TestUtils.findRenderedDOMComponentWithClass(
+      form,
+      'rf-RepeatingFieldset__add'
+    );
   });
 
   it('renders', function() {

@@ -55,6 +55,7 @@ Now if you are ready to try, there's a :doc:`getting-started` page.
    overview
    schema
    customizations
+   styling
    api
    examples/index
 

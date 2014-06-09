@@ -71,7 +71,7 @@ footer .rst-footer-buttons {
  */
 
 .button,
-.rf-repeating-fieldset-add {
+.rf-RepeatingFieldset__add {
   border-radius: 2px;
   line-height: normal;
   white-space: nowrap;
@@ -99,7 +99,7 @@ footer .rst-footer-buttons {
   box-shadow: none;
 }
 
-.rf-repeating-fieldset-remove {
+.rf-RepeatingFieldset__remove {
   color: #404040 !important;
   border: none;
   background: transparent;
@@ -107,60 +107,58 @@ footer .rst-footer-buttons {
   top: 10px;
   right: 10px;
 }
-.rf-repeating-fieldset-item {
+.rf-RepeatingFieldset__item {
   position: relative;
 }
 
-.rf-form,
-.rf-fieldset,
-.rf-repeating-fieldset {
+.rf-Form,
+.rf-Fieldset,
+.rf-RepeatingFieldset {
   margin-bottom: 1.5em;
 }
 
-.rf-field {
+.rf-Field {
   margin-bottom: 1em;
 }
-.rf-field.invalid {
+.rf-Field--invalid {
   color: red;
 }
-.rf-field input[type="text"] {
+.rf-Field input[type="text"] {
   width: 100%;
 }
 
-.rf-message {
+.rf-Message {
   display: block;
   font-size: 80%;
   padding: 5px;
 }
 
-.rf-label {
+.rf-Label {
   font-weight: bold;
 }
-.rf-label .rf-hint {
+
+.rf-RepeatingFieldset__label,
+.rf-Fieldset__label {
+  font-size: 120%;
+  margin-bottom: 1em;
+}
+
+.rf-Hint {
   display: block;
   font-weight: normal;
   font-size: 80%;
 }
 
-.rf-form {
-}
-
-.rf-fieldset {
-}
-
-.rf-repeating-fieldset {
-}
-
-.rf-radio-button-group {
+.rf-RadioButtonGroup {
   padding: 10px;
 }
 
-.rf-radio-button-group-button {
+.rf-RadioButtonGroup__button {
   padding: 5px;
 }
 
 @media (min-width: 900px) {
-  .rf-field input[type="text"] {
+  .rf-Field input[type="text"] {
     width: 50%;
   }
 }
