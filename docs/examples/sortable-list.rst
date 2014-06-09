@@ -8,6 +8,14 @@ Add a few items and try to drag them with the handle to sort items in a list.
 
 .. raw:: html
 
+  <style>
+    .SortableHandle {
+      font-size: 80%;
+      color: #aaa;
+      cursor: move;
+      padding: 10px;
+    }
+  </style>
   <div id="example"></div>
 
 Implementation

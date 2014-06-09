@@ -7,6 +7,11 @@ simply moving focus forward using ``Tab`` key.
 
 .. raw:: html
 
+  <style>
+    .rf-repeating-fieldset-remove {
+      top: 0 !important;
+    }
+  </style>
   <div id="example"></div>
 
 Implementation
@@ -49,13 +54,13 @@ Implementation
         {onFocus: this.onFocus.bind(null, item.props.name)}
       )
       return (
-        <div key={item.props.name} className="Item">
+        <div key={item.props.name} className="rf-repeating-fieldset-item">
           {item}
           <button
             onClick={this.onRemoveItem.bind(null, item.props.name)}
             tabIndex="-1"
             type="button"
-            className="Remove">&times;
+            className="rf-repeating-fieldset-remove">&times;
           </button>
         </div>
       )

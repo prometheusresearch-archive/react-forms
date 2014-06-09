@@ -70,48 +70,97 @@ footer .rst-footer-buttons {
  * ReactForms styling
  */
 
-.react-forms-form,
-.react-forms-fieldset,
-.react-forms-repeating-fieldset {
+.button,
+.rf-repeating-fieldset-add {
+  border-radius: 2px;
+  line-height: normal;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  font-size: 80%;
+  padding: 4px 10px;
+  color: #404040 !important;
+  border: 1px solid rgba(0,0,0,0.1);
+  background-color: #f3f6f6 !important;
+  text-decoration: none;
+  font-weight: normal;
+  box-shadow: 0px 1px 2px -1px rgba(255, 255, 255, .5) inset, 0px -2px 0px 0px rgba(0,0,0,.1) inset;
+  outline-none: false;
+  vertical-align: middle;
+  *display: inline;
+  zoom: 1;
+  -webkit-user-drag: none;
+}
+
+.button[disabled] {
+  cursor: default;
+  color: #aaa;
+  background: white;
+  box-shadow: none;
+}
+
+.rf-repeating-fieldset-remove {
+  color: #404040 !important;
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.rf-repeating-fieldset-item {
+  position: relative;
+}
+
+.rf-form,
+.rf-fieldset,
+.rf-repeating-fieldset {
   margin-bottom: 1.5em;
 }
 
-.react-forms-field {
+.rf-field {
   margin-bottom: 1em;
 }
-.react-forms-field.invalid {
+.rf-field.invalid {
   color: red;
 }
-.react-forms-field input {
+.rf-field input[type="text"] {
   width: 100%;
 }
 
-.react-forms-message {
+.rf-message {
   display: block;
   font-size: 80%;
   padding: 5px;
 }
 
-.react-forms-label {
+.rf-label {
   font-weight: bold;
 }
-.react-forms-label .react-forms-hint {
+.rf-label .rf-hint {
   display: block;
   font-weight: normal;
   font-size: 80%;
 }
 
-.react-forms-form {
+.rf-form {
 }
 
-.react-forms-fieldset {
+.rf-fieldset {
 }
 
-.react-forms-repeating-fieldset {
+.rf-repeating-fieldset {
+}
+
+.rf-radio-button-group {
+  padding: 10px;
+}
+
+.rf-radio-button-group-button {
+  padding: 5px;
 }
 
 @media (min-width: 900px) {
-  .react-forms-field input {
+  .rf-field input[type="text"] {
     width: 50%;
   }
 }

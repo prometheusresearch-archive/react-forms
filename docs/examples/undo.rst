@@ -10,6 +10,13 @@ as adding/removing a fieldset in repeating fieldset.
 
 .. raw:: html
 
+  <style>
+    .UndoControls {
+      margin: 10px 0;
+      text-align: center;
+      font-size: 80%;
+    }
+  </style>
   <div id="example"></div>
 
 Implementation
@@ -108,13 +115,13 @@ Next we define a simple undo controls component which renders two buttons for
           <button
             disabled={!this.props.hasUndo}
             onClick={this.props.onUndo}
-            type="button" className="btn btn-info btn-xs">
+            type="button" className="button">
             ⟲ Undo
           </button>
           <button
             disabled={!this.props.hasRedo}
             onClick={this.props.onRedo}
-            type="button" className="btn btn-info btn-xs">
+            type="button" className="button">
             ⟳ Redo
           </button>
         </div>
