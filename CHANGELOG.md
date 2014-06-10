@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.1
+
+  - Remove deep freezing the value in development mode.
+
+  - Bug fixes.
+
 ## 0.3.0
 
   - Use BEM syntax for CSS class names.
