@@ -6,7 +6,20 @@ and validation. It is designed as a number of orthogonal features which fit well
 together but can be used separately or replaced with alternatives.
 
 The basic example which allows you to create pretty complex form with repeated
-fieldsets looks like::
+fieldsets looks like:
+
+.. jsx::
+  :hidesource:
+
+  var React = require('react')
+  var ReactForms = require('react-forms')
+
+  var Schema = ReactForms.schema.Schema
+  var Property = ReactForms.schema.Property
+  var List = ReactForms.schema.List
+  var Form = ReactForms.Form
+
+.. jsx::
 
   function Person(props) {
     props = props || {}
@@ -22,7 +35,7 @@ fieldsets looks like::
     <Schema>
       <Person name="mother" label="Mother" />
       <Person name="father" label="Father" />
-      <List name="children">
+      <List name="children" label="Children">
         <Person />
       </List>
     </Schema>
@@ -30,7 +43,13 @@ fieldsets looks like::
 
   React.renderComponent(
     <Form schema={family} />,
-    document.getElementById('form'))
+    document.getElementById('example'))
+
+Which results in a form:
+
+.. raw:: html
+
+  <div id="example"></div>
 
 Forms are described with **form schemas** and then rendered with **form
 components**. The separation allows to reduce boilerplate and to make form UI
