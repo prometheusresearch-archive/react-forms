@@ -89,7 +89,7 @@ rendering of any specific field in fieldset to a corresponding component::
         <div>
           <FormFor name="name" />
           <FormFor name="anotherField" />
-          {this.valueLens().val().age > 18 &&
+          {this.value().value.age > 18 &&
             <FormFor name="specialField" />}
         </div>
       )
@@ -126,8 +126,12 @@ repeating fieldsets::
       return (
         <div>
           {this.items()}
-          <button onClick={this.addItem}>Add</button>
+          <button onClick={this.onAdd}>Add</button>
         </div>
       )
+    },
+
+    onAdd: function() {
+      this.add();
     }
   })
