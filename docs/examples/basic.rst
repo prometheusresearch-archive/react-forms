@@ -47,6 +47,11 @@ We start with a schema for our form:
     </Schema>
   )
 
+Note how we use ``required`` property on schema nodes to tell React Forms we
+want the form to be valid only if values for those schema nodes are present.
+
+We also provide a custom validator to ``email`` field.
+
 Now we define a form component which wraps React Forms ``Form`` component and
 provides a button to submit a form:
 
