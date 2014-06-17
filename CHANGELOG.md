@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.2
+
+  - Fix IE8 compatibility (#17).
+
+  - Fix schema changes weren't applied to a form (#27).
+
 ## 0.3.1
 
   - Remove deep freezing the value in development mode.
