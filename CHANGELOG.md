@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.3
+
+  - Fix release 0.3.2
+
 ## 0.3.2
 
   - Fix IE8 compatibility (#17).
