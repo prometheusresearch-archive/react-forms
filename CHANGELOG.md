@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.5
+
+  - Do not keep validation state when schema is updated.
+
 ## 0.3.4
 
   - Fix schema API to allow falsy children (useful for {condition && <... />})
