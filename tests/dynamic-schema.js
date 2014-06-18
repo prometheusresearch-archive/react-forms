@@ -67,4 +67,26 @@ describe('form with dynamic schema', function() {
 
   });
 
+  it('allow conditional nodes', function() {
+
+    function getSchema(city) {
+      return (
+        <Schema>
+          <Property name="address_1" required />
+          {city === 'OTHER' ? <Property name="city" required /> : null}
+        </Schema>
+      );
+    }
+
+    assert.doesNotThrow(function() {
+      var schema = getSchema('LON');
+      assert.equal(Object.keys(schema.children).length, 1);
+    });
+
+    assert.doesNotThrow(function() {
+      var schema = getSchema('OTHER');
+      assert.equal(Object.keys(schema.children).length, 2);
+    });
+  });
+
 });
