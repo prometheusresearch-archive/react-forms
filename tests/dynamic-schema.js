@@ -67,26 +67,31 @@ describe('form with dynamic schema', function() {
 
   });
 
-  it('allow conditional nodes', function() {
+  it('re-validates entire form', function() {
+    var schema1 = (
+      <Schema>
+        <Property name="name" type="string" />
+      </Schema>
+    );
+    var schema2 = (
+      <Schema>
+        <Property name="name" type="number" />
+      </Schema>
+    );
 
-    function getSchema(city) {
-      return (
-        <Schema>
-          <Property name="address_1" required />
-          {city === 'OTHER' ? <Property name="city" required /> : null}
-        </Schema>
-      );
-    }
+    var form = TestUtils.renderIntoDocument(
+      <Form schema={schema1} defaultValue={{name: 'hello'}} />
+    );
 
-    assert.doesNotThrow(function() {
-      var schema = getSchema('LON');
-      assert.equal(Object.keys(schema.children).length, 1);
-    });
+    assert.ok(ReactForms.validation.isSuccess(form.value().validation));
+    assert.equal(form.value().value.name, 'hello');
+    assert.equal(form.value().serialized.name, 'hello');
 
-    assert.doesNotThrow(function() {
-      var schema = getSchema('OTHER');
-      assert.equal(Object.keys(schema.children).length, 2);
-    });
+    form.setProps({schema: schema2});
+
+    assert.ok(ReactForms.validation.isFailure(form.value().validation));
+    assert.equal(form.value().value.name, 'hello');
+    assert.equal(form.value().serialized.name, 'hello');
   });
 
 });
