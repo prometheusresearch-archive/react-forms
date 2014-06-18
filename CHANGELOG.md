@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.4
+
+  - Fix schema API to allow falsy children (useful for {condition && <... />})
+
 ## 0.3.3
 
   - Fix release 0.3.2

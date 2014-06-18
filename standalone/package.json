@@ -1,6 +1,6 @@
 {
   "name": "react-forms-build",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "main": "./index.js",
   "browserify": {
