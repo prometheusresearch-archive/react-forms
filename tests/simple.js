@@ -79,20 +79,44 @@ describe('simple form integration test', function() {
     assert.ok(ReactForms.validation.isFailure(form.value().validation));
   });
 
-  it('fires callbacks on user input', function() {
-    TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.equal(onUpdate.callCount, 1);
-    assert.equal(onChange.callCount, 1);
+  describe('callbacks', function() {
 
-    TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
-    assert.equal(onUpdate.callCount, 2);
-    assert.equal(onChange.callCount, 2);
-  });
+    it('fires callbacks on user input', function() {
+      TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
+      assert.equal(onUpdate.callCount, 1);
+      assert.equal(onChange.callCount, 1);
 
-  it('fires callbacks on invalid user input', function() {
-    TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid!'}});
-    assert.equal(onUpdate.callCount, 1);
-    assert.equal(onChange.callCount, 0);
+      TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
+      assert.equal(onUpdate.callCount, 2);
+      assert.equal(onChange.callCount, 2);
+    });
+
+    it('provides access to an update object from onUpdate', function() {
+      TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
+
+      var update = onUpdate.firstCall.args[2];
+      assert.deepEqual(update, {
+        schema: schema.children.text,
+        path: ['text']
+      });
+    });
+
+    it('provides access to an update object from onUpdate', function() {
+      TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
+
+      var update = onChange.firstCall.args[1];
+      assert.deepEqual(update, {
+        schema: schema.children.text,
+        path: ['text']
+      });
+    });
+
+    it('fires callbacks on invalid user input', function() {
+      TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid!'}});
+      assert.equal(onUpdate.callCount, 1);
+      assert.equal(onChange.callCount, 0);
+    });
+
   });
 
 });

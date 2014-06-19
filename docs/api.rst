@@ -136,11 +136,18 @@ props
 ``component``
   Component to render form as. By default ``<form />`` component is used.
 
-``onChange(value)``
+``onChange(value, update)``
   Callback which fires on every change which results in a valid form value.
+  ``value`` is a deserialized form value (according to schema) and ``update`` is
+  an object with ``path`` (array which points to an updated field) and
+  ``schema`` (schema node of an updated field) attributes.
 
-``onUpdate(value, isValid)``
+``onUpdate(value, isValid, update)``
   Callback which fires on every change.
+  ``value`` is a deserialized form value (according to schema), ``isValid`` is a
+  flag if form is in valid state after an update and ``update`` is an object
+  with ``path`` (array which points to an updated field) and ``schema`` (schema
+  node of an updated field) attributes.
 
 methods
 ```````
