@@ -114,7 +114,7 @@ describe('form with dynamic schema', function() {
         return (
           <Form
             ref="form"
-            schema={schema1}
+            schema={this.state.schema}
             onUpdate={this.onUpdate}
             defaultValue={{age: 17}}
             />
@@ -147,14 +147,27 @@ describe('form with dynamic schema', function() {
       }
     }
 
+    function assertFormFieldsPresent(names) {
+      var fields = TestUtils.scryRenderedComponentsWithType(form, ReactForms.Field);
+      assert.equal(fields.length, names.length);
+      fields.forEach((field) => assert.ok(names.indexOf(field.props.name) > -1));
+    }
+
     var form = TestUtils.renderIntoDocument(<MyForm />);
 
+    assertFormFieldsPresent(['age']);
     assertFormValue('age', 17, '17');
 
     var ageInput = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
     TestUtils.Simulate.change(ageInput, {target: {value: '19'}});
 
+    assertFormFieldsPresent(['age', 'name']);
     assertFormValue('age', 19, '19');
+
+    TestUtils.Simulate.change(ageInput, {target: {value: '10'}});
+
+    assertFormFieldsPresent(['age']);
+    assertFormValue('age', 10, '10');
   });
 
 });
