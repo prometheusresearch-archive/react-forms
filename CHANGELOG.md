@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.6
+
+  - Call back to parent only after state update.
+
 ## 0.3.5
 
   - Do not keep validation state when schema is updated.
