@@ -55,8 +55,8 @@ ones:
   and vice-versa. For example date type transforms Date objects into strings of
   *YYYY-MM-DD* format and vice-versa.
 
-  There are built-in types are available: ``string``, ``number`` and ``date``
-  which can be referenced by its string name: ``<Property type="date" />``.
+  There are built-in types are available: ``string``, ``number``, ``date`` and
+  ``array`` which can be referenced by its string name: ``<Property type="date" />``.
 
   Custom types can be made by defining an object with methods ``serialize(value)`` and
   ``deserialize(value)``.
@@ -242,6 +242,10 @@ Input components
 
 ``ReactForms.input.CheckboxGroup``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Should be used for schema nodes with type ``array``::
+
+    <Property type="array" input={<CheckboxGroup options={[...]} />} />
 
 ``ReactForms.input.RadioButtonGroup``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
