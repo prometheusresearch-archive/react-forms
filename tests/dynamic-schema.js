@@ -94,4 +94,67 @@ describe('form with dynamic schema', function() {
     assert.equal(form.value().serialized.name, 'hello');
   });
 
+  it('preserves value on input', function() {
+
+    var schema1 = (
+      <Schema>
+        <Property name="age" type="number" />
+      </Schema>
+    );
+    var schema2 = (
+      <Schema>
+        <Property name="age" type="number" />
+        <Property name="name" type="string" />
+      </Schema>
+    );
+
+    var MyForm = React.createClass({
+
+      render: function() {
+        return (
+          <Form
+            ref="form"
+            schema={schema1}
+            onUpdate={this.onUpdate}
+            defaultValue={{age: 17}}
+            />
+        );
+      },
+
+      getInitialState: function() {
+        return {schema: schema1};
+      },
+
+      onUpdate: function(value) {
+        if (value.age > 18) {
+          this.setState({schema: schema2});
+        } else {
+          this.setState({schema: schema1});
+        }
+      }
+    });
+
+    function assertFormValue(name, value, serialized) {
+      var f = form.refs.form;
+      assert.equal(f.value().value[name], value);
+      if (serialized !== undefined) {
+        assert.equal(f.value().serialized[name], serialized);
+        TestUtils.scryRenderedDOMComponentsWithTag(f, 'input').forEach((input) => {
+          if (input.props.name === name) {
+            assert.equal(input.getDOMNode().value, serialized)
+          }
+        });
+      }
+    }
+
+    var form = TestUtils.renderIntoDocument(<MyForm />);
+
+    assertFormValue('age', 17, '17');
+
+    var ageInput = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
+    TestUtils.Simulate.change(ageInput, {target: {value: '19'}});
+
+    assertFormValue('age', 19, '19');
+  });
+
 });
