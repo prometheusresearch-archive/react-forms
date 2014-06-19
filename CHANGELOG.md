@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.4.0
+
+  - Form passes ``update`` object with ``schema`` and ``path`` attributes to
+    ``onChange`` and ``onUpdate`` callbacks.
+
+  - Read from pending state during ``componentWillReceiveProps``.
+
 ## 0.3.6
 
   - Call back to parent only after state update.
