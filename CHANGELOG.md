@@ -1,19 +1,23 @@
 # CHANGELOG
 
+## 0.5.0
+
+  - schema: `component` prop now can be a component instance. It will be handled
+    as `input` prop.
+
+  - Form components (Field, Fieldset, RepeatingFieldset) now can receive
+    `className` prop.
+
+  - Add "array" built-in type.
+
+  - Add `.rf-Field--dirty` className when field has value (#33).
+
 ## 0.4.0
 
   - Form passes `update` object with `schema` and `path` attributes to
     `onChange` and `onUpdate` callbacks.
 
   - Read from pending state during `componentWillReceiveProps`.
-
-  - schema: `component` prop now can be a component instance. It will be handled
-    as `input` prop.
-
-  - form components (Field, Fieldset, RepeatingFieldset) now can receive
-    `className` prop.
-
-  - Add `.rf-Field--dirty` className when field has value (#33).
 
 ## 0.3.6
 
