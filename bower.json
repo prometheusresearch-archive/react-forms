@@ -1,7 +1,7 @@
 {
   "name": "react-forms",
   "main": "lib/index.js",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "authors": [
     "Prometheus Research"

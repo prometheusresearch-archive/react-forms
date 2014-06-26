@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.1
+
+  - Fix bug with createComponentFromSchema (#36).
+
 ## 0.5.0
 
   - schema: `component` prop now can be a component instance. It will be handled
