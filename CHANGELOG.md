@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.6.0
+
+  - Form/FormMixin: External validation is now a part of a form value.
+
+  - Form/FormMixin: When `value` prop is passed to a form component (component which uses
+    `FormMixin`) then `schema` and `externalValidation` props make no effect.
+    Any changes to them should be done to `value` instead.
+
+  - Value: removed forSchema() method (was private)
+
+  - Value: factory interface changed to receive a single argument with
+    attributes:
+
+        Value({schema: schema, value: {...}})
+
 ## 0.5.1
 
   - Fix bug with createComponentFromSchema (#36).
