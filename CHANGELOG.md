@@ -2,18 +2,30 @@
 
 ## 0.6.0
 
-  - Form/FormMixin: External validation is now a part of a form value.
+  - Value: factory interface changed to receive a single argument with
+    attributes:
+
+        Value({schema: schema, value: {...}})
+
+  - Value: store `onUpdate` callback which is set during creation of the value.
+    Method `notify()` is used to call it.
+
+  - Value: removed forSchema() method.
+
+  - Value: remove `updateValue`, `updateSerialized` and `updateValidation`
+    methods, instead use `.update(patch)` method.
+
+  - FormElement/FormElementMixin: remove `updateValue()` method, use
+    `this.value().update(...).notify()` instead.
+
+  - Form/FormMixin: External validation is now a part of a form value, use
+    `this.value().externalValidation` to access it. `.externalValidation()`
+    method is removed.
 
   - Form/FormMixin: When `value` prop is passed to a form component (component which uses
     `FormMixin`) then `schema` and `externalValidation` props make no effect.
     Any changes to them should be done to `value` instead.
 
-  - Value: removed forSchema() method (was private)
-
-  - Value: factory interface changed to receive a single argument with
-    attributes:
-
-        Value({schema: schema, value: {...}})
 
 ## 0.5.1
 
