@@ -135,11 +135,10 @@ describe('form with dynamic schema', function() {
     });
 
     function assertFormValue(name, value, serialized) {
-      var f = form.refs.form;
-      assert.equal(f.value().value[name], value);
+      assert.equal(form.value().value[name], value);
       if (serialized !== undefined) {
-        assert.equal(f.value().serialized[name], serialized);
-        TestUtils.scryRenderedDOMComponentsWithTag(f, 'input').forEach((input) => {
+        assert.equal(form.value().serialized[name], serialized);
+        TestUtils.scryRenderedDOMComponentsWithTag(form, 'input').forEach((input) => {
           if (input.props.name === name) {
             assert.equal(input.getDOMNode().value, serialized)
           }
@@ -153,7 +152,7 @@ describe('form with dynamic schema', function() {
       fields.forEach((field) => assert.ok(names.indexOf(field.props.name) > -1));
     }
 
-    var form = TestUtils.renderIntoDocument(<MyForm />);
+    var form = TestUtils.renderIntoDocument(<MyForm />).refs.form;
 
     assertFormFieldsPresent(['age']);
     assertFormValue('age', 17, '17');
