@@ -149,7 +149,10 @@ describe('form with dynamic schema', function() {
     function assertFormFieldsPresent(names) {
       var fields = TestUtils.scryRenderedComponentsWithType(form, ReactForms.Field);
       assert.equal(fields.length, names.length);
-      fields.forEach((field) => assert.ok(names.indexOf(field.props.name) > -1));
+      fields.forEach((field) => {
+        var name = field.value().name;
+        assert.ok(names.indexOf(name) > -1)
+      });
     }
 
     var form = TestUtils.renderIntoDocument(<MyForm />).refs.form;
