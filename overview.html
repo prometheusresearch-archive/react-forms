@@ -1,0 +1,328 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Schemas and validation" href="schema.html"/>
+        <link rel="prev" title="Getting started" href="getting-started.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/family-editor.html">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/array-editor.html">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Overview</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/overview.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>There are three central concepts in React Forms — form schemas, form components
+and input components.</p>
+<div class="section" id="form-schemas">
+<h2>Form Schemas<a class="headerlink" href="#form-schemas" title="Permalink to this headline">¶</a></h2>
+<p>Form schemas are high level declarative descriptions of how forms should
+operate: what&#8217;s shape of the data form should handle, how to render any specific
+field, how to validate user input and so on.</p>
+<p>Form schemas don&#8217;t do anything by themselves they are just metadata and are
+subject to interpretation by form components (see <a class="reference internal" href="#form-components"><em>Form Components</em></a>) of React Forms library.</p>
+<p>A basic example of a form schema looks like:</p>
+<div class="highlight-python"><div class="highlight"><pre>function Person(props) {
+  props = props || {}
+  return (
+    &lt;Schema name={props.name} label={props.label}&gt;
+      &lt;Property name=&quot;first&quot; label=&quot;First name&quot; /&gt;
+      &lt;Property name=&quot;last&quot; label=&quot;Last name&quot; /&gt;
+    &lt;/Schema&gt;
+  )
+}
+
+var family = (
+  &lt;Schema&gt;
+    &lt;Person name=&quot;mother&quot; label=&quot;Mother&quot; /&gt;
+    &lt;Person name=&quot;father&quot; label=&quot;Father&quot; /&gt;
+    &lt;List name=&quot;children&quot;&gt;
+      &lt;Person /&gt;
+    &lt;/List&gt;
+  &lt;/Schema&gt;
+)
+</pre></div>
+</div>
+<div class="inline admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The example uses JSX syntax to describe schema (similar to how React uses JSX
+to describe UI) but it&#8217;s not required.</p>
+</div>
+<p>You can read more about schemas on <a class="reference internal" href="schema.html"><em>Schemas and validation</em></a> documentation page.</p>
+</div>
+<div class="section" id="form-components">
+<span id="id1"></span><h2>Form Components<a class="headerlink" href="#form-components" title="Permalink to this headline">¶</a></h2>
+<p>Form components are React components which interpret form schemas to render
+form UI and handle validation and data flow. They are designed to be as generic
+as possible and so to be reusable across as many form schemas as possible.</p>
+<p>There are four types of form components, each for different schema type and one
+component which serves as a form controller: <tt class="docutils literal"><span class="pre">&lt;Form</span> <span class="pre">/&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;Field</span> <span class="pre">/&gt;</span></tt>,
+<tt class="docutils literal"><span class="pre">&lt;Fieldset</span> <span class="pre">/&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;RepeatingFieldset</span> <span class="pre">/&gt;</span></tt>.</p>
+<p>The functional scope of form components is to decide where to render <tt class="docutils literal"><span class="pre">&lt;label</span>
+<span class="pre">/&gt;</span></tt> elements, when to show hide any specific field, how to handle array values
+and so on. What falls outside of this is how users enter form values, this is
+handled by input components (see <a class="reference internal" href="#input-components"><em>Input Components</em></a>) instead.</p>
+<div class="section" id="form">
+<h3>&lt;Form /&gt;<a class="headerlink" href="#form" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">&lt;Form</span> <span class="pre">/&gt;</span></tt> component is the only stateful component provided by React Forms.
+It serves as a form controller, holds form value and validation state and
+updates it accordingly.</p>
+<p>Every change made by user through an input component is propagated up to the
+form component.</p>
+</div>
+<div class="section" id="field">
+<h3>&lt;Field /&gt;<a class="headerlink" href="#field" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">&lt;Field</span> <span class="pre">/&gt;</span></tt> component is used to represent scalar values (strings, numbers,
+dates and so on), values which correspond to schema nodes of type <tt class="docutils literal"><span class="pre">Property</span></tt>.</p>
+<p>This component renders input component and corresponding <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> component
+with field label and hint text.</p>
+</div>
+<div class="section" id="fieldset">
+<h3>&lt;Fieldset /&gt;<a class="headerlink" href="#fieldset" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">&lt;Fieldset</span> <span class="pre">/&gt;</span></tt> component is used to render objects, values which correspond to
+schema nodes of type <tt class="docutils literal"><span class="pre">Schema</span></tt>.</p>
+</div>
+<div class="section" id="repeatingfieldset">
+<h3>&lt;RepeatingFieldset /&gt;<a class="headerlink" href="#repeatingfieldset" title="Permalink to this headline">¶</a></h3>
+<p>&lt;RepeatingFieldset /&gt; is used to render values which corresponds to <tt class="docutils literal"><span class="pre">List</span></tt>
+schema nodes.</p>
+<p>It renders a form component for each item in a value and also provides controls
+to create a new item and to remove existent items.</p>
+</div>
+</div>
+<div class="section" id="input-components">
+<span id="id2"></span><h2>Input Components<a class="headerlink" href="#input-components" title="Permalink to this headline">¶</a></h2>
+<p>Input components are React components which handle user input of form values.
+At a basic level these are <tt class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">/&gt;</span></tt> components. But one can develop custom
+ones as datepickers, WYSIWYG editors and so on. Technically input components are
+reusable outside of React Forms context and are typical components which conform
+to &#8220;value/onChange&#8221; contract.</p>
+</div>
+<div class="section" id="dataflow">
+<h2>Dataflow<a class="headerlink" href="#dataflow" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">Form</span></tt> component &#8220;holds&#8221; entire form value and validation state as its state.
+This is the only stateful component in React Forms. It uses React context
+mechanism to expose value and validation state for components down in a
+hierarchy.</p>
+<p>Each of form elements (fields, fieldsets, repeating fieldsets) can access form
+value and validation state through context. But some of the elements like
+fieldset and repeating fieldsets provide their own context by projecting only a
+relevant part of the parent&#8217;s context.</p>
+<p>The resulted component hierarchy looks like.</p>
+<img alt="_images/form-context.png" src="_images/form-context.png" />
+<p>When user interacts with the form through the input component the corresponding
+form element <strong>creates a new copy</strong> of form value and validation state and
+notifies form via callback (also exposed via context).</p>
+<p>Thus React Forms guarantees that the entire form state is accessible from a
+single location and is immutable. That enables such complex functionality as
+undo/redo to be implemented in about 50 LOC, see the
+<a class="reference internal" href="examples/undo.html"><em>Form with undo/redo stack</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="schema.html" class="btn btn-neutral float-right" title="Schemas and validation"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting-started.html" class="btn btn-neutral" title="Getting started"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

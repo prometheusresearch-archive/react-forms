@@ -1,0 +1,365 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Schemas and validation &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Customizations" href="customizations.html"/>
+        <link rel="prev" title="Overview" href="overview.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/family-editor.html">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/array-editor.html">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Schemas and validation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/schema.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="schemas-and-validation">
+<h1>Schemas and validation<a class="headerlink" href="#schemas-and-validation" title="Permalink to this headline">¶</a></h1>
+<p>Form schemas are high-level declarative descriptions of forms. They describe
+every field of the form, how it should rendered, what&#8217;s the shape of the data
+and how it should be validated.</p>
+<p>React Forms provides <tt class="docutils literal"><span class="pre">Schema</span></tt>, <tt class="docutils literal"><span class="pre">List</span></tt> and <tt class="docutils literal"><span class="pre">Property</span></tt> schema nodes to
+describe mapping, list and scalar values correspondingly:</p>
+<div class="highlight-python"><div class="highlight"><pre>var Schema    = ReactForms.schema.Schema
+var List      = ReactForms.schema.List
+var Property  = ReactForms.schema.Property
+
+var PersonSchema = Schema(null,
+  Property({name: &#39;name&#39;, label: &#39;Name&#39;}),
+  Property({name: &#39;dob&#39;, label: &#39;Date Of Birth&#39;})
+)
+</pre></div>
+</div>
+<p>Object <tt class="docutils literal"><span class="pre">PersonSchema</span></tt> is a schema for objects which represent persons, every
+person have <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">dob</span></tt> properties with labels <tt class="docutils literal"><span class="pre">Name</span></tt> and <tt class="docutils literal"><span class="pre">Date</span> <span class="pre">Of</span>
+<span class="pre">Birth</span></tt> correspondingly. Attribute <tt class="docutils literal"><span class="pre">name</span></tt> is required for schema nodes which
+are defined as a part of <tt class="docutils literal"><span class="pre">Schema</span></tt> declarations.</p>
+<p>Forms schema API is designed to be compatible with JSX. The schema above can be
+specified using JSX syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>var PersonSchema = (
+  &lt;Schema&gt;
+    &lt;Property name=&quot;name&quot; label=&quot;Name&quot; /&gt;
+    &lt;Property name=&quot;dob&quot; label=&quot;Date Of Birth&quot; /&gt;
+  &lt;/Schema&gt;
+)
+</pre></div>
+</div>
+<div class="section" id="reusable-schemas">
+<h2>Reusable schemas<a class="headerlink" href="#reusable-schemas" title="Permalink to this headline">¶</a></h2>
+<p>Schemas are immutable values and can be reused as parts of more sophisticated
+schemas as much as needed.</p>
+<p>Also it is possible to define parametrized schemas as functions which construct
+schema nodes based on arguments passed:</p>
+<div class="highlight-python"><div class="highlight"><pre>function Name(props) {
+  props = props || {}
+  return &lt;Property name={props.name || &#39;name&#39;} label=&quot;Name&quot; /&gt;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="schema-metadata">
+<h2>Schema metadata<a class="headerlink" href="#schema-metadata" title="Permalink to this headline">¶</a></h2>
+<p>There are a couple of schema metadata (alongside <tt class="docutils literal"><span class="pre">name</span></tt>) supported by form
+components out of the box.</p>
+<p>Schema metadata related to validation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">type</span></tt> property can be used to specify type of the schema which defines how
+object is serialized to/deserialize from DOM value. You can read more about
+schema types below.</li>
+<li><tt class="docutils literal"><span class="pre">validate</span></tt> property is used to specify validators for
+values corresponding to schema.</li>
+<li><tt class="docutils literal"><span class="pre">defaultValue</span></tt> is used to define a value which will be used when a
+corresponding value for schema node is absent</li>
+</ul>
+</div></blockquote>
+<p>Schema metadata related to presentation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">label</span></tt> property is used by form components to render <tt class="docutils literal"><span class="pre">&lt;label</span> <span class="pre">/&gt;</span></tt>
+elements for form fields</li>
+<li><tt class="docutils literal"><span class="pre">hint</span></tt> property if specified</li>
+</ul>
+</div></blockquote>
+<p>Example of schema declarations which define all the available metadata
+properties:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;Property
+  name=&quot;age&quot;
+  type=&quot;number&quot;
+  defaultValue={27}
+  validate={function(v) { return v &gt; 0 }}
+  label=&quot;Age&quot;
+  hint=&quot;How old are you?&quot;
+  /&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="property-types">
+<h2>Property types<a class="headerlink" href="#property-types" title="Permalink to this headline">¶</a></h2>
+<p>Properties (schema nodes corresponding to scalars) can specify type of the value
+they represent.</p>
+<p>Type defines how value is serialized to/deserialized from its DOM
+representation. For example if you work with dates you would want to define type
+which would marshal strings in format <tt class="docutils literal"><span class="pre">&quot;YYYY-MM-DD&quot;</span></tt> into <tt class="docutils literal"><span class="pre">Date</span></tt> objects and
+vice versa. Fortunately there&#8217;s built-in <tt class="docutils literal"><span class="pre">date</span></tt> type for that:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;Schema&gt;
+  ...
+  &lt;Property name=&quot;birthday&quot; type=&quot;date&quot; /&gt;
+  ...
+&lt;/Schema&gt;
+</pre></div>
+</div>
+<p>You can refer to built-in types by specifying a <tt class="docutils literal"><span class="pre">type</span></tt> property which has type
+name as its string value. Currently React Forms provide a limited set of
+built-in types: <tt class="docutils literal"><span class="pre">date</span></tt>, <tt class="docutils literal"><span class="pre">number</span></tt> and <tt class="docutils literal"><span class="pre">string</span></tt> (used by default if no type
+is specified). But you can create a custom one easily.</p>
+<p>Schema types are simply objects with <tt class="docutils literal"><span class="pre">serialize</span></tt> and <tt class="docutils literal"><span class="pre">deserialize</span></tt> methods.
+Method <tt class="docutils literal"><span class="pre">serialize</span></tt> is called before value is sent to input component and
+<tt class="docutils literal"><span class="pre">deserialize</span></tt> is called on change before validation occurs.</p>
+<p>Method <tt class="docutils literal"><span class="pre">deserialize</span></tt> could also throw an exception in case it cannot
+deserialize a passed value:</p>
+<div class="highlight-python"><div class="highlight"><pre>var MyType = {
+
+  serialize: function(value) {
+    // return a value which will be passed
+    // to input component, probably a string
+  },
+
+  deserialize: function(value) {
+    // return a value which will be passed
+    // through validators and stored as a part
+    // of the form value
+  }
+}
+
+&lt;Property type={MyType} /&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Schema is used by form components to validate form value. Basic validation is
+done by schema types. But to specify more sophisticated validation rules one can
+attach custom validators to each schema node.</p>
+<p>Validators are functions which can return a boolean value: <tt class="docutils literal"><span class="pre">true</span></tt> corresponds
+to validation success and <tt class="docutils literal"><span class="pre">false</span></tt> to validation failure.</p>
+<p>For example one can define a reusable schema node for positive numbers which
+validates only if corresponding value is a number and is greater than zero:</p>
+<div class="highlight-python"><div class="highlight"><pre>function PositiveNumber(props) {
+  props = props || {};
+  return (
+    &lt;Property
+      name={props.name}
+      type=&quot;number&quot;
+      validate={function(v) { return v &gt; 0; }}
+      /&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="customizations.html" class="btn btn-neutral float-right" title="Customizations"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Overview"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

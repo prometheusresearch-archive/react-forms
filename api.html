@@ -1,0 +1,481 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API reference &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Examples" href="examples/index.html"/>
+        <link rel="prev" title="Styling" href="styling.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/family-editor.html">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/array-editor.html">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>API reference</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/api.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#schema" id="id5">Schema</a><ul>
+<li><a class="reference internal" href="#common-schema-properties" id="id6">Common schema properties</a></li>
+<li><a class="reference internal" href="#reactforms-schema-property" id="id7"><tt class="docutils literal"><span class="pre">ReactForms.schema.Property</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-schema-schema" id="id8"><tt class="docutils literal"><span class="pre">ReactForms.schema.Schema</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-schema-list" id="id9"><tt class="docutils literal"><span class="pre">ReactForms.schema.List</span></tt></a></li>
+<li><a class="reference internal" href="#functions" id="id10">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#components" id="id11">Components</a><ul>
+<li><a class="reference internal" href="#reactforms-form" id="id12"><tt class="docutils literal"><span class="pre">ReactForms.Form</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-field" id="id13"><tt class="docutils literal"><span class="pre">ReactForms.Field</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-fieldset" id="id14"><tt class="docutils literal"><span class="pre">ReactForms.Fieldset</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-repeatingfieldset" id="id15"><tt class="docutils literal"><span class="pre">ReactForms.RepeatingFieldset</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-formfor" id="id16"><tt class="docutils literal"><span class="pre">ReactForms.FormFor</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mixins" id="id17">Mixins</a><ul>
+<li><a class="reference internal" href="#reactforms-formmixin" id="id18"><tt class="docutils literal"><span class="pre">ReactForms.FormMixin</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-fieldmixin" id="id19"><tt class="docutils literal"><span class="pre">ReactForms.FieldMixin</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-fieldsetmixin" id="id20"><tt class="docutils literal"><span class="pre">ReactForms.FieldsetMixin</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-repeatingfieldsetmixin" id="id21"><tt class="docutils literal"><span class="pre">ReactForms.RepeatingFieldsetMixin</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#validation" id="id22">Validation</a></li>
+<li><a class="reference internal" href="#input-components" id="id23">Input components</a><ul>
+<li><a class="reference internal" href="#reactforms-input-checkboxgroup" id="id24"><tt class="docutils literal"><span class="pre">ReactForms.input.CheckboxGroup</span></tt></a></li>
+<li><a class="reference internal" href="#reactforms-input-radiobuttongroup" id="id25"><tt class="docutils literal"><span class="pre">ReactForms.input.RadioButtonGroup</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="schema">
+<h2><a class="toc-backref" href="#id5">Schema</a><a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h2>
+<p>Schema is used to describe form structure and validation. API consist of
+<tt class="docutils literal"><span class="pre">Schema</span></tt>, <tt class="docutils literal"><span class="pre">List</span></tt> and <tt class="docutils literal"><span class="pre">Property</span></tt> node types, each of those can contain
+metadata properties.</p>
+<div class="section" id="common-schema-properties">
+<h3><a class="toc-backref" href="#id6">Common schema properties</a><a class="headerlink" href="#common-schema-properties" title="Permalink to this headline">¶</a></h3>
+<p>All three node types share the same set of properties:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">label</span></tt></dt>
+<dd>used to render <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> element</dd>
+<dt><tt class="docutils literal"><span class="pre">hint</span></tt></dt>
+<dd>used as a part of <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> element, usually contain detailed explanations
+of what input expected into the corresponding form element.</dd>
+<dt><tt class="docutils literal"><span class="pre">component</span></tt></dt>
+<dd>used to specify which form component to use to render a
+corresponding form element.</dd>
+<dt><tt class="docutils literal"><span class="pre">defaultValue</span></tt></dt>
+<dd>used as a default value for a form element.</dd>
+<dt><tt class="docutils literal"><span class="pre">validate</span></tt></dt>
+<dd>a function which validates transformed input value. Should
+return true in case of success and false in case of failure.</dd>
+</dl>
+</div>
+<div class="section" id="reactforms-schema-property">
+<h3><a class="toc-backref" href="#id7"><tt class="docutils literal"><span class="pre">ReactForms.schema.Property</span></tt></a><a class="headerlink" href="#reactforms-schema-property" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">Property</span></tt> schema nodes are used to describe values such as strings, numbers,
+dates, …:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;Property /&gt;
+</pre></div>
+</div>
+<p>In addition to common schema properties, <tt class="docutils literal"><span class="pre">Property</span></tt> supports the following
+ones:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">input</span></tt></dt>
+<dd>specifies input component to use, if not provided then <tt class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">type=&quot;text&quot;</span>
+<span class="pre">/&gt;</span></tt> will be used instead.</dd>
+<dt><tt class="docutils literal"><span class="pre">type</span></tt></dt>
+<dd><p class="first">Used to transform value representation from DOM domain to application domain
+and vice-versa. For example date type transforms Date objects into strings of
+<em>YYYY-MM-DD</em> format and vice-versa.</p>
+<p>There are built-in types are available: <tt class="docutils literal"><span class="pre">string</span></tt>, <tt class="docutils literal"><span class="pre">number</span></tt>, <tt class="docutils literal"><span class="pre">date</span></tt> and
+<tt class="docutils literal"><span class="pre">array</span></tt> which can be referenced by its string name: <tt class="docutils literal"><span class="pre">&lt;Property</span> <span class="pre">type=&quot;date&quot;</span> <span class="pre">/&gt;</span></tt>.</p>
+<p class="last">Custom types can be made by defining an object with methods <tt class="docutils literal"><span class="pre">serialize(value)</span></tt> and
+<tt class="docutils literal"><span class="pre">deserialize(value)</span></tt>.</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">required</span></tt></dt>
+<dd>Used as a shortcut for a validator which validates if a key is present inside
+an object (e.g. is not <tt class="docutils literal"><span class="pre">null</span></tt>).</dd>
+</dl>
+</div>
+<div class="section" id="reactforms-schema-schema">
+<h3><a class="toc-backref" href="#id8"><tt class="docutils literal"><span class="pre">ReactForms.schema.Schema</span></tt></a><a class="headerlink" href="#reactforms-schema-schema" title="Permalink to this headline">¶</a></h3>
+<p>Nodes of type <tt class="docutils literal"><span class="pre">Schema</span></tt> are used to describe plain JavaScript objects (JSON
+objects). Children of the schema node describe keys of the object. Each child
+should have <tt class="docutils literal"><span class="pre">name</span></tt> property to define what key it describes:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;Schema&gt;
+  &lt;Property name=&quot;a&quot; /&gt;
+  &lt;Property name=&quot;b&quot; /&gt;
+&lt;/Schema&gt;
+</pre></div>
+</div>
+<p>The example above describe objects of shape <tt class="docutils literal"><span class="pre">{&quot;a&quot;:</span> <span class="pre">…,</span> <span class="pre">&quot;b&quot;:</span> <span class="pre">…}</span></tt>.</p>
+</div>
+<div class="section" id="reactforms-schema-list">
+<h3><a class="toc-backref" href="#id9"><tt class="docutils literal"><span class="pre">ReactForms.schema.List</span></tt></a><a class="headerlink" href="#reactforms-schema-list" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">List</span></tt> schema nodes are used to describe arrays. They can have only a single
+child which describes the schema of the elements of an array:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;List&gt;
+  &lt;Property type=&quot;number&quot; /&gt;
+&lt;/List&gt;
+</pre></div>
+</div>
+<p>The example above describes the array of numbers <tt class="docutils literal"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">4,</span> <span class="pre">…]</span></tt>.</p>
+<p>In addition to common schema properties, <tt class="docutils literal"><span class="pre">List</span></tt> supports the following ones:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">nonEmpty</span></tt></dt>
+<dd>Used as a shortcut for a validator which validates an array only if it has at
+least one element.</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h3><a class="toc-backref" href="#id10">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">ReactForms.schema.isProperty(schema)</span></tt></dt>
+<dd>Check if <tt class="docutils literal"><span class="pre">schema</span></tt> node has type <tt class="docutils literal"><span class="pre">Property</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">ReactForms.schema.isSchema(schema)</span></tt></dt>
+<dd>Check if <tt class="docutils literal"><span class="pre">schema</span></tt> node has type <tt class="docutils literal"><span class="pre">Schema</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">ReactForms.schema.isList(schema)</span></tt></dt>
+<dd>Check if <tt class="docutils literal"><span class="pre">schema</span></tt> node has type <tt class="docutils literal"><span class="pre">List</span></tt>.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="components">
+<h2><a class="toc-backref" href="#id11">Components</a><a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reactforms-form">
+<h3><a class="toc-backref" href="#id12"><tt class="docutils literal"><span class="pre">ReactForms.Form</span></tt></a><a class="headerlink" href="#reactforms-form" title="Permalink to this headline">¶</a></h3>
+<p>A component which represents an entire form: holds form value and validation
+state.</p>
+<div class="section" id="props">
+<h4>props<a class="headerlink" href="#props" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">schema</span></tt></dt>
+<dd>Schema to use.</dd>
+<dt><tt class="docutils literal"><span class="pre">defaultValue</span></tt></dt>
+<dd>Value which is used to set default value of the form. This only used for first
+render of the component.</dd>
+<dt><tt class="docutils literal"><span class="pre">externalValidation</span></tt></dt>
+<dd>Validation structure which represents some external validation (like
+validation from a server side).</dd>
+<dt><tt class="docutils literal"><span class="pre">component</span></tt></dt>
+<dd>Component to render form as. By default <tt class="docutils literal"><span class="pre">&lt;form</span> <span class="pre">/&gt;</span></tt> component is used.</dd>
+<dt><tt class="docutils literal"><span class="pre">onChange(value,</span> <span class="pre">update)</span></tt></dt>
+<dd>Callback which fires on every change which results in a valid form value.
+<tt class="docutils literal"><span class="pre">value</span></tt> is a deserialized form value (according to schema) and <tt class="docutils literal"><span class="pre">update</span></tt> is
+an object with <tt class="docutils literal"><span class="pre">path</span></tt> (array which points to an updated field) and
+<tt class="docutils literal"><span class="pre">schema</span></tt> (schema node of an updated field) attributes.</dd>
+<dt><tt class="docutils literal"><span class="pre">onUpdate(value,</span> <span class="pre">isValid,</span> <span class="pre">update)</span></tt></dt>
+<dd>Callback which fires on every change.
+<tt class="docutils literal"><span class="pre">value</span></tt> is a deserialized form value (according to schema), <tt class="docutils literal"><span class="pre">isValid</span></tt> is a
+flag if form is in valid state after an update and <tt class="docutils literal"><span class="pre">update</span></tt> is an object
+with <tt class="docutils literal"><span class="pre">path</span></tt> (array which points to an updated field) and <tt class="docutils literal"><span class="pre">schema</span></tt> (schema
+node of an updated field) attributes.</dd>
+</dl>
+</div>
+<div class="section" id="methods">
+<h4>methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">value()</span></tt></dt>
+<dd>Return form value object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="reactforms-field">
+<h3><a class="toc-backref" href="#id13"><tt class="docutils literal"><span class="pre">ReactForms.Field</span></tt></a><a class="headerlink" href="#reactforms-field" title="Permalink to this headline">¶</a></h3>
+<p>A component which represents a single form field which contains a rendered input
+component along with <tt class="docutils literal"><span class="pre">&lt;label</span> <span class="pre">/&gt;</span></tt> element. This component is used to represent
+schema nodes of type <tt class="docutils literal"><span class="pre">Property</span></tt>.</p>
+</div>
+<div class="section" id="reactforms-fieldset">
+<h3><a class="toc-backref" href="#id14"><tt class="docutils literal"><span class="pre">ReactForms.Fieldset</span></tt></a><a class="headerlink" href="#reactforms-fieldset" title="Permalink to this headline">¶</a></h3>
+<p>A component which represents a fieldset. This component is used to represent
+schema nodes of type <tt class="docutils literal"><span class="pre">Schema</span></tt>.</p>
+</div>
+<div class="section" id="reactforms-repeatingfieldset">
+<h3><a class="toc-backref" href="#id15"><tt class="docutils literal"><span class="pre">ReactForms.RepeatingFieldset</span></tt></a><a class="headerlink" href="#reactforms-repeatingfieldset" title="Permalink to this headline">¶</a></h3>
+<p>A component which represents a list of fields/fieldsets. This component is used
+to represent schema nodes of type <tt class="docutils literal"><span class="pre">List</span></tt>.</p>
+</div>
+<div class="section" id="reactforms-formfor">
+<h3><a class="toc-backref" href="#id16"><tt class="docutils literal"><span class="pre">ReactForms.FormFor</span></tt></a><a class="headerlink" href="#reactforms-formfor" title="Permalink to this headline">¶</a></h3>
+<p>A &#8220;proxy&#8221; component which decides what component to render based on a current
+schema node it receives from a current form context.</p>
+</div>
+</div>
+<div class="section" id="mixins">
+<h2><a class="toc-backref" href="#id17">Mixins</a><a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h2>
+<p>Each of the form components has the corresponding mixin which is used in an
+implementation. This allows to define custom form components without much
+boilerplate.</p>
+<div class="section" id="reactforms-formmixin">
+<h3><a class="toc-backref" href="#id18"><tt class="docutils literal"><span class="pre">ReactForms.FormMixin</span></tt></a><a class="headerlink" href="#reactforms-formmixin" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>methods<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">value()</span></tt></dt>
+<dd>Return form value object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="reactforms-fieldmixin">
+<h3><a class="toc-backref" href="#id19"><tt class="docutils literal"><span class="pre">ReactForms.FieldMixin</span></tt></a><a class="headerlink" href="#reactforms-fieldmixin" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>methods<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">value()</span></tt></dt>
+<dd>Return field value object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="reactforms-fieldsetmixin">
+<h3><a class="toc-backref" href="#id20"><tt class="docutils literal"><span class="pre">ReactForms.FieldsetMixin</span></tt></a><a class="headerlink" href="#reactforms-fieldsetmixin" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">value()</span></tt></dt>
+<dd>Return fieldset value object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="reactforms-repeatingfieldsetmixin">
+<h3><a class="toc-backref" href="#id21"><tt class="docutils literal"><span class="pre">ReactForms.RepeatingFieldsetMixin</span></tt></a><a class="headerlink" href="#reactforms-repeatingfieldsetmixin" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h4>methods<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">value()</span></tt></dt>
+<dd>Return repeating fieldset value object.</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="validation">
+<h2><a class="toc-backref" href="#id22">Validation</a><a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">ReactForms.validation.validate(schema,</span> <span class="pre">value)</span></tt></dt>
+<dd>Validate <tt class="docutils literal"><span class="pre">value</span></tt> against <tt class="docutils literal"><span class="pre">schema</span></tt> and return validation object which can
+be checked with <tt class="docutils literal"><span class="pre">isSuccess</span></tt> or <tt class="docutils literal"><span class="pre">isFailure</span></tt> function for validness.</dd>
+<dt><tt class="docutils literal"><span class="pre">ReactForms.validation.isSuccess(validation)</span></tt></dt>
+<dd>Return <tt class="docutils literal"><span class="pre">true</span></tt> is validation successful.</dd>
+<dt><tt class="docutils literal"><span class="pre">ReactForms.validation.isFailure(validation)</span></tt></dt>
+<dd>Return <tt class="docutils literal"><span class="pre">true</span></tt> is validation failed.</dd>
+</dl>
+</div>
+<div class="section" id="input-components">
+<h2><a class="toc-backref" href="#id23">Input components</a><a class="headerlink" href="#input-components" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reactforms-input-checkboxgroup">
+<h3><a class="toc-backref" href="#id24"><tt class="docutils literal"><span class="pre">ReactForms.input.CheckboxGroup</span></tt></a><a class="headerlink" href="#reactforms-input-checkboxgroup" title="Permalink to this headline">¶</a></h3>
+<p>Should be used for schema nodes with type <tt class="docutils literal"><span class="pre">array</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;Property type=&quot;array&quot; input={&lt;CheckboxGroup options={[...]} /&gt;} /&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="reactforms-input-radiobuttongroup">
+<h3><a class="toc-backref" href="#id25"><tt class="docutils literal"><span class="pre">ReactForms.input.RadioButtonGroup</span></tt></a><a class="headerlink" href="#reactforms-input-radiobuttongroup" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples/index.html" class="btn btn-neutral float-right" title="Examples"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="styling.html" class="btn btn-neutral" title="Styling"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

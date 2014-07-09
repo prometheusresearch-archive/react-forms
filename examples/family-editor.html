@@ -1,0 +1,627 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Family form example &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Array editor example" href="array-editor.html"/>
+        <link rel="prev" title="Basic form example" href="basic.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic form example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array-editor.html">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Family form example</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/examples/family-editor.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="family-form-example">
+<h1>Family form example<a class="headerlink" href="#family-form-example" title="Permalink to this headline">¶</a></h1>
+<p>This example showcases several aspects of React Forms library, most notably
+defining <strong>reusable schemas</strong>, creating <strong>custom fieldset components</strong> and
+custom input components for <strong>user input formatting</strong>.</p>
+<p>The example form is a form for entering information about family.</p>
+<div id="example"></div><div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<p>First we need to bring needed components and utilities into scope:</p>
+<div class="highlight-python"><div class="highlight"><pre>var React            = require(&#39;react&#39;)
+var ReactForms       = require(&#39;react-forms&#39;)
+
+var Form             = ReactForms.Form
+var FormFor          = ReactForms.FormFor
+var Schema           = ReactForms.schema.Schema
+var List             = ReactForms.schema.List
+var Property         = ReactForms.schema.Property
+var RadioButtonGroup = ReactForms.input.RadioButtonGroup
+</pre></div>
+</div>
+<div class="section" id="schema">
+<h3>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h3>
+<p>We start with defining schemas for commonly used fields.</p>
+</div>
+<div class="section" id="sexfield">
+<h3>SexField<a class="headerlink" href="#sexfield" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">SexField</span></tt> represents sex of a person. We want to use a radio button group as an
+input component for this type of values:</p>
+<div class="highlight-python"><div class="highlight"><pre>function SexField(props) {
+  props = props || {}
+  var options = [
+    {value: &#39;male&#39;, name: &#39;Male&#39;},
+    {value: &#39;female&#39;, name: &#39;Female&#39;}
+  ]
+  return (
+    &lt;Property
+      name={props.name || &#39;sex&#39;}
+      label={props.label || &#39;Sex&#39;}
+      required={props.required}
+      input={&lt;RadioButtonGroup options={options} /&gt;}
+      /&gt;
+  )
+}
+</pre></div>
+</div>
+<p>After that we can use this field in a different schemas <tt class="docutils literal"><span class="pre">&lt;SexField</span> <span class="pre">name=&quot;sex&quot;</span>
+<span class="pre">/&gt;</span></tt>. Note how we provide a default values for <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">label</span></tt>.</p>
+</div>
+<div class="section" id="namefield">
+<h3>NameField<a class="headerlink" href="#namefield" title="Permalink to this headline">¶</a></h3>
+<p>Now let&#8217;s define a schema for fields which represent a name of a person. We want
+to autoformat name so it appears capitalized and we want to perform additional
+validation on name value so it cannot contain number or any other non-letters.</p>
+<p>First we define a validator:</p>
+<div class="highlight-python"><div class="highlight"><pre>function validateName(v) {
+  return /^[a-z\s]+$/i.test(v) ? true : &#39;should contain only letters&#39;
+}
+</pre></div>
+</div>
+<p>Now we can use it in schema definition:</p>
+<div class="highlight-python"><div class="highlight"><pre>function NameField(props) {
+  props = props || {}
+  return (
+    &lt;Property
+      required={props.required}
+      defaultValue={props.defaultValue}
+      name={props.name || &#39;name&#39;}
+      label={props.label || &#39;Name&#39;}
+      hint=&quot;Should contain only alphanumeric characters&quot;
+      input={NameInput()}
+      validate={validateName}
+      /&gt;
+  )
+}
+</pre></div>
+</div>
+<p>Note that we referenced the <tt class="docutils literal"><span class="pre">&lt;NameInput</span> <span class="pre">/&gt;</span></tt> component. This the thin wrapper on
+for <tt class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">type=&quot;text&quot;</span> <span class="pre">/&gt;</span></tt> which autoformats user input by capitalizing it.</p>
+</div>
+<div class="section" id="dateofbirthfield">
+<h3>DateOfBirthField<a class="headerlink" href="#dateofbirthfield" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">DateOfBirthField</span></tt> is define similar to previous fields:</p>
+<div class="highlight-python"><div class="highlight"><pre>function DateOfBirthField(props) {
+  props = props || {}
+  return (
+    &lt;Property
+      name={props.name || &#39;dob&#39;}
+      label={props.label || &#39;Date of Birth&#39;}
+      hint=&quot;Should be in YYYY-MM-DD format&quot;
+      type=&quot;date&quot;
+      /&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="adult-and-child">
+<h3>Adult and Child<a class="headerlink" href="#adult-and-child" title="Permalink to this headline">¶</a></h3>
+<p>Now we can define schemas for adults and children, both using already defined
+<tt class="docutils literal"><span class="pre">NameField</span></tt>, <tt class="docutils literal"><span class="pre">DateOfBirthField</span></tt> and <tt class="docutils literal"><span class="pre">SexField</span></tt>.</p>
+<p>Note the <tt class="docutils literal"><span class="pre">component</span></tt> property of <tt class="docutils literal"><span class="pre">Child</span></tt> schema what defines which fieldset
+component should be used to render schemas of such type. We will show how to
+define <tt class="docutils literal"><span class="pre">ChildFieldset</span></tt> below:</p>
+<div class="highlight-python"><div class="highlight"><pre>function Adult(props) {
+  props = props || {}
+  return (
+    &lt;Schema label={props.label || &#39;Adult&#39;} name={props.name}&gt;
+      &lt;NameField /&gt;
+      &lt;DateOfBirthField /&gt;
+    &lt;/Schema&gt;
+  )
+}
+
+function Child(props) {
+  props = props || {}
+  return (
+    &lt;Schema component={ChildFieldset} name={props.name}&gt;
+      &lt;NameField /&gt;
+      &lt;DateOfBirthField /&gt;
+      &lt;SexField required /&gt;
+      &lt;Property
+        label=&quot;Female specific value&quot;
+        name=&quot;femaleSpecificValue&quot; /&gt;
+      &lt;Property
+        label=&quot;Male specific value&quot;
+        name=&quot;maleSpecificValue&quot; /&gt;
+    &lt;/Schema&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="family">
+<h3>Family<a class="headerlink" href="#family" title="Permalink to this headline">¶</a></h3>
+<p>Finally the schema for family would look like a composition of schema types we
+defined previously.</p>
+<p>Note how we have defined <tt class="docutils literal"><span class="pre">Children</span></tt> as a list of <tt class="docutils literal"><span class="pre">Child</span></tt>. That describes that a
+family can have multiple children and form would have a corresponding UI
+controls to add and remove children records:</p>
+<div class="highlight-python"><div class="highlight"><pre>function Family(props) {
+  props = props || {}
+  return (
+    &lt;Schema name={props.name} label={props.label || &#39;Family&#39;}&gt;
+      &lt;Adult name=&quot;mother&quot; label=&quot;Mother&quot; /&gt;
+      &lt;Adult name=&quot;father&quot; label=&quot;Father&quot; /&gt;
+      &lt;List label=&quot;Children&quot; name=&quot;children&quot;&gt;
+        &lt;Child /&gt;
+      &lt;/List&gt;
+    &lt;/Schema&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-input-component-for-name-formatting">
+<h3>Custom input component for name formatting<a class="headerlink" href="#custom-input-component-for-name-formatting" title="Permalink to this headline">¶</a></h3>
+<p>Now let&#8217;s define <tt class="docutils literal"><span class="pre">&lt;NameInput</span> <span class="pre">/&gt;</span></tt> component which is used by <tt class="docutils literal"><span class="pre">NameField</span></tt> field to
+capitalize user input automatically:</p>
+<div class="highlight-python"><div class="highlight"><pre>var NameInput = React.createClass({
+
+  getInitialState: function() {
+    return {selection: {start: 0, end: 0}}
+  },
+
+  onChange: function(e) {
+    var value = e.target.value
+    var node = this.getDOMNode()
+    this.setState({
+      selection: {start: node.selectionStart, end: node.selectionEnd}
+    })
+    this.props.onChange(value)
+  },
+
+  componentDidUpdate: function() {
+    var node = this.getDOMNode()
+    if (document.activeElement === node) {
+      node.setSelectionRange(this.state.selection.start, this.state.selection.end)
+    }
+  },
+
+  format: function(value) {
+    return value.split(/\s+/)
+      .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
+      .join(&#39; &#39;)
+  },
+
+  render: function() {
+    var value = this.format(this.props.value)
+    return this.transferPropsTo(
+      &lt;input
+        type=&quot;text&quot;
+        value={value}
+        onChange={this.onChange}
+        /&gt;
+    )
+  }
+})
+</pre></div>
+</div>
+<p>It is a little verbose because we need to take care of cursor position in input
+box. But other than that it is a thin wrapper for <tt class="docutils literal"><span class="pre">&lt;input</span> <span class="pre">type=&quot;text&quot;</span> <span class="pre">/&gt;</span></tt> which
+just capitalizes every word in a value.</p>
+</div>
+<div class="section" id="custom-fieldset-component-for-child">
+<h3>Custom fieldset component for Child<a class="headerlink" href="#custom-fieldset-component-for-child" title="Permalink to this headline">¶</a></h3>
+<p>Now we define <tt class="docutils literal"><span class="pre">ChildFieldset</span></tt> component which is used to render values described
+with <tt class="docutils literal"><span class="pre">Child</span></tt> schema. The reason we want to do this is that we want to show a
+different set of fields based on a sex of a child.</p>
+<p>Note that creating a fieldset component reduces down to using <tt class="docutils literal"><span class="pre">FieldsetMixin</span></tt>
+mixin and defining <tt class="docutils literal"><span class="pre">render()</span></tt> method.</p>
+<p><tt class="docutils literal"><span class="pre">FieldsetMixin</span></tt> provides <tt class="docutils literal"><span class="pre">value()</span></tt> method which allows accessing a current
+form value for this particular schema node via <tt class="docutils literal"><span class="pre">value().value</span></tt>.</p>
+<p>To render its fields <tt class="docutils literal"><span class="pre">ChildFieldset</span></tt> component uses a <tt class="docutils literal"><span class="pre">FormFor</span></tt> component
+which automatically receives a corresponding schema and value based on its
+<tt class="docutils literal"><span class="pre">name</span></tt> property:</p>
+<div class="highlight-python"><div class="highlight"><pre>var ChildFieldset = React.createClass({
+  mixins: [ReactForms.FieldsetMixin],
+
+  render: function() {
+    var sex = this.value().value.sex
+    return this.transferPropsTo(
+      &lt;div className=&quot;react-forms-fieldset&quot;&gt;
+        &lt;FormFor name=&quot;name&quot; /&gt;
+        &lt;FormFor name=&quot;dob&quot; /&gt;
+        &lt;FormFor name=&quot;sex&quot; /&gt;
+        {sex === &#39;male&#39; &amp;&amp;
+          &lt;FormFor name=&quot;maleSpecificValue&quot; /&gt;}
+        {sex === &#39;female&#39; &amp;&amp;
+          &lt;FormFor name=&quot;femaleSpecificValue&quot; /&gt;}
+      &lt;/div&gt;
+    )
+  }
+})
+</pre></div>
+</div>
+</div>
+<div class="section" id="rendering-forms">
+<h3>Rendering forms<a class="headerlink" href="#rendering-forms" title="Permalink to this headline">¶</a></h3>
+<p>Finally we can render our <em>Family form</em> by simply using <tt class="docutils literal"><span class="pre">Form</span></tt> component with
+out <tt class="docutils literal"><span class="pre">Family</span></tt> schema:</p>
+<div class="highlight-python"><div class="highlight"><pre>React.renderComponent(
+  &lt;Form schema={&lt;Family /&gt;} /&gt;,
+  document.getElementById(&#39;example&#39;)
+)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", function() {
+    var React            = require('react')
+var ReactForms       = require('react-forms')
+
+var Form             = ReactForms.Form
+var FormFor          = ReactForms.FormFor
+var Schema           = ReactForms.schema.Schema
+var List             = ReactForms.schema.List
+var Property         = ReactForms.schema.Property
+var RadioButtonGroup = ReactForms.input.RadioButtonGroup
+function SexField(props) {
+  props = props || {}
+  var options = [
+    {value: 'male', name: 'Male'},
+    {value: 'female', name: 'Female'}
+  ]
+  return (
+    Property(
+      {name:props.name || 'sex',
+      label:props.label || 'Sex',
+      required:props.required,
+      input:RadioButtonGroup( {options:options} )}
+      )
+  )
+}
+function validateName(v) {
+  return /^[a-z\s]+$/i.test(v) ? true : 'should contain only letters'
+}
+function NameField(props) {
+  props = props || {}
+  return (
+    Property(
+      {required:props.required,
+      defaultValue:props.defaultValue,
+      name:props.name || 'name',
+      label:props.label || 'Name',
+      hint:"Should contain only alphanumeric characters",
+      input:NameInput(),
+      validate:validateName}
+      )
+  )
+}
+function DateOfBirthField(props) {
+  props = props || {}
+  return (
+    Property(
+      {name:props.name || 'dob',
+      label:props.label || 'Date of Birth',
+      hint:"Should be in YYYY-MM-DD format",
+      type:"date"}
+      )
+  )
+}
+function Adult(props) {
+  props = props || {}
+  return (
+    Schema( {label:props.label || 'Adult', name:props.name}, 
+      NameField(null ),
+      DateOfBirthField(null )
+    )
+  )
+}
+
+function Child(props) {
+  props = props || {}
+  return (
+    Schema( {component:ChildFieldset, name:props.name}, 
+      NameField(null ),
+      DateOfBirthField(null ),
+      SexField( {required:true} ),
+      Property(
+        {label:"Female specific value",
+        name:"femaleSpecificValue"} ),
+      Property(
+        {label:"Male specific value",
+        name:"maleSpecificValue"} )
+    )
+  )
+}
+function Family(props) {
+  props = props || {}
+  return (
+    Schema( {name:props.name, label:props.label || 'Family'}, 
+      Adult( {name:"mother", label:"Mother"} ),
+      Adult( {name:"father", label:"Father"} ),
+      List( {label:"Children", name:"children"}, 
+        Child(null )
+      )
+    )
+  )
+}
+var NameInput = React.createClass({displayName: 'NameInput',
+
+  getInitialState: function() {
+    return {selection: {start: 0, end: 0}}
+  },
+
+  onChange: function(e) {
+    var value = e.target.value
+    var node = this.getDOMNode()
+    this.setState({
+      selection: {start: node.selectionStart, end: node.selectionEnd}
+    })
+    this.props.onChange(value)
+  },
+
+  componentDidUpdate: function() {
+    var node = this.getDOMNode()
+    if (document.activeElement === node) {
+      node.setSelectionRange(this.state.selection.start, this.state.selection.end)
+    }
+  },
+
+  format: function(value) {
+    return value.split(/\s+/)
+      .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
+      .join(' ')
+  },
+
+  render: function() {
+    var value = this.format(this.props.value)
+    return this.transferPropsTo(
+      React.DOM.input(
+        {type:"text",
+        value:value,
+        onChange:this.onChange}
+        )
+    )
+  }
+})
+var ChildFieldset = React.createClass({displayName: 'ChildFieldset',
+  mixins: [ReactForms.FieldsetMixin],
+
+  render: function() {
+    var sex = this.value().value.sex
+    return this.transferPropsTo(
+      React.DOM.div( {className:"react-forms-fieldset"}, 
+        FormFor( {name:"name"} ),
+        FormFor( {name:"dob"} ),
+        FormFor( {name:"sex"} ),
+        sex === 'male' &&
+          FormFor( {name:"maleSpecificValue"} ),
+        sex === 'female' &&
+          FormFor( {name:"femaleSpecificValue"} )
+      )
+    )
+  }
+})
+React.renderComponent(
+  Form( {schema:Family(null )} ),
+  document.getElementById('example')
+)
+    });
+    </script>
+    
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="array-editor.html" class="btn btn-neutral float-right" title="Array editor example"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic.html" class="btn btn-neutral" title="Basic form example"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

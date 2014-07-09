@@ -1,0 +1,367 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Array editor example &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Sortable list example" href="sortable-list.html"/>
+        <link rel="prev" title="Family form example" href="family-editor.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="family-editor.html">Family form example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Array editor example</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/examples/array-editor.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="array-editor-example">
+<h1>Array editor example<a class="headerlink" href="#array-editor-example" title="Permalink to this headline">¶</a></h1>
+<p>This example implements custom repeating fieldset which adds a new item when
+user focuses on a last item in a fieldset. This allows to enter array values by
+simply moving focus forward using <tt class="docutils literal"><span class="pre">Tab</span></tt> key.</p>
+<style>
+  .rf-repeating-fieldset-remove {
+    top: 0 !important;
+  }
+</style>
+<div id="example"></div><div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>var React = require(&#39;react&#39;)
+var ReactForms = require(&#39;react-forms&#39;)
+
+var Form = ReactForms.Form
+var List = ReactForms.schema.List
+var Property = ReactForms.schema.Property
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>var ArrayEditor = React.createClass({
+
+  mixins: [ReactForms.RepeatingFieldsetMixin],
+
+  onFocus: function(idx, e) {
+    var value = this.value();
+    if (value.value.length - 1 === idx) {
+      this.onValueUpdate(value.add());
+    }
+  },
+
+  onRemoveItem: function(idx) {
+    var value = this.value();
+    if (idx === 0 &amp;&amp; value.value.length === 1) {
+      this.onValueUpdate(value.updateValue([null]));
+    } else {
+      this.onValueUpdate(value.remove(idx));
+    }
+  },
+
+  decorate: function(item) {
+    item = React.addons.cloneWithProps(
+      item,
+      {onFocus: this.onFocus.bind(null, item.props.name)}
+    )
+    return (
+      &lt;div key={item.props.name} className=&quot;rf-repeating-fieldset-item&quot;&gt;
+        {item}
+        &lt;button
+          onClick={this.onRemoveItem.bind(null, item.props.name)}
+          tabIndex=&quot;-1&quot;
+          type=&quot;button&quot;
+          className=&quot;rf-repeating-fieldset-remove&quot;&gt;&amp;times;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    )
+  },
+
+  render: function() {
+    var fields = this.renderFields().map(this.decorate)
+    return this.transferPropsTo(&lt;div className=&quot;ArrayEditor&quot;&gt;{fields}&lt;/div&gt;)
+  }
+
+})
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>var Values = (
+  &lt;List component={ArrayEditor}&gt;
+    &lt;Property /&gt;
+  &lt;/List&gt;
+)
+
+React.renderComponent(
+  &lt;Form schema={Values} value={[&#39;focus on me!&#39;]} /&gt;,
+  document.getElementById(&#39;example&#39;)
+)
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", function() {
+    var React = require('react')
+var ReactForms = require('react-forms')
+
+var Form = ReactForms.Form
+var List = ReactForms.schema.List
+var Property = ReactForms.schema.Property
+var ArrayEditor = React.createClass({displayName: 'ArrayEditor',
+
+  mixins: [ReactForms.RepeatingFieldsetMixin],
+
+  onFocus: function(idx, e) {
+    var value = this.value();
+    if (value.value.length - 1 === idx) {
+      this.onValueUpdate(value.add());
+    }
+  },
+
+  onRemoveItem: function(idx) {
+    var value = this.value();
+    if (idx === 0 && value.value.length === 1) {
+      this.onValueUpdate(value.updateValue([null]));
+    } else {
+      this.onValueUpdate(value.remove(idx));
+    }
+  },
+
+  decorate: function(item) {
+    item = React.addons.cloneWithProps(
+      item,
+      {onFocus: this.onFocus.bind(null, item.props.name)}
+    )
+    return (
+      React.DOM.div( {key:item.props.name, className:"rf-repeating-fieldset-item"}, 
+        item,
+        React.DOM.button(
+          {onClick:this.onRemoveItem.bind(null, item.props.name),
+          tabIndex:"-1",
+          type:"button",
+          className:"rf-repeating-fieldset-remove"}, "×"
+        )
+      )
+    )
+  },
+
+  render: function() {
+    var fields = this.renderFields().map(this.decorate)
+    return this.transferPropsTo(React.DOM.div( {className:"ArrayEditor"}, fields))
+  }
+
+})
+var Values = (
+  List( {component:ArrayEditor}, 
+    Property(null )
+  )
+)
+
+React.renderComponent(
+  Form( {schema:Values, value:['focus on me!']} ),
+  document.getElementById('example')
+)
+    });
+    </script>
+    
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sortable-list.html" class="btn btn-neutral float-right" title="Sortable list example"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="family-editor.html" class="btn btn-neutral" title="Family form example"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

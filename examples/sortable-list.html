@@ -1,0 +1,728 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sortable list example &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Form with undo/redo stack" href="undo.html"/>
+        <link rel="prev" title="Array editor example" href="array-editor.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">React Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="family-editor.html">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array-editor.html">Array editor example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Sortable list example</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/examples/sortable-list.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="sortable-list-example">
+<h1>Sortable list example<a class="headerlink" href="#sortable-list-example" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to implement a custom component on top of
+<tt class="docutils literal"><span class="pre">RepeatingFieldset</span></tt> which allows to sort items via drag&#8217;n&#8217;drop.</p>
+<p>Add a few items and try to drag them with the handle to sort items in a list.</p>
+<style>
+  .SortableHandle {
+    font-size: 80%;
+    color: #aaa;
+    cursor: move;
+    padding: 10px;
+  }
+</style>
+<div id="example"></div><div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<p>First we need to bring some names into scope:</p>
+<div class="highlight-python"><div class="highlight"><pre>var React = require(&#39;react&#39;)
+var ReactForms = require(&#39;react-forms&#39;)
+
+var Form = ReactForms.Form
+var Schema = ReactForms.schema.Schema
+var List = ReactForms.schema.List
+var Property = ReactForms.schema.Property
+var RepeatingFieldset = ReactForms.RepeatingFieldset
+var cloneWithProps = React.addons.cloneWithProps
+var classSet = React.addons.classSet
+var Item = RepeatingFieldset.Item
+</pre></div>
+</div>
+<p>A little utility which will be used in implementation:</p>
+<div class="highlight-python"><div class="highlight"><pre>function merge(a, b) {
+  var k
+  var r = {}
+  for (k in a) {
+    r[k] = a[k]
+  }
+  for (k in b) {
+    r[k] = b[k]
+  }
+  return r
+}
+
+function setImagePositionFromEvent(node, e) {
+  node.style.left = &#39;&#39; + (e.pageX + 10) + &#39;px&#39;
+  node.style.top = &#39;&#39; + (e.pageY + 10) + &#39;px&#39;
+}
+
+/**
+ * Swap values in an array
+ */
+function swap(array, a, b) {
+  array = array.slice(0)
+  var aVal = array[a]
+  var bVal = array[b]
+  array[a] = bVal
+  array[b] = aVal
+  return array
+}
+</pre></div>
+</div>
+<p>Now we implement a <tt class="docutils literal"><span class="pre">DraggableMixin</span></tt> which provides some basic drag&#8217;n&#8217;drop
+functionality:</p>
+<div class="highlight-python"><div class="highlight"><pre>var DraggableMixin = {
+
+  componentWillMount: function() {
+    this.dragging = null
+  },
+
+  onMouseDown: function(e) {
+    if (!((!this.onDragStart || this.onDragStart(e) !== false) &amp;&amp;
+          e.button === 0)) {
+      return
+    }
+
+    window.addEventListener(&#39;mouseup&#39;, this.onMouseUp)
+    window.addEventListener(&#39;mousemove&#39;, this.onMouseMove)
+
+    this.dragging = this.getDraggingInfo ?
+      this.getDraggingInfo.apply(null, arguments) :
+      true
+  },
+
+  onMouseMove: function(e) {
+    if (this.dragging === null) {
+      return
+    }
+
+    if (e.stopPropagation) {
+      e.stopPropagation()
+    }
+
+    if (e.preventDefault) {
+      e.preventDefault()
+    }
+
+    if (this.onDrag) {
+      this.onDrag(e)
+    }
+
+  },
+
+  onMouseUp: function(e) {
+    this.dragging = null
+
+    window.removeEventListener(&#39;mousemove&#39;, this.onMouseMove)
+    window.removeEventListener(&#39;mouseup&#39;, this.onMouseUp)
+
+    if (this.onDragEnd) {
+      this.onDragEnd(e)
+    }
+  }
+}
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>/**
+ * Custom RepeatingFieldset item component which adds sortable handle and
+ * callbacks onSortStart and onSortOver
+ */
+var SortableItem = React.createClass({
+
+  render: function() {
+    return this.transferPropsTo(
+      &lt;Item className=&quot;SortableItem&quot; onMouseMove={this.onSortOver}&gt;
+        &lt;div
+          className=&quot;SortableHandle&quot;
+          onMouseDown={this.onSortStart}&gt;
+          drag to sort&lt;/div&gt;
+
+        {this.props.children}
+      &lt;/Item&gt;
+    )
+  },
+
+  onSortStart: function(e) {
+    var box = this.getDOMNode().getBoundingClientRect()
+    this.props.onSortStart(e, {
+      name: this.props.name,
+      size: {height: box.height, width: box.width}
+    })
+  },
+
+  onSortOver: function(e) {
+    if (!this.props.sorting) {
+      return
+    }
+    this.props.onSortOver(e, this.props.name)
+  }
+})
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>var SortableRepeatingFieldset = React.createClass({
+
+  mixins: [
+    ReactForms.FormElementMixin, // we need ReactForms.FormElementMixin cause we want to update the form value
+    ReactForms.FormContextMixin,
+    DraggableMixin // DraggableMixin provides basic dragging functionality
+  ],
+
+  getInitialState: function() {
+    return {sorting: null}
+  },
+
+  render: function() {
+    var className = classSet({
+      SortableRepeatingFieldset: true,
+      SortableActive: this.state.sorting !== null
+    })
+    return this.transferPropsTo(
+      &lt;RepeatingFieldset className={className} item={this.renderItem} /&gt;
+    )
+  },
+
+  /**
+  * Render a single item in a fieldset
+  *
+  * It returns a placeholder for the currently sorted item if repeating
+  * fieldset is in sortable state.
+  */
+  renderItem: function(props, child) {
+    var sorting = this.state.sorting
+    if (sorting &amp;&amp; sorting.name === props.name) {
+      return &lt;div
+        key={props.name}
+        style={sorting.size}
+        className=&quot;SortablePlaceholder&quot; /&gt;
+    } else {
+      props = merge(props, {
+        sorting: sorting,
+        onSortStart: this.onSortStart,
+        onSortOver: this.onSortOver,
+      })
+      return SortableItem(props, child)
+    }
+  },
+
+  /**
+  * Called by DraggableMixin on drag end
+  */
+  onDragEnd: function() {
+    this.setState({sorting: null})
+    if (this._image) {
+      document.body.removeChild(this._image)
+      this._image = undefined
+    }
+  },
+
+  onDrag: function(e) {
+    if (this._image) {
+      setImagePositionFromEvent(this._image, e)
+    }
+  },
+
+  onSortStart: function(e, info) {
+    // call into DraggableMixin to start dragging
+    this.onMouseDown(e)
+
+    var node = this._image = document.createElement(&#39;div&#39;)
+    var val = this.value()
+    var schema = val.schema.children
+    var value = val.value[info.name]
+
+    React.renderComponent(Form({schema: schema, value: value}), node)
+
+    node.classList.add(&#39;SortableImage&#39;)
+    node.style.position = &#39;absolute&#39;
+    node.style.width = &#39;&#39; + info.size.width + &#39;px&#39;
+    node.style.height = &#39;&#39; + info.size.height + &#39;px&#39;
+    setImagePositionFromEvent(node, e)
+    document.body.appendChild(node)
+
+    this.setState({sorting: info})
+  },
+
+  onSortOver: function(e, name) {
+    if (!this.state.sorting) {
+      return
+    }
+
+    // update sorting state and swap values
+    this.setState({sorting: merge(this.state.sorting, {name: name})})
+    this.onValueUpdate(this.value().swap(name, this.state.sorting.name))
+  }
+})
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>var Persons = (
+  &lt;List component={SortableRepeatingFieldset}&gt;
+    &lt;Schema&gt;
+      &lt;Property label=&quot;First name&quot; name=&quot;firstName&quot; /&gt;
+      &lt;Property label=&quot;Last name&quot; name=&quot;lastName&quot; /&gt;
+    &lt;/Schema&gt;
+  &lt;/List&gt;
+)
+
+
+React.renderComponent(
+  &lt;Form schema={Persons} value={[
+      {firstName: &#39;Jane&#39;, lastName: &#39;Roe&#39;},
+      {firstName: &#39;Richard&#39;, lastName: &#39;Miles&#39;},
+      {firstName: &#39;John&#39;, lastName: &#39;Doe&#39;}
+    ]} /&gt;,
+  document.getElementById(&#39;example&#39;)
+)
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", function() {
+    var React = require('react')
+var ReactForms = require('react-forms')
+
+var Form = ReactForms.Form
+var Schema = ReactForms.schema.Schema
+var List = ReactForms.schema.List
+var Property = ReactForms.schema.Property
+var RepeatingFieldset = ReactForms.RepeatingFieldset
+var cloneWithProps = React.addons.cloneWithProps
+var classSet = React.addons.classSet
+var Item = RepeatingFieldset.Item
+function merge(a, b) {
+  var k
+  var r = {}
+  for (k in a) {
+    r[k] = a[k]
+  }
+  for (k in b) {
+    r[k] = b[k]
+  }
+  return r
+}
+
+function setImagePositionFromEvent(node, e) {
+  node.style.left = '' + (e.pageX + 10) + 'px'
+  node.style.top = '' + (e.pageY + 10) + 'px'
+}
+
+/**
+ * Swap values in an array
+ */
+function swap(array, a, b) {
+  array = array.slice(0)
+  var aVal = array[a]
+  var bVal = array[b]
+  array[a] = bVal
+  array[b] = aVal
+  return array
+}
+var DraggableMixin = {
+
+  componentWillMount: function() {
+    this.dragging = null
+  },
+
+  onMouseDown: function(e) {
+    if (!((!this.onDragStart || this.onDragStart(e) !== false) &&
+          e.button === 0)) {
+      return
+    }
+
+    window.addEventListener('mouseup', this.onMouseUp)
+    window.addEventListener('mousemove', this.onMouseMove)
+
+    this.dragging = this.getDraggingInfo ?
+      this.getDraggingInfo.apply(null, arguments) :
+      true
+  },
+
+  onMouseMove: function(e) {
+    if (this.dragging === null) {
+      return
+    }
+
+    if (e.stopPropagation) {
+      e.stopPropagation()
+    }
+
+    if (e.preventDefault) {
+      e.preventDefault()
+    }
+
+    if (this.onDrag) {
+      this.onDrag(e)
+    }
+
+  },
+
+  onMouseUp: function(e) {
+    this.dragging = null
+
+    window.removeEventListener('mousemove', this.onMouseMove)
+    window.removeEventListener('mouseup', this.onMouseUp)
+
+    if (this.onDragEnd) {
+      this.onDragEnd(e)
+    }
+  }
+}
+/**
+ * Custom RepeatingFieldset item component which adds sortable handle and
+ * callbacks onSortStart and onSortOver
+ */
+var SortableItem = React.createClass({displayName: 'SortableItem',
+
+  render: function() {
+    return this.transferPropsTo(
+      Item( {className:"SortableItem", onMouseMove:this.onSortOver}, 
+        React.DOM.div(
+          {className:"SortableHandle",
+          onMouseDown:this.onSortStart}, 
+          "drag to sort"),
+
+        this.props.children
+      )
+    )
+  },
+
+  onSortStart: function(e) {
+    var box = this.getDOMNode().getBoundingClientRect()
+    this.props.onSortStart(e, {
+      name: this.props.name,
+      size: {height: box.height, width: box.width}
+    })
+  },
+
+  onSortOver: function(e) {
+    if (!this.props.sorting) {
+      return
+    }
+    this.props.onSortOver(e, this.props.name)
+  }
+})
+var SortableRepeatingFieldset = React.createClass({displayName: 'SortableRepeatingFieldset',
+
+  mixins: [
+    ReactForms.FormElementMixin, // we need ReactForms.FormElementMixin cause we want to update the form value
+    ReactForms.FormContextMixin,
+    DraggableMixin // DraggableMixin provides basic dragging functionality
+  ],
+
+  getInitialState: function() {
+    return {sorting: null}
+  },
+
+  render: function() {
+    var className = classSet({
+      SortableRepeatingFieldset: true,
+      SortableActive: this.state.sorting !== null
+    })
+    return this.transferPropsTo(
+      RepeatingFieldset( {className:className, item:this.renderItem} )
+    )
+  },
+
+  /**
+  * Render a single item in a fieldset
+  *
+  * It returns a placeholder for the currently sorted item if repeating
+  * fieldset is in sortable state.
+  */
+  renderItem: function(props, child) {
+    var sorting = this.state.sorting
+    if (sorting && sorting.name === props.name) {
+      return React.DOM.div(
+        {key:props.name,
+        style:sorting.size,
+        className:"SortablePlaceholder"} )
+    } else {
+      props = merge(props, {
+        sorting: sorting,
+        onSortStart: this.onSortStart,
+        onSortOver: this.onSortOver,
+      })
+      return SortableItem(props, child)
+    }
+  },
+
+  /**
+  * Called by DraggableMixin on drag end
+  */
+  onDragEnd: function() {
+    this.setState({sorting: null})
+    if (this._image) {
+      document.body.removeChild(this._image)
+      this._image = undefined
+    }
+  },
+
+  onDrag: function(e) {
+    if (this._image) {
+      setImagePositionFromEvent(this._image, e)
+    }
+  },
+
+  onSortStart: function(e, info) {
+    // call into DraggableMixin to start dragging
+    this.onMouseDown(e)
+
+    var node = this._image = document.createElement('div')
+    var val = this.value()
+    var schema = val.schema.children
+    var value = val.value[info.name]
+
+    React.renderComponent(Form({schema: schema, value: value}), node)
+
+    node.classList.add('SortableImage')
+    node.style.position = 'absolute'
+    node.style.width = '' + info.size.width + 'px'
+    node.style.height = '' + info.size.height + 'px'
+    setImagePositionFromEvent(node, e)
+    document.body.appendChild(node)
+
+    this.setState({sorting: info})
+  },
+
+  onSortOver: function(e, name) {
+    if (!this.state.sorting) {
+      return
+    }
+
+    // update sorting state and swap values
+    this.setState({sorting: merge(this.state.sorting, {name: name})})
+    this.onValueUpdate(this.value().swap(name, this.state.sorting.name))
+  }
+})
+var Persons = (
+  List( {component:SortableRepeatingFieldset}, 
+    Schema(null, 
+      Property( {label:"First name", name:"firstName"} ),
+      Property( {label:"Last name", name:"lastName"} )
+    )
+  )
+)
+
+
+React.renderComponent(
+  Form( {schema:Persons, value:[
+      {firstName: 'Jane', lastName: 'Roe'},
+      {firstName: 'Richard', lastName: 'Miles'},
+      {firstName: 'John', lastName: 'Doe'}
+    ]} ),
+  document.getElementById('example')
+)
+    });
+    </script>
+    
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="undo.html" class="btn btn-neutral float-right" title="Form with undo/redo stack"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="array-editor.html" class="btn btn-neutral" title="Array editor example"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

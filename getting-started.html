@@ -1,0 +1,331 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; react-forms 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+  
+    <link rel="top" title="react-forms 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Overview" href="overview.html"/>
+        <link rel="prev" title="React Forms" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> react-forms</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">React Forms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-commonjs">Getting started with CommonJS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-amd">Getting started with AMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-standalone-build">Getting started with standalone build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-schemas">Form Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#form-components">Form Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#input-components">Input Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#dataflow">Dataflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Schemas and validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#reusable-schemas">Reusable schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#schema-metadata">Schema metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#property-types">Property types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customizations.html">Customizations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#input-components">Input components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#form-components">Form components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#fieldset-components">Fieldset components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customizations.html#repeating-fieldset-components">Repeating fieldset components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="styling.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#form">Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#field">Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#fieldset">Fieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#repeatingfieldset">RepeatingFieldset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styling.html#message">Message</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#schema">Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#mixins">Mixins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#input-components">Input components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic.html">Basic form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/family-editor.html">Family form example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/array-editor.html">Array editor example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sortable-list.html">Sortable list example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/undo.html">Form with undo/redo stack</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">react-forms</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Getting started</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/getting-started.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This page provides the usage instructions to get started with React Forms in
+different environments. We recommend using <a class="reference external" href="https://github.com/substack/browserify-handbook#require">CommonJS</a> module format, but we are
+also providing support for AMD and a standalone builds of React Forms.</p>
+<div class="section" id="getting-started-with-commonjs">
+<h2>Getting started with CommonJS<a class="headerlink" href="#getting-started-with-commonjs" title="Permalink to this headline">¶</a></h2>
+<p>React Forms is distributed as a set of CommonJS modules available through <a class="reference external" href="http://npmjs.org">npm</a>
+package registry. You can install both React Forms and React via <tt class="docutils literal"><span class="pre">npm</span></tt> command
+line tool.</p>
+<div class="inline admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">npm</span></tt> command-line utility comes bundled with a Node.js installation.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>% npm install react-forms react
+</pre></div>
+</div>
+<p>This will create a <tt class="docutils literal"><span class="pre">node_modules</span></tt> directory in the current working directory
+with <tt class="docutils literal"><span class="pre">react</span></tt> and <tt class="docutils literal"><span class="pre">react-forms</span></tt> packages installed.</p>
+<p>Now create a file called <tt class="docutils literal"><span class="pre">index.js</span></tt>. First we need to bring React Forms and
+React into scope using <tt class="docutils literal"><span class="pre">require()</span></tt> function. We also alias some definitions
+to make them look better and more descriptive.</p>
+<div class="inline admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For the sake of simplicity we will assume that all application code lives in a
+single file <tt class="docutils literal"><span class="pre">index.js</span></tt>. But in the real-world scenariou CommonJS module
+format makes it easy to factor out application into separate modules.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>var React = require(&#39;react&#39;)
+var ReactForms = require(&#39;react-forms&#39;)
+var Schema = ReactForms.schema.Schema
+var Property = ReactForms.schema.Property
+var Form = ReactForms.Form
+</pre></div>
+</div>
+<p>The first step is to define a schema for our form. Form schemas are used to
+describe what&#8217;s the shape of the data form represents, how it should validate it
+and how to present form fields to a user:</p>
+<div class="highlight-python"><div class="highlight"><pre>var schema = (
+  &lt;Schema&gt;
+    &lt;Property name=&quot;firstName&quot; /&gt;
+    &lt;Property name=&quot;lastName&quot; /&gt;
+    &lt;Property name=&quot;age&quot; type=&quot;number&quot; /&gt;
+  &lt;/Schema&gt;
+)
+</pre></div>
+</div>
+<p>Now the final step is to render a <tt class="docutils literal"><span class="pre">Form</span></tt> component with this schema:</p>
+<div class="highlight-python"><div class="highlight"><pre>React.renderComponent(
+  &lt;Form schema={schema} /&gt;,
+  document.getElementById(&#39;form&#39;))
+</pre></div>
+</div>
+<p>That&#8217;s a complete example of using React Forms to create a simple form.</p>
+<div class="section" id="bundling-commonjs">
+<h3>Bundling CommonJS<a class="headerlink" href="#bundling-commonjs" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have completed our minimal React Forms application using CommonJS
+module format we should make things work in browser. For that we can use any
+CommonJS bundler which understands how to get React and React Forms installed
+via npm and bundle them into a single (or multiple) files.</p>
+<p>There are tow main players on this field: <a class="reference external" href="http://browserify.org">Browserify</a> and <a class="reference external" href="https://webpack.github.io">Webpack</a>. Both have
+their strengths and weaknesses.</p>
+<div class="section" id="bundling-commonjs-with-browserify">
+<h4>Bundling CommonJS with Browserify<a class="headerlink" href="#bundling-commonjs-with-browserify" title="Permalink to this headline">¶</a></h4>
+<p>Browserify can be installed via npm. We also need a <tt class="docutils literal"><span class="pre">reactify</span></tt> package which
+provides a transform for Browserify which compiles JSX syntax to standard
+JavaScript. Install both with the following commands:</p>
+<div class="inline admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">npm</span> <span class="pre">install</span> <span class="pre">-g</span></tt> will install browserify so it&#8217;s available as a &#8220;global&#8221;
+<tt class="docutils literal"><span class="pre">browserify</span></tt> command. This can require sudo on Unix/Linux/Mac OS X.
+Alternatively you can install without <tt class="docutils literal"><span class="pre">-g</span></tt> flag and refer to
+<tt class="docutils literal"><span class="pre">./node_modules/.bin/browserify</span></tt> executable.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>% npm install -g browserify
+% npm install reactify
+</pre></div>
+</div>
+<p>Now we have <tt class="docutils literal"><span class="pre">browserify</span></tt> command available and can use it like:</p>
+<div class="highlight-python"><div class="highlight"><pre>% browserify ./index.js &gt; bundle.js
+</pre></div>
+</div>
+<p>This will create a file named <tt class="docutils literal"><span class="pre">bundle.js</span></tt> which can be included into an HTML
+file via <tt class="docutils literal"><span class="pre">&lt;script&gt;</span></tt> element.</p>
+</div>
+<div class="section" id="bundling-commonjs-with-webpack">
+<h4>Bundling CommonJS with Webpack<a class="headerlink" href="#bundling-commonjs-with-webpack" title="Permalink to this headline">¶</a></h4>
+<p>Webpack is another CommonJS bundler. It is very flexible and can produce bundles
+which consist of several chunks. You can read more on using Webpack in the
+<a class="reference external" href="Webpack">official documentation</a>.</p>
+<p>As React Forms is written using JSX and ES6 syntax, you would also need to install
+<tt class="docutils literal"><span class="pre">jsx-loader</span></tt> and use it with <tt class="docutils literal"><span class="pre">harmony</span></tt> flag. The relevant piece of Webpack
+configuration:</p>
+<div class="highlight-python"><div class="highlight"><pre>module.exports = {
+  ...
+  loaders: [
+    {include: /.*\.js/, loader: &#39;jsx-loader?harmony&#39;}
+  ],
+  ...
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="getting-started-with-amd">
+<h2>Getting started with AMD<a class="headerlink" href="#getting-started-with-amd" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="getting-started-with-standalone-build">
+<h2>Getting started with standalone build<a class="headerlink" href="#getting-started-with-standalone-build" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="React Forms"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Prometheus Research, LLC.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/bundle.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
