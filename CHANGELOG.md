@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.2
+
+  - Fix bug with Value.swap().
+
 ## 0.5.1
 
   - Fix bug with createComponentFromSchema (#36).
