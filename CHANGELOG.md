@@ -26,6 +26,9 @@
     `FormMixin`) then `schema` and `externalValidation` props make no effect.
     Any changes to them should be done to `value` instead.
 
+## 0.5.2
+
+  - Fix bug with Value.swap().
 
 ## 0.5.1
 
