@@ -55,7 +55,7 @@ ones:
   and vice-versa. For example date type transforms Date objects into strings of
   *YYYY-MM-DD* format and vice-versa.
 
-  There are built-in types are available: ``string``, ``number``, ``date`` and
+  There are built-in types are available: ``string``, ``number``, ``date``, ``bool`` and
   ``array`` which can be referenced by its string name: ``<Property type="date" />``.
 
   Custom types can be made by defining an object with methods ``serialize(value)`` and
