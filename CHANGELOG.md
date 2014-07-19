@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.6.0
+## 0.7.0 (to be released)
 
   - Value: factory interface changed to receive a single argument with
     attributes:
@@ -25,6 +25,10 @@
   - Form/FormMixin: When `value` prop is passed to a form component (component which uses
     `FormMixin`) then `schema` and `externalValidation` props make no effect.
     Any changes to them should be done to `value` instead.
+
+## 0.6.0
+
+  - Update to React 0.11.0
 
 ## 0.5.2
 
