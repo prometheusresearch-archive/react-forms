@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.1
+
+  - Fix bower package
+
 ## 0.6.0
 
   - Update to React 0.11.0
