@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.0
+
+  - Update to React 0.11.0
+
 ## 0.5.2
 
   - Fix bug with Value.swap().
