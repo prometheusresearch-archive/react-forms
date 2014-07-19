@@ -26,6 +26,10 @@
     `FormMixin`) then `schema` and `externalValidation` props make no effect.
     Any changes to them should be done to `value` instead.
 
+## 0.6.1
+
+  - Fix bower package
+
 ## 0.6.0
 
   - Update to React 0.11.0
