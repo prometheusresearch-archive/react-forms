@@ -3,27 +3,23 @@
  */
 'use strict';
 
-var sinon = require('sinon');
-var assert = require('assert');
+var sinon   = require('sinon');
+var assert  = require('assert');
 
-var ReactForms = require('../');
-var React = require('react');
-var TestUtils = require('react/lib/ReactTestUtils');
+var ReactForms  = require('../');
+var React       = require('react');
+var TestUtils   = require('react/lib/ReactTestUtils');
 
-var Property = ReactForms.schema.Property;
-var Schema = ReactForms.schema.Schema;
-
-var Form = ReactForms.Form;
-var Field = ReactForms.Field;
-var Fieldset = ReactForms.Fieldset;
+var {Form, Field, Fieldset} = ReactForms;
+var {Mapping, Scalar}       = ReactForms.schema;
 
 describe('simple form integration test', function() {
 
   var schema = (
-    <Schema>
-      <Property name="text" />
-      <Property name="num" type="number" />
-    </Schema>
+    <Mapping>
+      <Scalar name="text" />
+      <Scalar name="num" type="number" />
+    </Mapping>
   )
 
   var app;

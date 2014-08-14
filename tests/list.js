@@ -3,30 +3,24 @@
  */
 'use strict';
 
-var sinon = require('sinon');
-var assert = require('assert');
+var sinon   = require('sinon');
+var assert  = require('assert');
 
-var ReactForms = require('../');
-var React = require('react');
-var TestUtils = require('react/lib/ReactTestUtils');
+var ReactForms  = require('../');
+var React       = require('react');
+var TestUtils   = require('react/lib/ReactTestUtils');
 
-var Property = ReactForms.schema.Property;
-var Schema = ReactForms.schema.Schema;
-var List = ReactForms.schema.List;
-
-var Form = ReactForms.Form;
-var Field = ReactForms.Field;
-var Fieldset = ReactForms.Fieldset;
-var RepeatingFieldset = ReactForms.Fieldset;
+var {Scalar, Mapping, List}                     = ReactForms.schema;
+var {Form, Field, Fieldset, RepeatingFieldset}  = ReactForms;
 
 describe('list form integration test', function() {
 
   var schema = (
-    <Schema>
+    <Mapping>
       <List name="numbers">
-        <Property type="number" />
+        <Scalar type="number" />
       </List>
-    </Schema>
+    </Mapping>
   )
 
   var form;

@@ -3,19 +3,15 @@
  */
 'use strict';
 
-var sinon = require('sinon');
-var assert = require('assert');
+var sinon   = require('sinon');
+var assert  = require('assert');
 
-var ReactForms = require('../');
-var React = require('react');
-var TestUtils = require('react/lib/ReactTestUtils');
+var ReactForms  = require('../');
+var React       = require('react');
+var TestUtils   = require('react/lib/ReactTestUtils');
 
-var Property = ReactForms.schema.Property;
-var Schema = ReactForms.schema.Schema;
-
-var Form = ReactForms.Form;
-var Field = ReactForms.Field;
-var Fieldset = ReactForms.Fieldset;
+var {Form, Field, Fieldset} = ReactForms;
+var {Scalar, Mapping}       = ReactForms.schema;
 
 var RadioButtonGroup = ReactForms.input.RadioButtonGroup;
 
@@ -37,19 +33,19 @@ describe('form with dynamic schema', function() {
       {value: 'N/A', name: 'Other'}
     ];
 
-    function getSchema(options) {
+    function getMapping(options) {
       return (
-        <Schema>
-          <Property
+        <Mapping>
+          <Scalar
             name="cities"
             input={<RadioButtonGroup options={options} />}
             required />
-        </Schema>
+        </Mapping>
       );
     }
 
-    var schema = getSchema(cityOptions);
-    var schema2 = getSchema(cityOptions2);
+    var schema = getMapping(cityOptions);
+    var schema2 = getMapping(cityOptions2);
 
     var form = TestUtils.renderIntoDocument(<Form schema={schema} />);
 
@@ -69,14 +65,14 @@ describe('form with dynamic schema', function() {
 
   it('re-validates entire form', function() {
     var schema1 = (
-      <Schema>
-        <Property name="name" type="string" />
-      </Schema>
+      <Mapping>
+        <Scalar name="name" type="string" />
+      </Mapping>
     );
     var schema2 = (
-      <Schema>
-        <Property name="name" type="number" />
-      </Schema>
+      <Mapping>
+        <Scalar name="name" type="number" />
+      </Mapping>
     );
 
     var form = TestUtils.renderIntoDocument(
@@ -97,15 +93,15 @@ describe('form with dynamic schema', function() {
   it('preserves value on input', function() {
 
     var schema1 = (
-      <Schema>
-        <Property name="age" type="number" />
-      </Schema>
+      <Mapping>
+        <Scalar name="age" type="number" />
+      </Mapping>
     );
     var schema2 = (
-      <Schema>
-        <Property name="age" type="number" />
-        <Property name="name" type="string" />
-      </Schema>
+      <Mapping>
+        <Scalar name="age" type="number" />
+        <Scalar name="name" type="string" />
+      </Mapping>
     );
 
     var MyForm = React.createClass({

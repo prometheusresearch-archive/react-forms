@@ -11,8 +11,8 @@ var React = require('react');
 var merge = require('react/lib/merge');
 var TestUtils = require('react/lib/ReactTestUtils');
 
-var Property = ReactForms.schema.Property;
-var Schema = ReactForms.schema.Schema;
+var Scalar = ReactForms.schema.Scalar;
+var Mapping = ReactForms.schema.Mapping;
 
 var Form = ReactForms.Form;
 var Field = ReactForms.Field;
@@ -22,22 +22,22 @@ var CheckboxGroup = ReactForms.input.CheckboxGroup;
 
 describe('form with CheckboxGroup', function() {
 
-  function TestSchema(props) {
+  function TestMapping(props) {
     props = props || {};
     var options = [
       {value: 'yes', name: 'Yes'},
       {value: 'no', name: 'No'}
     ];
     return (
-      <Schema>
-        <Property
+      <Mapping>
+        <Scalar
           type="array"
           name="check"
           label={props.label}
           defaultValue={props.defaultValue}
           input={<CheckboxGroup options={options} />}
           />
-      </Schema>
+      </Mapping>
     );
   }
 
@@ -50,7 +50,7 @@ describe('form with CheckboxGroup', function() {
   function render(props) {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
-    props = merge(props, {schema: <TestSchema />, onChange, onUpdate});
+    props = merge(props, {schema: <TestMapping />, onChange, onUpdate});
     form = TestUtils.renderIntoDocument(Form(props));
     fields = {};
     boxes = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input');
