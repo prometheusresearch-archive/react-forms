@@ -150,7 +150,7 @@ describe('form with dynamic schema', function() {
       var fields = TestUtils.scryRenderedComponentsWithType(form, ReactForms.Field);
       assert.equal(fields.length, names.length);
       fields.forEach((field) => {
-        var name = field.value().name;
+        var name = field.props.value.name;
         assert.ok(names.indexOf(name) > -1)
       });
     }

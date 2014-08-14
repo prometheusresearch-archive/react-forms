@@ -48,8 +48,8 @@ describe('simple form integration test', function() {
     fields = {};
     inputs = {};
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      fields[field.value().name] = field;
-      inputs[field.value().name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
+      fields[field.props.value.name] = field;
+      inputs[field.props.value.name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
     });
   });
 
