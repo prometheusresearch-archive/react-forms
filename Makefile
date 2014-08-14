@@ -5,7 +5,7 @@ INTEGRATION_TESTS = $(shell find ./tests -name '*.js')
 MAKE_DOCS = $(MAKE) --no-print-directory -C docs
 
 lint:
-	@eslint-jsx lib/
+	@jsxhint lib/
 
 clean:
 	@rm -rf ./node_modules/

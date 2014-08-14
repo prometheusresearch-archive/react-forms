@@ -1,0 +1,12 @@
+{
+  "globalstrict": false,
+  "node": true,
+  "browser": false,
+  "newcap": false,
+  "predef": [
+      "it",
+      "describe",
+      "beforeEach",
+      "afterEach"
+  ]
+}
