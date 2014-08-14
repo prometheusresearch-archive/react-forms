@@ -35,12 +35,13 @@ describe('simple form integration test', function() {
   beforeEach(function() {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
-    form = TestUtils.renderIntoDocument(Form({schema, onChange, onUpdate}));
+    form = <Form schema={schema} onChange={onChange} onUpdate={onUpdate} />;
+    form = TestUtils.renderIntoDocument(form);
     fields = {};
     inputs = {};
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      fields[field.value().name] = field;
-      inputs[field.value().name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
+      fields[field.props.value.name] = field;
+      inputs[field.props.value.name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
     });
   });
 

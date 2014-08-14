@@ -55,7 +55,7 @@ describe('form with CheckboxGroup', function() {
     fields = {};
     boxes = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input');
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      fields[field.value().name] = field;
+      fields[field.props.value.name] = field;
     });
   }
 
