@@ -10,7 +10,8 @@ lint:
 clean:
 	@rm -rf ./node_modules/
 
-test: unit-test integration-test
+test:
+	@NODE_PATH=$(NODE_PATH) mochify -R dot $(TESTS) $(INTEGRATION_TESTS)
 
 unit-test: test-phantomjs
 
