@@ -102,7 +102,7 @@ describe('list form integration test', function() {
     assert.equal(onChange.callCount, 1);
 
     assert.deepEqual(form.getValue(), {numbers: ['invalid']});
-    assert.ok(form.getValidation().isSuccess);
+    assert.ok(form.getValidation().isFailure);
   });
 
   it('allows removing an item', function() {

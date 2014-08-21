@@ -13,9 +13,9 @@ var TestUtils   = require('react/lib/ReactTestUtils');
 var {Form, Field, Fieldset} = ReactForms;
 var {Scalar, Mapping}       = ReactForms.schema;
 
-var RadioButtonGroup = ReactForms.input.RadioButtonGroup;
+var RadioButtonGroup = require('../lib/input/RadioButtonGroup');
 
-describe('form with dynamic schema', function() {
+describe.skip('form with dynamic schema', function() {
 
   it('re-renders form if schema changes', function() {
 

@@ -18,7 +18,7 @@ var Form = ReactForms.Form;
 var Field = ReactForms.Field;
 var Fieldset = ReactForms.Fieldset;
 
-var CheckboxGroup = ReactForms.input.CheckboxGroup;
+var CheckboxGroup = require('../lib/input/CheckboxGroup');
 
 describe('form with CheckboxGroup', function() {
 
