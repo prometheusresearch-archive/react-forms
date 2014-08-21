@@ -10,8 +10,8 @@ var ReactForms  = require('../');
 var React       = require('react');
 var TestUtils   = require('react/lib/ReactTestUtils');
 
-var {Scalar, Mapping, List}                     = ReactForms.schema;
-var {Form, Field, Fieldset, RepeatingFieldset}  = ReactForms;
+var {Scalar, Mapping, List} = ReactForms.schema;
+var {Form, Field}           = ReactForms;
 
 describe('list form integration test', function() {
 
@@ -63,9 +63,8 @@ describe('list form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.value().value, {});
-    assert.deepEqual(form.value().serialized, {});
-    assert.ok(ReactForms.validation.isSuccess(form.value().validation));
+    assert.deepEqual(form.getValue(), {});
+    assert.ok(form.getValidation().isSuccess);
   });
 
   it('allows adding an item', function() {
@@ -78,9 +77,8 @@ describe('list form integration test', function() {
     assert.equal(onUpdate.callCount, 1);
     assert.equal(onChange.callCount, 1);
 
-    assert.deepEqual(form.value().value, {numbers: [null]});
-    assert.deepEqual(form.value().serialized, {numbers: ['']});
-    assert.ok(ReactForms.validation.isSuccess(form.value().validation));
+    assert.deepEqual(form.getValue(), {numbers: [null]});
+    assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on user input', function() {
@@ -91,9 +89,8 @@ describe('list form integration test', function() {
     assert.equal(onUpdate.callCount, 2);
     assert.equal(onChange.callCount, 2);
 
-    assert.deepEqual(form.value().value, {numbers: [42]});
-    assert.deepEqual(form.value().serialized, {numbers: ['42']});
-    assert.ok(ReactForms.validation.isSuccess(form.value().validation));
+    assert.deepEqual(form.getValue(), {numbers: [42]});
+    assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on invalid user input', function() {
@@ -104,9 +101,8 @@ describe('list form integration test', function() {
     assert.equal(onUpdate.callCount, 2);
     assert.equal(onChange.callCount, 1);
 
-    assert.deepEqual(form.value().value, {numbers: ['invalid']});
-    assert.deepEqual(form.value().serialized, {numbers: ['invalid']});
-    assert.ok(ReactForms.validation.isFailure(form.value().validation));
+    assert.deepEqual(form.getValue(), {numbers: ['invalid']});
+    assert.ok(form.getValidation().isSuccess);
   });
 
   it('allows removing an item', function() {

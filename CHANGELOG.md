@@ -1,30 +1,27 @@
 # CHANGELOG
 
-## 0.7.0 (to be released)
+## 1.0.0 (to be released)
 
-  - Value: factory interface changed to receive a single argument with
-    attributes:
+  - [BREAKING CHANGE] Value: value is now implemented as a cursor for value, serialized and
+    validation data structures which are backed by [immutable][] library.
 
-        Value({schema: schema, value: {...}})
+    It is now holds a callback which can be supplied at creation time. Consumers
+    of a Value can notify produces by calling `notify()` method:
 
-  - Value: store `onUpdate` callback which is set during creation of the value.
-    Method `notify()` is used to call it.
+        value.update(newValue).notify()
 
-  - Value: removed forSchema() method.
+  - [BREAKING CHANGE] Remove the use of React context mechanism.
+  
+    As all needed data is now propagated through `Value` cursor via `value` prop
+    there's no need in context.
 
-  - Value: remove `updateValue`, `updateSerialized` and `updateValidation`
-    methods, instead use `.update(patch)` method.
+  - [BREAKING CHANGE] Remove mixins.
 
-  - FormElement/FormElementMixin: remove `updateValue()` method, use
-    `this.value().update(...).notify()` instead.
+    All form components are now implemented as thin wrappers on top of base
+    `<FormElement />` component thus rendering the need to abstract boilerplate
+    needless.
 
-  - Form/FormMixin: External validation is now a part of a form value, use
-    `this.value().externalValidation` to access it. `.externalValidation()`
-    method is removed.
-
-  - Form/FormMixin: When `value` prop is passed to a form component (component which uses
-    `FormMixin`) then `schema` and `externalValidation` props make no effect.
-    Any changes to them should be done to `value` instead.
+[immutable]: https://github.com/facebook/immutable-js
 
 ## 0.6.1
 
