@@ -15,7 +15,7 @@ var {Scalar, Mapping}       = ReactForms.schema;
 
 var RadioButtonGroup = require('../lib/input/RadioButtonGroup');
 
-describe.skip('form with dynamic schema', function() {
+describe('form with dynamic schema', function() {
 
   it('re-renders form if schema changes', function() {
 
@@ -79,15 +79,13 @@ describe.skip('form with dynamic schema', function() {
       <Form schema={schema1} defaultValue={{name: 'hello'}} />
     );
 
-    assert.ok(ReactForms.validation.isSuccess(form.value().validation));
-    assert.equal(form.value().value.name, 'hello');
-    assert.equal(form.value().serialized.name, 'hello');
+    assert.ok(form.getValidation().isSuccess);
+    assert.equal(form.getValue().name, 'hello');
 
     form.setProps({schema: schema2});
 
-    assert.ok(ReactForms.validation.isFailure(form.value().validation));
-    assert.equal(form.value().value.name, 'hello');
-    assert.equal(form.value().serialized.name, 'hello');
+    assert.ok(form.getValidation().isFailure);
+    assert.equal(form.getValue().name, 'hello');
   });
 
   it('preserves value on input', function() {
@@ -104,7 +102,7 @@ describe.skip('form with dynamic schema', function() {
       </Mapping>
     );
 
-    var MyForm = React.createClass({
+    var FormWithDynamicSchema = React.createClass({
 
       render: function() {
         return (
@@ -130,42 +128,30 @@ describe.skip('form with dynamic schema', function() {
       }
     });
 
-    function assertFormValue(name, value, serialized) {
-      assert.equal(form.value().value[name], value);
-      if (serialized !== undefined) {
-        assert.equal(form.value().serialized[name], serialized);
-        TestUtils.scryRenderedDOMComponentsWithTag(form, 'input').forEach((input) => {
-          if (input.props.name === name) {
-            assert.equal(input.getDOMNode().value, serialized)
-          }
-        });
-      }
-    }
-
     function assertFormFieldsPresent(names) {
-      var fields = TestUtils.scryRenderedComponentsWithType(form, ReactForms.Field);
+      var fields = TestUtils.scryRenderedComponentsWithType(form, Field);
       assert.equal(fields.length, names.length);
       fields.forEach((field) => {
-        var name = field.props.value.name;
+        var name = field.props.value.schema.name;
         assert.ok(names.indexOf(name) > -1)
       });
     }
 
-    var form = TestUtils.renderIntoDocument(<MyForm />).refs.form;
+    var form = TestUtils.renderIntoDocument(<FormWithDynamicSchema />).refs.form;
 
     assertFormFieldsPresent(['age']);
-    assertFormValue('age', 17, '17');
+    assert.equal(form.getValue().age, 17);
 
     var ageInput = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
     TestUtils.Simulate.change(ageInput, {target: {value: '19'}});
 
     assertFormFieldsPresent(['age', 'name']);
-    assertFormValue('age', 19, '19');
+    assert.equal(form.getValue().age, 19);
 
     TestUtils.Simulate.change(ageInput, {target: {value: '10'}});
 
     assertFormFieldsPresent(['age']);
-    assertFormValue('age', 10, '10');
+    assert.equal(form.getValue().age, 10);
   });
 
 });
