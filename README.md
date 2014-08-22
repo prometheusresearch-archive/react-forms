@@ -3,8 +3,8 @@
 React Forms library provides a set of tools for [React][] to handle form
 rendering and validation.
 
-It provides a **schema language** to define form structure and
-validation and a set of **form components** to render schemas into UI.
+It provides a **schema language** to define form structure and validation and a
+set of **form components** to render schemas into UI.
 
 Data flow between React Forms components provides strong **immutability**
 guarantees. Form state accessible from a single location and can be snapshoted

@@ -11,11 +11,11 @@ fieldsets looks like:
 .. jsx::
   :hidesource:
 
-  var React = require('react')
+  var React = window.React = require('react')
   var ReactForms = require('react-forms')
 
-  var Schema = ReactForms.schema.Schema
-  var Property = ReactForms.schema.Property
+  var Mapping = ReactForms.schema.Mapping
+  var Scalar = ReactForms.schema.Scalar
   var List = ReactForms.schema.List
   var Form = ReactForms.Form
 
@@ -24,21 +24,21 @@ fieldsets looks like:
   function Person(props) {
     props = props || {}
     return (
-      <Schema name={props.name} label={props.label}>
-        <Property name="first" label="First name" />
-        <Property name="last" label="Last name" />
-      </Schema>
+      <Mapping name={props.name} label={props.label}>
+        <Scalar name="first" label="First name" />
+        <Scalar name="last" label="Last name" />
+      </Mapping>
     )
   }
 
   var family = (
-    <Schema>
+    <Mapping>
       <Person name="mother" label="Mother" />
       <Person name="father" label="Father" />
       <List name="children" label="Children">
         <Person />
       </List>
-    </Schema>
+    </Mapping>
   )
 
   React.renderComponent(

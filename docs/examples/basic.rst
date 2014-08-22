@@ -23,28 +23,28 @@ We start with a schema for our form:
   var React = require('react')
   var ReactForms = require('react-forms')
 
-  var Schema = ReactForms.schema.Schema
-  var Property = ReactForms.schema.Property
+  var Mapping = ReactForms.schema.Mapping
+  var Scalar = ReactForms.schema.Scalar
   var Form = ReactForms.Form
 
 .. jsx::
 
   var schema = (
-    <Schema>
-      <Property
+    <Mapping>
+      <Scalar
         name="description"
         required
         label="Message"
         input={<textarea placeholder="Give us details here..." />}
       />
-      <Property
+      <Scalar
         name="email"
         label="Email"
         required
         input={<input type="email" />}
         validate={function(v) { return /.+\@.+\..+/.test(v) }}
       />
-    </Schema>
+    </Mapping>
   )
 
 Note how we use ``required`` property on schema nodes to tell React Forms we
@@ -68,24 +68,22 @@ provides a button to submit a form:
 
       // return <form /> component with rendered form and a submit button
       return (
-          <form onSubmit={this.onSubmit} className="MyForm">
-            {form}
-            <button type="submit">Submit</button>
-          </form>
+        <form onSubmit={this.onSubmit} className="MyForm">
+          {form}
+          <button type="submit">Submit</button>
+        </form>
       )
     },
 
     onSubmit: function(e) {
       e.preventDefault()
-
       // check if form is valid
-      var validation = this.refs.form.value().validation
-      if (ReactForms.validation.isFailure(validation)) {
-        console.log('invalid form')
+      if (this.refs.form.getValidation().isFailure)  {
+        alert('invalid form')
         return
+      } else {
+        alert('form submitted!')
       }
-
-      alert('form submitted!')
     }
   })
 
