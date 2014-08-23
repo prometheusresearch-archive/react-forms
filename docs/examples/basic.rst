@@ -79,6 +79,8 @@ provides a button to submit a form:
       e.preventDefault()
       // check if form is valid
       if (this.refs.form.getValidation().isFailure)  {
+        // force rendering all validation errors
+        this.refs.form.markDirty();
         alert('invalid form')
         return
       } else {
