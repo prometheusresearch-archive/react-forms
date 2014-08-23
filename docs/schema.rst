@@ -109,7 +109,9 @@ Method ``serialize`` is called before value is sent to input component and
 Method ``deserialize`` could also throw an exception in case it cannot
 deserialize a passed value::
 
-  var MyType = {
+  var MyType = new ReactForms.type.Type({
+
+    name: 'MyType',
 
     serialize: function(value) {
       // return a value which will be passed
@@ -121,7 +123,7 @@ deserialize a passed value::
       // through validators and stored as a part
       // of the form value
     }
-  }
+  })
 
   <Scalar type={MyType} />
 
@@ -139,7 +141,7 @@ For example one can define a reusable schema node for positive numbers which
 validates only if corresponding value is a number and is greater than zero::
 
   function PositiveNumber(props) {
-    props = props || {};
+    props = props || {}
     return (
       <Scalar
         name={props.name}
