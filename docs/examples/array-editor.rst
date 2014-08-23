@@ -19,69 +19,70 @@ Implementation
 
 .. jsx::
 
-  var React = require('react')
-  var ReactForms = require('react-forms')
-
-  var Form = ReactForms.Form
-  var List = ReactForms.schema.List
-  var Property = ReactForms.schema.Property
+  var React = require('react/addons')
+  var cloneWithProps = React.addons.cloneWithProps
+  var Forms = require('react-forms')
+  var schema = Forms.schema
 
 .. jsx::
 
-  var ArrayEditor = React.createClass({
+  var ArrayItem = React.createClass({
 
-    mixins: [ReactForms.RepeatingFieldsetMixin],
-
-    onFocus: function(idx, e) {
-      var value = this.value();
-      if (value.value.length - 1 === idx) {
-        this.onValueUpdate(value.add());
-      }
-    },
-
-    onRemoveItem: function(idx) {
-      var value = this.value();
-      if (idx === 0 && value.value.length === 1) {
-        this.onValueUpdate(value.updateValue([null]));
-      } else {
-        this.onValueUpdate(value.remove(idx));
-      }
-    },
-
-    decorate: function(item) {
-      item = React.addons.cloneWithProps(
-        item,
-        {onFocus: this.onFocus.bind(null, item.props.name)}
-      )
+    render: function() {
       return (
-        <div key={item.props.name} className="rf-repeating-fieldset-item">
-          {item}
+        <div className="rf-RepeatingFieldset__item">
+          {cloneWithProps(this.props.children, {onFocus: this.onFocus})}
           <button
-            onClick={this.onRemoveItem.bind(null, item.props.name)}
-            tabIndex="-1"
+            onClick={this.props.onRemove}
             type="button"
-            className="rf-repeating-fieldset-remove">&times;
-          </button>
+            className="rf-RepeatingFieldset__remove">&times;</button>
         </div>
       )
     },
 
-    render: function() {
-      var fields = this.renderFields().map(this.decorate)
-      return this.transferPropsTo(<div className="ArrayEditor">{fields}</div>)
+    onFocus: function() {
+      this.props.onFocus(this.props.key)
     }
+  })
 
+  var ArrayEditor = React.createClass({
+
+    render: function() {
+      return this.transferPropsTo(
+        <Forms.RepeatingFieldset
+          className="ArrayEditor"
+          onRemove={this.onRemove}
+          item={<ArrayItem onFocus={this.onFocus} />}
+          />
+      )
+    },
+
+    onFocus: function(idx) {
+      var value = this.props.value
+      if (value.value.length - 1 === idx) {
+        value.push(value.schema.children.defaultValue).notify()
+      }
+    },
+
+    onRemove: function(idx) {
+      var value = this.props.value
+      if (idx === 0 && value.value.length === 1) {
+        value.update([value.schema.children.defaultValue]).notify()
+      } else {
+        value.splice(idx, 1).notify()
+      }
+    }
   })
 
 .. jsx::
 
   var Values = (
-    <List component={ArrayEditor}>
-      <Property />
-    </List>
+    <schema.List component={ArrayEditor}>
+      <schema.Scalar />
+    </schema.List>
   )
 
   React.renderComponent(
-    <Form schema={Values} value={['focus on me!']} />,
+    <Forms.Form schema={Values} defaultValue={['focus on me!']} />,
     document.getElementById('example')
   )
