@@ -3,22 +3,13 @@
  */
 'use strict';
 
-var sinon = require('sinon');
-var assert = require('assert');
-
-var ReactForms = require('../');
-var React = require('react');
-var merge = require('react/lib/merge');
-var TestUtils = require('react/lib/ReactTestUtils');
-
-var Scalar = ReactForms.schema.Scalar;
-var Mapping = ReactForms.schema.Mapping;
-
-var Form = ReactForms.Form;
-var Field = ReactForms.Field;
-var Fieldset = ReactForms.Fieldset;
-
-var CheckboxGroup = require('../lib/input/CheckboxGroup');
+var sinon                                     = require('sinon');
+var assert                                    = require('assert');
+var React                                     = require('react');
+var merge                                     = require('react/lib/merge');
+var TestUtils                                 = require('react/lib/ReactTestUtils');
+var {schema: {Scalar, Mapping}, Form, Field}  = require('../');
+var CheckboxGroup                             = require('../lib/input/CheckboxGroup');
 
 describe('form with CheckboxGroup', function() {
 
