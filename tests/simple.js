@@ -52,13 +52,13 @@ describe('simple form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.getValue(), {});
+    assert.deepEqual(form.getValue(), {num: null, text: null});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on user input', function() {
     TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.deepEqual(form.getValue(), {text: 'text!'});
+    assert.deepEqual(form.getValue(), {text: 'text!', num: null});
     assert.ok(form.getValidation().isSuccess);
 
     TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
@@ -68,7 +68,7 @@ describe('simple form integration test', function() {
 
   it('updates value on invalid user input', function() {
     TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid'}});
-    assert.deepEqual(form.getValue(), {num: 'invalid'});
+    assert.deepEqual(form.getValue(), {num: 'invalid', text: null});
     assert.ok(form.getValidation().isFailure);
   });
 
@@ -88,7 +88,7 @@ describe('simple form integration test', function() {
       TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
 
       var [value, validation, path] = onUpdate.firstCall.args;
-      assert.deepEqual(value, {text: 'text!'});
+      assert.deepEqual(value, {text: 'text!', num: null});
       assert.ok(validation.isSuccess);
       assert.deepEqual(path, ['text']);
     });
@@ -97,7 +97,7 @@ describe('simple form integration test', function() {
       TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
 
       var [value] = onChange.firstCall.args;
-      assert.deepEqual(value, {text: 'text!'});
+      assert.deepEqual(value, {text: 'text!', num: null});
     });
 
     it('fires callbacks on invalid user input', function() {
