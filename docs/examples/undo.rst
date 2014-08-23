@@ -31,14 +31,8 @@ UndoStack
 .. jsx::
 
   var React = require('react')
-  var ReactForms = require('react-forms')
-
-  var Form = ReactForms.Form
-  var FormFor = ReactForms.FormFor
-  var Schema = ReactForms.schema.Schema
-  var List = ReactForms.schema.List
-  var Property = ReactForms.schema.Property
-  var RepeatingFieldset = ReactForms.RepeatingFieldset
+  var Forms = require('react-forms')
+  var schema = Forms.schema
 
 First we define a reusable ``UndoStack`` mixin:
 
@@ -51,7 +45,11 @@ First we define a reusable ``UndoStack`` mixin:
     },
 
     snapshot: function() {
+      console.log('snapshot')
       var undo = this.state.undo.concat(this.getStateSnapshot())
+      if (undo.length > (this.maximumUndoLength || 80)) {
+        undo.shift()
+      }
       this.setState({undo: undo, redo: []})
     },
 
@@ -61,6 +59,10 @@ First we define a reusable ``UndoStack`` mixin:
 
     hasRedo: function() {
       return this.state.redo.length > 0
+    },
+
+    peekUndo: function() {
+      return this.state.undo[this.state.undo.length - 1]
     },
 
     redo: function() {
@@ -100,6 +102,28 @@ which uses it to define ``getStateSnapshot()`` and
 ``setStateSnapshot(snapshot)`` methods which returns and installs state
 snapshots.
 
+.. jsx::
+
+  var UndoIntervalStrategy = {
+
+    componentDidMount: function() {
+      this.__undoInterval = setInterval(
+        this._snapshotOnInterval,
+        this.undoInterval || 2000
+      )
+    },
+
+    componentWillUnmount: function() {
+      clearInterval(this.__undoInterval)
+    },
+
+    _snapshotOnInterval: function() {
+      if (!this.hasUndo() || this.peekUndo() !== this.getStateSnapshot()) {
+        this.snapshot()
+      }
+    }
+  }
+
 UndoControls
 ~~~~~~~~~~~~
 
@@ -132,21 +156,13 @@ Next we define a simple undo controls component which renders two buttons for
 FormWithUndo
 ~~~~~~~~~~~~
 
-The final part is to define a custom ``Form`` component which renders
+The final part is to define a custom ``<Form />`` component which renders
 ``UndoControls`` and mixes in ``UndoStack`` mixin:
 
 .. jsx::
 
   var FormWithUndo = React.createClass({
-    mixins: [ReactForms.FormMixin, UndoStack],
-
-    getStateSnapshot: function() {
-      return {value: this.value()}
-    },
-
-    setStateSnapshot: function(snapshot) {
-      this.onValueUpdate(snapshot.value)
-    },
+    mixins: [UndoStack, UndoIntervalStrategy],
 
     render: function() {
       return this.transferPropsTo(
@@ -157,11 +173,29 @@ The final part is to define a custom ``Form`` component which renders
             onUndo={this.undo}
             onRedo={this.redo}
             />
-          <RepeatingFieldset
-            onRemove={this.snapshot}
-            onAdd={this.snapshot} />
+          <Forms.Form ref="form"
+            component={React.DOM.div}
+            schema={this.props.schema}
+            defaultValue={this.props.defaultValue}
+            onUpdate={this.onUpdate}
+            />
         </form>
       )
+    },
+
+    getStateSnapshot: function() {
+      return this.refs.form.getValue()
+    },
+
+    setStateSnapshot: function(value) {
+      this.refs.form.setValue(value)
+    },
+
+    onUpdate: function(value, validation, path) {
+      var updatedSchema = this.props.schema.childIn(path)
+      if (schema.isList(updatedSchema) || !this.hasUndo()) {
+        this.snapshot()
+      }
     }
   })
 
@@ -173,23 +207,26 @@ component:
   function Product(props) {
     props = props || {}
     return (
-      <Schema required={props.required} name={props.name} label={props.label}>
-        <Property name="name" label="Name" />
-        <Property type="number" name="price" label="Price" />
-      </Schema>
+      <schema.Mapping required={props.required} name={props.name} label={props.label}>
+        <schema.Scalar name="name" label="Name" />
+        <schema.Scalar type="number" name="price" label="Price" />
+      </schema.Mapping>
     )
   }
 
   var Products = (
-    <List label="Products">
+    <schema.List label="Products">
       <Product />
-    </List>
+    </schema.List>
   )
 
 .. jsx::
 
   React.renderComponent(
-    <FormWithUndo schema={Products} value={[{name: 'TV', price: 1000}]} />,
+    <FormWithUndo
+      schema={Products}
+      defaultValue={[{name: 'TV', price: 1000}]}
+      />,
     document.getElementById('example')
   )
 
