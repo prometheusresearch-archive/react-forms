@@ -5,9 +5,6 @@ This examples demonstrates how to implement undo/redo functionality with React
 Forms. Because React Forms keeps its state (value and validation info) immutable
 it is possible to make a state snapshot at any time with almost no overhead.
 
-This particular examples only make a snapshot before destructive operations such
-as adding/removing a fieldset in repeating fieldset.
-
 .. raw:: html
 
   <style>
@@ -22,19 +19,18 @@ as adding/removing a fieldset in repeating fieldset.
 Implementation
 --------------
 
-Due to the dataflow_ provided by React Forms the implementation is quite
-compact.
-
 UndoStack
 ~~~~~~~~~
 
 .. jsx::
+  :hidesource:
 
   var React = require('react')
   var Forms = require('react-forms')
   var schema = Forms.schema
 
-First we define a reusable ``UndoStack`` mixin:
+First we define a reusable ``UndoStack`` mixin which keeps undo/redo stacks in
+state:
 
 .. jsx::
 
@@ -45,8 +41,7 @@ First we define a reusable ``UndoStack`` mixin:
     },
 
     snapshot: function() {
-      console.log('snapshot')
-      var undo = this.state.undo.concat(this.getStateSnapshot())
+      var undo = this.state.undo.concat([this.getStateSnapshot()])
       if (undo.length > (this.maximumUndoLength || 80)) {
         undo.shift()
       }
@@ -102,6 +97,9 @@ which uses it to define ``getStateSnapshot()`` and
 ``setStateSnapshot(snapshot)`` methods which returns and installs state
 snapshots.
 
+Now, we define another reusable mixin which builds up on top of ``UndoStack``
+mixin and does snapshots periodically with configurable interval:
+
 .. jsx::
 
   var UndoIntervalStrategy = {
@@ -115,10 +113,11 @@ snapshots.
 
     componentWillUnmount: function() {
       clearInterval(this.__undoInterval)
+      this.__undoInterval = undefined
     },
 
     _snapshotOnInterval: function() {
-      if (!this.hasUndo() || this.peekUndo() !== this.getStateSnapshot()) {
+      if (this.hasChanges()) {
         this.snapshot()
       }
     }
@@ -157,7 +156,7 @@ FormWithUndo
 ~~~~~~~~~~~~
 
 The final part is to define a custom ``<Form />`` component which renders
-``UndoControls`` and mixes in ``UndoStack`` mixin:
+``UndoControls`` and mixes in ``UndoStack`` and ``UndoIntervalStrategy`` mixins:
 
 .. jsx::
 
@@ -183,20 +182,30 @@ The final part is to define a custom ``<Form />`` component which renders
       )
     },
 
+    /** UndoStack */
     getStateSnapshot: function() {
+      this.__hasChanges = false
       return this.refs.form.getValue()
     },
 
+    /** UndoStack */
     setStateSnapshot: function(value) {
       this.refs.form.setValue(value)
     },
 
+    /** UndoIntervalStrategy */
+    hasChanges: function() {
+      return this.__hasChanges
+    },
+
     onUpdate: function(value, validation, path) {
+      this.__hasChanges = true
       var updatedSchema = this.props.schema.childIn(path)
       if (schema.isList(updatedSchema) || !this.hasUndo()) {
         this.snapshot()
       }
     }
+
   })
 
 The ``FormWithUndo`` usage is no different than using an original ``Form``
