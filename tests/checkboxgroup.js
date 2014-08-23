@@ -9,7 +9,7 @@ var React                                     = require('react');
 var merge                                     = require('react/lib/merge');
 var TestUtils                                 = require('react/lib/ReactTestUtils');
 var {schema: {Scalar, Mapping}, Form, Field}  = require('../');
-var CheckboxGroup                             = require('../lib/input/CheckboxGroup');
+var CheckboxGroup                             = require('../lib/CheckboxGroup');
 
 describe('form with CheckboxGroup', function() {
 

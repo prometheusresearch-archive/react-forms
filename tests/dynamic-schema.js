@@ -13,7 +13,7 @@ var TestUtils   = require('react/lib/ReactTestUtils');
 var {Form, Field, Fieldset} = ReactForms;
 var {Scalar, Mapping}       = ReactForms.schema;
 
-var RadioButtonGroup = require('../lib/input/RadioButtonGroup');
+var RadioButtonGroup = require('../lib/RadioButtonGroup');
 
 describe('form with dynamic schema', function() {
 
