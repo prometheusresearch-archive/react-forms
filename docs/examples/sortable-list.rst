@@ -2,7 +2,7 @@ Sortable list example
 =====================
 
 This example demonstrates how to implement a custom component on top of
-``RepeatingFieldset`` which allows to sort items via drag'n'drop.
+``<RepeatingFieldset />`` which allows to sort items via drag'n'drop.
 
 Add a few items and try to drag them with the handle to sort items in a list.
 
@@ -26,17 +26,11 @@ First we need to bring some names into scope:
 
 .. jsx::
 
-  var React = require('react')
-  var ReactForms = require('react-forms')
-
-  var Form = ReactForms.Form
-  var Schema = ReactForms.schema.Schema
-  var List = ReactForms.schema.List
-  var Property = ReactForms.schema.Property
-  var RepeatingFieldset = ReactForms.RepeatingFieldset
+  var React = require('react/addons')
   var cloneWithProps = React.addons.cloneWithProps
   var classSet = React.addons.classSet
-  var Item = RepeatingFieldset.Item
+  var Forms = require('react-forms')
+  var schema = Forms.schema
 
 A little utility which will be used in implementation:
 
@@ -137,21 +131,21 @@ functionality:
 
     render: function() {
       return this.transferPropsTo(
-        <Item className="SortableItem" onMouseMove={this.onSortOver}>
+        <Forms.RepeatingFieldset.Item className="SortableItem" onMouseMove={this.onSortOver}>
           <div
             className="SortableHandle"
             onMouseDown={this.onSortStart}>
-            drag to sort</div>
-
+            drag to sort
+          </div>
           {this.props.children}
-        </Item>
+        </Forms.RepeatingFieldset.Item>
       )
     },
 
     onSortStart: function(e) {
       var box = this.getDOMNode().getBoundingClientRect()
       this.props.onSortStart(e, {
-        name: this.props.name,
+        name: this.props.key,
         size: {height: box.height, width: box.width}
       })
     },
@@ -160,7 +154,7 @@ functionality:
       if (!this.props.sorting) {
         return
       }
-      this.props.onSortOver(e, this.props.name)
+      this.props.onSortOver(e, this.props.key)
     }
   })
 
@@ -168,11 +162,7 @@ functionality:
 
   var SortableRepeatingFieldset = React.createClass({
 
-    mixins: [
-      ReactForms.FormElementMixin, // we need ReactForms.FormElementMixin cause we want to update the form value
-      ReactForms.FormContextMixin,
-      DraggableMixin // DraggableMixin provides basic dragging functionality
-    ],
+    mixins: [DraggableMixin],
 
     getInitialState: function() {
       return {sorting: null}
@@ -184,7 +174,7 @@ functionality:
         SortableActive: this.state.sorting !== null
       })
       return this.transferPropsTo(
-        <RepeatingFieldset className={className} item={this.renderItem} />
+        <Forms.RepeatingFieldset className={className} item={this.renderItem} />
       )
     },
 
@@ -196,13 +186,14 @@ functionality:
     */
     renderItem: function(props, child) {
       var sorting = this.state.sorting
-      if (sorting && sorting.name === props.name) {
+      if (sorting && sorting.name === props.key) {
         return <div
-          key={props.name}
+          key={props.key}
           style={sorting.size}
           className="SortablePlaceholder" />
       } else {
         props = merge(props, {
+          key: props.key,
           sorting: sorting,
           onSortStart: this.onSortStart,
           onSortOver: this.onSortOver,
@@ -233,11 +224,14 @@ functionality:
       this.onMouseDown(e)
 
       var node = this._image = document.createElement('div')
-      var val = this.value()
+      var val = this.props.value
       var schema = val.schema.children
-      var value = val.value[info.name]
+      var value = val.value.get(info.name)
 
-      React.renderComponent(Form({schema: schema, value: value}), node)
+      React.renderComponent(
+        <Forms.Form schema={schema} defaultValue={value} />,
+        node
+      )
 
       node.classList.add('SortableImage')
       node.style.position = 'absolute'
@@ -256,24 +250,30 @@ functionality:
 
       // update sorting state and swap values
       this.setState({sorting: merge(this.state.sorting, {name: name})})
-      this.onValueUpdate(this.value().swap(name, this.state.sorting.name))
+      var value = this.props.value
+      var a = value.value.get(name)
+      var b = value.value.get(this.state.sorting.name)
+      value
+        .splice(name, 1, b)
+        .splice(this.state.sorting.name, 1, a)
+        .notify()
     }
   })
 
 .. jsx::
 
   var Persons = (
-    <List component={SortableRepeatingFieldset}>
-      <Schema>
-        <Property label="First name" name="firstName" />
-        <Property label="Last name" name="lastName" />
-      </Schema>
-    </List>
+    <schema.List component={SortableRepeatingFieldset}>
+      <schema.Mapping>
+        <schema.Scalar label="First name" name="firstName" />
+        <schema.Scalar label="Last name" name="lastName" />
+      </schema.Mapping>
+    </schema.List>
   )
 
 
   React.renderComponent(
-    <Form schema={Persons} value={[
+    <Forms.Form schema={Persons} defaultValue={[
         {firstName: 'Jane', lastName: 'Roe'},
         {firstName: 'Richard', lastName: 'Miles'},
         {firstName: 'John', lastName: 'Doe'}
