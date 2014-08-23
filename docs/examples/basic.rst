@@ -77,14 +77,13 @@ provides a button to submit a form:
 
     onSubmit: function(e) {
       e.preventDefault()
+      var form = this.refs.form
       // check if form is valid
-      if (this.refs.form.getValidation().isFailure)  {
+      if (form.getValidation().isFailure)  {
         // force rendering all validation errors
-        this.refs.form.markDirty();
-        alert('invalid form')
-        return
+        form.markDirty();
       } else {
-        alert('form submitted!')
+        alert('form submitted with value:\n' + JSON.stringify(form.getValue()))
       }
     }
   })
