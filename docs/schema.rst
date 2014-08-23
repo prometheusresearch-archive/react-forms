@@ -5,31 +5,31 @@ Form schemas are high-level declarative descriptions of forms. They describe
 every field of the form, how it should rendered, what's the shape of the data
 and how it should be validated.
 
-React Forms provides ``Schema``, ``List`` and ``Property`` schema nodes to
+React Forms provides ``Mapping``, ``List`` and ``Scalar`` schema nodes to
 describe mapping, list and scalar values correspondingly::
 
-  var Schema    = ReactForms.schema.Schema
-  var List      = ReactForms.schema.List
-  var Property  = ReactForms.schema.Property
+  var Mapping = ReactForms.schema.Mapping
+  var List    = ReactForms.schema.List
+  var Scalar  = ReactForms.schema.Scalar
 
-  var PersonSchema = Schema(null,
-    Property({name: 'name', label: 'Name'}),
-    Property({name: 'dob', label: 'Date Of Birth'})
+  var PersonSchema = Mapping(null,
+    Scalar({name: 'name', label: 'Name'}),
+    Scalar({name: 'dob', label: 'Date Of Birth'})
   )
 
 Object ``PersonSchema`` is a schema for objects which represent persons, every
 person have ``name`` and ``dob`` properties with labels ``Name`` and ``Date Of
 Birth`` correspondingly. Attribute ``name`` is required for schema nodes which
-are defined as a part of ``Schema`` declarations.
+are defined as a part of ``Mapping`` declarations.
 
 Forms schema API is designed to be compatible with JSX. The schema above can be
 specified using JSX syntax::
 
   var PersonSchema = (
-    <Schema>
-      <Property name="name" label="Name" />
-      <Property name="dob" label="Date Of Birth" />
-    </Schema>
+    <Mapping>
+      <Scalar name="name" label="Name" />
+      <Scalar name="dob" label="Date Of Birth" />
+    </Mapping>
   )
 
 Reusable schemas
@@ -43,7 +43,7 @@ schema nodes based on arguments passed::
 
   function Name(props) {
     props = props || {}
-    return <Property name={props.name || 'name'} label="Name" />
+    return <Scalar name={props.name || 'name'} label="Name" />
   }
 
 Schema metadata
@@ -71,7 +71,7 @@ Schema metadata related to presentation:
 Example of schema declarations which define all the available metadata
 properties::
 
-  <Property
+  <Scalar
     name="age"
     type="number"
     defaultValue={27}
@@ -80,7 +80,7 @@ properties::
     hint="How old are you?"
     />
 
-Property types
+Scalar types
 --------------
 
 Properties (schema nodes corresponding to scalars) can specify type of the value
@@ -91,11 +91,11 @@ representation. For example if you work with dates you would want to define type
 which would marshal strings in format ``"YYYY-MM-DD"`` into ``Date`` objects and
 vice versa. Fortunately there's built-in ``date`` type for that::
 
-  <Schema>
+  <Mapping>
     ...
-    <Property name="birthday" type="date" />
+    <Scalar name="birthday" type="date" />
     ...
-  </Schema>
+  </Mapping>
 
 You can refer to built-in types by specifying a ``type`` property which has type
 name as its string value. Currently React Forms provide a limited set of
@@ -123,7 +123,7 @@ deserialize a passed value::
     }
   }
 
-  <Property type={MyType} />
+  <Scalar type={MyType} />
 
 Validation
 ----------
@@ -141,7 +141,7 @@ validates only if corresponding value is a number and is greater than zero::
   function PositiveNumber(props) {
     props = props || {};
     return (
-      <Property
+      <Scalar
         name={props.name}
         type="number"
         validate={function(v) { return v > 0; }}

@@ -9,8 +9,8 @@ Schema
 ------
 
 Schema is used to describe form structure and validation. API consist of
-``Schema``, ``List`` and ``Property`` node types, each of those can contain
-metadata properties.
+``<Mapping />``, ``<List />`` and ``<Scalar />`` node types, each of those can
+contain metadata properties.
 
 Common schema properties
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,15 +35,15 @@ All three node types share the same set of properties:
   a function which validates transformed input value. Should
   return true in case of success and false in case of failure.
 
-``ReactForms.schema.Property``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.schema.Scalar />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``Property`` schema nodes are used to describe values such as strings, numbers,
+``<Scalar />`` schema nodes are used to describe values such as strings, numbers,
 dates, …::
 
-  <Property />
+  <Scalar />
 
-In addition to common schema properties, ``Property`` supports the following
+In addition to common schema properties, ``<Scalar />`` supports the following
 ones:
 
 ``input``
@@ -56,7 +56,7 @@ ones:
   *YYYY-MM-DD* format and vice-versa.
 
   There are built-in types are available: ``string``, ``number``, ``date``, ``bool`` and
-  ``array`` which can be referenced by its string name: ``<Property type="date" />``.
+  ``array`` which can be referenced by its string name: ``<Scalar type="date" />``.
 
   Custom types can be made by defining an object with methods ``serialize(value)`` and
   ``deserialize(value)``.
@@ -66,33 +66,33 @@ ones:
   an object (e.g. is not ``null``).
 
 
-``ReactForms.schema.Schema``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.schema.Mapping />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Nodes of type ``Schema`` are used to describe plain JavaScript objects (JSON
-objects). Children of the schema node describe keys of the object. Each child
-should have ``name`` property to define what key it describes::
+Nodes of type ``<Mapping />`` are used to describe plain JavaScript objects
+(JSON objects). Children of the schema node describe keys of the object. Each
+child should have ``name`` property to define what key it describes::
 
-  <Schema>
-    <Property name="a" />
-    <Property name="b" />
-  </Schema>
+  <Mapping>
+    <Scalar name="a" />
+    <Scalar name="b" />
+  </Mapping>
 
 The example above describe objects of shape ``{"a": …, "b": …}``.
 
-``ReactForms.schema.List``
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.schema.List />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``List`` schema nodes are used to describe arrays. They can have only a single
+``<List />`` schema nodes are used to describe arrays. They can have only a single
 child which describes the schema of the elements of an array::
 
   <List>
-    <Property type="number" />
+    <Scalar type="number" />
   </List>
 
 The example above describes the array of numbers ``[1, 2, 4, …]``.
 
-In addition to common schema properties, ``List`` supports the following ones:
+In addition to common schema properties, ``<List />`` supports the following ones:
 
 ``nonEmpty``
   Used as a shortcut for a validator which validates an array only if it has at
@@ -101,20 +101,20 @@ In addition to common schema properties, ``List`` supports the following ones:
 Functions
 ~~~~~~~~~
 
-``ReactForms.schema.isProperty(schema)``
-  Check if ``schema`` node has type ``Property``.
+``ReactForms.schema.isScalar(schema)``
+  Check if ``schema`` node is of type ``<Scalar />``.
 
-``ReactForms.schema.isSchema(schema)``
-  Check if ``schema`` node has type ``Schema``.
+``ReactForms.schema.isMapping(schema)``
+  Check if ``schema`` node is of type ``<Mapping />``.
 
 ``ReactForms.schema.isList(schema)``
-  Check if ``schema`` node has type ``List``.
+  Check if ``schema`` node is of type ``<List />``.
 
 Components
 ----------
 
-``ReactForms.Form``
-~~~~~~~~~~~~~~~~~~~
+``<ReactForms.Form />``
+~~~~~~~~~~~~~~~~~~~~~~~
 
 A component which represents an entire form: holds form value and validation
 state.
@@ -152,100 +152,58 @@ props
 methods
 ```````
 
-``value()``
-  Return form value object.
+``getValue()``
+  Return current form value.
 
-``ReactForms.Field``
-~~~~~~~~~~~~~~~~~~~~
+``getValidation()``
+  Return current form validation state.
+
+``<ReactForms.Field />``
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 A component which represents a single form field which contains a rendered input
 component along with ``<label />`` element. This component is used to represent
-schema nodes of type ``Property``.
+schema nodes of type ``<Scalar />``.
 
-``ReactForms.Fieldset``
-~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.Fieldset />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A component which represents a fieldset. This component is used to represent
-schema nodes of type ``Schema``.
+schema nodes of type ``<Mapping />``.
 
-``ReactForms.RepeatingFieldset``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.RepeatingFieldset />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A component which represents a list of fields/fieldsets. This component is used
 to represent schema nodes of type ``List``.
 
-``ReactForms.FormFor``
-~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.Element />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A "proxy" component which decides what component to render based on a current
-schema node it receives from a current form context.
+schema node it receives.
 
-Mixins
-------
-
-Each of the form components has the corresponding mixin which is used in an
-implementation. This allows to define custom form components without much
-boilerplate.
-
-``ReactForms.FormMixin``
+``<ReactForms.Input />``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+``<ReactForms.Label />``
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-methods
-```````
+``<ReactForms.Message />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``value()``
-  Return form value object.
-
-``ReactForms.FieldMixin``
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-methods
-```````
-
-``value()``
-  Return field value object.
-
-``ReactForms.FieldsetMixin``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-methods
-```````
-
-``value()``
-  Return fieldset value object.
-
-``ReactForms.RepeatingFieldsetMixin``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-methods
-```````
-
-``value()``
-  Return repeating fieldset value object.
-
-Validation
-----------
-
-``ReactForms.validation.validate(schema, value)``
-  Validate ``value`` against ``schema`` and return validation object which can
-  be checked with ``isSuccess`` or ``isFailure`` function for validness.
-
-``ReactForms.validation.isSuccess(validation)``
-  Return ``true`` is validation successful.
-
-``ReactForms.validation.isFailure(validation)``
-  Return ``true`` is validation failed.
+``<ReactForms.Hint />``
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Input components
 ----------------
 
-``ReactForms.input.CheckboxGroup``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.input.CheckboxGroup />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Should be used for schema nodes with type ``array``::
 
-    <Property type="array" input={<CheckboxGroup options={[...]} />} />
+    <Scalar type="array" input={<CheckboxGroup options={[...]} />} />
 
-``ReactForms.input.RadioButtonGroup``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``<ReactForms.input.RadioButtonGroup />``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

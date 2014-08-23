@@ -74,7 +74,6 @@ Now if you are ready to try, there's a :doc:`getting-started` page.
    getting-started
    overview
    schema
-   customizations
    styling
    api
    examples/index
