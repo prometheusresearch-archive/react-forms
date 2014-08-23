@@ -62,7 +62,11 @@ clean:
 	rm -rf _static/bundle.js
 
 _static/bundle.js: $(shell find ../lib -name '*.js')
-	../node_modules/.bin/browserify -d -r ../:react-forms -r react:react > $@
+	../node_modules/.bin/browserify -d \
+		-r ../:react-forms \
+		-r ../lib/RadioButtonGroup:react-forms/lib/RadioButtonGroup \
+		-r react:react \
+		> $@
 
 html: _static/bundle.js
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

@@ -35,33 +35,39 @@ to make them look better and more descriptive.
   single file ``index.js``. But in the real-world scenariou CommonJS module
   format makes it easy to factor out application into separate modules.
 
-::
+.. jsx::
 
   var React = require('react')
-  var ReactForms = require('react-forms')
-  var Schema = ReactForms.schema.Schema
-  var Property = ReactForms.schema.Property
-  var Form = ReactForms.Form
+  var Forms = require('react-forms')
+  var schema = Forms.schema
 
 The first step is to define a schema for our form. Form schemas are used to
 describe what's the shape of the data form represents, how it should validate it
-and how to present form fields to a user::
+and how to present form fields to a user:
+
+.. jsx::
 
   var schema = (
-    <Schema>
-      <Property name="firstName" />
-      <Property name="lastName" />
-      <Property name="age" type="number" />
-    </Schema>
+    <schema.Mapping>
+      <schema.Scalar name="firstName" label="First name" />
+      <schema.Scalar name="lastName" label="Last name" />
+      <schema.Scalar name="age" type="number" label="Age" />
+    </schema.Mapping>
   )
 
-Now the final step is to render a ``Form`` component with this schema::
+Now the final step is to render a ``Form`` component with this schema:
+
+.. jsx::
 
   React.renderComponent(
-    <Form schema={schema} />,
+    <Forms.Form schema={schema} />,
     document.getElementById('form'))
 
-That's a complete example of using React Forms to create a simple form.
+That's a complete example of using React Forms to create a simple form:
+
+.. raw:: html
+
+  <div id="form"></div>
 
 Bundling CommonJS
 ~~~~~~~~~~~~~~~~~

@@ -2,8 +2,7 @@ React Forms
 ===========
 
 React Forms library provides a set of tools for React_ to handle form rendering
-and validation. It is designed as a number of orthogonal features which fit well
-together but can be used separately or replaced with alternatives.
+and validation.
 
 The basic example which allows you to create pretty complex form with repeated
 fieldsets looks like:
@@ -51,10 +50,12 @@ Which results in a form:
 
   <div id="example"></div>
 
-Forms are described with **form schemas** and then rendered with **form
-components**. The separation allows to reduce boilerplate and to make form UI
-components more general and reusable. Form schemas can be extended and custom
-form components can be created for any custom needs.
+Forms are described with **schemas** and then rendered with **form components**.
+The separation allows to reduce boilerplate and to make form UI components more
+general and reusable.
+
+Form schemas can be extended and custom form components can be created for any
+custom needs.
 
 React Forms sets up a **unidirectional data flow** between form components. This
 makes reasoning about form values easy and allows to hook into any aspect of

@@ -19,17 +19,12 @@ First we need to bring needed components and utilities into scope:
 .. jsx::
 
   var React            = require('react')
-  var ReactForms       = require('react-forms')
+  var Forms            = require('react-forms')
+  var RadioButtonGroup = require('react-forms/lib/RadioButtonGroup')
+  var schema = Forms.schema;
 
-  var Form             = ReactForms.Form
-  var FormFor          = ReactForms.FormFor
-  var Schema           = ReactForms.schema.Schema
-  var List             = ReactForms.schema.List
-  var Property         = ReactForms.schema.Property
-  var RadioButtonGroup = ReactForms.input.RadioButtonGroup
-
-Schema
-~~~~~~
+Mapping
+~~~~~~~
 
 We start with defining schemas for commonly used fields.
 
@@ -48,7 +43,7 @@ input component for this type of values:
       {value: 'female', name: 'Female'}
     ]
     return (
-      <Property
+      <schema.Scalar
         name={props.name || 'sex'}
         label={props.label || 'Sex'}
         required={props.required}
@@ -82,13 +77,13 @@ Now we can use it in schema definition:
   function NameField(props) {
     props = props || {}
     return (
-      <Property
+      <schema.Scalar
         required={props.required}
         defaultValue={props.defaultValue}
         name={props.name || 'name'}
         label={props.label || 'Name'}
         hint="Should contain only alphanumeric characters"
-        input={NameInput()}
+        input={<NameInput />}
         validate={validateName}
         />
     )
@@ -107,7 +102,7 @@ DateOfBirthField
   function DateOfBirthField(props) {
     props = props || {}
     return (
-      <Property
+      <schema.Scalar
         name={props.name || 'dob'}
         label={props.label || 'Date of Birth'}
         hint="Should be in YYYY-MM-DD format"
@@ -131,27 +126,27 @@ define ``ChildFieldset`` below:
   function Adult(props) {
     props = props || {}
     return (
-      <Schema label={props.label || 'Adult'} name={props.name}>
+      <schema.Mapping label={props.label || 'Adult'} name={props.name}>
         <NameField />
         <DateOfBirthField />
-      </Schema>
+      </schema.Mapping>
     )
   }
 
   function Child(props) {
     props = props || {}
     return (
-      <Schema component={ChildFieldset} name={props.name}>
+      <schema.Mapping component={ChildFieldset} name={props.name}>
         <NameField />
         <DateOfBirthField />
         <SexField required />
-        <Property
+        <schema.Scalar
           label="Female specific value"
           name="femaleSpecificValue" />
-        <Property
+        <schema.Scalar
           label="Male specific value"
           name="maleSpecificValue" />
-      </Schema>
+      </schema.Mapping>
     )
   }
 
@@ -171,13 +166,13 @@ controls to add and remove children records:
   function Family(props) {
     props = props || {}
     return (
-      <Schema name={props.name} label={props.label || 'Family'}>
+      <schema.Mapping name={props.name} label={props.label || 'Family'}>
         <Adult name="mother" label="Mother" />
         <Adult name="father" label="Father" />
-        <List label="Children" name="children">
+        <schema.List label="Children" name="children">
           <Child />
-        </List>
-      </Schema>
+        </schema.List>
+      </schema.Mapping>
     )
   }
 
@@ -212,9 +207,13 @@ capitalize user input automatically:
     },
 
     format: function(value) {
-      return value.split(/\s+/)
-        .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
-        .join(' ')
+      if (value) {
+        return value.split(/\s+/)
+          .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
+          .join(' ')
+      } else {
+        return value
+      }
     },
 
     render: function() {
@@ -253,21 +252,25 @@ which automatically receives a corresponding schema and value based on its
 .. jsx::
 
   var ChildFieldset = React.createClass({
-    mixins: [ReactForms.FieldsetMixin],
 
     render: function() {
-      var sex = this.value().value.sex
+      var value = this.props.value;
+      var sex = this.props.value.value.get('sex');
       return this.transferPropsTo(
         <div className="react-forms-fieldset">
-          <FormFor name="name" />
-          <FormFor name="dob" />
-          <FormFor name="sex" />
+          <this.renderElement name="name" />
+          <this.renderElement name="dob" />
+          <this.renderElement name="sex" />
           {sex === 'male' &&
-            <FormFor name="maleSpecificValue" />}
+            <this.renderElement name="maleSpecificValue" />}
           {sex === 'female' &&
-            <FormFor name="femaleSpecificValue" />}
+            <this.renderElement name="femaleSpecificValue" />}
         </div>
       )
+    },
+
+    renderElement: function(props) {
+      return <Forms.Element value={this.props.value.child(props.name)} />
     }
   })
 
@@ -280,6 +283,6 @@ out ``Family`` schema:
 .. jsx::
 
   React.renderComponent(
-    <Form schema={<Family />} />,
+    <Forms.Form schema={<Family />} />,
     document.getElementById('example')
   )
