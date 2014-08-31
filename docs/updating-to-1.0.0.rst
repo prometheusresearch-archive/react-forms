@@ -76,7 +76,7 @@ than relying on a component to get the data from React's context.
 
 1.0.0::
 
-  <FormElement value={this.props.value.child('formField')} />
+  <Element value={this.props.value.child('formField')} />
 
 Removal of Form Component Mixins
 --------------------------------
