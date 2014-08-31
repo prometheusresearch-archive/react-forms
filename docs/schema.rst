@@ -12,10 +12,9 @@ describe mapping, list and scalar values correspondingly::
   var List    = ReactForms.schema.List
   var Scalar  = ReactForms.schema.Scalar
 
-  var PersonSchema = Mapping(null,
+  var PersonSchema = Mapping(
     Scalar({name: 'name', label: 'Name'}),
-    Scalar({name: 'dob', label: 'Date Of Birth'})
-  )
+    Scalar({name: 'dob', label: 'Date Of Birth'}))
 
 Object ``PersonSchema`` is a schema for objects which represent persons, every
 person have ``name`` and ``dob`` properties with labels ``Name`` and ``Date Of
@@ -25,12 +24,9 @@ are defined as a part of ``Mapping`` declarations.
 Forms schema API is designed to be compatible with JSX. The schema above can be
 specified using JSX syntax::
 
-  var PersonSchema = (
-    <Mapping>
-      <Scalar name="name" label="Name" />
-      <Scalar name="dob" label="Date Of Birth" />
-    </Mapping>
-  )
+  var PersonSchema = Mapping(
+    Scalar({name: 'name', label: 'Name'}),
+    Scalar({name: 'dob', label: 'Date Of Birth'}))
 
 Reusable schemas
 ----------------
@@ -43,7 +39,7 @@ schema nodes based on arguments passed::
 
   function Name(props) {
     props = props || {}
-    return <Scalar name={props.name || 'name'} label="Name" />
+    return Scalar({name: props.name || 'name', label: 'Name'})
   }
 
 Schema metadata
@@ -71,31 +67,30 @@ Schema metadata related to presentation:
 Example of schema declarations which define all the available metadata
 properties::
 
-  <Scalar
-    name="age"
-    type="number"
-    defaultValue={27}
-    validate={function(v) { return v > 0 }}
-    label="Age"
-    hint="How old are you?"
-    />
+  Scalar({
+    name: 'age',
+    type: 'number',
+    defaultValue: 27,
+    validate: function(v) { return v > 0 },
+    label: 'Age',
+    hint: 'How old are you?'
+  })
 
-Scalar types
---------------
+Types
+-----
 
-Properties (schema nodes corresponding to scalars) can specify type of the value
-they represent.
+Scalars can specify type of the value they represent.
 
 Type defines how value is serialized to/deserialized from its DOM
 representation. For example if you work with dates you would want to define type
 which would marshal strings in format ``"YYYY-MM-DD"`` into ``Date`` objects and
 vice versa. Fortunately there's built-in ``date`` type for that::
 
-  <Mapping>
+  Mapping(
     ...
-    <Scalar name="birthday" type="date" />
+    Scalar({name: 'birthday', type: 'date'}),
     ...
-  </Mapping>
+  )
 
 You can refer to built-in types by specifying a ``type`` property which has type
 name as its string value. Currently React Forms provide a limited set of
@@ -125,7 +120,7 @@ deserialize a passed value::
     }
   })
 
-  <Scalar type={MyType} />
+  var schema = Scalar({type: MyType})
 
 Validation
 ----------
@@ -142,11 +137,9 @@ validates only if corresponding value is a number and is greater than zero::
 
   function PositiveNumber(props) {
     props = props || {}
-    return (
-      <Scalar
-        name={props.name}
-        type="number"
-        validate={function(v) { return v > 0; }}
-        />
-    )
+    return Scalar({
+      name: props.name,
+      type: 'number',
+      validate: function(v) { return v > 0; }
+    })
   }

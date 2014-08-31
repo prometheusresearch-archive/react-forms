@@ -18,31 +18,15 @@ React Forms library.
 A basic example of a form schema looks like::
 
   function Person(props) {
-    props = props || {}
-    return (
-      <Mapping name={props.name} label={props.label}>
-        <Scalar name="first" label="First name" />
-        <Scalar name="last" label="Last name" />
-      </Mapping>
-    )
+    return Mapping(props,
+      Scalar({name: 'first', label: 'First name'}),
+      Scalar({name: 'last', label: 'Last name'}))
   }
 
-  var family = (
-    <Mapping>
-      <Person name="mother" label="Mother" />
-      <Person name="father" label="Father" />
-      <List name="children">
-        <Person />
-      </List>
-    </Mapping>
-  )
-
-
-.. note::
-  :class: inline
-
-  The example uses JSX syntax to describe schema (similar to how React uses JSX
-  to describe UI) but it's not required.
+  var family = Mapping(
+    Person({name: 'mother', label: 'Mother'}),
+    Person({name: 'father', label: 'Father'}),
+    List({name: 'children'}, Person()))
 
 You can read more about schemas on :doc:`schema` documentation page.
 
@@ -64,40 +48,22 @@ The functional scope of form components is to decide where to render ``<label
 and so on. What falls outside of this is how users enter form values, this is
 handled by input components (see :ref:`input-components`) instead.
 
-<Form />
-~~~~~~~~
-
 ``<Form />`` component is the only stateful component provided by React Forms.
 It serves as a form controller, holds form value and validation state and
-updates it accordingly.
-
-Every change made by user through an input component is propagated up to the
-form component.
-
-<Field />
-~~~~~~~~~
+updates it accordingly. Every change made by user through an input component is
+propagated up to the form component.
 
 ``<Field />`` component is used to represent scalar values (strings, numbers,
-dates and so on), values which correspond to schema nodes of type ``<Scalar
-/>``.
-
+dates and so on), values which correspond to schema nodes of type ``Scalar``.
 This component renders input component and corresponding ``<label>`` component
 with field label and hint text.
 
-<Fieldset />
-~~~~~~~~~~~~
-
 ``<Fieldset />`` component is used to render objects, values which correspond to
-schema nodes of type ``<Mapping />``.
+schema nodes of type ``Mapping``.
 
-<RepeatingFieldset />
-~~~~~~~~~~~~~~~~~~~~~
-
-``<RepeatingFieldset />`` is used to render values which corresponds to ``<List
-/>`` schema nodes.
-
-It renders a form component for each item in a value and also provides controls
-to create a new item and to remove existent items.
+``<RepeatingFieldset />`` is used to render values which corresponds to ``List``
+schema nodes. It renders a form component for each item in a value and also
+provides controls to create a new item and to remove existent items.
 
 .. _input-components:
 
@@ -113,8 +79,8 @@ to "value/onChange" contract.
 Dataflow
 --------
 
-``Form`` component "holds" entire form value and validation state as its state.
-This is the only stateful component in React Forms.
+``<Form />`` component holds entire form value and validation structure as its
+state. This is the only stateful component in React Forms.
 
 Each of form elements (fields, fieldsets, repeating fieldsets) receive a cursor
 to form value and validation state through ``value`` property.

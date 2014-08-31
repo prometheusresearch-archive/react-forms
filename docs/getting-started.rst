@@ -5,8 +5,8 @@ This page provides the usage instructions to get started with React Forms in
 different environments. We recommend using CommonJS_ module format, but we are
 also providing support for AMD and a standalone builds of React Forms.
 
-Getting started with CommonJS
------------------------------
+Installation
+------------
 
 React Forms is distributed as a set of CommonJS modules available through npm_
 package registry. You can install both React Forms and React via ``npm`` command
@@ -39,7 +39,9 @@ to make them look better and more descriptive.
 
   var React = require('react')
   var Forms = require('react-forms')
-  var schema = Forms.schema
+
+Defining form schema
+--------------------
 
 The first step is to define a schema for our form. Form schemas are used to
 describe what's the shape of the data form represents, how it should validate it
@@ -47,20 +49,26 @@ and how to present form fields to a user:
 
 .. jsx::
 
-  var schema = (
-    <schema.Mapping>
-      <schema.Scalar name="firstName" label="First name" />
-      <schema.Scalar name="lastName" label="Last name" />
-      <schema.Scalar name="age" type="number" label="Age" />
-    </schema.Mapping>
-  )
+  var Scalar = Forms.schema.Scalar
+  var Mapping = Forms.schema.Mapping
+
+  var schema = Mapping(
+    Scalar({name: 'firstName', label: 'First name'}),
+    Scalar({name: 'lastName', label: 'Last name'}),
+    Scalar({name: 'age', type: 'number', label: 'Age'}))
+
+Rendering form
+--------------
 
 Now the final step is to render a ``Form`` component with this schema:
 
 .. jsx::
 
   React.renderComponent(
-    <Forms.Form schema={schema} />,
+    <Forms.Form
+      schema={schema}
+      defaultValue={{firstName: 'John', lastName: 'Doe', age: 27}}
+      />,
     document.getElementById('form'))
 
 That's a complete example of using React Forms to create a simple form:
@@ -70,7 +78,7 @@ That's a complete example of using React Forms to create a simple form:
   <div id="form"></div>
 
 Bundling CommonJS
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Now that we have completed our minimal React Forms application using CommonJS
 module format we should make things work in browser. For that we can use any
@@ -125,12 +133,6 @@ configuration::
     ],
     ...
   }
-
-Getting started with AMD
-------------------------
-
-Getting started with standalone build
--------------------------------------
 
 .. _CommonJS: https://github.com/substack/browserify-handbook#require
 .. _npm: http://npmjs.org
