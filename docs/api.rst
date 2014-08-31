@@ -9,7 +9,7 @@ Schema
 ------
 
 Schema is used to describe form structure and validation. API consist of
-``<Mapping />``, ``<List />`` and ``<Scalar />`` node types, each of those can
+``Mapping``, ``List`` and ``Scalar`` node types, each of those can
 contain metadata properties.
 
 Common schema properties
@@ -35,15 +35,15 @@ All three node types share the same set of properties:
   a function which validates transformed input value. Should
   return true in case of success and false in case of failure.
 
-``<ReactForms.schema.Scalar />``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``ReactForms.schema.Scalar``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``<Scalar />`` schema nodes are used to describe values such as strings, numbers,
+``Scalar`` schema nodes are used to describe values such as strings, numbers,
 dates, …::
 
-  <Scalar />
+  Scalar()
 
-In addition to common schema properties, ``<Scalar />`` supports the following
+In addition to common schema properties, ``Scalar`` supports the following
 ones:
 
 ``input``
@@ -55,8 +55,9 @@ ones:
   and vice-versa. For example date type transforms Date objects into strings of
   *YYYY-MM-DD* format and vice-versa.
 
-  There are built-in types are available: ``string``, ``number``, ``date``, ``bool`` and
-  ``array`` which can be referenced by its string name: ``<Scalar type="date" />``.
+  There are built-in types are available: ``string``, ``number``, ``date``,
+  ``bool`` and ``array`` which can be referenced by its string name:
+  ``Scalar({type: 'date'})``.
 
   Custom types can be made by defining an object with methods ``serialize(value)`` and
   ``deserialize(value)``.
@@ -66,33 +67,30 @@ ones:
   an object (e.g. is not ``null``).
 
 
-``<ReactForms.schema.Mapping />``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``ReactForms.schema.Mapping``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Nodes of type ``<Mapping />`` are used to describe plain JavaScript objects
+Nodes of type ``Mapping`` are used to describe plain JavaScript objects
 (JSON objects). Children of the schema node describe keys of the object. Each
 child should have ``name`` property to define what key it describes::
 
-  <Mapping>
-    <Scalar name="a" />
-    <Scalar name="b" />
-  </Mapping>
+  var schema = Mapping(
+    Scalar({name: 'a'}),
+    Scalar({name: 'b'}))
 
 The example above describe objects of shape ``{"a": …, "b": …}``.
 
-``<ReactForms.schema.List />``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``ReactForms.schema.List``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``<List />`` schema nodes are used to describe arrays. They can have only a single
+``List`` schema nodes are used to describe arrays. They can have only a single
 child which describes the schema of the elements of an array::
 
-  <List>
-    <Scalar type="number" />
-  </List>
+  List(Scalar({type: 'number'}))
 
 The example above describes the array of numbers ``[1, 2, 4, …]``.
 
-In addition to common schema properties, ``<List />`` supports the following ones:
+In addition to common schema properties, ``List`` supports the following ones:
 
 ``nonEmpty``
   Used as a shortcut for a validator which validates an array only if it has at
@@ -102,13 +100,13 @@ Functions
 ~~~~~~~~~
 
 ``ReactForms.schema.isScalar(schema)``
-  Check if ``schema`` node is of type ``<Scalar />``.
+  Check if ``schema`` node is of type ``Scalar``.
 
 ``ReactForms.schema.isMapping(schema)``
-  Check if ``schema`` node is of type ``<Mapping />``.
+  Check if ``schema`` node is of type ``Mapping``.
 
 ``ReactForms.schema.isList(schema)``
-  Check if ``schema`` node is of type ``<List />``.
+  Check if ``schema`` node is of type ``List``.
 
 Components
 ----------
@@ -163,13 +161,13 @@ methods
 
 A component which represents a single form field which contains a rendered input
 component along with ``<label />`` element. This component is used to represent
-schema nodes of type ``<Scalar />``.
+schema nodes of type ``Scalar``.
 
 ``<ReactForms.Fieldset />``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A component which represents a fieldset. This component is used to represent
-schema nodes of type ``<Mapping />``.
+schema nodes of type ``Mapping``.
 
 ``<ReactForms.RepeatingFieldset />``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -195,6 +193,9 @@ schema node it receives.
 ``<ReactForms.Hint />``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+Value
+-----
+
 Input components
 ----------------
 
@@ -203,7 +204,10 @@ Input components
 
 Should be used for schema nodes with type ``array``::
 
-    <Scalar type="array" input={<CheckboxGroup options={[...]} />} />
+    Scalar({
+      type: 'array',
+      input: <CheckboxGroup options={[...]} />
+    })
 
 ``<ReactForms.input.RadioButtonGroup />``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -77,5 +77,6 @@ Now if you are ready to try, there's a :doc:`getting-started` page.
    styling
    api
    examples/index
+   updating-to-1.0.0
 
 .. _React: http://facebook.github.io/react
