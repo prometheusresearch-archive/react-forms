@@ -42,9 +42,11 @@ As value is passed through props, there's no need in a helper method ``value()``
 (which was previously provided by mixins).
 
 0.6.0::
+
   this.value()
 
 1.0.0::
+
   this.props.value
 
 Updating form value
@@ -54,9 +56,11 @@ As ``onUpdate`` callback is a part of the value itself, there's no need in
 helper method ``updateValue()`` (which was previously provided by mixins).
 
 0.6.0::
+
   this.updateValue(newValue)
 
 1.0.0::
+
   this.props.value.update(newValue).notify()
 
 
@@ -67,10 +71,12 @@ As value is now propagated through props, you should do it explicitly, rather
 than relying on a component to get the data from React's context.
 
 0.6.0::
+
   <FormFor name="formField" />
 
 1.0.0::
-  <FormElement value={this.props.value.get('formField')} />
+
+  <FormElement value={this.props.value.child('formField')} />
 
 Removal of Form Component Mixins
 --------------------------------
@@ -90,7 +96,7 @@ JSX syntax for defining form schemas is deprecated. Following the React core
 team deprecating JSX use case for plain function calls React Forms drops JSX
 syntax for schemas.
 
-Now instead of::
+0.6.0::
 
   var schema = (
     <Mapping>
@@ -99,7 +105,7 @@ Now instead of::
     <Mapping>
   )
 
-One should write::
+1.0.0::
 
   var schema = Mapping(
     Scalar({name: 'firstName'}),
@@ -112,13 +118,15 @@ Usage of Immutable library for schema and form value
 Form schema and form value (including serialized value and validation state) is
 now modelled with the usage of immutable_ library.
 
-Previously::
+Accessing schema properties
+```````````````````````````
+
+0.6.0::
 
   schema.props.field
 
-Now::
+1.0.0::
 
   schema.props.get('field')
-
 
 .. _immutable: https://github.com/facebook/immutable-js
