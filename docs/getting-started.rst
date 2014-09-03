@@ -85,7 +85,7 @@ module format we should make things work in browser. For that we can use any
 CommonJS bundler which understands how to get React and React Forms installed
 via npm and bundle them into a single (or multiple) files.
 
-There are tow main players on this field: Browserify_ and Webpack_. Both have
+There are two main players in this field: Browserify_ and Webpack_. Both have
 their strengths and weaknesses.
 
 Bundling CommonJS with Browserify
