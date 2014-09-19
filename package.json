@@ -24,7 +24,7 @@
     "browserify": "^5.9.0",
     "jsxhint": "^0.4.14",
     "mocha": "^1.18.2",
-    "mochify": "^1.0.0",
+    "mochify": "^1.1.0",
     "react": "^0.11.0",
     "sinon": "^1.9.1",
     "immutable": "^2.0.17"
