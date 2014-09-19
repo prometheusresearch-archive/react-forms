@@ -15,12 +15,10 @@ var {Mapping, Scalar}       = ReactForms.schema;
 
 describe('simple form integration test', function() {
 
-  var schema = (
-    <Mapping>
-      <Scalar name="text" />
-      <Scalar name="num" type="number" />
-    </Mapping>
-  )
+  var schema = Mapping({
+    text: Scalar(),
+    num: Scalar({type: 'number'})
+  });
 
   var app;
   var form;
@@ -44,8 +42,10 @@ describe('simple form integration test', function() {
     fields = {};
     inputs = {};
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      fields[field.props.value.schema.name] = field;
-      inputs[field.props.value.schema.name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
+      var path = field.props.value.path;
+      var name = path[path.length - 1];
+      fields[name] = field;
+      inputs[name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
     });
   });
 

@@ -34,14 +34,13 @@ describe('form with dynamic schema', function() {
     ];
 
     function getMapping(options) {
-      return (
-        <Mapping>
-          <Scalar
-            name="cities"
-            input={<RadioButtonGroup options={options} />}
-            required />
-        </Mapping>
-      );
+      return Mapping({
+        cities: Scalar({
+          name: 'cities',
+          input: <RadioButtonGroup options={options} />,
+          required: true
+        })
+      });
     }
 
     var schema = getMapping(cityOptions);
@@ -64,16 +63,12 @@ describe('form with dynamic schema', function() {
   });
 
   it('re-validates entire form', function() {
-    var schema1 = (
-      <Mapping>
-        <Scalar name="name" type="string" />
-      </Mapping>
-    );
-    var schema2 = (
-      <Mapping>
-        <Scalar name="name" type="number" />
-      </Mapping>
-    );
+    var schema1 = Mapping({
+      name: Scalar({type: 'string'})
+    });
+    var schema2 = Mapping({
+      name: Scalar({type: 'number'})
+    });
 
     var form = TestUtils.renderIntoDocument(
       <Form schema={schema1} defaultValue={{name: 'hello'}} />
@@ -90,17 +85,13 @@ describe('form with dynamic schema', function() {
 
   it('preserves value on input', function() {
 
-    var schema1 = (
-      <Mapping>
-        <Scalar name="age" type="number" />
-      </Mapping>
-    );
-    var schema2 = (
-      <Mapping>
-        <Scalar name="age" type="number" />
-        <Scalar name="name" type="string" />
-      </Mapping>
-    );
+    var schema1 = Mapping({
+      age: Scalar({type: 'number'})
+    });
+    var schema2 = Mapping({
+      age: Scalar({type: 'number'}),
+      name: Scalar({type: 'string'})
+    });
 
     var FormWithDynamicSchema = React.createClass({
 
@@ -132,7 +123,8 @@ describe('form with dynamic schema', function() {
       var fields = TestUtils.scryRenderedComponentsWithType(form, Field);
       assert.equal(fields.length, names.length);
       fields.forEach((field) => {
-        var name = field.props.value.schema.name;
+        var path = field.props.value.path;
+        var name = path[path.length - 1];
         assert.ok(names.indexOf(name) > -1)
       });
     }

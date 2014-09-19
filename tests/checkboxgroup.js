@@ -19,17 +19,14 @@ describe('form with CheckboxGroup', function() {
       {value: 'yes', name: 'Yes'},
       {value: 'no', name: 'No'}
     ];
-    return (
-      <Mapping>
-        <Scalar
-          type="array"
-          name="check"
-          label={props.label}
-          defaultValue={props.defaultValue}
-          input={<CheckboxGroup options={options} />}
-          />
-      </Mapping>
-    );
+    return Mapping({
+      check: Scalar({
+        type: 'array',
+        label: props.label,
+        defaultValue: props.defaultValue,
+        input: CheckboxGroup({options})
+      })
+    });
   }
 
   var form;
@@ -41,12 +38,14 @@ describe('form with CheckboxGroup', function() {
   function render(props) {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
-    props = merge(props, {schema: <TestMapping />, onChange, onUpdate});
+    props = merge(props, {schema: TestMapping(), onChange, onUpdate});
     form = TestUtils.renderIntoDocument(Form(props));
     fields = {};
     boxes = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input');
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      fields[field.props.value.name] = field;
+      var path = field.props.value.path;
+      var name = path[path.length - 1];
+      fields[name] = field;
     });
   }
 

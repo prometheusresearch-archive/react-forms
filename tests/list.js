@@ -16,13 +16,9 @@ var {Form, Field}           = ReactForms;
 describe('Form with <List /> schema', function() {
 
   describe('<List /> of <Scalar />', function() {
-    var schema = (
-      <Mapping>
-        <List name="numbers">
-          <Scalar type="number" />
-        </List>
-      </Mapping>
-    )
+    var schema = Mapping({
+      numbers: List(Scalar({type: 'number'}))
+    });
 
     var form;
     var onChange;
@@ -121,16 +117,12 @@ describe('Form with <List /> schema', function() {
   });
 
   describe('<List /> of <Mapping />', function() {
-    var schema = (
-      <Mapping>
-        <List name="numbers">
-          <Mapping>
-            <Scalar name="a" type="number" />
-            <Scalar name="b" type="number" />
-          </Mapping>
-        </List>
-      </Mapping>
-    )
+    var schema = Mapping({
+      numbers: List(Mapping({
+        a: Scalar({type: 'number'}),
+        b: Scalar({type: 'number'})
+      }))
+    });
 
     var form;
     var onChange;
