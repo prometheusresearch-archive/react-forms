@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.7.0
+
+  - Fill value with defaults from schema
+
 ## 0.6.1
 
   - Fix bower package
