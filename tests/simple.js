@@ -55,15 +55,15 @@ describe('simple form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.value().value, {text: null, num: null});
-    assert.deepEqual(form.value().serialized, {text: '', num: ''});
+    assert.deepEqual(form.value().value, {});
+    assert.deepEqual(form.value().serialized, {});
     assert.ok(ReactForms.validation.isSuccess(form.value().validation));
   });
 
   it('updates value on user input', function() {
     TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.deepEqual(form.value().value, {text: 'text!', num: null});
-    assert.deepEqual(form.value().serialized, {text: 'text!', num: ''});
+    assert.deepEqual(form.value().value, {text: 'text!'});
+    assert.deepEqual(form.value().serialized, {text: 'text!'});
     assert.ok(ReactForms.validation.isSuccess(form.value().validation));
 
     TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
@@ -74,8 +74,8 @@ describe('simple form integration test', function() {
 
   it('updates value on invalid user input', function() {
     TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid'}});
-    assert.deepEqual(form.value().value, {text: null, num: 'invalid'});
-    assert.deepEqual(form.value().serialized, {text: '', num: 'invalid'});
+    assert.deepEqual(form.value().value, {num: 'invalid'});
+    assert.deepEqual(form.value().serialized, {num: 'invalid'});
     assert.ok(ReactForms.validation.isFailure(form.value().validation));
   });
 

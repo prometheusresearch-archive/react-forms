@@ -69,8 +69,8 @@ describe('list form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.value().value, {numbers: []});
-    assert.deepEqual(form.value().serialized, {numbers: []});
+    assert.deepEqual(form.value().value, {});
+    assert.deepEqual(form.value().serialized, {});
     assert.ok(ReactForms.validation.isSuccess(form.value().validation));
   });
 
