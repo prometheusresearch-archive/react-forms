@@ -90,7 +90,6 @@ describe('simple form integration test', function() {
       var [value, validation, path] = onUpdate.firstCall.args;
       assert.deepEqual(value, {text: 'text!'});
       assert.ok(validation.isSuccess);
-      assert.deepEqual(path, ['text']);
     });
 
     it('provides access to an update object from onUpdate', function() {
