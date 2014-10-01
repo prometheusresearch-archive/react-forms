@@ -67,7 +67,15 @@ _static/bundle.js: $(shell find ../lib -name '*.js')
 		-r ../lib/RadioButtonGroup:react-forms/lib/RadioButtonGroup \
 		-r react/addons:react/addons \
 		-r react:react \
-		> $@
+		-o $@
+
+watch-bundle:
+	../node_modules/.bin/watchify -d -v \
+		-r ../:react-forms \
+		-r ../lib/RadioButtonGroup:react-forms/lib/RadioButtonGroup \
+		-r react/addons:react/addons \
+		-r react:react \
+		-o _build/html/_static/bundle.js
 
 html: _static/bundle.js
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

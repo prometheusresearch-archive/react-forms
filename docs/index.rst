@@ -21,15 +21,17 @@ fieldsets looks like:
 .. jsx::
 
   function Person(props) {
-    return Mapping(props,
-      Scalar({name: 'first', label: 'First name'}),
-      Scalar({name: 'last', label: 'Last name'}))
+    return Mapping(props, {
+      first: Scalar({label: 'First name'}),
+      last: Scalar({label: 'Last name'})
+    })
   }
 
-  var family = Mapping(
-    Person({name: 'mother', label: 'Mother'}),
-    Person({name: 'father', label: 'Father'}),
-    List({name: 'children', label: 'Children'}, Person()))
+  var family = Mapping({
+    mother: Person({label: 'Mother'}),
+    father: Person({label: 'Father'}),
+    children: List({label: 'Children'}, Person())
+  })
 
   React.renderComponent(
     <Form schema={family} />,

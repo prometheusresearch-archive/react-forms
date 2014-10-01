@@ -53,13 +53,13 @@ describe('nested form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.getValue(), {subschema: {text:null, num: null}});
+    assert.deepEqual(form.getValue(), {});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on user input', function() {
     TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.deepEqual(form.getValue(), {subschema: {num: null, text: 'text!'}});
+    assert.deepEqual(form.getValue(), {subschema: {text: 'text!'}});
     assert.ok(form.getValidation().isSuccess);
 
     TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
@@ -69,7 +69,7 @@ describe('nested form integration test', function() {
 
   it('updates value on invalid user input', function() {
     TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid'}});
-    assert.deepEqual(form.getValue(), {subschema: {text: null, num: 'invalid'}});
+    assert.deepEqual(form.getValue(), {subschema: {num: 'invalid'}});
     assert.ok(form.getValidation().isFailure);
   });
 

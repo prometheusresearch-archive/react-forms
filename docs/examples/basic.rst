@@ -29,23 +29,23 @@ We start with a schema for our form:
 
 .. jsx::
 
-  var schema = (
-    <Mapping>
-      <Scalar
-        name="description"
-        required
-        label="Message"
-        input={<textarea placeholder="Give us details here..." />}
-      />
-      <Scalar
-        name="email"
-        label="Email"
-        required
-        input={<input type="email" />}
-        validate={function(v) { return /.+\@.+\..+/.test(v) }}
-      />
-    </Mapping>
-  )
+  var schema = Mapping({
+    description: Scalar({
+      required: true,
+      label: 'Message',
+      input: <textarea placeholder="Give us details here..." />
+    }),
+    email: Scalar({
+      label: 'Email',
+      required: true,
+      input: <input type="email" />,
+      validate: function(v) {
+        if (!/.+\@.+\..+/.test(v)) {
+          return new Error('should be in "user@server" format');
+        }
+      }
+    })
+  })
 
 Note how we use ``required`` property on schema nodes to tell React Forms we
 want the form to be valid only if values for those schema nodes are present.

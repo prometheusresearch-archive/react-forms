@@ -60,7 +60,7 @@ describe('Form with <List /> schema', function() {
     });
 
     it('has empty value initially', function() {
-      assert.deepEqual(form.getValue(), {numbers: []});
+      assert.deepEqual(form.getValue(), {});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -164,7 +164,7 @@ describe('Form with <List /> schema', function() {
     });
 
     it('has empty value initially', function() {
-      assert.deepEqual(form.getValue(), {numbers: []});
+      assert.deepEqual(form.getValue(), {});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -178,7 +178,7 @@ describe('Form with <List /> schema', function() {
       assert.equal(onUpdate.callCount, 1);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: [{a: null, b: null}]});
+      assert.deepEqual(form.getValue(), {numbers: [{}]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -190,7 +190,7 @@ describe('Form with <List /> schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 2);
 
-      assert.deepEqual(form.getValue(), {numbers: [{a: 42, b: null}]});
+      assert.deepEqual(form.getValue(), {numbers: [{a: 42}]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -202,7 +202,7 @@ describe('Form with <List /> schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: [{a: 'invalid', b: null}]});
+      assert.deepEqual(form.getValue(), {numbers: [{a: 'invalid'}]});
       assert.ok(form.getValidation().isFailure);
     });
 
