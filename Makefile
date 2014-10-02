@@ -13,6 +13,9 @@ clean:
 test:
 	@NODE_PATH=$(NODE_PATH) mochify -R dot $(TESTS) $(INTEGRATION_TESTS)
 
+ci:
+	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(TESTS) $(INTEGRATION_TESTS)
+
 unit-test: test-phantomjs
 
 integration-ci:
