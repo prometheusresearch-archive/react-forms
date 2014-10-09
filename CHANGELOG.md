@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.2
+  
+  - Add support for Property name to be added to child check boxes in CheckboxGroup 
+
 ## 0.6.1
 
   - Fix bower package
