@@ -82,5 +82,13 @@ describe('form with CheckboxGroup', function() {
     TestUtils.Simulate.change(boxes[0].getDOMNode(), {target: {checked: true, value: 'yes'}});
     assert.ok(boxes.every((box) => box.getDOMNode().checked));
   });
+
+  it('renders the name on each check box', function() {
+     render();
+     assert.equal(boxes[0].getDOMNode().name, 'check');
+     assert.equal(boxes[1].getDOMNode().name, 'check');
+  });
+
+
 });
 
