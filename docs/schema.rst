@@ -24,9 +24,10 @@ are defined as a part of ``Mapping`` declarations.
 Forms schema API is designed to be compatible with JSX. The schema above can be
 specified using JSX syntax::
 
-  var PersonSchema = Mapping(
-    Scalar({name: 'name', label: 'Name'}),
-    Scalar({name: 'dob', label: 'Date Of Birth'}))
+  var PersonSchema = Mapping({
+    name: Scalar({label: 'Name'}),
+    dob: Scalar({label: 'Date Of Birth'})
+  })
 
 Reusable schemas
 ----------------
@@ -39,7 +40,7 @@ schema nodes based on arguments passed::
 
   function Name(props) {
     props = props || {}
-    return Scalar({name: props.name || 'name', label: 'Name'})
+    return Scalar({label: 'Name'})
   }
 
 Schema metadata
@@ -57,6 +58,8 @@ Schema metadata related to validation:
     values corresponding to schema.
   * ``defaultValue`` is used to define a value which will be used when a
     corresponding value for schema node is absent
+  * ``onUpdate`` is a callback which is fires during an update to form value, it
+    can be used to rewrite parts of form value based on some criteria.
 
 Schema metadata related to presentation:
 
@@ -73,7 +76,14 @@ properties::
     defaultValue: 27,
     validate: function(v) { return v > 0 },
     label: 'Age',
-    hint: 'How old are you?'
+    hint: 'How old are you?',
+    onUpdate: function(value) {
+      if (value < 0) {
+        return -value;
+      } else {
+        return value;
+      }
+    }
   })
 
 Types
@@ -86,11 +96,11 @@ representation. For example if you work with dates you would want to define type
 which would marshal strings in format ``"YYYY-MM-DD"`` into ``Date`` objects and
 vice versa. Fortunately there's built-in ``date`` type for that::
 
-  Mapping(
+  Mapping({
     ...
-    Scalar({name: 'birthday', type: 'date'}),
+    birthday: Scalar({type: 'date'}),
     ...
-  )
+  })
 
 You can refer to built-in types by specifying a ``type`` property which has type
 name as its string value. Currently React Forms provide a limited set of
