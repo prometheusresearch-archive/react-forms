@@ -1,6 +1,18 @@
 {
-  "globalstrict": false,
-  "node": true,
-  "browser": false,
-  "newcap": false
+  "undef": true,
+  "unused": "vars",
+  "asi": true,
+  "expr": true,
+  "globalstrict": true,
+  "esnext": true,
+  "globals": {
+    "Buffer": false,
+    "require": false,
+    "process": false,
+    "module": false,
+    "exports": false,
+    "console": false,
+    "it": false,
+    "describe": false
+  }
 }

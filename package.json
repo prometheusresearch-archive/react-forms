@@ -17,17 +17,17 @@
     "forms"
   ],
   "peerDependencies": {
-    "react": "^0.11.0",
-    "immutable": "^2.0.17"
+    "react": "^0.12.0",
+    "immutable": "^3.0.0"
   },
   "devDependencies": {
     "browserify": "^5.9.0",
-    "jsxhint": "^0.4.14",
+    "immutable": "^3.0.0",
+    "jsxhint": "^0.5.0",
     "mocha": "^1.18.2",
     "mochify": "^1.1.0",
-    "react": "^0.11.0",
-    "sinon": "^1.9.1",
-    "immutable": "^2.0.17"
+    "react": "^0.12.0",
+    "sinon": "^1.9.1"
   },
   "browserify": {
     "transform": [
@@ -45,6 +45,6 @@
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
   "dependencies": {
-    "reactify": "^0.14.0"
+    "reactify": "^0.15.0"
   }
 }

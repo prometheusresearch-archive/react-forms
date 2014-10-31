@@ -5,30 +5,30 @@ INTEGRATION_TESTS = $(shell find ./tests -name '*.js')
 MAKE_DOCS = $(MAKE) --no-print-directory -C docs
 
 lint:
-	@jsxhint lib/
+	@$(BIN)/jsxhint --force-transform lib/
 
 clean:
 	@rm -rf ./node_modules/
 
 test:
-	@NODE_PATH=$(NODE_PATH) mochify -R dot $(TESTS) $(INTEGRATION_TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify -R dot $(TESTS) $(INTEGRATION_TESTS)
 
 ci:
-	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(TESTS) $(INTEGRATION_TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify --watch -R dot $(TESTS) $(INTEGRATION_TESTS)
 
 unit-test: test-phantomjs
 
 integration-ci:
-	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(INTEGRATION_TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify --watch -R dot $(INTEGRATION_TESTS)
 
 integration-test:
-	@NODE_PATH=$(NODE_PATH) mochify -R dot $(INTEGRATION_TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify -R dot $(INTEGRATION_TESTS)
 
 unit-ci:
-	@NODE_PATH=$(NODE_PATH) mochify --watch -R dot $(TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify --watch -R dot $(TESTS)
 
 test-phantomjs:
-	@NODE_PATH=$(NODE_PATH) mochify -R dot $(TESTS)
+	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify -R dot $(TESTS)
 
 release-patch: test lint
 	@$(call release,patch)
