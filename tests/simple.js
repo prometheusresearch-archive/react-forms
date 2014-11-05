@@ -34,7 +34,7 @@ describe('simple form integration test', function() {
     fields = {};
     inputs = {};
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      var path = field.props.value.path;
+      var path = field.props.value.keyPath;
       var name = path[path.length - 1];
       fields[name] = field;
       inputs[name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');

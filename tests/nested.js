@@ -31,11 +31,13 @@ describe('nested form integration test', function() {
   beforeEach(function() {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
-    form = TestUtils.renderIntoDocument(Form({schema, onChange, onUpdate}));
+    form = TestUtils.renderIntoDocument(
+      <Form schema={schema} onChange={onChange} onUpdate={onUpdate} />
+    );
     fields = {};
     inputs = {};
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      var path = field.props.value.path;
+      var path = field.props.value.keyPath;
       var name = path[path.length - 1];
       fields[name] = field;
       inputs[name] = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
