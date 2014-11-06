@@ -13,9 +13,9 @@ var TestUtils   = require('react/lib/ReactTestUtils');
 var {Scalar, Mapping, List} = ReactForms.schema;
 var {Form, Field}           = ReactForms;
 
-describe('Form with <List /> schema', function() {
+describe('Form with list schema', function() {
 
-  describe('<List /> of <Scalar />', function() {
+  describe('List of scalars', function() {
     var schema = Mapping({
       numbers: List(Scalar({type: 'number'}))
     });
@@ -46,7 +46,13 @@ describe('Form with <List /> schema', function() {
     beforeEach(function() {
       onChange = sinon.spy();
       onUpdate = sinon.spy();
-      form = TestUtils.renderIntoDocument(Form({schema, onChange, onUpdate}));
+      form = TestUtils.renderIntoDocument(
+        <Form
+          schema={schema}
+          onChange={onChange}
+          onUpdate={onUpdate}
+          />
+      );
       findFieldsInputs();
       addButton = TestUtils.findRenderedDOMComponentWithClass(
         form,
@@ -150,7 +156,13 @@ describe('Form with <List /> schema', function() {
     beforeEach(function() {
       onChange = sinon.spy();
       onUpdate = sinon.spy();
-      form = TestUtils.renderIntoDocument(Form({schema, onChange, onUpdate}));
+      form = TestUtils.renderIntoDocument(
+        <Form 
+          schema={schema}
+          onChange={onChange}
+          onUpdate={onUpdate}
+          />
+      );
       findFieldsInputs();
       addButton = TestUtils.findRenderedDOMComponentWithClass(
         form,
@@ -168,7 +180,7 @@ describe('Form with <List /> schema', function() {
       assert.ok(form.getValidation().isSuccess);
     });
 
-    it('allows adding an item', function() {
+    it.only('allows adding an item', function() {
       TestUtils.Simulate.click(addButton);
       findFieldsInputs();
 
