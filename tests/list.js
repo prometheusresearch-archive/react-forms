@@ -6,12 +6,19 @@
 var sinon   = require('sinon');
 var assert  = require('assert');
 
-var ReactForms  = require('../');
-var React       = require('react');
-var TestUtils   = require('react/lib/ReactTestUtils');
+var ReactForms    = require('../');
+var {fromJS, is}  = require('immutable');
+var React         = require('react');
+var TestUtils     = require('react/lib/ReactTestUtils');
 
 var {Scalar, Mapping, List} = ReactForms.schema;
 var {Form, Field}           = ReactForms;
+
+function assertEquals(a, b) {
+  a = fromJS(a);
+  b = fromJS(b);
+  assert.ok(is(a, b), `expected ${a} to be equal to ${b}`);
+}
 
 describe('Form with list schema', function() {
 
@@ -66,7 +73,7 @@ describe('Form with list schema', function() {
     });
 
     it('has empty value initially', function() {
-      assert.deepEqual(form.getValue(), {});
+      assertEquals(form.getValue(), {});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -80,7 +87,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 1);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: [null]});
+      assertEquals(form.getValue(), {numbers: [undefined]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -92,7 +99,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 2);
 
-      assert.deepEqual(form.getValue(), {numbers: [42]});
+      assertEquals(form.getValue(), {numbers: [42]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -104,7 +111,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: ['invalid']});
+      assertEquals(form.getValue(), {numbers: ['invalid']});
       assert.ok(form.getValidation().isFailure);
     });
 
@@ -176,11 +183,11 @@ describe('Form with list schema', function() {
     });
 
     it('has empty value initially', function() {
-      assert.deepEqual(form.getValue(), {});
+      assertEquals(form.getValue(), {});
       assert.ok(form.getValidation().isSuccess);
     });
 
-    it.only('allows adding an item', function() {
+    it('allows adding an item', function() {
       TestUtils.Simulate.click(addButton);
       findFieldsInputs();
 
@@ -190,7 +197,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 1);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: [{}]});
+      assertEquals(form.getValue(), {numbers: [{}]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -202,7 +209,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 2);
 
-      assert.deepEqual(form.getValue(), {numbers: [{a: 42}]});
+      assertEquals(form.getValue(), {numbers: [{a: 42}]});
       assert.ok(form.getValidation().isSuccess);
     });
 
@@ -214,7 +221,7 @@ describe('Form with list schema', function() {
       assert.equal(onUpdate.callCount, 2);
       assert.equal(onChange.callCount, 1);
 
-      assert.deepEqual(form.getValue(), {numbers: [{a: 'invalid'}]});
+      assertEquals(form.getValue(), {numbers: [{a: 'invalid'}]});
       assert.ok(form.getValidation().isFailure);
     });
 

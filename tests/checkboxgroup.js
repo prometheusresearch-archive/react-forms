@@ -6,7 +6,7 @@
 var sinon                                     = require('sinon');
 var assert                                    = require('assert');
 var React                                     = require('react');
-var merge                                     = require('react/lib/merge');
+var merge                                     = require('../lib/merge');
 var TestUtils                                 = require('react/lib/ReactTestUtils');
 var {schema: {Scalar, Mapping}, Form, Field}  = require('../');
 var CheckboxGroup                             = require('../lib/CheckboxGroup');
@@ -24,7 +24,7 @@ describe('form with CheckboxGroup', function() {
         type: 'array',
         label: props.label,
         defaultValue: props.defaultValue,
-        input: CheckboxGroup({options})
+        input: <CheckboxGroup options={options} />
       })
     });
   }
@@ -39,11 +39,11 @@ describe('form with CheckboxGroup', function() {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
     props = merge(props, {schema: TestMapping(), onChange, onUpdate});
-    form = TestUtils.renderIntoDocument(Form(props));
+    form = TestUtils.renderIntoDocument(<Form {...props} />);
     fields = {};
     boxes = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input');
     TestUtils.scryRenderedComponentsWithType(form, Field).forEach(function(field) {
-      var path = field.props.value.path;
+      var path = field.props.value.keyPath;
       var name = path[path.length - 1];
       fields[name] = field;
     });

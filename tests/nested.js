@@ -6,12 +6,19 @@
 var sinon   = require('sinon');
 var assert  = require('assert');
 
-var ReactForms  = require('../');
-var React       = require('react');
-var TestUtils   = require('react/lib/ReactTestUtils');
+var ReactForms    = require('../');
+var {fromJS, is}  = require('immutable');
+var React         = require('react');
+var TestUtils     = require('react/lib/ReactTestUtils');
 
 var {Form, Field, Fieldset} = ReactForms;
 var {Scalar, Mapping}       = ReactForms.schema;
+
+function assertEquals(a, b) {
+  a = fromJS(a);
+  b = fromJS(b);
+  assert.ok(is(a, b), `expected ${a} to be equal to ${b}`);
+}
 
 describe('nested form integration test', function() {
 
@@ -55,23 +62,23 @@ describe('nested form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.getValue(), {});
+    assertEquals(form.getValue(), {});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on user input', function() {
     TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.deepEqual(form.getValue(), {subschema: {text: 'text!'}});
+    assertEquals(form.getValue(), {subschema: {text: 'text!'}});
     assert.ok(form.getValidation().isSuccess);
 
     TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
-    assert.deepEqual(form.getValue(), {subschema: {text: 'text!', num: 42}});
+    assertEquals(form.getValue(), {subschema: {text: 'text!', num: 42}});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on invalid user input', function() {
     TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid'}});
-    assert.deepEqual(form.getValue(), {subschema: {num: 'invalid'}});
+    assertEquals(form.getValue(), {subschema: {num: 'invalid'}});
     assert.ok(form.getValidation().isFailure);
   });
 

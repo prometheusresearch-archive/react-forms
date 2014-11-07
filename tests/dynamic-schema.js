@@ -75,12 +75,12 @@ describe('form with dynamic schema', function() {
     );
 
     assert.ok(form.getValidation().isSuccess);
-    assert.equal(form.getValue().name, 'hello');
+    assert.equal(form.getValue().get('name'), 'hello');
 
     form.setProps({schema: schema2});
 
     assert.ok(form.getValidation().isFailure);
-    assert.equal(form.getValue().name, 'hello');
+    assert.equal(form.getValue().get('name'), 'hello');
   });
 
   it('preserves value on input', function() {
@@ -110,40 +110,44 @@ describe('form with dynamic schema', function() {
         return {schema: schema1};
       },
 
-      onUpdate: function(value) {
-        if (value.age > 18) {
-          this.setState({schema: schema2});
-        } else {
-          this.setState({schema: schema1});
-        }
+      onUpdate(value) {
+        var schema = value.get('age') > 18 ? schema2 : schema1;
+        this.setState({schema});
       }
     });
 
     function assertFormFieldsPresent(names) {
       var fields = TestUtils.scryRenderedComponentsWithType(form, Field);
-      assert.equal(fields.length, names.length);
+      var fieldNames = fields.map(f => f.props.value.key);
+      assert.ok(
+        fieldNames.length === names.length,
+        `${fieldNames} is not the same as ${names}`
+      );
       fields.forEach((field) => {
-        var path = field.props.value.path;
+        var path = field.props.value.keyPath;
         var name = path[path.length - 1];
-        assert.ok(names.indexOf(name) > -1)
+        assert.ok(
+          names.indexOf(name) > -1,
+          `name ${name} is not present in ${names}`
+        );
       });
     }
 
     var form = TestUtils.renderIntoDocument(<FormWithDynamicSchema />).refs.form;
 
     assertFormFieldsPresent(['age']);
-    assert.equal(form.getValue().age, 17);
+    assert.equal(form.getValue().get('age'), 17);
 
     var ageInput = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
     TestUtils.Simulate.change(ageInput, {target: {value: '19'}});
 
     assertFormFieldsPresent(['age', 'name']);
-    assert.equal(form.getValue().age, 19);
+    assert.equal(form.getValue().get('age'), 19);
 
     TestUtils.Simulate.change(ageInput, {target: {value: '10'}});
 
     assertFormFieldsPresent(['age']);
-    assert.equal(form.getValue().age, 10);
+    assert.equal(form.getValue().get('age'), 10);
   });
 
 });

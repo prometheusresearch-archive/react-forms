@@ -1,17 +1,21 @@
-/**
- * @jsx React.DOM
- */
 'use strict';
 
 var sinon   = require('sinon');
 var assert  = require('assert');
 
-var ReactForms  = require('../');
-var React       = require('react');
-var TestUtils   = require('react/lib/ReactTestUtils');
+var {fromJS, is}  = require('immutable');
+var ReactForms    = require('../');
+var React         = require('react');
+var TestUtils     = require('react/lib/ReactTestUtils');
 
 var {Form, Field, Fieldset} = ReactForms;
 var {Scalar, Mapping}       = ReactForms.schema;
+
+function assertEquals(a, b) {
+  a = fromJS(a);
+  b = fromJS(b);
+  assert.ok(is(a, b), `expected ${a} to be equal to ${b}`);
+}
 
 describe('simple form integration test', function() {
 
@@ -52,23 +56,23 @@ describe('simple form integration test', function() {
   });
 
   it('has empty value initially', function() {
-    assert.deepEqual(form.getValue(), {});
+    assertEquals(form.getValue(), {});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on user input', function() {
     TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
-    assert.deepEqual(form.getValue(), {text: 'text!'});
+    assertEquals(form.getValue(), {text: 'text!'});
     assert.ok(form.getValidation().isSuccess);
 
     TestUtils.Simulate.change(inputs.num, {target: {value: '42'}});
-    assert.deepEqual(form.getValue(), {text: 'text!', num: 42});
+    assertEquals(form.getValue(), {text: 'text!', num: 42});
     assert.ok(form.getValidation().isSuccess);
   });
 
   it('updates value on invalid user input', function() {
     TestUtils.Simulate.change(inputs.num, {target: {value: 'invalid'}});
-    assert.deepEqual(form.getValue(), {num: 'invalid'});
+    assertEquals(form.getValue(), {num: 'invalid'});
     assert.ok(form.getValidation().isFailure);
   });
 
@@ -88,7 +92,7 @@ describe('simple form integration test', function() {
       TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
 
       var [value, validation, path] = onUpdate.firstCall.args;
-      assert.deepEqual(value, {text: 'text!'});
+      assertEquals(value, {text: 'text!'});
       assert.ok(validation.isSuccess);
     });
 
@@ -96,7 +100,7 @@ describe('simple form integration test', function() {
       TestUtils.Simulate.change(inputs.text, {target: {value: 'text!'}});
 
       var [value] = onChange.firstCall.args;
-      assert.deepEqual(value, {text: 'text!'});
+      assertEquals(value, {text: 'text!'});
     });
 
     it('fires callbacks on invalid user input', function() {
