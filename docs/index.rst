@@ -33,7 +33,7 @@ fieldsets looks like:
     children: List({label: 'Children'}, Person())
   })
 
-  React.renderComponent(
+  React.render(
     <Form schema={family} />,
     document.getElementById('example'))
 
