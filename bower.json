@@ -23,6 +23,7 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.11.0"
+    "react": "~0.11.0",
+    "immutable": "~3.0.3"
   }
 }
