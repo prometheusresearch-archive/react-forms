@@ -18,10 +18,10 @@ First we need to bring needed components and utilities into scope:
 
 .. jsx::
 
-  var React            = require('react')
-  var Forms            = require('react-forms')
-  var RadioButtonGroup = require('react-forms/lib/RadioButtonGroup')
-  var schema = Forms.schema;
+  var React             = require('react')
+  var ReactForms        = require('react-forms')
+  var RadioButtonGroup  = require('react-forms/lib/RadioButtonGroup')
+  var schema            = ReactForms.schema
 
 Mapping
 ~~~~~~~
@@ -42,18 +42,16 @@ input component for this type of values:
       {value: 'male', name: 'Male'},
       {value: 'female', name: 'Female'}
     ]
-    return (
-      <schema.Scalar
-        name={props.name || 'sex'}
-        label={props.label || 'Sex'}
-        required={props.required}
-        input={<RadioButtonGroup options={options} />}
-        />
-    )
+    return schema.Scalar({
+      name: props.name || 'sex',
+      label: props.label || 'Sex',
+      required: props.required,
+      input: <RadioButtonGroup options={options} />
+    })
   }
 
-After that we can use this field in a different schemas ``<SexField name="sex"
-/>``. Note how we provide a default values for ``name`` and ``label``.
+After that we can use this field in a different schemas ``SexField()``. Note how
+we provide a default values for ``name`` and ``label``.
 
 NameField
 ~~~~~~~~~
@@ -66,8 +64,10 @@ First we define a validator:
 
 .. jsx::
 
-  function validateName(v) {
-    return /^[a-z\s]+$/i.test(v) ? true : 'should contain only letters'
+  function validateName(node, value) {
+    if (!/^[a-zA-Z ]+$/i.exec(value)) {
+      return new Error('should contain only letters');
+    }
   }
 
 Now we can use it in schema definition:
@@ -76,17 +76,14 @@ Now we can use it in schema definition:
 
   function NameField(props) {
     props = props || {}
-    return (
-      <schema.Scalar
-        required={props.required}
-        defaultValue={props.defaultValue}
-        name={props.name || 'name'}
-        label={props.label || 'Name'}
-        hint="Should contain only alphanumeric characters"
-        input={<NameInput />}
-        validate={validateName}
-        />
-    )
+    return schema.Scalar({
+      required: props.required,
+      defaultValue: props.defaultValue,
+      label: props.label || 'Name',
+      hint: "Should contain only alphanumeric characters",
+      input: <NameInput />,
+      validate: validateName
+    })
   }
 
 Note that we referenced the ``<NameInput />`` component. This the thin wrapper on
@@ -101,14 +98,11 @@ DateOfBirthField
 
   function DateOfBirthField(props) {
     props = props || {}
-    return (
-      <schema.Scalar
-        name={props.name || 'dob'}
-        label={props.label || 'Date of Birth'}
-        hint="Should be in YYYY-MM-DD format"
-        type="date"
-        />
-    )
+    return schema.Scalar({
+      label: props.label || 'Date of Birth',
+      hint: "Should be in YYYY-MM-DD format",
+      type: "date"
+    })
   }
 
 Adult and Child
@@ -125,29 +119,27 @@ define ``ChildFieldset`` below:
 
   function Adult(props) {
     props = props || {}
-    return (
-      <schema.Mapping label={props.label || 'Adult'} name={props.name}>
-        <NameField />
-        <DateOfBirthField />
-      </schema.Mapping>
-    )
+    return schema.Mapping({
+      label: props.label || 'Adult',
+      name: props.name
+    }, {
+      name: NameField(),
+      dob: DateOfBirthField()
+    })
   }
 
   function Child(props) {
     props = props || {}
-    return (
-      <schema.Mapping component={ChildFieldset} name={props.name}>
-        <NameField />
-        <DateOfBirthField />
-        <SexField required />
-        <schema.Scalar
-          label="Female specific value"
-          name="femaleSpecificValue" />
-        <schema.Scalar
-          label="Male specific value"
-          name="maleSpecificValue" />
-      </schema.Mapping>
-    )
+    return schema.Mapping({
+      component: ChildFieldset,
+      name: props.name
+    }, {
+      name: NameField(),
+      dob: DateOfBirthField(),
+      sex: SexField({required: true}),
+      femaleSpecificValue: schema.Scalar({label: "Female specific value"}),
+      maleSpecificValue: schema.Scalar({label: "Male specific value"})
+    })
   }
 
 
@@ -165,15 +157,14 @@ controls to add and remove children records:
 
   function Family(props) {
     props = props || {}
-    return (
-      <schema.Mapping name={props.name} label={props.label || 'Family'}>
-        <Adult name="mother" label="Mother" />
-        <Adult name="father" label="Father" />
-        <schema.List label="Children" name="children">
-          <Child />
-        </schema.List>
-      </schema.Mapping>
-    )
+    return schema.Mapping({
+      name: props.name,
+      label: props.label || 'Family',
+    }, {
+      mother: Adult({label: "Mother"}),
+      father: Adult({label: "Father"}),
+      children: schema.List({label: "Children"}, Child())
+    })
   }
 
 Custom input component for name formatting
@@ -217,7 +208,8 @@ capitalize user input automatically:
     },
 
     render: function() {
-      var value = this.format(this.props.value)
+      var value = this.props.value;
+      value = this.format(value)
       return this.transferPropsTo(
         <input
           type="text"
@@ -258,19 +250,15 @@ which automatically receives a corresponding schema and value based on its
       var sex = this.props.value.value.get('sex');
       return this.transferPropsTo(
         <div className="react-forms-fieldset">
-          <this.renderElement name="name" />
-          <this.renderElement name="dob" />
-          <this.renderElement name="sex" />
+          <ReactForms.Element value={this.props.value.get('name')} />
+          <ReactForms.Element value={this.props.value.get('dob')} />
+          <ReactForms.Element value={this.props.value.get('sex')} />
           {sex === 'male' &&
-            <this.renderElement name="maleSpecificValue" />}
+            <ReactForms.Element value={this.props.value.get('maleSpecificValue')} />}
           {sex === 'female' &&
-            <this.renderElement name="femaleSpecificValue" />}
+            <ReactForms.Element value={this.props.value.get('femaleSpecificValue')} />}
         </div>
       )
-    },
-
-    renderElement: function(props) {
-      return <Forms.Element value={this.props.value.child(props.name)} />
     }
   })
 
@@ -282,7 +270,7 @@ out ``Family`` schema:
 
 .. jsx::
 
-  React.renderComponent(
-    <Forms.Form schema={<Family />} />,
+  React.render(
+    <ReactForms.Form schema={<Family />} />,
     document.getElementById('example')
   )
