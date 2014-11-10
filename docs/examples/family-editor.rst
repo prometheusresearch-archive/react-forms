@@ -120,10 +120,9 @@ define ``ChildFieldset`` below:
   function Adult(props) {
     props = props || {}
     return schema.Mapping({
-      label: props.label || 'Adult',
-      name: props.name
+      label: props.label || 'Adult'
     }, {
-      name: NameField(),
+      name: NameField({defaultValue: props.name}),
       dob: DateOfBirthField()
     })
   }
@@ -161,8 +160,8 @@ controls to add and remove children records:
       name: props.name,
       label: props.label || 'Family',
     }, {
-      mother: Adult({label: "Mother"}),
-      father: Adult({label: "Father"}),
+      mother: Adult({label: "Mother", name: "Mother"}),
+      father: Adult({label: "Father", name: "Father"}),
       children: schema.List({label: "Children"}, Child())
     })
   }
