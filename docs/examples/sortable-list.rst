@@ -53,18 +53,6 @@ A little utility which will be used in implementation:
     node.style.top = '' + (e.pageY + 10) + 'px'
   }
 
-  /**
-   * Swap values in an array
-   */
-  function swap(array, a, b) {
-    array = array.slice(0)
-    var aVal = array[a]
-    var bVal = array[b]
-    array[a] = bVal
-    array[b] = aVal
-    return array
-  }
-
 Now we implement a ``DraggableMixin`` which provides some basic drag'n'drop
 functionality:
 
@@ -145,7 +133,7 @@ functionality:
     onSortStart: function(e) {
       var box = this.getDOMNode().getBoundingClientRect()
       this.props.onSortStart(e, {
-        name: this.props.key,
+        name: this.props.index,
         size: {height: box.height, width: box.width}
       })
     },
@@ -154,7 +142,7 @@ functionality:
       if (!this.props.sorting) {
         return
       }
-      this.props.onSortOver(e, this.props.key)
+      this.props.onSortOver(e, this.props.index)
     }
   })
 
@@ -225,7 +213,7 @@ functionality:
 
       var node = this._image = document.createElement('div')
       var val = this.props.value
-      var schema = val.schema.children
+      var schema = val.node.children
       var value = val.value.get(info.name)
 
       React.renderComponent(
@@ -253,24 +241,22 @@ functionality:
       var value = this.props.value
       var a = value.value.get(name)
       var b = value.value.get(this.state.sorting.name)
-      value
-        .splice(name, 1, b)
-        .splice(this.state.sorting.name, 1, a)
-        .notify()
+      value.transform(function(value) {
+        return value
+          .splice(name, 1, b)
+          .splice(this.state.sorting.name, 1, a)
+      }.bind(this)).notify()
     }
   })
 
 .. jsx::
 
-  var Persons = (
-    <schema.List component={SortableRepeatingFieldset}>
-      <schema.Mapping>
-        <schema.Scalar label="First name" name="firstName" />
-        <schema.Scalar label="Last name" name="lastName" />
-      </schema.Mapping>
-    </schema.List>
-  )
-
+  var Persons = schema.List({component: SortableRepeatingFieldset},
+    schema.Mapping({
+      firstName: schema.Scalar({label: 'First name'}),
+      lastName: schema.Scalar({label: 'Last name'})
+    })
+  );
 
   React.renderComponent(
     <Forms.Form schema={Persons} defaultValue={[
