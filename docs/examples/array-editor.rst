@@ -59,28 +59,27 @@ Implementation
 
     onFocus: function(idx) {
       var value = this.props.value
-      if (value.value.length - 1 === idx) {
-        value.push(value.schema.children.defaultValue).notify()
+      if (value.value.size - 1 === idx) {
+        value.set(value.value.push(value.schema.children.defaultValue)).notify()
       }
     },
 
     onRemove: function(idx) {
+      var nextValue;
       var value = this.props.value
-      if (idx === 0 && value.value.length === 1) {
-        value.update([value.schema.children.defaultValue]).notify()
+      if (idx === 0 && value.value.size === 1) {
+        nextValue = [value.node.children.defaultValue];
       } else {
-        value.splice(idx, 1).notify()
+        nextValue = value.value.splice(idx, 1);
       }
+      value.set(nextValue).notify()
     }
   })
 
 .. jsx::
 
-  var Values = (
-    <schema.List component={ArrayEditor}>
-      <schema.Scalar />
-    </schema.List>
-  )
+  var Values = schema.List({component: ArrayEditor},
+    schema.Scalar());
 
   React.renderComponent(
     <Forms.Form schema={Values} defaultValue={['focus on me!']} />,

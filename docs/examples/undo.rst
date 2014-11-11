@@ -200,7 +200,7 @@ The final part is to define a custom ``<Form />`` component which renders
 
     onUpdate: function(value, validation, path) {
       this.__hasChanges = true
-      var updatedSchema = this.props.schema.childIn(path)
+      var updatedSchema = this.props.schema.getIn(path)
       if (schema.isList(updatedSchema) || !this.hasUndo()) {
         this.snapshot()
       }
@@ -215,19 +215,18 @@ component:
 
   function Product(props) {
     props = props || {}
-    return (
-      <schema.Mapping required={props.required} name={props.name} label={props.label}>
-        <schema.Scalar name="name" label="Name" />
-        <schema.Scalar type="number" name="price" label="Price" />
-      </schema.Mapping>
-    )
+    return schema.Mapping({
+      required: props.required,
+      name: props.name,
+      label: props.label
+    }, {
+      name: schema.Scalar({label: "Name"}),
+      price: schema.Scalar({type: "number", label: "Price"})
+    })
   }
 
-  var Products = (
-    <schema.List label="Products">
-      <Product />
-    </schema.List>
-  )
+  var Products = schema.List({label: 'Products'},
+    Product())
 
 .. jsx::
 
