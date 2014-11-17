@@ -4,8 +4,8 @@ React Forms
 React Forms library provides a set of tools for React_ to handle form rendering
 and validation.
 
-The basic example which allows you to create pretty complex form with repeated
-fieldsets looks like:
+The basic example which allows you to create a form with nested fieldsets and
+repeated fieldsets looks like:
 
 .. jsx::
   :hidesource:
@@ -16,7 +16,7 @@ fieldsets looks like:
   var Mapping = ReactForms.schema.Mapping
   var Scalar = ReactForms.schema.Scalar
   var List = ReactForms.schema.List
-  var Form = ReactForms.Form
+
 
 .. jsx::
 
@@ -34,7 +34,7 @@ fieldsets looks like:
   })
 
   React.render(
-    <Form schema={family} />,
+    <ReactForms.Form schema={family} />,
     document.getElementById('example'))
 
 Which results in a form:
@@ -54,8 +54,9 @@ React Forms sets up a **unidirectional data flow** between form components. This
 makes reasoning about form values easy and allows to hook into any aspect of
 form value lifecycle.
 
-Besides that React Forms provides strong **immutability** guarantees so that
-such complex features like undo/redo are easy to implement.
+Besides that React Forms provides strong **immutability** guarantees (through
+the usage of Immutable.js_ library) so that such complex features like undo/redo
+are easy to implement.
 
 Now if you are ready to try, there's a :doc:`getting-started` page.
 
@@ -73,3 +74,4 @@ Now if you are ready to try, there's a :doc:`getting-started` page.
    updating-to-1.0.0
 
 .. _React: http://facebook.github.io/react
+.. _Immutable.js: http://facebook.github.io/immutable-js
