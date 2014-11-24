@@ -204,7 +204,7 @@ to ``Scalar`` schema constructor.
    :maxdepth: 3
    :hidden:
 
-   self
+   index
    styling
    api
    examples/index
