@@ -35,7 +35,8 @@
         "reactify",
         {
           "es6": true,
-          "target": "es5"
+          "target": "es5",
+          "stripTypes": true
         }
       ]
     ]
@@ -46,6 +47,6 @@
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
   "dependencies": {
-    "reactify": "^0.16.0"
+    "reactify": "^0.17.1"
   }
 }
