@@ -1,11 +1,11 @@
 React Forms
 ===========
 
-React Forms library provides a set of tools for React_ to handle form rendering
-and validation.
+React Forms is a library of data structures and React_ components for handling
+forms.
 
-The basic example which allows you to create a form with nested fieldsets and
-repeated fieldsets looks like:
+The example code which creates a form with nested fieldsets and repeated
+fieldsets looks like:
 
 .. jsx::
   :hidesource:
@@ -37,15 +37,13 @@ repeated fieldsets looks like:
     <ReactForms.Form schema={family} />,
     document.getElementById('example'))
 
-Which results in a form:
+This code results in a form:
 
 .. raw:: html
 
   <div id="example"></div>
 
 Forms are described with **schemas** and then rendered with **form components**.
-The separation allows to reduce boilerplate and to make form UI components more
-general and reusable.
 
 Form schemas can be extended and custom form components can be created for any
 custom needs.
