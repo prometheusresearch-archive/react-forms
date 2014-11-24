@@ -26,8 +26,9 @@ UndoStack
   :hidesource:
 
   var React = require('react')
-  var Forms = require('react-forms')
-  var schema = Forms.schema
+  var ReactForms = require('react-forms')
+  var Demo = require('react-forms/lib/Demo')
+  var schema = ReactForms.schema
 
 First we define a reusable ``UndoStack`` mixin which keeps undo/redo stacks in
 state:
@@ -172,7 +173,7 @@ The final part is to define a custom ``<Form />`` component which renders
             onUndo={this.undo}
             onRedo={this.redo}
             />
-          <Forms.Form ref="form"
+          <ReactForms.Form ref="form"
             component={React.DOM.div}
             schema={this.props.schema}
             defaultValue={this.props.defaultValue}
@@ -180,6 +181,10 @@ The final part is to define a custom ``<Form />`` component which renders
             />
         </form>
       )
+    },
+
+    getValue: function() {
+      return this.refs.form.getValue()
     },
 
     /** UndoStack */
@@ -204,6 +209,7 @@ The final part is to define a custom ``<Form />`` component which renders
       if (schema.isList(updatedSchema) || !this.hasUndo()) {
         this.snapshot()
       }
+      this.props.onUpdate(value, validation, path);
     }
 
   })
@@ -230,11 +236,13 @@ component:
 
 .. jsx::
 
-  React.renderComponent(
-    <FormWithUndo
-      schema={Products}
-      defaultValue={[{name: 'TV', price: 1000}]}
-      />,
+  React.render(
+    <Demo>
+      <FormWithUndo
+        schema={Products}
+        defaultValue={[{name: 'TV', price: 1000}]}
+        />
+    </Demo>,
     document.getElementById('example')
   )
 

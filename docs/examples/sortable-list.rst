@@ -29,8 +29,9 @@ First we need to bring some names into scope:
   var React = require('react/addons')
   var cloneWithProps = React.addons.cloneWithProps
   var classSet = React.addons.classSet
-  var Forms = require('react-forms')
-  var schema = Forms.schema
+  var ReactForms = require('react-forms')
+  var Demo = require('react-forms/lib/Demo')
+  var schema = ReactForms.schema
 
 A little utility which will be used in implementation:
 
@@ -119,14 +120,14 @@ functionality:
 
     render: function() {
       return this.transferPropsTo(
-        <Forms.RepeatingFieldset.Item className="SortableItem" onMouseMove={this.onSortOver}>
+        <ReactForms.RepeatingFieldset.Item className="SortableItem" onMouseMove={this.onSortOver}>
           <div
             className="SortableHandle"
             onMouseDown={this.onSortStart}>
             drag to sort
           </div>
           {this.props.children}
-        </Forms.RepeatingFieldset.Item>
+        </ReactForms.RepeatingFieldset.Item>
       )
     },
 
@@ -162,7 +163,7 @@ functionality:
         SortableActive: this.state.sorting !== null
       })
       return this.transferPropsTo(
-        <Forms.RepeatingFieldset className={className} item={this.renderItem} />
+        <ReactForms.RepeatingFieldset className={className} item={this.renderItem} />
       )
     },
 
@@ -216,8 +217,8 @@ functionality:
       var schema = val.node.children
       var value = val.value.get(info.name)
 
-      React.renderComponent(
-        <Forms.Form schema={schema} defaultValue={value} />,
+      React.render(
+        <ReactForms.Form schema={schema} defaultValue={value} />,
         node
       )
 
@@ -258,11 +259,13 @@ functionality:
     })
   );
 
-  React.renderComponent(
-    <Forms.Form schema={Persons} defaultValue={[
-        {firstName: 'Jane', lastName: 'Roe'},
-        {firstName: 'Richard', lastName: 'Miles'},
-        {firstName: 'John', lastName: 'Doe'}
-      ]} />,
+  React.render(
+    <Demo>
+      <ReactForms.Form schema={Persons} defaultValue={[
+          {firstName: 'Jane', lastName: 'Roe'},
+          {firstName: 'Richard', lastName: 'Miles'},
+          {firstName: 'John', lastName: 'Doe'}
+        ]} />
+    </Demo>,
     document.getElementById('example')
   )
