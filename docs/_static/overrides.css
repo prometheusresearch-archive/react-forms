@@ -163,6 +163,19 @@ footer .rst-footer-buttons {
 
 @media (min-width: 900px) {
   .rf-Field input[type="text"] {
+    width: 80%;
+  }
+  
+  .rf-Demo__form {
     width: 50%;
+    display: inline-block;
+  }
+  .rf-Demo__value {
+    font-family: Menlo, Monaco, monospace;
+    font-size: 70%;
+    color: #888;
+    width: 50%;
+    display: inline-block;
+    float: right;
   }
 }

@@ -21,6 +21,7 @@ First we need to bring needed components and utilities into scope:
   var React             = require('react')
   var ReactForms        = require('react-forms')
   var RadioButtonGroup  = require('react-forms/lib/RadioButtonGroup')
+  var Demo              = require('react-forms/lib/Demo')
   var schema            = ReactForms.schema
 
 Mapping
@@ -270,6 +271,8 @@ out ``Family`` schema:
 .. jsx::
 
   React.render(
-    <ReactForms.Form schema={<Family />} />,
+    <Demo>
+      <ReactForms.Form schema={<Family />} />
+    </Demo>,
     document.getElementById('example')
   )

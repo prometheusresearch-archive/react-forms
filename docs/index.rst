@@ -19,8 +19,9 @@ fieldsets looks like:
 .. jsx::
   :hidesource:
 
-  var React = window.React = require('react')
+  var React = window.React = require('react/addons')
   var ReactForms = require('react-forms')
+  var Demo = require('react-forms/lib/Demo')
 
   var Mapping = ReactForms.schema.Mapping
   var Scalar = ReactForms.schema.Scalar
@@ -43,7 +44,9 @@ fieldsets looks like:
   })
 
   React.render(
-    <ReactForms.Form schema={family} />,
+    <Demo>
+      <ReactForms.Form schema={family} />
+    </Demo>,
     document.getElementById('example'))
 
 This code results in a form:

@@ -20,12 +20,12 @@ We start with a schema for our form:
 .. jsx::
   :hidesource:
 
-  var React = require('react')
+  var React = window.React = require('react/addons')
   var ReactForms = require('react-forms')
+  var Demo = require('react-forms/lib/Demo')
 
   var Mapping = ReactForms.schema.Mapping
   var Scalar = ReactForms.schema.Scalar
-  var Form = ReactForms.Form
 
 .. jsx::
 
@@ -63,7 +63,7 @@ provides a button to submit a form:
 
       // render Form as <div /> and transfer all props to it
       var form = this.transferPropsTo(
-        <Form ref="form" component={React.DOM.div} />
+        <ReactForms.Form ref="form" component="div" />
       )
 
       // return <form /> component with rendered form and a submit button
@@ -75,13 +75,17 @@ provides a button to submit a form:
       )
     },
 
+    getValue: function() {
+      return this.refs.form.getValue()
+    },
+
     onSubmit: function(e) {
       e.preventDefault()
       var form = this.refs.form
       // check if form is valid
       if (form.getValidation().isFailure)  {
         // force rendering all validation errors
-        form.markDirty();
+        form.makeDirty();
       } else {
         alert('form submitted with value:\n' + JSON.stringify(form.getValue()))
       }
@@ -92,6 +96,8 @@ And finally we render ``MyForm`` into DOM:
 
 .. jsx::
 
-  React.renderComponent(
-    <MyForm schema={schema} />,
+  React.render(
+    <Demo>
+      <MyForm schema={schema} />
+    </Demo>,
     document.getElementById('example'))

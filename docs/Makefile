@@ -65,6 +65,7 @@ _static/bundle.js: $(shell find ../lib -name '*.js')
 	../node_modules/.bin/browserify -d \
 		-r ../:react-forms \
 		-r ../lib/RadioButtonGroup:react-forms/lib/RadioButtonGroup \
+		-r ../lib/Demo:react-forms/lib/Demo \
 		-r react/addons:react/addons \
 		-r react:react \
 		-o $@
