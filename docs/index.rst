@@ -162,21 +162,43 @@ The schema above would be applicable to form value of the shape::
     age: 27
   }
 
-Extending form schemas
-~~~~~~~~~~~~~~~~~~~~~~
-
 .. note::
-  :class: inline
 
-  ``Scalar``, ``Mapping`` and ``List`` are not actual node types but rather
-  smart constructors. The actual node types are ``ScalarNode``, ``MappingNode``
-  and ``ListNode``.
+  Note that ``Mapping``, ``List`` and ``Scalar`` are not actual types but rather
+  smart constructors for ``MappingNode``, ``ListNode`` and subclasses of
+  ``ScalarNode`` correspondingly.
 
-Form schemas can be extending by subclassing one of the schema node types. For
-example to define a new type of scalar which handles numbers we must subclass
+  For example ``Scalar`` constructor would instantiate a different subclass of
+  ``ScalarNode`` for different value of ``type`` prop: ``NumberNode`` for
+  ``"number"``, ``ArrayNode`` for ``"array"`` and so on.
+
+Validation
+~~~~~~~~~~
+
+You can define custom validation routines for schema nodes by passing
+``validate`` prop a function which returns an instance of ``Error`` in case of
+validation failure::
+
+  var age = Scalar({
+    type: 'number',
+    validate: function(schema, value) {
+      if (value < 18) {
+        return new Error('value is less than minimum of 18')
+      }
+    }
+  })
+
+Another way to define custom validation is to extend schema node type and define
+``validate(value)`` method.
+
+Extending scalar schema nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Form schemas can be extended by subclassing one of the schema node types.
+
+To define a new type of scalar which handles numbers we must subclass
 ``ReactForms.schema.ScalarNode`` and define proper serialization/deserialization
 routines::
-
 
   class NumberNode extends ReactForms.schema.ScalarNode {
 
@@ -193,12 +215,48 @@ routines::
         return new Error('value is not a number')
       }
     }
-
   }
 
-But in the case of ``NumberNode`` you don't need to do that as it is already
-defined by React Forms and can be constructed by passing ``type: 'number'`` prop
-to ``Scalar`` schema constructor.
+.. note::
+
+  React Forms already implements ``NumberNode``, you can create instances of it
+  by passing ``"number"`` to ``Scalar`` constructor.
+
+To use ``NumberNode`` you need to create instances using the ``create(props)``
+static method of the type::
+
+  var number = NumberNode.create()
+
+Custom validation routines
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Schema node types can also define custom validation routines which can be
+parametrized by node's props. We need to define ``validate(value)`` method for
+that::
+
+  class RangedNumberNode extends NumberNode {
+
+    validate(value) {
+      var maybeError = super(value)
+      if (maybeError instanceof Error) {
+        return maybeError
+      }
+      var min = this.props.get('min', -Infinity)
+      var max = this.props.get('max', Infinity)
+      if (value < min) {
+        return new Error(`value ${value} is less than the minimum of ${min}`)
+      }
+      if (value > max) {
+        return new Error(`value ${value} is greater than the maximum of ${max}`)
+      }
+    }
+  }
+
+Inside ``validate(value)`` method we would want to call the base class
+implementation at some point to make sure we don't skip base validation logic.
+
+Schema node can decide on itself if it wants to fail early or override the
+validation error base implementation.
 
 .. toctree::
    :maxdepth: 3
