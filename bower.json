@@ -24,6 +24,6 @@
   ],
   "dependencies": {
     "react": "*",
-    "immutable": "~3.0.3"
+    "immutable": "^3.3.0"
   }
 }
