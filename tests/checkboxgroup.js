@@ -6,7 +6,6 @@
 var sinon                                     = require('sinon');
 var assert                                    = require('assert');
 var React                                     = require('react');
-var merge                                     = require('../lib/merge');
 var TestUtils                                 = require('react/lib/ReactTestUtils');
 var {schema: {Scalar, Mapping}, Form, Field}  = require('../');
 var CheckboxGroup                             = require('../lib/CheckboxGroup');
@@ -38,7 +37,7 @@ describe('form with CheckboxGroup', function() {
   function render(props) {
     onChange = sinon.spy();
     onUpdate = sinon.spy();
-    props = merge(props, {schema: TestMapping(), onChange, onUpdate});
+    props = {...props, schema: TestMapping(), onChange, onUpdate};
     form = TestUtils.renderIntoDocument(<Form {...props} />);
     fields = {};
     boxes = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input');
