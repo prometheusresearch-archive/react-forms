@@ -161,8 +161,8 @@ controls to add and remove children records:
       name: props.name,
       label: props.label || 'Family',
     }, {
-      mother: Adult({label: "Mother", name: "Mother"}),
-      father: Adult({label: "Father", name: "Father"}),
+      mother: Adult({label: "Mother"}),
+      father: Adult({label: "Father"}),
       children: schema.List({label: "Children"}, Child())
     })
   }
@@ -174,14 +174,35 @@ Now let's define ``<NameInput />`` component which is used by ``NameField`` fiel
 capitalize user input automatically:
 
 .. jsx::
+  :harmony:
 
   var NameInput = React.createClass({
 
-    getInitialState: function() {
+    render() {
+      var {value, ...props} = this.props
+      value = this.format(value)
+      return (
+        <input
+          {...props}
+          type="text"
+          value={value}
+          onChange={this.onChange}
+          />
+      )
+    },
+
+    getInitialState() {
       return {selection: {start: 0, end: 0}}
     },
 
-    onChange: function(e) {
+    componentDidUpdate() {
+      var node = this.getDOMNode()
+      if (document.activeElement === node) {
+        node.setSelectionRange(this.state.selection.start, this.state.selection.end)
+      }
+    },
+
+    onChange(e) {
       var value = e.target.value
       var node = this.getDOMNode()
       this.setState({
@@ -190,14 +211,7 @@ capitalize user input automatically:
       this.props.onChange(value)
     },
 
-    componentDidUpdate: function() {
-      var node = this.getDOMNode()
-      if (document.activeElement === node) {
-        node.setSelectionRange(this.state.selection.start, this.state.selection.end)
-      }
-    },
-
-    format: function(value) {
+    format(value) {
       if (value) {
         return value.split(/\s+/)
           .map(function(s) { return s.charAt(0).toUpperCase() + s.slice(1) })
@@ -205,19 +219,8 @@ capitalize user input automatically:
       } else {
         return value
       }
-    },
-
-    render: function() {
-      var value = this.props.value;
-      value = this.format(value)
-      return this.transferPropsTo(
-        <input
-          type="text"
-          value={value}
-          onChange={this.onChange}
-          />
-      )
     }
+
   })
 
 It is a little verbose because we need to take care of cursor position in input
@@ -242,14 +245,15 @@ which automatically receives a corresponding schema and value based on its
 ``name`` property:
 
 .. jsx::
+  :harmony:
 
   var ChildFieldset = React.createClass({
 
-    render: function() {
-      var value = this.props.value;
-      var sex = this.props.value.value.get('sex');
-      return this.transferPropsTo(
-        <div className="react-forms-fieldset">
+    render() {
+      var {value, ...props} = this.props
+      var sex = value.value.get('sex');
+      return (
+        <div {...props} className="react-forms-fieldset">
           <ReactForms.Element value={this.props.value.get('name')} />
           <ReactForms.Element value={this.props.value.get('dob')} />
           <ReactForms.Element value={this.props.value.get('sex')} />

@@ -28,6 +28,7 @@ We start with a schema for our form:
   var Scalar = ReactForms.schema.Scalar
 
 .. jsx::
+  :harmony:
 
   var schema = Mapping({
     description: Scalar({
@@ -39,9 +40,9 @@ We start with a schema for our form:
       label: 'Email',
       required: true,
       input: <input type="email" />,
-      validate: function(v) {
-        if (!/.+\@.+\..+/.test(v)) {
-          return new Error('should be in "user@server" format');
+      validate(node, value) {
+        if (!/.+\@.+\..+/.test(value)) {
+          return new Error('should be in "user@server.domain" format');
         }
       }
     })
@@ -56,30 +57,28 @@ Now we define a form component which wraps React Forms ``Form`` component and
 provides a button to submit a form:
 
 .. jsx::
+  :harmony:
 
   var MyForm = React.createClass({
 
-    render: function() {
-
-      // render Form as <div /> and transfer all props to it
-      var form = this.transferPropsTo(
-        <ReactForms.Form ref="form" component="div" />
-      )
-
-      // return <form /> component with rendered form and a submit button
+    render() {
       return (
         <form onSubmit={this.onSubmit} className="MyForm">
-          {form}
+          <ReactForms.Form {...this.props} ref="form" component="div" />
           <button type="submit">Submit</button>
         </form>
       )
     },
 
-    getValue: function() {
+    getValidation() {
+      return this.refs.form.getValidation()
+    },
+
+    getValue() {
       return this.refs.form.getValue()
     },
 
-    onSubmit: function(e) {
+    onSubmit(e) {
       e.preventDefault()
       var form = this.refs.form
       // check if form is valid

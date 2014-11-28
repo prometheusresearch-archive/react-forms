@@ -170,12 +170,21 @@ footer .rst-footer-buttons {
     width: 50%;
     display: inline-block;
   }
+
+  .rf-Demo__label {
+    font-size: 80%;
+    color: #888;
+  }
+
+  .rf-Demo__inspector {
+    width: 50%;
+    display: inline-block;
+    float: right;
+  }
+
   .rf-Demo__value {
     font-family: Menlo, Monaco, monospace;
     font-size: 70%;
     color: #888;
-    width: 50%;
-    display: inline-block;
-    float: right;
   }
 }

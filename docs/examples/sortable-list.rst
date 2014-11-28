@@ -58,14 +58,15 @@ Now we implement a ``DraggableMixin`` which provides some basic drag'n'drop
 functionality:
 
 .. jsx::
+  :harmony:
 
   var DraggableMixin = {
 
-    componentWillMount: function() {
+    componentWillMount() {
       this.dragging = null
     },
 
-    onMouseDown: function(e) {
+    onMouseDown(e) {
       if (!((!this.onDragStart || this.onDragStart(e) !== false) &&
             e.button === 0)) {
         return
@@ -79,7 +80,7 @@ functionality:
         true
     },
 
-    onMouseMove: function(e) {
+    onMouseMove(e) {
       if (this.dragging === null) {
         return
       }
@@ -98,7 +99,7 @@ functionality:
 
     },
 
-    onMouseUp: function(e) {
+    onMouseUp(e) {
       this.dragging = null
 
       window.removeEventListener('mousemove', this.onMouseMove)
@@ -111,6 +112,7 @@ functionality:
   }
 
 .. jsx::
+  :harmony:
 
   /**
    * Custom RepeatingFieldset item component which adds sortable handle and
@@ -118,20 +120,21 @@ functionality:
    */
   var SortableItem = React.createClass({
 
-    render: function() {
-      return this.transferPropsTo(
-        <ReactForms.RepeatingFieldset.Item className="SortableItem" onMouseMove={this.onSortOver}>
+    render() {
+      var {children, onSortStart, onSortOver, sorting, ...props} = this.props
+      return (
+        <ReactForms.RepeatingFieldset.Item {...props} className="SortableItem" onMouseMove={this.onSortOver}>
           <div
             className="SortableHandle"
             onMouseDown={this.onSortStart}>
             drag to sort
           </div>
-          {this.props.children}
+          {children}
         </ReactForms.RepeatingFieldset.Item>
       )
     },
 
-    onSortStart: function(e) {
+    onSortStart(e) {
       var box = this.getDOMNode().getBoundingClientRect()
       this.props.onSortStart(e, {
         name: this.props.index,
@@ -139,7 +142,7 @@ functionality:
       })
     },
 
-    onSortOver: function(e) {
+    onSortOver(e) {
       if (!this.props.sorting) {
         return
       }
@@ -148,32 +151,37 @@ functionality:
   })
 
 .. jsx::
+  :harmony:
 
   var SortableRepeatingFieldset = React.createClass({
 
     mixins: [DraggableMixin],
 
-    getInitialState: function() {
+    getInitialState() {
       return {sorting: null}
     },
 
-    render: function() {
+    render() {
       var className = classSet({
         SortableRepeatingFieldset: true,
         SortableActive: this.state.sorting !== null
       })
-      return this.transferPropsTo(
-        <ReactForms.RepeatingFieldset className={className} item={this.renderItem} />
+      return (
+        <ReactForms.RepeatingFieldset
+          {...this.props}
+          className={className}
+          item={this.renderItem}
+          />
       )
     },
 
     /**
-    * Render a single item in a fieldset
-    *
-    * It returns a placeholder for the currently sorted item if repeating
-    * fieldset is in sortable state.
-    */
-    renderItem: function(props, child) {
+     * Render a single item in a fieldset
+     *
+     * It returns a placeholder for the currently sorted item if repeating
+     * fieldset is in sortable state.
+     */
+    renderItem(props, child) {
       var sorting = this.state.sorting
       if (sorting && sorting.name === props.key) {
         return <div
@@ -187,14 +195,14 @@ functionality:
           onSortStart: this.onSortStart,
           onSortOver: this.onSortOver,
         })
-        return SortableItem(props, child)
+        return <SortableItem {...props}>{child}</SortableItem>
       }
     },
 
     /**
-    * Called by DraggableMixin on drag end
-    */
-    onDragEnd: function() {
+     * Called by DraggableMixin on drag end
+     */
+    onDragEnd() {
       this.setState({sorting: null})
       if (this._image) {
         document.body.removeChild(this._image)
@@ -202,13 +210,13 @@ functionality:
       }
     },
 
-    onDrag: function(e) {
+    onDrag(e) {
       if (this._image) {
         setImagePositionFromEvent(this._image, e)
       }
     },
 
-    onSortStart: function(e, info) {
+    onSortStart(e, info) {
       // call into DraggableMixin to start dragging
       this.onMouseDown(e)
 
@@ -232,7 +240,7 @@ functionality:
       this.setState({sorting: info})
     },
 
-    onSortOver: function(e, name) {
+    onSortOver(e, name) {
       if (!this.state.sorting) {
         return
       }
@@ -251,13 +259,14 @@ functionality:
   })
 
 .. jsx::
+  :harmony:
 
   var Persons = schema.List({component: SortableRepeatingFieldset},
     schema.Mapping({
       firstName: schema.Scalar({label: 'First name'}),
       lastName: schema.Scalar({label: 'Last name'})
     })
-  );
+  )
 
   React.render(
     <Demo>
