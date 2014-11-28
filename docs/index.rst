@@ -225,6 +225,7 @@ validation error base implementation.
 
    index
    overview
+   flux
    styling
    api
    examples/index
