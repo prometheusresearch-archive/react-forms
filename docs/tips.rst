@@ -6,34 +6,54 @@ How to render a form field in read-only mode
 
 Sometimes an application would want to render some of the form fields in
 read-only mode. For that you need to create a custom form component which won't
-render any input but a read-only value::
+render any input but a read-only value:
 
-    var React = require('react')
-    var ReactForms = require('react-forms')
+.. jsx::
+  :harmony:
 
-    var ReadOnlyField = React.createClass({
+  var React = require('react')
+  var ReactForms = require('react-forms')
 
-      propTypes: {
-        value: React.PropTypes.instanceOf(ReactForms.Value)
-      },
+  var ReadOnlyField = React.createClass({
 
-      render() {
-        var {value} = this.props
-        return (
-          <div>
-            <ReactForms.Label label={value.node.props.get('label')} />
-            <span>{value.value}</span>
-          </div>
-        )
-      }
-    })
+    propTypes: {
+      value: React.PropTypes.instanceOf(ReactForms.Value)
+    },
+
+    render() {
+      var {value} = this.props
+      return (
+        <div>
+          <ReactForms.Label label={value.node.props.get('label')} />
+          <span>{value.value}</span>
+        </div>
+      )
+    }
+  })
 
 Then we need to assign ``<ReadOnlyField />`` component to scalar nodes in schema
-which we want to render as read-only fields::
+which we want to render as read-only fields:
 
-    var {Mapping, List, Scalar} = ReactForms.schema
+.. jsx::
+  :harmony:
 
-    var schema = Mapping({
-      id: Scalar({label: 'ID', component: ReadOnlyField}),
-      title: Scalar({label: 'Title'})
-    })
+  var Demo = require('react-forms/lib/Demo')
+  var {Mapping, List, Scalar} = ReactForms.schema
+
+  var schema = Mapping({
+    id: Scalar({label: 'ID', component: ReadOnlyField}),
+    title: Scalar({label: 'Title'})
+  })
+
+  React.render(
+    <Demo>
+      <ReactForms.Form
+        schema={schema}
+        defaultValue={{id: 42, title: 'Title'}} />
+    </Demo>,
+    document.getElementById('example-1')
+  )
+
+.. raw:: html
+
+  <div id="example-1"></div>
