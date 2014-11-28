@@ -71,12 +71,12 @@ ones:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Nodes of type ``Mapping`` are used to describe plain JavaScript objects
-(JSON objects). Children of the schema node describe keys of the object. Each
-child should have ``name`` property to define what key it describes::
+(JSON objects).
 
-  var schema = Mapping(
-    Scalar({name: 'a'}),
-    Scalar({name: 'b'}))
+  var schema = Mapping({
+    a: Scalar({name: 'a'}),
+    b: Scalar({name: 'b'})
+  })
 
 The example above describe objects of shape ``{"a": …, "b": …}``.
 
