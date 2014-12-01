@@ -10,3 +10,4 @@ Examples
    array-editor
    sortable-list
    undo
+   fileupload
