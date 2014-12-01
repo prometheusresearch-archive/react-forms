@@ -15,13 +15,10 @@ fieldsets looks like:
 .. jsx::
   :harmony:
 
-  var React = require('react/addons')
+  var React = require('react')
   var ReactForms = require('react-forms')
-  var Demo = require('react-forms/lib/Demo')
   var {Mapping, Scalar, List} = ReactForms.schema
-
-
-.. jsx::
+  var Demo = require('react-forms/lib/Demo')
 
   function Person(props) {
     return Mapping(props, {
@@ -47,6 +44,11 @@ This code results in a form:
 .. raw:: html
 
   <div id="example"></div>
+
+The form is described via form schema which then rendered via form components
+into DOM. The form value is consolidated into a single place (in ``<Form />``
+component but also can be store in a Flux store) and can be fully controlled via
+JavaScript code.
 
 Installation and usage
 ----------------------
