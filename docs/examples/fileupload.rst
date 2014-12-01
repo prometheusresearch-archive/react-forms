@@ -67,8 +67,9 @@ What we have is just a button and a filename rendered:
 
   })
 
-Not the we still need to render ``<input type="file" />`` to proxy button's
-clicks on it to allow file picker dialog to appear.
+Note that we still need to render a ``<input type="file" />`` but make it
+hidden. This is made to proxy button's clicks on it to allow file picker dialog
+to appear.
 
 Now we need to define a form schema node which will represent files:
 
