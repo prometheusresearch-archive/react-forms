@@ -46,8 +46,8 @@ This code results in a form:
   <div id="example"></div>
 
 The form is described via form schema which then rendered via form components
-into DOM. The form value is consolidated into a single place (in ``<Form />``
-component but also can be store in a Flux store) and can be fully controlled via
+into DOM. The form value is consolidated into a single place (in the ``<Form />``
+component but also can be stored in a Flux store) and can be fully controlled via
 JavaScript code.
 
 Installation and usage
