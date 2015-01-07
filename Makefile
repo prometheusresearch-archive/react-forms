@@ -7,8 +7,13 @@ MAKE_DOCS = $(MAKE) --no-print-directory -C docs
 lint:
 	@$(BIN)/jsxhint --verbose $(filter-out $(TESTS), $(shell find ./lib -name '*.js'))
 
+build:
+	@mkdir -p dist
+	@$(BIN)/jsx lib/ dist/
+
 clean:
 	@rm -rf ./node_modules/
+	@rm -rf ./dist
 
 test:
 	@NODE_PATH=$(NODE_PATH) $(BIN)/mochify -R dot $(TESTS) $(INTEGRATION_TESTS)
@@ -39,7 +44,7 @@ release-minor: test lint
 release-major: test lint
 	@$(call release,major)
 
-publish:
+publish: build
 	@git push --tags origin HEAD:master
 	@npm publish
 	@$(MAKE) -C docs publish

@@ -7,3 +7,4 @@ standalone/README.md
 standalone/LICENSE
 standalone/package
 standalone/react-forms-build-*.tgz
+dist/
