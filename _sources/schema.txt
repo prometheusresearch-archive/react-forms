@@ -99,8 +99,8 @@ vice versa. Fortunately there's built-in ``date`` type for that::
 
 You can refer to built-in types by specifying a ``type`` property which has type
 name as its string value. Currently React Forms provide a limited set of
-built-in types: ``date``, ``number`` and ``string`` (used by default if no type
-is specified). But you can create a custom one easily.
+built-in types: ``array``, ``bool``, ``date``, ``number``, ``all``, and  ``string``
+(used by default if no type is specified). But you can create a custom one easily.
 
 Schema types are simply objects with ``serialize`` and ``deserialize`` methods.
 Method ``serialize`` is called before value is sent to input component and
