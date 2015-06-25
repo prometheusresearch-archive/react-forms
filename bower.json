@@ -1,0 +1,10 @@
+{
+  "name": "react-forms",
+  "description": "Forms library for React",
+  "main": "lib/react-forms.js",
+  "author": "Prometheus Research",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
