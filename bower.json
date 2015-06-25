@@ -4,6 +4,11 @@
   "main": "lib/react-forms.js",
   "author": "Prometheus Research",
   "license": "MIT",
+  "rex": {
+    "loaders": [
+      {"test": "lib/react-forms.js", "loader": "source-map-loader"}
+    ]
+  },
   "dependencies": {
     "react": "^0.13.3"
   }
