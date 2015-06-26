@@ -1,22 +1,19 @@
 /**
  * @jsx React.DOM
  */
-'use strict';
 
-function emptyFunction() {
+export default function emptyFunction() {
 
 }
 
-emptyFunction.thatReturnsTrue = function() {
+export function thatReturnsTrue() {
   return true;
-};
+}
 
-emptyFunction.thatReturnsNull = function() {
+export function thatReturnsNull() {
   return null;
-};
+}
 
-emptyFunction.thatReturnsArgument = function(arg) {
+export function thatReturnsArgument(arg) {
   return arg;
-};
-
-module.exports = emptyFunction;
+}

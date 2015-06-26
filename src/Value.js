@@ -3,11 +3,11 @@
  */
 'use strict';
 
-var clone           = require('lodash/lang/cloneDeep');
-var makeKeyPath     = require('./makeKeyPath');
-var ObjectUtils     = require('./ObjectUtils');
-var SchemaUtils     = require('./SchemaUtils');
-var emptyFunction   = require('./emptyFunction');
+import clone         from 'lodash/lang/cloneDeep';
+import keyPath       from './keyPath';
+import ObjectUtils   from './ObjectUtils';
+import SchemaUtils   from './SchemaUtils';
+import emptyFunction from './emptyFunction';
 
 /**
  * Thin wrapper over form value with associated validation information and flag
@@ -53,7 +53,7 @@ class Value {
   }
 
   select(key) {
-    var keyPath = this.keyPath.concat(makeKeyPath(key));
+    var keyPath = this.keyPath.concat(keyPath(key));
     return new Value(
       keyPath,
       this.rootSchema,

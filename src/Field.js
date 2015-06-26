@@ -1,17 +1,27 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
-var React           = require('react');
+import React          from 'react';
+import WithFormValue  from './WithFormValue';
 
-var Field = React.createClass({
+@WithFormValue
+export default class Field extends React.Component {
+
+  static defaultProps = {
+    children: <input type="text" />
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {dirty: false};
+  }
 
   render() {
-    var {label, children} = this.props;
-    var {dirty} = this.state;
-    var {value, errors, params} = this.props.formValue;
-    var showErrors = dirty || params.forceShowErrors;
+    let {label, children} = this.props;
+    let {dirty} = this.state;
+    let {value, errors, params} = this.props.formValue;
+    let showErrors = dirty || params.forceShowErrors;
     children = React.cloneElement(
       React.Children.only(children),
       {value, onChange: this.onChange});
@@ -25,26 +35,14 @@ var Field = React.createClass({
           </div>}
       </div>
     );
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      children: <input type="text" />
-    };
-  },
-
-  getInitialState() {
-    return {
-      dirty: false
-    };
-  },
-
-  onBlur() {
+  onBlur = () => {
     this.setState({dirty: true});
-  },
+  }
 
-  onChange(e) {
-    var value;
+  onChange = (e) => {
+    let value;
     if (e && e.target && e.target.value !== undefined) {
       e.stopPropagation();
       value = e.target.value;
@@ -57,7 +55,4 @@ var Field = React.createClass({
     this.setState({dirty: true});
     this.props.formValue.set(value);
   }
-
-});
-
-module.exports = Field;
+}

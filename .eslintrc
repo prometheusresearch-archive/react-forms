@@ -56,7 +56,7 @@
     "no-labels": 2,                   // Disallow use of labeled statements
     "no-lone-blocks": 2,              // Disallow unnecessary nested blocks
     "no-loop-func": 2,                // Disallow creation of functions within loops
-    "no-multi-spaces": 2,             // Disallow use of multiple spaces
+    "no-multi-spaces": [2],             // Disallow use of multiple spaces
     "no-multi-str": 2,                // Disallow use of multiline strings
     "no-native-reassign": 2,          // Disallow reassignments of native objects
     "no-new": 2,                      // Disallow use of new operator when not part of the assignment or comparison
@@ -125,8 +125,8 @@
     "space-before-blocks": [1, "always"], // Require or disallow space before blocks (off by default)
     "space-in-brackets": [1, "never"],    // Require or disallow spaces inside brackets (off by default)
     "space-in-parens": [1, "never"],      // Require or disallow spaces inside parentheses (off by default)
-    "space-infix-ops": [1, "always"],     // Require spaces around operators
-    "space-return-throw-case": [1, "always"], // require a space after return, throw, and case
+    "space-infix-ops": [1, {}],     // Require spaces around operators
+    "space-return-throw-case": [1], // require a space after return, throw, and case
     "space-unary-ops": [1, {"words": true, "nonwords": false}], // Require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
     "spaced-line-comment": [1, "always"], // Require or disallow a space immediately following the // in a line comment (off by default)
     "wrap-regex": 0,                      // Require regex literals to be wrapped in parentheses (off by default)

@@ -1,41 +1,34 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
-var React           = require('react');
-var Value           = require('./Value');
-var Fieldset        = require('./Fieldset');
+import React          from 'react';
+import Fieldset       from './Fieldset';
+import Value          from './Value';
+import emptyFunction  from './emptyFunction';
 
-var DEFAULT_SCHEMA = {
+const DEFAULT_SCHEMA = {
   id: 'emptyschema',
   type: 'object'
 };
 
-function emptyFunction() {
-}
+export default class Form extends React.Component {
 
-var Form = React.createClass({
+  static defaultProps = {
+    schema: DEFAULT_SCHEMA,
+    value: {},
+    onChange: emptyFunction
+  };
 
   render() {
-    var {schema, value, children, forceShowErrors, ...props} = this.props;
-    if (!Value.isValue(value)) {
-      value = Value(schema, value, this.props.onChange, {forceShowErrors});
-    }
+    let {schema, value, children, forceShowErrors, ...props} = this.props;
+    let formValue = Value.isValue(value) ?
+      value :
+      Value(schema, value, this.props.onChange, {forceShowErrors});
     return (
       <Fieldset component="form" formValue={value}>
         {children}
       </Fieldset>
     );
-  },
-
-  getDefaultProps() {
-    return {
-      schema: DEFAULT_SCHEMA,
-      value: {},
-      onChange: emptyFunction
-    };
   }
-});
-
-module.exports = Form;
+}

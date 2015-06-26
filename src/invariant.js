@@ -1,13 +1,12 @@
 /**
- * @jsx React.DOM
+ * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
-function invariant(cond, msg, a, b, c, d, e, f) {
+export default function invariant(cond, msg, a, b, c, d, e, f) {
   if (!cond) {
     if (msg) {
-      var replacements = [a, b, c, d, e, f];
-      var idx = 0;
+      let replacements = [a, b, c, d, e, f];
+      let idx = 0;
       msg = msg.replace(/%s/g, function() {
         return replacements[idx++];
       });
@@ -17,5 +16,3 @@ function invariant(cond, msg, a, b, c, d, e, f) {
     }
   }
 }
-
-module.exports = invariant;

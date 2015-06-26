@@ -1,13 +1,9 @@
 /**
- * Base form library.
- *
  * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
-module.exports = {
-  Form: require('./Form'),
-  Fieldset: require('./Fieldset'),
-  Field: require('./Fieldset'),
-  Value: require('./Value')
-};
+export Form          from './Form';
+export Fieldset      from './Fieldset';
+export Field         from './Field';
+export Value         from './Value';
+export WithFormValue from './WithFormValue';
