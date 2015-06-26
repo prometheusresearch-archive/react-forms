@@ -4,7 +4,7 @@
 'use strict';
 
 var Value                   = require('../Value');
-var {object, array, string} = require('../SchemaUtils').Builder;
+var {object, array, string} = require('../Schema');
 
 describe('Value', function() {
 

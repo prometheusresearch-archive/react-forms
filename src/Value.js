@@ -3,11 +3,12 @@
  */
 'use strict';
 
-import clone          from 'lodash/lang/cloneDeep';
-import {set, get}     from './ObjectUtils';
-import makeKeyPath    from './keyPath';
-import SchemaUtils    from './SchemaUtils';
-import emptyFunction  from './emptyFunction';
+import clone              from 'lodash/lang/cloneDeep';
+import get                from 'lodash/object/get';
+import set                from 'lodash/object/set';
+import makeKeyPath        from './keyPath';
+import {createValidator}  from './Schema';
+import emptyFunction      from './emptyFunction';
 
 /**
  * Thin wrapper over form value with associated validation information and flag
@@ -15,11 +16,11 @@ import emptyFunction  from './emptyFunction';
  */
 export class Value {
 
-  constructor(keyPath, rootSchema, root, onChange, allErrors, params) {
+  constructor(keyPath, rootSchema, root, onChange, allErrors, params) { // eslint-disable-line max-params
     this.rootSchema = rootSchema;
     this.schema = subSchemaByKeyPath(rootSchema, keyPath);
     this.root = root;
-    this.value = get(root, keyPath);
+    this.value = keyPath.length > 0 ? get(root, keyPath) : root;
     this.onChange = onChange;
     this.allErrors = allErrors;
     this.params = params;
@@ -72,7 +73,7 @@ export class Value {
     if (this.keyPath.length === 0) {
       root = value;
     } else {
-      set(root, this.keyPath, value);
+      root = set(root, this.keyPath, value);
     }
     let nextValue = createValue(this.rootSchema, root, this.onChange, this.params);
     if (!quiet) {
@@ -112,7 +113,7 @@ function makeWildcardFromKeyPath(keyPath) {
 function subSchemaByKeyPath(schema, keyPath) {
   for (let i = 0, len = keyPath.length; i < len; i++) {
     if (!schema) {
-      return;
+      return schema;
     }
     schema = subSchemaByKey(schema, keyPath[i]);
   }
@@ -136,7 +137,7 @@ function subSchemaByKey(schema, key) {
       return subSchema;
     } else if (schema.type === 'array') {
       if (schema.items) {
-        if (Array.isArray(schema.items)) {
+        if (Array.isArray(schema.items)) { // eslint-disable-line max-depth
           return schema.items[key];
         } else {
           return schema.items;
@@ -168,7 +169,7 @@ export function validate(schema, value) {
     return value.__errors;
   } else {
     if (schema.__validator === undefined) {
-      cache(schema, '__validator', SchemaUtils.validator(schema, {formats: schema.formats}));
+      cache(schema, '__validator', createValidator(schema, {formats: schema.formats}));
     }
     schema.__validator(value);
     let errors = schema.__validator.errors;
