@@ -14,7 +14,7 @@ export default class Input extends React.Component {
   static propTypes = {
     element: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     debounce: PropTypes.number,
-    value: PropTypes.string,
+    value: PropTypes.any,
     onChange: PropTypes.func
   };
 
