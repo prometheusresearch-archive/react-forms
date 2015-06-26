@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import _createValidator from './validation';
+import _createValidator from './_schema';
 
 export function createValidator(schema, options) {
   options = {

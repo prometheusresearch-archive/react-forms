@@ -8,10 +8,10 @@ build:
 watch:
 	@$(BIN)/webpack --watch
 
-test-validation:
-	@$(BIN)/tape src/validation/__tests__/*.js
+test-schema:
+	@$(BIN)/tape src/_schema/__tests__/*.js
 
-test:: test-validation
+test:: test-schema
 
 lint::
 	@$(BIN)/eslint src/*.js
