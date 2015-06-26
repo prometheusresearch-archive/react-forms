@@ -4,7 +4,7 @@
 
 import React, {PropTypes} from 'react';
 import Fieldset           from './Fieldset';
-import Value              from './Value';
+import Value, {isValue}   from './Value';
 import emptyFunction      from './emptyFunction';
 
 const DEFAULT_SCHEMA = {
@@ -49,7 +49,7 @@ export default class Form extends React.Component {
 
   render() {
     let {schema, value, children, forceShowErrors, ...props} = this.props;
-    let formValue = Value.isValue(value) ?
+    let formValue = isValue(value) ?
       value :
       Value(schema, value, this.props.onChange, {forceShowErrors});
     return (

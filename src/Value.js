@@ -13,7 +13,7 @@ import emptyFunction  from './emptyFunction';
  * Thin wrapper over form value with associated validation information and flag
  * to force rendering validation errors.
  */
-class Value {
+export class Value {
 
   constructor(keyPath, rootSchema, root, onChange, allErrors, params) {
     this.rootSchema = rootSchema;
@@ -74,7 +74,7 @@ class Value {
     } else {
       set(root, this.keyPath, value);
     }
-    let nextValue = wrapValue(this.rootSchema, root, this.onChange, this.params);
+    let nextValue = createValue(this.rootSchema, root, this.onChange, this.params);
     if (!quiet) {
       this.onChange(nextValue);
     }
@@ -160,7 +160,7 @@ function cache(obj, key, value) {
   Object.defineProperty(obj, key, {...NON_ENUMERABLE_PROP, value});
 }
 
-function validate(schema, value) {
+export function validate(schema, value) {
   if (!schema) {
     return null;
   }
@@ -178,7 +178,11 @@ function validate(schema, value) {
   }
 }
 
-function wrapValue(schema, value, onChange, params) {
+export function isValue(maybeValue) {
+  return maybeValue instanceof Value;
+}
+
+export default function createValue(schema, value, onChange, params) {
   value = value || {};
   onChange = onChange || emptyFunction;
   params = params || {};
@@ -186,10 +190,3 @@ function wrapValue(schema, value, onChange, params) {
   return new Value([], schema, value, onChange, allErrors, params);
 }
 
-function isValue(maybeValue) {
-  return maybeValue instanceof Value;
-}
-
-module.exports = wrapValue;
-module.exports.isValue = isValue;
-module.exports.validate = validate;
