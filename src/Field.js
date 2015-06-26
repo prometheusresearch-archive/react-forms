@@ -5,6 +5,7 @@
 import React, {PropTypes}   from 'react';
 import WithFormValue        from './WithFormValue';
 import Value                from './Value';
+import Input                from './Input';
 
 @WithFormValue
 export default class Field extends React.Component {
@@ -16,7 +17,7 @@ export default class Field extends React.Component {
   };
 
   static defaultProps = {
-    children: <input type="text" />
+    children: <Input type="text" />
   };
 
   constructor(props) {
