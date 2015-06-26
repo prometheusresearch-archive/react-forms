@@ -14,6 +14,7 @@ export default class Input extends React.Component {
   static propTypes = {
     element: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     debounce: PropTypes.number,
+    value: PropTypes.string,
     onChange: PropTypes.func
   };
 
@@ -33,8 +34,8 @@ export default class Input extends React.Component {
   }
 
   render() {
-    let {element: Element, debounce, value, ...props} = this.props;
-    if (debounce) {
+    let {element: Element, debounce: debounceEnabled, value, ...props} = this.props;
+    if (debounceEnabled) {
       value = this.state.value;
     }
     return <Element {...props} value={value} onChange={this.onChange} />;
@@ -46,7 +47,7 @@ export default class Input extends React.Component {
     }
     if (nextProps.debounce !== this.props.debounce) {
       this.cancelOnChange();
-      this._scheduleOnChange = props.debounce ?
+      this._scheduleOnChange = nextProps.debounce ?
         debounce(Input.prototype._scheduleOnChange.bind(this), nextProps.debounce) :
         Input.prototype._scheduleOnChange.bind(this);
     }
