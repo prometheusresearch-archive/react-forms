@@ -15,23 +15,23 @@ function tryParseInt(v) {
   return v;
 }
 
-export default function keyPath(keyPath) {
-  if (isArray(keyPath)) {
-    return keyPath;
-  } else if (isString(keyPath)) {
-    if (keyPath.indexOf('.') !== -1) {
-      keyPath = keyPath.split('.').filter(Boolean).map(tryParseInt);
+export default function keyPath(value) {
+  if (isArray(value)) {
+    return value;
+  } else if (isString(value)) {
+    if (value.indexOf('.') !== -1) {
+      value = value.split('.').filter(Boolean).map(tryParseInt);
     } else {
-      keyPath = [tryParseInt(keyPath)];
+      value = [tryParseInt(value)];
     }
-    return keyPath;
-  } else if (typeof keyPath === 'number') {
-    return [keyPath];
+    return value;
+  } else if (typeof value === 'number') {
+    return [value];
   } else {
     invariant(
       false,
       'keyPath can be either an array or string, got: %s',
-      keyPath
+      value
     );
   }
 }

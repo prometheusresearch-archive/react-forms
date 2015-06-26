@@ -2,11 +2,18 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import React          from 'react';
-import WithFormValue  from './WithFormValue';
+import React, {PropTypes}   from 'react';
+import WithFormValue        from './WithFormValue';
+import Value                from './Value';
 
 @WithFormValue
 export default class Field extends React.Component {
+
+  static propTypes = {
+    label: PropTypes.string,
+    children: PropTypes.element,
+    formValue: PropTypes.instanceOf(Value)
+  };
 
   static defaultProps = {
     children: <input type="text" />

@@ -23,7 +23,7 @@ export default class Component extends React.Component {
 
   static propTypes = {
     formValue: PropTypes.object,
-    selectFormValue: PropTypes.oneOf([PropTypes.string, PropTypes.bool])
+    selectFormValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
   };
 
   getChildContext() {

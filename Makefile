@@ -14,7 +14,7 @@ test-validation:
 test:: test-validation
 
 lint::
-	@$(BIN)/eslint $(SRC)
+	@$(BIN)/eslint src/*.js
 
 prerelease: lint test build
 

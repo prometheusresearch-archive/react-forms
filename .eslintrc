@@ -1,5 +1,6 @@
 {
   "parser": "babel-eslint",
+  "plugins": ["react"],
   "env": {
     "browser": true,
     "node": true,
@@ -56,8 +57,8 @@
     "no-labels": 2,                   // Disallow use of labeled statements
     "no-lone-blocks": 2,              // Disallow unnecessary nested blocks
     "no-loop-func": 2,                // Disallow creation of functions within loops
-    "no-multi-spaces": [2],             // Disallow use of multiple spaces
     "no-multi-str": 2,                // Disallow use of multiline strings
+    "no-multi-spaces": [0],           // Disallow use of multiline strings
     "no-native-reassign": 2,          // Disallow reassignments of native objects
     "no-new": 2,                      // Disallow use of new operator when not part of the assignment or comparison
     "no-new-func": 2,                 // Disallow use of new operator for Function object
@@ -139,6 +140,21 @@
     "max-params": [2, 5],             // Limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0,              // Specify the maximum number of statement allowed in a function (off by default)
     "no-bitwise": 0,                  // Disallow use of bitwise operators (off by default)
-    "no-plusplus": 2                  // Disallow use of unary operators, ++ and -- (off by default)
+    "no-plusplus": 0,                 // Disallow use of unary operators, ++ and -- (off by default)
+
+    "react/display-name": 0,
+    "react/jsx-quotes": [2, "double", "avoid-escape"],
+    "react/jsx-no-undef": 2,
+    "react/jsx-sort-props": 0,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-multi-comp": 0,
+    "react/no-unknown-property": 2,
+    "react/prop-types": 1,
+    "react/react-in-jsx-scope": 2,
+    "react/self-closing-comp": 2,
+    "react/wrap-multilines": 2,
   }
 }

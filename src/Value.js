@@ -3,11 +3,11 @@
  */
 'use strict';
 
-import clone         from 'lodash/lang/cloneDeep';
-import keyPath       from './keyPath';
-import ObjectUtils   from './ObjectUtils';
-import SchemaUtils   from './SchemaUtils';
-import emptyFunction from './emptyFunction';
+import clone          from 'lodash/lang/cloneDeep';
+import {set, get}     from './ObjectUtils';
+import makeKeyPath    from './keyPath';
+import SchemaUtils    from './SchemaUtils';
+import emptyFunction  from './emptyFunction';
 
 /**
  * Thin wrapper over form value with associated validation information and flag
@@ -19,7 +19,7 @@ class Value {
     this.rootSchema = rootSchema;
     this.schema = subSchemaByKeyPath(rootSchema, keyPath);
     this.root = root;
-    this.value = ObjectUtils.get(root, keyPath);
+    this.value = get(root, keyPath);
     this.onChange = onChange;
     this.allErrors = allErrors;
     this.params = params;
@@ -30,7 +30,7 @@ class Value {
     if (this.keyPath.length === 0) {
       return null;
     }
-    var keyPath = this.keyPath.slice();
+    let keyPath = this.keyPath.slice();
     keyPath.pop();
     return new Value(
       keyPath,
@@ -46,14 +46,14 @@ class Value {
     if (!this.allErrors) {
       return [];
     }
-    var exactKeyPath = `data.${this.keyPath.join('.')}`;
-    var wildcardKeyPath = `data.${makeWildcardFromKeyPath(this.keyPath).join('.')}`;
+    let exactKeyPath = `data.${this.keyPath.join('.')}`;
+    let wildcardKeyPath = `data.${makeWildcardFromKeyPath(this.keyPath).join('.')}`;
     return this.allErrors.filter(error =>
       error.field === exactKeyPath || error.field === wildcardKeyPath);
   }
 
   select(key) {
-    var keyPath = this.keyPath.concat(keyPath(key));
+    let keyPath = this.keyPath.concat(makeKeyPath(key));
     return new Value(
       keyPath,
       this.rootSchema,
@@ -68,13 +68,13 @@ class Value {
     if (value === this.root) {
       return this;
     }
-    var root = clone(this.root);
+    let root = clone(this.root);
     if (this.keyPath.length === 0) {
       root = value;
     } else {
-      ObjectUtils.set(root, this.keyPath, value);
+      set(root, this.keyPath, value);
     }
-    var nextValue = wrapValue(this.rootSchema, root, this.onChange, this.params);
+    let nextValue = wrapValue(this.rootSchema, root, this.onChange, this.params);
     if (!quiet) {
       this.onChange(nextValue);
     }
@@ -97,9 +97,9 @@ class Value {
 }
 
 function makeWildcardFromKeyPath(keyPath) {
-  var wildcard = [];
-  for (var i = 0, len = keyPath.length; i < len; i++) {
-    var item = keyPath[i];
+  let wildcard = [];
+  for (let i = 0, len = keyPath.length; i < len; i++) {
+    let item = keyPath[i];
     if (!isNaN(item)) {
       wildcard.push('*');
     } else {
@@ -110,7 +110,7 @@ function makeWildcardFromKeyPath(keyPath) {
 }
 
 function subSchemaByKeyPath(schema, keyPath) {
-  for (var i = 0, len = keyPath.length; i < len; i++) {
+  for (let i = 0, len = keyPath.length; i < len; i++) {
     if (!schema) {
       return;
     }
@@ -122,7 +122,7 @@ function subSchemaByKeyPath(schema, keyPath) {
 function subSchemaByKey(schema, key) {
   if (schema) {
     if (schema.type === 'object') {
-      var subSchema = schema.properties ?
+      let subSchema = schema.properties ?
         schema.properties[key] :
         undefined;
       if (Array.isArray(schema.required)) {
@@ -150,7 +150,7 @@ function subSchemaByKey(schema, key) {
   }
 }
 
-var NON_ENUMERABLE_PROP = {
+const NON_ENUMERABLE_PROP = {
   enumerable: false,
   writable: true,
   configurable: true
@@ -171,7 +171,7 @@ function validate(schema, value) {
       cache(schema, '__validator', SchemaUtils.validator(schema, {formats: schema.formats}));
     }
     schema.__validator(value);
-    var errors = schema.__validator.errors;
+    let errors = schema.__validator.errors;
     cache(value, '__schema', schema);
     cache(value, '__errors', errors);
     return errors;
@@ -182,7 +182,7 @@ function wrapValue(schema, value, onChange, params) {
   value = value || {};
   onChange = onChange || emptyFunction;
   params = params || {};
-  var allErrors = validate(schema, value);
+  let allErrors = validate(schema, value);
   return new Value([], schema, value, onChange, allErrors, params);
 }
 

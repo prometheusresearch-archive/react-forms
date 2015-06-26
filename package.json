@@ -29,6 +29,7 @@
     "babel-eslint": "^3.1.18",
     "babel-loader": "^5.1.4",
     "eslint": "^0.23.0",
+    "eslint-plugin-react": "^2.5.2",
     "node-libs-browser": "^0.5.2",
     "tape": "^2.13.4",
     "webpack": "^1.9.12"
