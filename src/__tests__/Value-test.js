@@ -1,10 +1,9 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
-var Value                   = require('../Value');
-var {object, array, string} = require('../Schema');
+import Value                   from '../Value';
+import {object, array, string} from '../Schema';
 
 describe('Value', function() {
 

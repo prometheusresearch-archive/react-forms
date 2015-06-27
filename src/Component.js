@@ -23,7 +23,7 @@ export default class Component extends React.Component {
 
   static propTypes = {
     formValue: PropTypes.object,
-    selectFormValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    selectFormValue: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool])
   };
 
   getChildContext() {
@@ -35,9 +35,10 @@ export default class Component extends React.Component {
 
     invariant(
       formValue,
-      'A form component should receive form value via props ' +
+      'A form component <%s /> should receive form value via props ' +
       'or be used as a part of element hierarchy which ' +
-      'includes <Form /> component in its ancestors'
+      'includes <Form /> component in its ancestors',
+      this.constructor.displayName || this.constructor.name
     );
 
     let selectFormValue = this.props.selectFormValue;
