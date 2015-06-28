@@ -6,6 +6,15 @@ import React, {PropTypes}   from 'react';
 import WithFormValue        from './WithFormValue';
 import Value                from './Value';
 import Input                from './Input';
+import ErrorList            from './ErrorList';
+
+function renderLabel(label, schema) {
+  return label && <label>{label}</label>;
+}
+
+function renderErrorList(formValue) {
+  return <ErrorList formValue={formValue} />;
+}
 
 @WithFormValue
 export default class Field extends React.Component {
@@ -13,11 +22,15 @@ export default class Field extends React.Component {
   static propTypes = {
     label: PropTypes.string,
     children: PropTypes.element,
-    formValue: PropTypes.instanceOf(Value)
+    formValue: PropTypes.instanceOf(Value),
+    renderLabel: PropTypes.func,
+    renderErrorList: PropTypes.func
   };
 
   static defaultProps = {
-    children: <Input type="text" />
+    children: <Input type="text" />,
+    renderLabel,
+    renderErrorList
   };
 
   constructor(props) {
@@ -26,21 +39,19 @@ export default class Field extends React.Component {
   }
 
   render() {
-    let {label, children} = this.props;
+    let {children, renderLabel, renderErrorList, formValue} = this.props;
     let {dirty} = this.state;
-    let {value, errors, params} = this.props.formValue;
+    let {schema, value, errors, params} = this.props.formValue;
     let showErrors = dirty || params.forceShowErrors;
     children = React.cloneElement(
       React.Children.only(children),
       {value, onChange: this.onChange});
+    let label = this.props.label || schema.label;
     return (
       <div onBlur={this.onBlur}>
-        <label>{label}</label>
+        {renderLabel(label, schema)}
         {children}
-        {showErrors && errors &&
-          <div>
-            {errors.map(error => <div>{error.message}</div>)}
-          </div>}
+        {showErrors && renderErrorList(formValue)}
       </div>
     );
   }

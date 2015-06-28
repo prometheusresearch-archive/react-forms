@@ -23,7 +23,7 @@ export default class Component extends React.Component {
 
   static propTypes = {
     formValue: PropTypes.object,
-    selectFormValue: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool])
+    select: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool])
   };
 
   getChildContext() {
@@ -41,13 +41,13 @@ export default class Component extends React.Component {
       this.constructor.displayName || this.constructor.name
     );
 
-    let selectFormValue = this.props.selectFormValue;
-    // We check for selectFormValue === true to keep compatability we eariler
+    let select = this.props.select;
+    // We check for select === true to keep compatability we eariler
     // versions of React Forms where we needed to rebuild element tree to
     // propagate values to form.
-    if (selectFormValue && selectFormValue !== true) {
-      selectFormValue = keyPath(selectFormValue);
-      formValue = formValue.select(selectFormValue);
+    if (select) {
+      select = keyPath(select);
+      formValue = formValue.select(select);
     }
 
     return formValue;

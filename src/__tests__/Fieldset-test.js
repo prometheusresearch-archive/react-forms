@@ -46,7 +46,7 @@ describe('<Fieldset />', function() {
     instance = TestUtils.renderIntoDocument(
       <Fieldset
         formValue={formValue}
-        selectFormValue="a"
+        select="a"
         />
     );
 
@@ -55,7 +55,7 @@ describe('<Fieldset />', function() {
     instance = TestUtils.renderIntoDocument(
       <Fieldset
         formValue={formValue}
-        selectFormValue={1}
+        select={1}
         />
     );
 
@@ -64,7 +64,7 @@ describe('<Fieldset />', function() {
     instance = TestUtils.renderIntoDocument(
       <Fieldset
         formValue={formValue}
-        selectFormValue={['a', 'b']}
+        select={['a', 'b']}
         />
     );
 
@@ -73,24 +73,11 @@ describe('<Fieldset />', function() {
     instance = TestUtils.renderIntoDocument(
       <Fieldset
         formValue={formValue}
-        selectFormValue={['a.b']}
+        select={['a.b']}
         />
     );
 
     expect(instance.formValue).toBe(formValue['a.b']);
-  });
-
-  it('handles selectFormValue being a boolean true', function() {
-
-    let formValue = {};
-    let instance = TestUtils.renderIntoDocument(
-      <Fieldset
-        selectFormValue
-        formValue={formValue}
-        />
-    );
-
-    expect(instance.formValue).toBe(formValue);
   });
 
   it('passes formValue via context', function() {

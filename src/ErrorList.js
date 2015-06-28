@@ -6,8 +6,9 @@ import React, {PropTypes} from 'react';
 import Component          from './Component';
 import {Value}            from './Value';
 
-function renderError(error, index, errorList) {
-  if (error.schema && error.schema.label) {
+function renderError(error, index, errorList, props) {
+  let label = props.label || (error.schema && error.schema.label);
+  if (props.complete && !props.noLabel && label) {
     return <li>{error.schema.label}: {error.message}</li>;
   } else {
     return <li>{error.message}</li>;
@@ -32,7 +33,11 @@ export default class ErrorList extends Component {
     /**
      * Restrict schema types
      */
-    schemaType: PropTypes.object
+    schemaType: PropTypes.object,
+
+    noLabel: PropTypes.bool,
+
+    label: PropTypes.string
   };
 
   static defaultProps = {
@@ -49,15 +54,15 @@ export default class ErrorList extends Component {
         error.schema ? schemaType[error.schema.type] : schemaType.none);
     }
     let items = errorList.map(this.renderError, this);
-    return (
+    return items.length > 0 ? (
       <ul {...props}>
         {items}
       </ul>
-    );
+    ) : null;
   }
 
   renderError(error, index, errorList) {
-    let element = this.props.renderError(error, index, errorList);
+    let element = this.props.renderError(error, index, errorList, this.props);
     let key = `${error.field}__${index}`;
     return React.cloneElement(element, {key});
   }

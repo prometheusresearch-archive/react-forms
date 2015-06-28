@@ -59,7 +59,7 @@ describe('<Component />', function() {
     instance = TestUtils.renderIntoDocument(
       <FormComponent
         formValue={formValue}
-        selectFormValue="a"
+        select="a"
         />
     );
 
@@ -68,7 +68,7 @@ describe('<Component />', function() {
     instance = TestUtils.renderIntoDocument(
       <FormComponent
         formValue={formValue}
-        selectFormValue={1}
+        select={1}
         />
     );
 
@@ -77,7 +77,7 @@ describe('<Component />', function() {
     instance = TestUtils.renderIntoDocument(
       <FormComponent
         formValue={formValue}
-        selectFormValue={['a', 'b']}
+        select={['a', 'b']}
         />
     );
 
@@ -86,31 +86,11 @@ describe('<Component />', function() {
     instance = TestUtils.renderIntoDocument(
       <FormComponent
         formValue={formValue}
-        selectFormValue={['a.b']}
+        select={['a.b']}
         />
     );
 
     expect(instance.formValue).toBe(formValue['a.b']);
-  });
-
-  it('handles selectFormValue being a boolean true', function() {
-
-    class FormComponent extends Component {
-
-      render() {
-        return <div />;
-      }
-    }
-
-    let formValue = {};
-    let instance = TestUtils.renderIntoDocument(
-      <FormComponent
-        selectFormValue
-        formValue={formValue}
-        />
-    );
-
-    expect(instance.formValue).toBe(formValue);
   });
 
   it('allows to access form value passed via context', function() {
@@ -184,7 +164,7 @@ describe('<Component />', function() {
 
       render() {
         let {childSelectFormValue} = this.props;
-        return <FormComponentChild ref="child" selectFormValue={childSelectFormValue} />;
+        return <FormComponentChild ref="child" select={childSelectFormValue} />;
       }
     }
 
