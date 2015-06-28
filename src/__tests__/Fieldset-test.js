@@ -7,7 +7,7 @@ import TestUtils from 'react/lib/ReactTestUtils';
 import Fieldset  from '../Fieldset';
 import Component from '../Component';
 
-describe('Fieldset', function() {
+describe('<Fieldset />', function() {
 
   it('allows to access form value passed via props', function() {
 

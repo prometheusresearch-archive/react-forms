@@ -4,7 +4,7 @@
 
 import keyPath from '../keyPath';
 
-describe('keyPath', function() {
+describe('keyPath()', function() {
 
   it('converts strings to key path', function() {
     expect(keyPath('a')).toEqual(['a']);

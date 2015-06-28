@@ -6,7 +6,7 @@ import React     from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Component from '../Component';
 
-describe('Component', function() {
+describe('<Component />', function() {
 
   it('allows to access form value passed via props', function() {
 
