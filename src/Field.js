@@ -3,10 +3,10 @@
  */
 
 import React, {PropTypes}   from 'react';
-import WithFormValue        from './WithFormValue';
 import Value                from './Value';
 import Input                from './Input';
 import ErrorList            from './ErrorList';
+import Component            from './Component';
 
 function renderLabel(label, schema) {
   return label && <label>{label}</label>;
@@ -16,13 +16,12 @@ function renderErrorList(formValue) {
   return <ErrorList formValue={formValue} />;
 }
 
-@WithFormValue
-export default class Field extends React.Component {
+export default class Field extends Component {
 
   static propTypes = {
+    ...Component.propTypes,
     label: PropTypes.string,
     children: PropTypes.element,
-    formValue: PropTypes.instanceOf(Value),
     renderLabel: PropTypes.func,
     renderErrorList: PropTypes.func
   };
@@ -39,9 +38,9 @@ export default class Field extends React.Component {
   }
 
   render() {
-    let {children, renderLabel, renderErrorList, formValue} = this.props;
+    let {children, renderLabel, renderErrorList} = this.props;
     let {dirty} = this.state;
-    let {schema, value, errors, params} = this.props.formValue;
+    let {schema, value, errors, params} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;
     children = React.cloneElement(
       React.Children.only(children),
@@ -51,7 +50,7 @@ export default class Field extends React.Component {
       <div onBlur={this.onBlur}>
         {renderLabel(label, schema)}
         {children}
-        {showErrors && renderErrorList(formValue)}
+        {showErrors && renderErrorList(this.formValue)}
       </div>
     );
   }
