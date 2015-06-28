@@ -14,7 +14,16 @@ export default class ErrorList extends Component {
 
   static propTypes = {
     ...Component.propTypes,
-    renderError: PropTypes.func
+
+    /**
+     * Renderer for error items.
+     */
+    renderError: PropTypes.func,
+    
+    /**
+     * If component should render errors from all the subvalues.
+     */
+    showCompleteErrorList: PropTypes.bool
   };
 
   static defaultProps = {
@@ -22,8 +31,11 @@ export default class ErrorList extends Component {
   };
 
   render() {
-    let {renderError, ...props} = this.props;
-    let items = this.formValue.errorList.map(this.renderError, this);
+    let {renderError, showCompleteErrorList, ...props} = this.props;
+    let errorList = showCompleteErrorList ?
+      this.formValue.completeErrorList :
+      this.formValue.errorList;
+    let items = errorList.map(this.renderError, this);
     return (
       <ul {...props}>
         {items}

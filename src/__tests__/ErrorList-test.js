@@ -24,4 +24,20 @@ describe('<ErrorList />', function() {
     expect(tree.props.children[0].props.children).toBe('error');
   });
 
+  it('renders a complete list of errors', function() {
+
+    let formValue = {
+      completeErrorList: [
+        {field: 'data.a', message: 'error'}
+      ]
+    };
+    let renderer = TestUtils.createRenderer();
+    renderer.render(<ErrorList showCompleteErrorList formValue={formValue} />);
+    let tree = renderer.getRenderOutput();
+    expect(tree.type).toBe('ul');
+    expect(tree.props.children.length).toBe(1);
+    expect(tree.props.children[0].type).toBe('li');
+    expect(tree.props.children[0].props.children).toBe('error');
+  });
+
 });
