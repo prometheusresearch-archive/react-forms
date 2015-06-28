@@ -12,9 +12,9 @@
     "url": "git://github.com/prometheusresearch/react-forms.git"
   },
   "keywords": [
+    "forms",
     "react",
-    "react-component",
-    "forms"
+    "react-component"
   ],
   "author": "Prometheus Research",
   "license": "MIT",
@@ -32,15 +32,16 @@
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "node-libs-browser": "^0.5.2",
+    "react": "next",
     "tape": "^2.13.4",
-    "webpack": "^1.9.12",
-    "react": "next"
+    "webpack": "^1.9.12"
   },
   "dependencies": {
     "generate-function": "^2.0.0",
     "generate-object-property": "^1.1.0",
     "jsonpointer": "^1.1.0",
     "lodash": "^3.9.3",
+    "memoize-decorator": "^1.0.2",
     "xtend": "^4.0.0"
   }
 }

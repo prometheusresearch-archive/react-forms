@@ -48,12 +48,49 @@ describe('Value', function() {
       e: string({isRequired: true})
     });
     let value = Value(schema);
-    expect(value.select('a').errorList).toEqual([{field: 'data.a', message: 'is required'}]);
-    expect(value.select('a.b').errorList).toEqual([{field : 'data.a.b', message : 'is required'}]);
-    expect(value.select('c').errorList).toEqual([{field : 'data.c', message : 'has less items than allowed'}]);
+
+    expect(value.errorList).toEqual([]);
+    expect(value.completeErrorList).toEqual([
+      {field: 'data.a', message: 'is required'},
+      {field: 'data.e', message: 'is required'},
+      {field : 'data.a.b', message : 'is required'},
+      {field : 'data.c', message : 'has less items than allowed'}
+    ]);
+
+    expect(value.select('a').errorList).toEqual([
+      {field: 'data.a', message: 'is required'}
+    ]);
+    expect(value.select('a').completeErrorList).toEqual([
+      {field: 'data.a', message: 'is required'},
+      {field : 'data.a.b', message : 'is required'}
+    ]);
+
+    expect(value.select('a.b').errorList).toEqual([
+      {field : 'data.a.b', message : 'is required'}
+    ]);
+    expect(value.select('a.b').completeErrorList).toEqual([
+      {field : 'data.a.b', message : 'is required'}
+    ]);
+
+    expect(value.select('c').errorList).toEqual([
+      {field : 'data.c', message : 'has less items than allowed'}
+    ]);
+    expect(value.select('c').completeErrorList).toEqual([
+      {field : 'data.c', message : 'has less items than allowed'}
+    ]);
+
     expect(value.select('c.0').errorList).toEqual([]);
+    expect(value.select('c.0').completeErrorList).toEqual([]);
+
     expect(value.select('c.1').errorList).toEqual([]);
-    expect(value.select('e').errorList).toEqual([{field: 'data.e', message: 'is required'}]);
+    expect(value.select('c.1').completeErrorList).toEqual([]);
+
+    expect(value.select('e').errorList).toEqual([
+      {field: 'data.e', message: 'is required'}
+    ]);
+    expect(value.select('e').completeErrorList).toEqual([
+      {field: 'data.e', message: 'is required'}
+    ]);
   });
 
   it('propagates no errors if no errors are present', function() {
@@ -65,12 +102,27 @@ describe('Value', function() {
       e: string({isRequired: true})
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s'], e: 'e'});
+
+    expect(value.errorList).toEqual([]);
+    expect(value.completeErrorList).toEqual([]);
+
     expect(value.select('a').errorList).toEqual([]);
+    expect(value.select('a').completeErrorList).toEqual([]);
+
     expect(value.select('a.b').errorList).toEqual([]);
+    expect(value.select('a.b').completeErrorList).toEqual([]);
+
     expect(value.select('c').errorList).toEqual([]);
+    expect(value.select('c').completeErrorList).toEqual([]);
+
     expect(value.select('c.0').errorList).toEqual([]);
+    expect(value.select('c.0').completeErrorList).toEqual([]);
+
     expect(value.select('c.1').errorList).toEqual([]);
+    expect(value.select('c.1').completeErrorList).toEqual([]);
+
     expect(value.select('e').errorList).toEqual([]);
+    expect(value.select('e').completeErrorList).toEqual([]);
   });
 
   it('propagates errors in array items', function() {
@@ -82,12 +134,35 @@ describe('Value', function() {
       e: string({isRequired: true})
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
+
+    expect(value.errorList).toEqual([]);
+    expect(value.completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('a').errorList).toEqual([]);
+    expect(value.select('a').completeErrorList).toEqual([]);
+
     expect(value.select('a.b').errorList).toEqual([]);
+    expect(value.select('a.b').completeErrorList).toEqual([]);
+
     expect(value.select('c').errorList).toEqual([]);
+    expect(value.select('c').completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.1').errorList).toEqual([{field: 'data.c.1', message: 'is the wrong type'}]);
+    expect(value.select('c.0').completeErrorList).toEqual([]);
+
+    expect(value.select('c.1').errorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+    expect(value.select('c.1').completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('e').errorList).toEqual([]);
+    expect(value.select('e').completeErrorList).toEqual([]);
   });
 
   it('propagates errors in array items', function() {
@@ -99,12 +174,35 @@ describe('Value', function() {
       e: string({isRequired: true})
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
+
+    expect(value.errorList).toEqual([]);
+    expect(value.completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('a').errorList).toEqual([]);
+    expect(value.select('a').completeErrorList).toEqual([]);
+
     expect(value.select('a.b').errorList).toEqual([]);
+    expect(value.select('a.b').completeErrorList).toEqual([]);
+
     expect(value.select('c').errorList).toEqual([]);
+    expect(value.select('c').completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.1').errorList).toEqual([{field: 'data.c.1', message: 'is the wrong type'}]);
+    expect(value.select('c.0').completeErrorList).toEqual([]);
+
+    expect(value.select('c.1').errorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+    expect(value.select('c.1').completeErrorList).toEqual([
+      {field: 'data.c.1', message: 'is the wrong type'}
+    ]);
+
     expect(value.select('e').errorList).toEqual([]);
+    expect(value.select('e').completeErrorList).toEqual([]);
   });
 
 });

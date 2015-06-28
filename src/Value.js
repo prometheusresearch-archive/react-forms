@@ -2,6 +2,7 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
+import memoize                    from 'memoize-decorator';
 import clone                      from 'lodash/lang/cloneDeep';
 import selectValue                from 'lodash/object/get';
 import set                        from 'lodash/object/set';
@@ -45,7 +46,8 @@ class ValueRoot extends Value {
     this.value = value;
     this.onChange = onChange;
     this.params = params;
-    this.errorList = errorList;
+    this.errorList = errorList.filter(error => error.field === 'data');
+    this.completeErrorList = errorList;
   }
 }
 
@@ -63,9 +65,17 @@ class ValueLeaf extends Value {
     return this._root.params;
   }
 
+  @memoize
   get errorList() {
     let errorKeyPath = `data.${this.keyPath.join('.')}`;
-    return this._root.errorList.filter(error => error.field === errorKeyPath);
+    return this._root.completeErrorList.filter(error => error.field === errorKeyPath);
+  }
+
+  @memoize
+  get completeErrorList() {
+    let errorKeyPath = `data.${this.keyPath.join('.')}`;
+    let length = errorKeyPath.length;
+    return this._root.completeErrorList.filter(error => error.field.slice(0, length) === errorKeyPath);
   }
 
   get parent() {
