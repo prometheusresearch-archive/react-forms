@@ -151,25 +151,25 @@ var compile = function(schema, cache, root, reporter, opts) {
     }
 
     var indent = 0
-    var error = function(msg, prop, value) {
+    var error = function(msg, prop, value, schema) {
       validate('errors++')
       if (reporter === true) {
         validate('if (validate.errors === null) validate.errors = []')
         if (verbose) {
-          validate('validate.errors.push({field:%s,message:%s,value:%s})', formatName(prop || name), JSON.stringify(msg), value || name)
+          validate('validate.errors.push({field:%s,message:%s,value:%s,schema:%s})', formatName(prop || name), JSON.stringify(msg), value || name, schema || nodeSym)
         } else {
-          validate('validate.errors.push({field:%s,message:%s})', formatName(prop || name), JSON.stringify(msg))
+          validate('validate.errors.push({field:%s,message:%s,schema:%s})', formatName(prop || name), JSON.stringify(msg), schema || nodeSym)
         }
       }
     }
-    var errorFromSym = function(sym) {
+    var errorFromSym = function(sym, schema) {
       validate('errors++')
       if (reporter === true) {
         validate('if (validate.errors === null) validate.errors = []')
         if (verbose) {
-          validate('validate.errors.push({field:%s,message:%s,value:%s})', formatName(name), sym, name)
+          validate('validate.errors.push({field:%s,message:%s,value:%s,schema:%s})', formatName(name), sym, name, schema || nodeSym)
         } else {
-          validate('validate.errors.push({field:%s,message:%s})', formatName(name), sym)
+          validate('validate.errors.push({field:%s,message:%s,schema:%s})', formatName(name), sym, schema || nodeSym)
         }
       }
     }
@@ -272,7 +272,7 @@ var compile = function(schema, cache, root, reporter, opts) {
         } else {
           validate('if (%s === undefined) {', genobj(dataSym, req))
         }
-        error('is required', genobj(name, req));
+        error('is required', genobj(name, req), undefined, genobj(genobj(nodeSym, 'properties'), req));
         validate('missing++')
         validate('}')
       }
