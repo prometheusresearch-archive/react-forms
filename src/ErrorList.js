@@ -7,7 +7,11 @@ import Component          from './Component';
 import {Value}            from './Value';
 
 function renderError(error, index, errorList) {
-  return <li>{error.message}</li>;
+  if (error.schema && error.schema.label) {
+    return <li>{error.schema.label}: {error.message}</li>;
+  } else {
+    return <li>{error.message}</li>;
+  }
 }
 
 export default class ErrorList extends Component {
@@ -23,18 +27,27 @@ export default class ErrorList extends Component {
     /**
      * If component should render errors from all the subvalues.
      */
-    showCompleteErrorList: PropTypes.bool
+    complete: PropTypes.bool,
+
+    /**
+     * Restrict schema types
+     */
+    schemaType: PropTypes.object
   };
 
   static defaultProps = {
-    renderError
+    renderError,
   };
 
   render() {
-    let {renderError, showCompleteErrorList, ...props} = this.props;
-    let errorList = showCompleteErrorList ?
+    let {renderError, complete, schemaType, ...props} = this.props;
+    let errorList = complete ?
       this.formValue.completeErrorList :
       this.formValue.errorList;
+    if (schemaType !== undefined) {
+      errorList = errorList.filter(error =>
+        error.schema ? schemaType[error.schema.type] : schemaType.none);
+    }
     let items = errorList.map(this.renderError, this);
     return (
       <ul {...props}>

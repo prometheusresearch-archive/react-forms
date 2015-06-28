@@ -32,12 +32,45 @@ describe('<ErrorList />', function() {
       ]
     };
     let renderer = TestUtils.createRenderer();
-    renderer.render(<ErrorList showCompleteErrorList formValue={formValue} />);
+    renderer.render(<ErrorList complete formValue={formValue} />);
     let tree = renderer.getRenderOutput();
     expect(tree.type).toBe('ul');
     expect(tree.props.children.length).toBe(1);
     expect(tree.props.children[0].type).toBe('li');
     expect(tree.props.children[0].props.children).toBe('error');
+  });
+
+  it('renders a list of errors with labels fetched from schema', function() {
+
+    let formValue = {
+      completeErrorList: [
+        {field: 'data.a', message: 'error', schema: {label: 'A'}}
+      ]
+    };
+    let renderer = TestUtils.createRenderer();
+    renderer.render(<ErrorList complete formValue={formValue} />);
+    let tree = renderer.getRenderOutput();
+    expect(tree.type).toBe('ul');
+    expect(tree.props.children.length).toBe(1);
+    expect(tree.props.children[0].type).toBe('li');
+    expect(tree.props.children[0].props.children).toEqual(['A', ': ', 'error']);
+  });
+
+  it('can filter errors by schema types', function() {
+
+    let formValue = {
+      completeErrorList: [
+        {field: 'data.a', message: 'error', schema: {type: 'object'}},
+        {field: 'data.b', message: 'error', schema: {type: 'string'}}
+      ]
+    };
+    let renderer = TestUtils.createRenderer();
+    renderer.render(<ErrorList complete schemaType={{object: true}} formValue={formValue} />);
+    let tree = renderer.getRenderOutput();
+    expect(tree.type).toBe('ul');
+    expect(tree.props.children.length).toBe(1);
+    expect(tree.props.children[0].type).toBe('li');
+    expect(tree.props.children[0].props.children).toEqual('error');
   });
 
 });

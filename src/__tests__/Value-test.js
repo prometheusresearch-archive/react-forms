@@ -51,45 +51,45 @@ describe('Value', function() {
 
     expect(value.errorList).toEqual([]);
     expect(value.completeErrorList).toEqual([
-      {field: 'data.a', message: 'is required'},
-      {field: 'data.e', message: 'is required'},
-      {field : 'data.a.b', message : 'is required'},
-      {field : 'data.c', message : 'has less items than allowed'}
+      {field: 'data.a', message: 'is required', schema: schema.properties.a},
+      {field: 'data.e', message: 'is required', schema: schema.properties.e},
+      {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b},
+      {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
-
+   
     expect(value.select('a').errorList).toEqual([
-      {field: 'data.a', message: 'is required'}
+      {field: 'data.a', message: 'is required', schema: schema.properties.a}
     ]);
     expect(value.select('a').completeErrorList).toEqual([
-      {field: 'data.a', message: 'is required'},
-      {field : 'data.a.b', message : 'is required'}
+      {field: 'data.a', message: 'is required', schema: schema.properties.a},
+      {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
-
+   
     expect(value.select('a.b').errorList).toEqual([
-      {field : 'data.a.b', message : 'is required'}
+      {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
     expect(value.select('a.b').completeErrorList).toEqual([
-      {field : 'data.a.b', message : 'is required'}
+      {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
-
+   
     expect(value.select('c').errorList).toEqual([
-      {field : 'data.c', message : 'has less items than allowed'}
+      {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
     expect(value.select('c').completeErrorList).toEqual([
-      {field : 'data.c', message : 'has less items than allowed'}
+      {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
-
+   
     expect(value.select('c.0').errorList).toEqual([]);
     expect(value.select('c.0').completeErrorList).toEqual([]);
-
+   
     expect(value.select('c.1').errorList).toEqual([]);
     expect(value.select('c.1').completeErrorList).toEqual([]);
-
+   
     expect(value.select('e').errorList).toEqual([
-      {field: 'data.e', message: 'is required'}
+      {field: 'data.e', message: 'is required', schema: schema.properties.e}
     ]);
     expect(value.select('e').completeErrorList).toEqual([
-      {field: 'data.e', message: 'is required'}
+      {field: 'data.e', message: 'is required', schema: schema.properties.e}
     ]);
   });
 
@@ -137,7 +137,7 @@ describe('Value', function() {
 
     expect(value.errorList).toEqual([]);
     expect(value.completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('a').errorList).toEqual([]);
@@ -148,17 +148,17 @@ describe('Value', function() {
 
     expect(value.select('c').errorList).toEqual([]);
     expect(value.select('c').completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('c.0').errorList).toEqual([]);
     expect(value.select('c.0').completeErrorList).toEqual([]);
 
     expect(value.select('c.1').errorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
     expect(value.select('c.1').completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('e').errorList).toEqual([]);
@@ -177,7 +177,7 @@ describe('Value', function() {
 
     expect(value.errorList).toEqual([]);
     expect(value.completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('a').errorList).toEqual([]);
@@ -188,17 +188,17 @@ describe('Value', function() {
 
     expect(value.select('c').errorList).toEqual([]);
     expect(value.select('c').completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('c.0').errorList).toEqual([]);
     expect(value.select('c.0').completeErrorList).toEqual([]);
 
     expect(value.select('c.1').errorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
     expect(value.select('c.1').completeErrorList).toEqual([
-      {field: 'data.c.1', message: 'is the wrong type'}
+      {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
     expect(value.select('e').errorList).toEqual([]);
