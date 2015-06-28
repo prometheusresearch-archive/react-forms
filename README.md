@@ -61,43 +61,55 @@ state. Some might put form value in a Flux store instead.
 
 Customizing label rendering:
 
+    import React from 'react'
     import {Field as BaseField} from 'react-forms'
 
     function renderLabel(label, schema) {
       return <label className="my-label">{label}</label>
     }
 
-    function Field(props) {
-      return (
-        <BaseField {...props} renderLabel={renderLabel} />
-      )
+    class Field extends React.Component {
+
+      render() {
+        return (
+          <BaseField {...props} renderLabel={renderLabel} />
+        )
+        }
     }
 
 Customizing error list rendering:
 
+    import React from 'react'
     import {Field as BaseField, ErrorList} from 'react-forms'
 
     function renderErrorList(formValue) {
       return <ErrorList className="my-error-list" formValue={formValue} />
     }
 
-    function Field(props) {
-      return (
-        <BaseField {...props} renderErrorList={renderErrorList} />
-      )
+    class Field extends React.Component {
+
+      render() {
+        return (
+          <BaseField {...props} renderErrorList={renderErrorList} />
+        )
+      }
     }
 
 Form field with custom input component:
 
+    import React from 'react'
     import {Field} from 'react-forms'
     import Datepicker from 'datepicker'
 
-    function DateField(props) {
-      return (
-        <Field {...props}>
-          <Datepicker />
-        </Field>
-      )
+    class DateField extends React.Component {
+
+      render() {
+        return (
+          <Field {...props}>
+            <Datepicker />
+          </Field>
+        )
+      }
     }
 
 Implementing form field component from scratch:
