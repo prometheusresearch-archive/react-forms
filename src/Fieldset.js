@@ -8,6 +8,7 @@ import Component          from './Component';
 export default class Fieldset extends Component {
 
   static propTypes = {
+    ...Component.propTypes,
     children: PropTypes.node,
     component: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
   };
@@ -17,7 +18,7 @@ export default class Fieldset extends Component {
   };
 
   render() {
-    let {component: Element, ...props} = this.props;
-    return <Element {...props} />;
+    let {component: Component, ...props} = this.props;
+    return <Component {...props} />;
   }
 }
