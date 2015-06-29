@@ -22,7 +22,7 @@
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
   "peerDependencies": {
-    "react": "next"
+    "react": "<= 0.13.0, < 0.15.0"
   },
   "devDependencies": {
     "@prometheusresearch/webtest": "^0.1.2",
@@ -32,7 +32,7 @@
     "eslint": "^0.23.0",
     "eslint-plugin-react": "^2.5.2",
     "node-libs-browser": "^0.5.2",
-    "react": "next",
+    "react": "<= 0.13.0, < 0.15.0",
     "tape": "^2.13.4",
     "webpack": "^1.9.12"
   },

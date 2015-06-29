@@ -6,6 +6,8 @@ import React, {PropTypes} from 'react';
 import invariant          from './invariant';
 import keyPath            from './keyPath';
 
+const hasParentContext = !!/0\.14\.[0-9]+/.exec(React.version);
+
 export const ContextTypes = {
   formValue: PropTypes.object
 };
@@ -30,8 +32,16 @@ export default class Component extends React.Component {
     return {formValue: this.formValue};
   }
 
+  get _parentContext() {
+    if (hasParentContext) {
+      return this.context;
+    } else {
+      return this._reactInternalInstance._context;
+    }
+  }
+
   get formValue() {
-    let formValue = this.props.formValue || this.context.formValue;
+    let formValue = this.props.formValue || this._parentContext.formValue;
 
     invariant(
       formValue,
