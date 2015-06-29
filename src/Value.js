@@ -18,6 +18,11 @@ export class Value {
     return new ValueLeaf(this._root, keyPath);
   }
 
+  set(value, quiet) {
+    console.warn('Value.prototype.set(value) is deprecated, use Value.prototype.update(value) instead');
+    return this.update(value, quiet);
+  }
+
   update(value, quiet) {
     let rootValue = clone(this._root.value);
     if (this.keyPath.length === 0) {
