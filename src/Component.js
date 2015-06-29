@@ -12,6 +12,13 @@ export const ContextTypes = {
   formValue: PropTypes.object
 };
 
+let selectPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.string,
+  PropTypes.number,
+  PropTypes.bool
+]);
+
 /**
  * Base class for form components.
  *
@@ -25,7 +32,8 @@ export default class Component extends React.Component {
 
   static propTypes = {
     formValue: PropTypes.object,
-    select: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number, PropTypes.bool])
+    select: selectPropType,
+    selectFormValue: selectPropType
   };
 
   getChildContext() {
@@ -51,11 +59,11 @@ export default class Component extends React.Component {
       this.constructor.displayName || this.constructor.name
     );
 
-    let select = this.props.select;
-    // We check for select === true to keep compatability we eariler
+    let select = this.props.select || this.props.selectFormValue;
+    // We check for select !== true to keep compatability we eariler
     // versions of React Forms where we needed to rebuild element tree to
     // propagate values to form.
-    if (select) {
+    if (select && select !== true) {
       select = keyPath(select);
       formValue = formValue.select(select);
     }
