@@ -272,7 +272,8 @@ var compile = function(schema, cache, root, reporter, opts) {
         } else {
           validate('if (%s === undefined) {', genobj(dataSym, req))
         }
-        error('is required', genobj(name, req), undefined, genobj(genobj(nodeSym, 'properties'), req));
+        var reqSchema = genobj(nodeSym, 'properties') + ' ? ' + genobj(genobj(nodeSym, 'properties'), req) + ' : undefined';
+        error('is required', genobj(name, req), undefined, reqSchema);
         validate('missing++')
         validate('}')
       }
