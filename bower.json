@@ -5,6 +5,7 @@
   "authors": [
     "Prometheus Research"
   ],
+  "rex": {},
   "description": "Forms library for React (separate CommonJS modules)",
   "moduleType": [
     "node"
