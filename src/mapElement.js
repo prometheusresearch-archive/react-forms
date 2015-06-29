@@ -6,23 +6,23 @@ import React    from 'react';
 import isArray  from 'lodash/lang/isArray';
 
 function mapElement(element, func) {
-  return React.Children.map(element, function(element) {
+  return React.Children.map(element, function(el) {
     let recurse = true;
-    element = func(element);
-    if (isArray(element)) {
-      recurse = element[0];
-      element = element[1];
+    el = func(el);
+    if (isArray(el)) {
+      recurse = el[0];
+      el = el[1];
     }
-    if (recurse && element && element.props && element.props.children) {
-      element = React.cloneElement(element, {
+    if (recurse && el && el.props && el.props.children) {
+      el = React.cloneElement(el, {
         children: React.Children.map(
-          element.props.children,
-          function(element) {
-            return mapElement(element, func);
+          el.props.children,
+          function(child) {
+            return mapElement(child, func);
           })
       });
     }
-    return element;
+    return el;
   });
 }
 

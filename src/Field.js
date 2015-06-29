@@ -3,12 +3,11 @@
  */
 
 import React, {PropTypes}   from 'react';
-import Value                from './Value';
 import Input                from './Input';
 import ErrorList            from './ErrorList';
 import Component            from './Component';
 
-function renderLabel(label, schema) {
+function renderLabel(label) {
   return label && <label>{label}</label>;
 }
 

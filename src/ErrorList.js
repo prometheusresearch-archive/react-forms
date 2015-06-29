@@ -4,7 +4,6 @@
 
 import React, {PropTypes} from 'react';
 import Component          from './Component';
-import {Value}            from './Value';
 
 function renderError(error, index, errorList, props) {
   let label = props.label || (error.schema && error.schema.label);
@@ -24,7 +23,7 @@ export default class ErrorList extends Component {
      * Renderer for error items.
      */
     renderError: PropTypes.func,
-    
+
     /**
      * If component should render errors from all the subvalues.
      */
@@ -41,7 +40,7 @@ export default class ErrorList extends Component {
   };
 
   static defaultProps = {
-    renderError,
+    renderError
   };
 
   render() {

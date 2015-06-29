@@ -19,7 +19,10 @@ export class Value {
   }
 
   set(value, quiet) {
-    console.warn('Value.prototype.set(value) is deprecated, use Value.prototype.update(value) instead');
+    console.warn(// eslint-disable-line no-console
+      'Value.prototype.set(value) is deprecated, ' +
+      'use Value.prototype.update(value) instead'
+    );
     return this.update(value, quiet);
   }
 
@@ -30,7 +33,11 @@ export class Value {
     } else {
       rootValue = set(rootValue, this.keyPath, value);
     }
-    let nextRoot = createValue(this._root.schema, rootValue, this._root.onChange, this._root.params);
+    let nextRoot = createValue(
+      this._root.schema,
+      rootValue,
+      this._root.onChange,
+      this._root.params);
     if (!quiet) {
       this._root.onChange(nextRoot);
     }
@@ -80,7 +87,8 @@ class ValueLeaf extends Value {
   get completeErrorList() {
     let errorKeyPath = `data.${this.keyPath.join('.')}`;
     let length = errorKeyPath.length;
-    return this._root.completeErrorList.filter(error => error.field.slice(0, length) === errorKeyPath);
+    return this._root.completeErrorList
+      .filter(error => error.field.slice(0, length) === errorKeyPath);
   }
 
   get parent() {
