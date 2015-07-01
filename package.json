@@ -11,7 +11,7 @@
     "loaders": [
       {
         "test": "**/*.js",
-        "loader": "babel-loader?optional[]=reactCompat"
+        "loader": "jsx-loader?harmony"
       }
     ]
   },
@@ -20,8 +20,8 @@
     "url": "git://github.com/prometheusresearch/react-forms.git"
   },
   "keywords": [
-    "react",
-    "forms"
+    "forms",
+    "react"
   ],
   "peerDependencies": {
     "react": "^0.10.0"
@@ -48,5 +48,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/prometheusresearch/react-forms/issues"
+  },
+  "dependencies": {
+    "jsx-loader": "^0.13.2",
+    "reactify": "^0.13.1"
   }
 }
