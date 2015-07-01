@@ -1,6 +1,6 @@
 {
   "name": "react-forms",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Forms library for React",
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "main": "lib/index.js",
@@ -10,7 +10,8 @@
   "rex": {
     "loaders": [
       {
-        "test": "**/*.js", "loader": "babel-loader"
+        "test": "**/*.js",
+        "loader": "babel-loader"
       }
     ]
   },
