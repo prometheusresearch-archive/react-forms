@@ -7,6 +7,14 @@
     "Prometheus Research"
   ],
   "description": "Forms library for React (separate CommonJS modules)",
+  "rex": {
+    "loaders": [
+      {
+        "test": "**/*.js",
+        "loader": "jsx-loader?harmony"
+      }
+    ]
+  },
   "moduleType": [
     "node"
   ],
