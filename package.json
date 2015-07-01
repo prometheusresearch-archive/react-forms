@@ -47,8 +47,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/prometheusresearch/react-forms/issues"
-  },
-  "dependencies": {
-    "reactify": "^0.13.1"
   }
 }
