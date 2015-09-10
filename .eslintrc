@@ -9,7 +9,7 @@
   "rules": {
     "strict": 0,
 
-    "comma-dangle": 2,                // Disallow or enforce trailing commas
+    "comma-dangle": 0,                // Disallow or enforce trailing commas
     "no-cond-assign": 2,              // Disallow assignment in conditional expressions
     "no-console": 1,                  // Disallow use of console (off by default in the node environment)
     "no-constant-condition": 2,       // Disallow use of constant expressions in conditions
@@ -19,7 +19,7 @@
     "no-dupe-keys": 2,                // Disallow duplicate keys when creating object literals
     "no-duplicate-case": 2,           // Disallow a duplicate case label.
     "no-empty": 2,                    // Disallow empty statements
-    "no-empty-class": 2,              // Disallow the use of empty character classes in regular expressions
+    "no-empty-character-class": 2,    // Disallow the use of empty character classes in regular expressions
     "no-ex-assign": 2,                // Disallow assigning to the exception in a catch block
     "no-extra-boolean-cast": 2,       // Disallow double-negation boolean casts in a boolean context
     "no-extra-parens": 0,             // Disallow unnecessary parentheses (off by default)
@@ -31,7 +31,7 @@
     "no-negated-in-lhs": 2,           // Disallow negation of the left operand of an in expression
     "no-obj-calls": 2,                // Disallow the use of object properties of the global object (Math and JSON) as functions
     "no-regex-spaces": 2,             // Disallow multiple spaces in a regular expression literal
-    "no-reserved-keys": 2,            // Disallow reserved words being used as object literal keys (off by default)
+    "no-reserved-keys": 0,            // Disallow reserved words being used as object literal keys (off by default)
     "no-sparse-arrays": 2,            // Disallow sparse arrays
     "no-unreachable": 2,              // Disallow unreachable statements after a return, throw, continue, or break statement
     "use-isnan": 2,                   // Disallow comparisons with the value NaN
@@ -115,7 +115,6 @@
     "no-ternary": 0,                  // Disallow the use of ternary operators (off by default)
     "no-trailing-spaces": 1,          // Disallow trailing whitespace at the end of lines
     "no-underscore-dangle": 0,        // Disallow dangling underscores in identifiers
-    "no-wrap-func": 1,                // Disallow wrapping of non-IIFE statements in parens
     "one-var": [1, "never"],          // Allow just one var statement per function (off by default)
     "operator-assignment": [1, "never"], // Require assignment operator shorthand where possible or prohibit it entirely (off by default)
     "padded-blocks": [0, "never"],        // Enforce padding within blocks (off by default)
@@ -129,7 +128,7 @@
     "space-infix-ops": [1, {}],     // Require spaces around operators
     "space-return-throw-case": [1], // require a space after return, throw, and case
     "space-unary-ops": [1, {"words": true, "nonwords": false}], // Require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
-    "spaced-line-comment": [1, "always"], // Require or disallow a space immediately following the // in a line comment (off by default)
+    "spaced-comment": [1, "always"], // Require or disallow a space immediately following the // in a line comment (off by default)
     "wrap-regex": 0,                      // Require regex literals to be wrapped in parentheses (off by default)
 
     "no-var": 2,                              // Require let or const instead of var (off by default)

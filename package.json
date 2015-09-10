@@ -22,23 +22,25 @@
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
   "peerDependencies": {
-    "react": "<= 0.13.0, < 0.15.0"
+    "react": "^0.14.0-a"
   },
   "devDependencies": {
     "@prometheusresearch/webtest": "^0.1.2",
     "babel-core": "^5.6.7",
-    "babel-eslint": "^3.1.18",
+    "babel-eslint": "^4.1.1",
     "babel-loader": "^5.1.4",
-    "eslint": "^0.23.0",
-    "eslint-plugin-react": "^2.5.2",
+    "eslint": "^1.3.1",
+    "eslint-plugin-react": "^3.3.2",
     "node-libs-browser": "^0.5.2",
-    "react": "<= 0.13.0, < 0.15.0",
+    "react": "^0.14.0-a",
     "tape": "^2.13.4",
     "webpack": "^1.9.12"
   },
   "dependencies": {
+    "autobind-decorator": "^1.3.2",
     "generate-function": "^2.0.0",
     "generate-object-property": "^1.1.0",
+    "invariant": "^2.1.0",
     "jsonpointer": "^1.1.0",
     "lodash": "^3.9.3",
     "memoize-decorator": "^1.0.2",
