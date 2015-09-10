@@ -2,17 +2,14 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
+import autobind             from 'autobind-decorator';
 import React, {PropTypes}   from 'react';
 import Input                from './Input';
 import ErrorList            from './ErrorList';
 import Component            from './Component';
 
-function renderLabel(label) {
+function Label({label}) {
   return label && <label>{label}</label>;
-}
-
-function renderErrorList(formValue) {
-  return <ErrorList formValue={formValue} />;
 }
 
 export default class Field extends Component {
@@ -21,14 +18,14 @@ export default class Field extends Component {
     ...Component.propTypes,
     label: PropTypes.string,
     children: PropTypes.element,
-    renderLabel: PropTypes.func,
-    renderErrorList: PropTypes.func
+    Label: PropTypes.component,
+    ErrorList: PropTypes.component,
   };
 
   static defaultProps = {
     children: <Input type="text" />,
-    renderLabel,
-    renderErrorList
+    Label,
+    ErrorList,
   };
 
   constructor(props) {
@@ -37,7 +34,7 @@ export default class Field extends Component {
   }
 
   render() {
-    let {children, renderLabel, renderErrorList} = this.props;
+    let {children, renderLabel, ErrorList, Label} = this.props;
     let {dirty} = this.state;
     let {schema, value, errors, params} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;
@@ -47,18 +44,21 @@ export default class Field extends Component {
     let label = this.props.label || schema.label;
     return (
       <div onBlur={this.onBlur}>
-        {renderLabel(label, schema)}
+        <Label label={label} schema={schema} />
         {children}
-        {showErrors && renderErrorList(this.formValue)}
+        {showErrors &&
+          <ErrorList formValue={this.formValue} />}
       </div>
     );
   }
 
-  onBlur = () => {
+  @autobind
+  onBlur() {
     this.setState({dirty: true});
   }
 
-  onChange = (e) => {
+  @autobind
+  onChange(e) {
     let value;
     if (e && e.target && e.target.value !== undefined) {
       e.stopPropagation();
