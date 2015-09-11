@@ -14,9 +14,9 @@ describe('Value', function() {
       })
     });
     let value = Value(schema);
-    expect(value.parent).toBe(null);
-    expect(value.select('a').parent).toEqual(value);
-    expect(value.select('a.b').parent).toEqual(value.select('a'));
+    assert(value.parent === null);
+    assert.deepEqual(value.select('a').parent, value);
+    assert.deepEqual(value.select('a.b').parent, value.select('a'));
   });
 
   it('propagates schema when selecting subvalues', function() {
@@ -30,13 +30,13 @@ describe('Value', function() {
       e: string()
     });
     let value = Value(schema);
-    expect(value.select('a').schema).toEqual(schema.properties.a);
-    expect(value.select('a.b').schema).toEqual(schema.properties.a.properties.b);
-    expect(value.select('c').schema).toEqual(schema.properties.c);
-    expect(value.select('c.0').schema).toEqual(schema.properties.c.items);
-    expect(value.select('c.1').schema).toEqual(schema.properties.c.items);
-    expect(value.select('c.2').schema).toEqual(schema.properties.c.items);
-    expect(value.select('e').schema).toEqual(schema.properties.e);
+    assert.deepEqual(value.select('a').schema, schema.properties.a);
+    assert.deepEqual(value.select('a.b').schema, schema.properties.a.properties.b);
+    assert.deepEqual(value.select('c').schema, schema.properties.c);
+    assert.deepEqual(value.select('c.0').schema, schema.properties.c.items);
+    assert.deepEqual(value.select('c.1').schema, schema.properties.c.items);
+    assert.deepEqual(value.select('c.2').schema, schema.properties.c.items);
+    assert.deepEqual(value.select('e').schema, schema.properties.e);
   });
 
   it('propagates errors when selecting subvalues (through objects)', function() {
@@ -49,46 +49,46 @@ describe('Value', function() {
     });
     let value = Value(schema);
 
-    expect(value.errorList).toEqual([]);
-    expect(value.completeErrorList).toEqual([
+    assert.deepEqual(value.errorList, []);
+    assert.deepEqual(value.completeErrorList,  [
       {field: 'data.a', message: 'is required', schema: schema.properties.a},
       {field: 'data.e', message: 'is required', schema: schema.properties.e},
       {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b},
       {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
    
-    expect(value.select('a').errorList).toEqual([
+    assert.deepEqual(value.select('a').errorList, [
       {field: 'data.a', message: 'is required', schema: schema.properties.a}
     ]);
-    expect(value.select('a').completeErrorList).toEqual([
+    assert.deepEqual(value.select('a').completeErrorList, [
       {field: 'data.a', message: 'is required', schema: schema.properties.a},
       {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
    
-    expect(value.select('a.b').errorList).toEqual([
+    assert.deepEqual(value.select('a.b').errorList, [
       {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
-    expect(value.select('a.b').completeErrorList).toEqual([
+    assert.deepEqual(value.select('a.b').completeErrorList, [
       {field : 'data.a.b', message : 'is required', schema: schema.properties.a.properties.b}
     ]);
    
-    expect(value.select('c').errorList).toEqual([
+    assert.deepEqual(value.select('c').errorList, [
       {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
-    expect(value.select('c').completeErrorList).toEqual([
+    assert.deepEqual(value.select('c').completeErrorList, [
       {field : 'data.c', message : 'has less items than allowed', schema: schema.properties.c}
     ]);
    
-    expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.0').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.0').errorList, []);
+    assert.deepEqual(value.select('c.0').completeErrorList, []);
    
-    expect(value.select('c.1').errorList).toEqual([]);
-    expect(value.select('c.1').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.1').errorList, []);
+    assert.deepEqual(value.select('c.1').completeErrorList, []);
    
-    expect(value.select('e').errorList).toEqual([
+    assert.deepEqual(value.select('e').errorList, [
       {field: 'data.e', message: 'is required', schema: schema.properties.e}
     ]);
-    expect(value.select('e').completeErrorList).toEqual([
+    assert.deepEqual(value.select('e').completeErrorList, [
       {field: 'data.e', message: 'is required', schema: schema.properties.e}
     ]);
   });
@@ -103,26 +103,26 @@ describe('Value', function() {
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s'], e: 'e'});
 
-    expect(value.errorList).toEqual([]);
-    expect(value.completeErrorList).toEqual([]);
+    assert.deepEqual(value.errorList, []);
+    assert.deepEqual(value.completeErrorList, []);
 
-    expect(value.select('a').errorList).toEqual([]);
-    expect(value.select('a').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a').errorList, []);
+    assert.deepEqual(value.select('a').completeErrorList, []);
 
-    expect(value.select('a.b').errorList).toEqual([]);
-    expect(value.select('a.b').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a.b').errorList, []);
+    assert.deepEqual(value.select('a.b').completeErrorList, []);
 
-    expect(value.select('c').errorList).toEqual([]);
-    expect(value.select('c').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c').errorList, []);
+    assert.deepEqual(value.select('c').completeErrorList, []);
 
-    expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.0').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.0').errorList, []);
+    assert.deepEqual(value.select('c.0').completeErrorList, []);
 
-    expect(value.select('c.1').errorList).toEqual([]);
-    expect(value.select('c.1').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.1').errorList, []);
+    assert.deepEqual(value.select('c.1').completeErrorList, []);
 
-    expect(value.select('e').errorList).toEqual([]);
-    expect(value.select('e').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('e').errorList, []);
+    assert.deepEqual(value.select('e').completeErrorList, []);
   });
 
   it('propagates errors in array items', function() {
@@ -135,34 +135,34 @@ describe('Value', function() {
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
 
-    expect(value.errorList).toEqual([]);
-    expect(value.completeErrorList).toEqual([
+    assert.deepEqual(value.errorList, []);
+    assert.deepEqual(value.completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('a').errorList).toEqual([]);
-    expect(value.select('a').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a').errorList, []);
+    assert.deepEqual(value.select('a').completeErrorList, []);
 
-    expect(value.select('a.b').errorList).toEqual([]);
-    expect(value.select('a.b').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a.b').errorList, []);
+    assert.deepEqual(value.select('a.b').completeErrorList, []);
 
-    expect(value.select('c').errorList).toEqual([]);
-    expect(value.select('c').completeErrorList).toEqual([
+    assert.deepEqual(value.select('c').errorList, []);
+    assert.deepEqual(value.select('c').completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.0').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.0').errorList, []);
+    assert.deepEqual(value.select('c.0').completeErrorList, []);
 
-    expect(value.select('c.1').errorList).toEqual([
+    assert.deepEqual(value.select('c.1').errorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
-    expect(value.select('c.1').completeErrorList).toEqual([
+    assert.deepEqual(value.select('c.1').completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('e').errorList).toEqual([]);
-    expect(value.select('e').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('e').errorList, []);
+    assert.deepEqual(value.select('e').completeErrorList, []);
   });
 
   it('propagates errors in array items', function() {
@@ -175,34 +175,34 @@ describe('Value', function() {
     });
     let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
 
-    expect(value.errorList).toEqual([]);
-    expect(value.completeErrorList).toEqual([
+    assert.deepEqual(value.errorList, []);
+    assert.deepEqual(value.completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('a').errorList).toEqual([]);
-    expect(value.select('a').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a').errorList, []);
+    assert.deepEqual(value.select('a').completeErrorList, []);
 
-    expect(value.select('a.b').errorList).toEqual([]);
-    expect(value.select('a.b').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('a.b').errorList, []);
+    assert.deepEqual(value.select('a.b').completeErrorList, []);
 
-    expect(value.select('c').errorList).toEqual([]);
-    expect(value.select('c').completeErrorList).toEqual([
+    assert.deepEqual(value.select('c').errorList, []);
+    assert.deepEqual(value.select('c').completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('c.0').errorList).toEqual([]);
-    expect(value.select('c.0').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('c.0').errorList, []);
+    assert.deepEqual(value.select('c.0').completeErrorList, []);
 
-    expect(value.select('c.1').errorList).toEqual([
+    assert.deepEqual(value.select('c.1').errorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
-    expect(value.select('c.1').completeErrorList).toEqual([
+    assert.deepEqual(value.select('c.1').completeErrorList, [
       {field: 'data.c.1', message: 'is the wrong type', schema: schema.properties.c.items}
     ]);
 
-    expect(value.select('e').errorList).toEqual([]);
-    expect(value.select('e').completeErrorList).toEqual([]);
+    assert.deepEqual(value.select('e').errorList, []);
+    assert.deepEqual(value.select('e').completeErrorList, []);
   });
 
 });

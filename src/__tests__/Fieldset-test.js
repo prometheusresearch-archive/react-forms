@@ -18,7 +18,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue);
+    assert(instance.formValue === formValue);
   });
 
   it('allows to select from form value passed via props', function() {
@@ -50,7 +50,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue.a);
+    assert(instance.formValue === formValue.a);
 
     instance = TestUtils.renderIntoDocument(
       <Fieldset
@@ -59,7 +59,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue[1]);
+    assert(instance.formValue === formValue[1]);
 
     instance = TestUtils.renderIntoDocument(
       <Fieldset
@@ -68,7 +68,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue['a.b']);
+    assert(instance.formValue === formValue['a.b']);
 
     instance = TestUtils.renderIntoDocument(
       <Fieldset
@@ -77,7 +77,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue['a.b']);
+    assert(instance.formValue === formValue['a.b']);
   });
 
   it('passes formValue via context', function() {
@@ -100,7 +100,7 @@ describe('<Fieldset />', function() {
       </Fieldset>
     );
 
-    expect(instance.formValue).toBe(formValue);
+    assert(instance.formValue === formValue);
 
   });
 

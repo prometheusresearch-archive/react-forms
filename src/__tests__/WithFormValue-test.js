@@ -28,6 +28,6 @@ describe('WithFormValue', function() {
       </Fieldset>
     );
 
-    expect(instance.props.formValue).toBe(formValue);
+    assert(instance.props.formValue === formValue);
   });
 });

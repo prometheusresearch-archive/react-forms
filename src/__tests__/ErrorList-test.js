@@ -19,10 +19,10 @@ describe('<ErrorList />', function() {
     let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList formValue={formValue} />);
     let tree = renderer.getRenderOutput();
-    expect(tree.type).toBe('div');
-    expect(tree.props.children.length).toBe(1);
-    expect(tree.props.children[0].type).toBe(Error);
-    expect(tree.props.children[0].props.error.message).toBe('error');
+    assert(tree.type === 'div');
+    assert(tree.props.children.length === 1);
+    assert(tree.props.children[0].type === Error);
+    assert(tree.props.children[0].props.error.message === 'error');
   });
 
   it('renders a complete list of errors', function() {
@@ -35,10 +35,10 @@ describe('<ErrorList />', function() {
     let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete formValue={formValue} />);
     let tree = renderer.getRenderOutput();
-    expect(tree.type).toBe('div');
-    expect(tree.props.children.length).toBe(1);
-    expect(tree.props.children[0].type).toBe(Error);
-    expect(tree.props.children[0].props.error.message).toBe('error');
+    assert(tree.type === 'div');
+    assert(tree.props.children.length === 1);
+    assert(tree.props.children[0].type === Error);
+    assert(tree.props.children[0].props.error.message === 'error');
   });
 
   it('renders a list of errors with labels fetched from schema', function() {
@@ -51,9 +51,9 @@ describe('<ErrorList />', function() {
     let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete formValue={formValue} />);
     let tree = renderer.getRenderOutput();
-    expect(tree.type).toBe('div');
-    expect(tree.props.children.length).toBe(1);
-    expect(tree.props.children[0].type).toBe(Error);
+    assert(tree.type === 'div');
+    assert(tree.props.children.length === 1);
+    assert(tree.props.children[0].type === Error);
   });
 
   it('can filter errors by schema types', function() {
@@ -67,10 +67,10 @@ describe('<ErrorList />', function() {
     let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete schemaType={{object: true}} formValue={formValue} />);
     let tree = renderer.getRenderOutput();
-    expect(tree.type).toBe('div');
-    expect(tree.props.children.length).toBe(1);
-    expect(tree.props.children[0].type).toBe(Error);
-    expect(tree.props.children[0].props.error.message).toBe('error');
+    assert(tree.type === 'div');
+    assert(tree.props.children.length === 1);
+    assert(tree.props.children[0].type === Error);
+    assert(tree.props.children[0].props.error.message === 'error');
   });
 
 });

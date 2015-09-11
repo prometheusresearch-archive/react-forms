@@ -26,7 +26,7 @@ describe('<Component />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue);
+    assert(instance.formValue === formValue);
   });
 
   it('allows to select from form value passed via props', function() {
@@ -65,7 +65,7 @@ describe('<Component />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue.a);
+    assert(instance.formValue === formValue.a);
 
     instance = TestUtils.renderIntoDocument(
       <FormComponent
@@ -74,7 +74,7 @@ describe('<Component />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue[1]);
+    assert(instance.formValue === formValue[1]);
 
     instance = TestUtils.renderIntoDocument(
       <FormComponent
@@ -83,7 +83,7 @@ describe('<Component />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue['a.b']);
+    assert(instance.formValue === formValue['a.b']);
 
     instance = TestUtils.renderIntoDocument(
       <FormComponent
@@ -92,7 +92,7 @@ describe('<Component />', function() {
         />
     );
 
-    expect(instance.formValue).toBe(formValue['a.b']);
+    assert(instance.formValue === formValue['a.b']);
   });
 
   it('allows to access form value passed via context', function() {
@@ -122,8 +122,8 @@ describe('<Component />', function() {
     );
     let child = parent.refs.child;
 
-    expect(parent.formValue).toBe(formValue);
-    expect(child.formValue).toBe(formValue);
+    assert(parent.formValue === formValue);
+    assert(child.formValue === formValue);
   });
 
   it('allows to access form value passed via context (parent path)', function() {
@@ -155,8 +155,8 @@ describe('<Component />', function() {
       </FormComponentParent>
     );
 
-    expect(parent.formValue).toBe(formValue);
-    expect(child.formValue).toBe(formValue);
+    assert(parent.formValue === formValue);
+    assert(child.formValue === formValue);
   });
 
   it('allows to select from form value passed via context', function() {
@@ -208,7 +208,7 @@ describe('<Component />', function() {
     );
     child = parent.refs.child;
 
-    expect(child.formValue).toBe(formValue.a);
+    assert(child.formValue === formValue.a);
 
     parent = TestUtils.renderIntoDocument(
       <FormComponentParent
@@ -218,7 +218,7 @@ describe('<Component />', function() {
     );
     child = parent.refs.child;
 
-    expect(child.formValue).toBe(formValue[1]);
+    assert(child.formValue === formValue[1]);
 
     parent = TestUtils.renderIntoDocument(
       <FormComponentParent
@@ -228,7 +228,7 @@ describe('<Component />', function() {
     );
     child = parent.refs.child;
 
-    expect(child.formValue).toBe(formValue['a.b']);
+    assert(child.formValue === formValue['a.b']);
 
     parent = TestUtils.renderIntoDocument(
       <FormComponentParent
@@ -238,7 +238,7 @@ describe('<Component />', function() {
     );
     child = parent.refs.child;
 
-    expect(child.formValue).toBe(formValue['a.b']);
+    assert(child.formValue === formValue['a.b']);
   });
 
 });
