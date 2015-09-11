@@ -73,7 +73,6 @@ export default class Input extends React.Component {
   }
 
   _finalizeOnChange() {
-    console.log('_finalizeOnChange');
     if (this._expectedValue !== undefined) {
       let value = this._expectedValue;
       this._expectedValue = undefined;
