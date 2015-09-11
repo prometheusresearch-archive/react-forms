@@ -29,7 +29,7 @@ export default class Input extends React.Component {
     super(props);
     this.state = {value: props.value};
     this._expectedValue = undefined;
-    this._finalizeOnChange = props.debounce ?
+    this._finalizeOnChangeDebounced = props.debounce ?
       debounce(this._finalizeOnChange.bind(this), props.debounce) :
       this._finalizeOnChange.bind(this);
   }
@@ -55,12 +55,9 @@ export default class Input extends React.Component {
     if (nextProps.debounce !== this.props.debounce) {
       this._finalizeOnChange();
       this._cancelOnChange();
-      this._finalizeOnChange = this.constructor.prototype._finalizeOnChange;
-      if (nextProps.debounce) {
-        this._finalizeOnChange = debounce(
-          this._finalizeOnChange.bind(this),
-          nextProps.debounce);
-      }
+      this._finalizeOnChangeDebounced = nextProps.debounce ?
+        debounce(this._finalizeOnChange.bind(this), nextProps.debounce) :
+        this._finalizeOnChange.bind(this);
     }
   }
 
@@ -72,10 +69,11 @@ export default class Input extends React.Component {
   _scheduleOnChange(value) {
     this.setState({value});
     this._expectedValue = value;
-    this._finalizeOnChange();
+    this._finalizeOnChangeDebounced();
   }
 
   _finalizeOnChange() {
+    console.log('_finalizeOnChange');
     if (this._expectedValue !== undefined) {
       let value = this._expectedValue;
       this._expectedValue = undefined;
@@ -84,9 +82,9 @@ export default class Input extends React.Component {
   }
 
   _cancelOnChange() {
-    if (this._finalizeOnChange.cancel) {
+    if (this._finalizeOnChangeDebounced.cancel) {
       this._expectedValue = undefined;
-      this._finalizeOnChange.cancel();
+      this._finalizeOnChangeDebounced.cancel();
     }
   }
 
