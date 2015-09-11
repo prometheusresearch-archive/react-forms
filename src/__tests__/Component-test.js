@@ -6,6 +6,8 @@ import React     from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import Component from '../Component';
 
+const ReactHasContextSupport = !!/^0\.14\.\d/.exec(React.version);
+
 describe('<Component />', function() {
 
   it('allows to access form value passed via props', function() {
@@ -94,6 +96,9 @@ describe('<Component />', function() {
   });
 
   it('allows to access form value passed via context', function() {
+    if (!ReactHasContextSupport) {
+      return;
+    }
 
     class FormComponentChild extends Component {
 
@@ -122,6 +127,9 @@ describe('<Component />', function() {
   });
 
   it('allows to access form value passed via context (parent path)', function() {
+    if (!ReactHasContextSupport) {
+      return;
+    }
 
     let child;
 
@@ -152,6 +160,9 @@ describe('<Component />', function() {
   });
 
   it('allows to select from form value passed via context', function() {
+    if (!ReactHasContextSupport) {
+      return;
+    }
 
     class FormComponentChild extends Component {
 

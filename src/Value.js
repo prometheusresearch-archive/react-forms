@@ -6,10 +6,10 @@ import memoize                    from 'memoize-decorator';
 import clone                      from 'lodash/lang/cloneDeep';
 import selectValue                from 'lodash/object/get';
 import set                        from 'lodash/object/set';
+import emptyFunction              from 'empty/function';
 import makeKeyPath                from './keyPath';
 import {createValidator,
         select as selectSchema}   from './Schema';
-import emptyFunction              from './emptyFunction';
 
 export class Value {
 

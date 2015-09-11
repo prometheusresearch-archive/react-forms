@@ -2,9 +2,10 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
+import autobind           from 'autobind-decorator';
 import React, {PropTypes} from 'react';
 import debounce           from 'lodash/function/debounce';
-import emptyFunction      from './emptyFunction';
+import emptyFunction      from 'empty/function';
 
 /**
  * Input component with debounce.
@@ -12,14 +13,14 @@ import emptyFunction      from './emptyFunction';
 export default class Input extends React.Component {
 
   static propTypes = {
-    element: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     debounce: PropTypes.number,
     value: PropTypes.any,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
-    element: 'input',
+    Self: 'input',
     debounce: 100,
     onChange: emptyFunction
   };
@@ -28,59 +29,81 @@ export default class Input extends React.Component {
     super(props);
     this.state = {value: props.value};
     this._expectedValue = undefined;
-    this._scheduleOnChange = props.debounce ?
-      debounce(Input.prototype._scheduleOnChange.bind(this), props.debounce) :
-      Input.prototype._scheduleOnChange.bind(this);
+    this._finalizeOnChange = props.debounce ?
+      debounce(this._finalizeOnChange.bind(this), props.debounce) :
+      this._finalizeOnChange.bind(this);
   }
 
   render() {
-    let {element: Element, debounce: debounceEnabled, value, ...props} = this.props;
+    let {Self, debounce: debounceEnabled, value, ...props} = this.props;
     if (debounceEnabled) {
       value = this.state.value;
     }
-    return <Element {...props} value={value} onChange={this.onChange} />;
+    return (
+      <Self
+        {...props}
+        value={value}
+        onChange={this.onChange}
+        onBlur={this.onBlur} />
+    );
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this._expectedValue) {
-      this.cancelOnChange();
+      this._cancelOnChange();
     }
     if (nextProps.debounce !== this.props.debounce) {
-      this.cancelOnChange();
-      this._scheduleOnChange = nextProps.debounce ?
-        debounce(Input.prototype._scheduleOnChange.bind(this), nextProps.debounce) :
-        Input.prototype._scheduleOnChange.bind(this);
+      this._finalizeOnChange();
+      this._cancelOnChange();
+      this._finalizeOnChange = this.constructor.prototype._finalizeOnChange;
+      if (nextProps.debounce) {
+        this._finalizeOnChange = debounce(
+          this._finalizeOnChange.bind(this),
+          nextProps.debounce);
+      }
     }
   }
 
   componentWillUnmount() {
-    this.cancelOnChange();
+    this._finalizeOnChange();
+    this._cancelOnChange();
   }
 
-  _scheduleOnChange() {
-    let value = this._expectedValue;
-    this._expectedValue = undefined;
-    this.props.onChange(value);
-  }
-
-  scheduleOnChange(value) {
+  _scheduleOnChange(value) {
     this.setState({value});
     this._expectedValue = value;
-    this._scheduleOnChange();
+    this._finalizeOnChange();
   }
 
-  cancelOnChange() {
-    if (this._scheduleOnChange.cancel) {
+  _finalizeOnChange() {
+    if (this._expectedValue !== undefined) {
+      let value = this._expectedValue;
       this._expectedValue = undefined;
-      this._scheduleOnChange.cancel();
+      this.props.onChange(value);
     }
   }
 
-  onChange = (e) => {
+  _cancelOnChange() {
+    if (this._finalizeOnChange.cancel) {
+      this._expectedValue = undefined;
+      this._finalizeOnChange.cancel();
+    }
+  }
+
+  @autobind
+  onChange(e) {
     let value = e && e.target && 'value' in e.target ?
       e.target.value :
       e;
-    this.scheduleOnChange(value);
+    this._scheduleOnChange(value);
+  }
+
+  @autobind
+  onBlur() {
+    if (this._expectedValue !== undefined) {
+      this._finalizeOnChange();
+      this._cancelOnChange();
+    }
   }
 
 }

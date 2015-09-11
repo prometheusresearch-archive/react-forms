@@ -18,14 +18,16 @@ export default class Field extends Component {
     ...Component.propTypes,
     label: PropTypes.string,
     children: PropTypes.element,
-    Label: PropTypes.component,
-    ErrorList: PropTypes.component,
+    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    Label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    ErrorList: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
   static defaultProps = {
     children: <Input type="text" />,
     Label,
     ErrorList,
+    Self: 'div',
   };
 
   constructor(props) {
@@ -34,21 +36,21 @@ export default class Field extends Component {
   }
 
   render() {
-    let {children, renderLabel, ErrorList, Label} = this.props;
+    let {Self, ErrorList, Label, children} = this.props;
     let {dirty} = this.state;
-    let {schema, value, errors, params} = this.formValue;
+    let {schema, value, params} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;
     children = React.cloneElement(
       React.Children.only(children),
       {value, onChange: this.onChange});
     let label = this.props.label || schema.label;
     return (
-      <div onBlur={this.onBlur}>
+      <Self onBlur={this.onBlur}>
         <Label label={label} schema={schema} />
         {children}
         {showErrors &&
           <ErrorList formValue={this.formValue} />}
-      </div>
+      </Self>
     );
   }
 
@@ -70,6 +72,6 @@ export default class Field extends Component {
       value = e;
     }
     this.setState({dirty: true});
-    this.props.formValue.update(value);
+    this.formValue.update(value);
   }
 }

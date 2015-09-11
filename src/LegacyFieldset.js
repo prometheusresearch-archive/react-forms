@@ -2,6 +2,7 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
+import autobind           from 'autobind-decorator';
 import React, {PropTypes} from 'react';
 import isArray            from 'lodash/lang/isArray';
 import isString           from 'lodash/lang/isString';
@@ -26,7 +27,8 @@ export default class LegacyFieldset extends React.Component {
     return <Component>{children}</Component>;
   }
 
-  _propagateFormValue = (element) => {
+  @autobind
+  _propagateFormValue(element) {
     if (element && element.props && element.props.selectFormValue && !element.props.formValue) {
       let formValue = this.props.formValue;
       let selectFormValue = element.props.selectFormValue;

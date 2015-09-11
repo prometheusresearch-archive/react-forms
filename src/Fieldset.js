@@ -10,15 +10,15 @@ export default class Fieldset extends Component {
   static propTypes = {
     ...Component.propTypes,
     children: PropTypes.node,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
   static defaultProps = {
-    component: 'div'
+    Self: 'div'
   };
 
   render() {
-    let {component: Component, ...props} = this.props;
-    return <Component {...props} />;
+    let {Self, ...props} = this.props;
+    return <Self {...props} />;
   }
 }

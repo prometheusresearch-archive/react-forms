@@ -4,7 +4,7 @@
 
 import isString  from 'lodash/lang/isString';
 import isArray   from 'lodash/lang/isArray';
-import invariant from './invariant';
+import invariant from 'invariant';
 
 const IS_NUMBER = /[0-9]+/;
 
@@ -30,7 +30,7 @@ export default function keyPath(value) {
   } else {
     invariant(
       false,
-      'keyPath can be either an array or string, got: %s',
+      'keyPath can be either an array, a string or a number, got: %s',
       value
     );
   }

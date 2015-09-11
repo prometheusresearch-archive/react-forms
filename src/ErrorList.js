@@ -4,15 +4,7 @@
 
 import React, {PropTypes} from 'react';
 import Component          from './Component';
-
-function renderError(error, index, errorList, props) {
-  let label = props.label || (error.schema && error.schema.label);
-  if (props.complete && !props.noLabel && label) {
-    return <li>{error.schema.label}: {error.message}</li>;
-  } else {
-    return <li>{error.message}</li>;
-  }
-}
+import Error              from './Error';
 
 export default class ErrorList extends Component {
 
@@ -20,9 +12,9 @@ export default class ErrorList extends Component {
     ...Component.propTypes,
 
     /**
-     * Renderer for error items.
+     * Component which is used to render error items.
      */
-    renderError: PropTypes.func,
+    Error: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
     /**
      * If component should render errors from all the subvalues.
@@ -40,11 +32,12 @@ export default class ErrorList extends Component {
   };
 
   static defaultProps = {
-    renderError
+    Error,
+    Self: 'div'
   };
 
   render() {
-    let {renderError, complete, schemaType, ...props} = this.props;
+    let {Self, Error, noLabel, complete, schemaType, ...props} = this.props;
     let errorList = complete ?
       this.formValue.completeErrorList :
       this.formValue.errorList;
@@ -52,17 +45,17 @@ export default class ErrorList extends Component {
       errorList = errorList.filter(error =>
         error.schema ? schemaType[error.schema.type] : schemaType.none);
     }
-    let items = errorList.map(this.renderError, this);
-    return items.length > 0 ? (
-      <ul {...props}>
-        {items}
-      </ul>
-    ) : null;
-  }
-
-  renderError(error, index, errorList) {
-    let element = this.props.renderError(error, index, errorList, this.props);
-    let key = `${error.field}__${index}`;
-    return React.cloneElement(element, {key});
+    if (errorList.length === 0) {
+      return null;
+    }
+    let items = errorList.map((error, index) =>
+      <Error
+        key={error.field + '__' + index}
+        error={error}
+        noLabel={noLabel}
+        complete={complete}
+        />
+    );
+    return <Self {...props}>{items}</Self>;
   }
 }
