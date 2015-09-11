@@ -5,7 +5,10 @@
 import React    from 'react';
 import isArray  from 'lodash/lang/isArray';
 
-function mapElement(element, func) {
+/**
+ * Map React `element` structure over `func`.
+ */
+export default function mapElement(element, func) {
   return React.Children.map(element, function(el) {
     let recurse = true;
     el = func(el);
@@ -25,5 +28,3 @@ function mapElement(element, func) {
     return el;
   });
 }
-
-module.exports = mapElement;
