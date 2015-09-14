@@ -62,37 +62,27 @@ state. Some might put form value in a Flux store instead.
 Customizing label rendering:
 
     import React from 'react'
-    import {Field as BaseField} from 'react-forms'
+    import {Field as BaseField, Label as BaseLabel} from 'react-forms'
 
-    function renderLabel(label, schema) {
-      return <label className="my-label">{label}</label>
+    function Label({label, schema}) {
+      return <BaseLabel className="my-label" label={label} schema={schema} />
     }
 
-    class Field extends React.Component {
-
-      render() {
-        return (
-          <BaseField {...props} renderLabel={renderLabel} />
-        )
-        }
+    function Field(props) {
+      return <BaseField {...props} Label={Label} />
     }
 
 Customizing error list rendering:
 
     import React from 'react'
-    import {Field as BaseField, ErrorList} from 'react-forms'
+    import {Field as BaseField, ErrorList as BaseErrorList} from 'react-forms'
 
-    function renderErrorList(formValue) {
+    function ErrorList({formValue}) {
       return <ErrorList className="my-error-list" formValue={formValue} />
     }
 
-    class Field extends React.Component {
-
-      render() {
-        return (
-          <BaseField {...props} renderErrorList={renderErrorList} />
-        )
-      }
+    function Field(props) {
+      return <BaseField {...props} ErrorList={ErrorList} />
     }
 
 Form field with custom input component:
@@ -101,15 +91,8 @@ Form field with custom input component:
     import {Field} from 'react-forms'
     import Datepicker from 'datepicker'
 
-    class DateField extends React.Component {
-
-      render() {
-        return (
-          <Field {...props}>
-            <Datepicker />
-          </Field>
-        )
-      }
+    function DateField(props) {
+      return <Field {...props} Input={Datepicker} />
     }
 
 Implementing form field component from scratch:
