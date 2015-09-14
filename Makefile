@@ -12,7 +12,7 @@ watch:
 	@$(BIN)/webpack --config webpack.build.config.js --watch
 
 lint::
-	@$(BIN)/eslint src/**.js
+	@$(BIN)/eslint $(SRC)
 
 test::
 	@$(MOCHA) -- $(TESTS)

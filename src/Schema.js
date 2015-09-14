@@ -1,7 +1,6 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
  */
-'use strict';
 
 import JSONSchema from './JSONSchema';
 
