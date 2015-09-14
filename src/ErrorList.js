@@ -11,6 +11,8 @@ export default class ErrorList extends Component {
   static propTypes = {
     ...Component.propTypes,
 
+    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
     /**
      * Component which is used to render error items.
      */
