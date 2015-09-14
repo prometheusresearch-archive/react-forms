@@ -5,7 +5,7 @@
 
 import fs         from 'fs';
 import path       from 'path';
-import validator  from '../';
+import validator  from '../compileValidator';
 
 let files = fs
   .readdirSync(path.join(__dirname, '/json-schema-draft4'))

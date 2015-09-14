@@ -3,9 +3,12 @@
  */
 'use strict';
 
-import _createValidator from './_schema';
+import JSONSchema from './JSONSchema';
 
-export function createValidator(schema, options) {
+/**
+ * Create a React Forms schema validator.
+ */
+export function Schema(schema, options) {
   options = {
     ...options,
     greedy: true,
@@ -16,7 +19,7 @@ export function createValidator(schema, options) {
     nullAsArray: true,
     nullAsBottomType: true
   };
-  return _createValidator(schema, options);
+  return JSONSchema(schema, options);
 }
 
 function _generateSchemaBuilder(type) {

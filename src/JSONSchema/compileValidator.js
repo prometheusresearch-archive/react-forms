@@ -2,11 +2,11 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import genobj      from 'generate-object-property';
-import genfun      from 'generate-function';
-import jsonpointer from 'jsonpointer';
-import xtend       from 'xtend';
-import formats     from './formats';
+import genobj       from 'generate-object-property';
+import genfun       from 'generate-function';
+import jsonpointer  from 'jsonpointer';
+import xtend        from 'xtend';
+import Format       from './Format';
 
 const HTTP_REF = /^https?:\/\//;
 const SPLIT_NAME = /[\[\]]/;
@@ -108,9 +108,10 @@ function toType(node) {
   return node.type
 }
 
-function compile(schema, cache, root, reporter, opts) {
-  let fmts = opts ? xtend(formats, opts.formats) : formats
-  let scope = {unique:unique, formats:fmts}
+function compile(schema, cache, root, opts = {}) {
+  let reporter = opts.reporter;
+  let formats= {...Format, ...opts.formats};
+  let scope = {unique, formats}
   let verbose = opts ? !!opts.verbose : false;
   let undefinedAsObject = opts ? !!opts.undefinedAsObject : false;
   let nullAsObject = opts ? !!opts.nullAsObject : false;
@@ -261,13 +262,13 @@ function compile(schema, cache, root, reporter, opts) {
       }
     }
 
-    if (node.format && (fmts[node.format] || typeof node.format === 'function')) {
+    if (node.format && (formats[node.format] || typeof node.format === 'function')) {
       if (type !== 'string' && formats[node.format]) validate('if (%s) {', types.string(dataSym))
       let n = gensym('format')
       if (typeof node.format === 'function') {
         scope[n] = node.format;
       } else {
-        scope[n] = fmts[node.format]
+        scope[n] = formats[node.format]
       }
 
       if (typeof scope[n] === 'function') {
@@ -283,7 +284,9 @@ function compile(schema, cache, root, reporter, opts) {
         error('must be '+node.format+' format')
         validate('}')
       }
-      if (type !== 'string' && formats[node.format]) validate('}')
+      if (type !== 'string' && formats[node.format]) {
+        validate('}');
+      }
     }
 
     if (Array.isArray(node.required)) {
@@ -412,7 +415,7 @@ function compile(schema, cache, root, reporter, opts) {
           cache[node.$ref] = function proxy(data) {
             return fn(data)
           }
-          fn = compile(sub, cache, root, false, opts)
+          fn = compile(sub, cache, root, {...opts, reporter: false});
         }
         let n = gensym('ref')
         scope[n] = fn
@@ -648,11 +651,11 @@ function compile(schema, cache, root, reporter, opts) {
 }
 
 /**
- * Create a new JSON Schema validator for the specified schema and options.
+ * Compile a new JSON Schema validator for the specified schema and options.
  */
-export default function createValidator(schema, opts) {
+export default function compileValidator(schema, opts) {
   if (typeof schema === 'string') {
     schema = JSON.parse(schema);
   }
-  return compile(schema, {}, schema, true, opts);
+  return compile(schema, {}, schema, {...opts, reporter: true});
 }

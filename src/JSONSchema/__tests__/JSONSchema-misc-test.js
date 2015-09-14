@@ -4,8 +4,7 @@
  */
 
 import cosmic           from './fixtures/cosmic';
-import validator        from '../';
-import validatorRequire from '../require';
+import validator        from '../compileValidator';
 
 describe('JSONSchema custom test cases', function() {
 

@@ -8,7 +8,7 @@ import selectValue                from 'lodash/object/get';
 import set                        from 'lodash/object/set';
 import emptyFunction              from 'empty/function';
 import makeKeyPath                from './keyPath';
-import {createValidator,
+import {Schema,
         select as selectSchema}   from './Schema';
 
 export class Value {
@@ -124,10 +124,9 @@ function validate(schema, value) {
     return value.__errorList;
   } else {
     if (schema.__validator === undefined) {
-      cache(schema, '__validator', createValidator(schema, {formats: schema.formats}));
+      cache(schema, '__validator', Schema(schema, {formats: schema.formats}));
     }
-    schema.__validator(value);
-    let errorList = schema.__validator.errors || [];
+    let errorList = schema.__validator(value);
     cache(value, '__schema', schema);
     cache(value, '__errorList', errorList);
     return errorList;
