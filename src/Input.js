@@ -51,6 +51,7 @@ export default class Input extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this._expectedValue) {
       this._cancelOnChange();
+      this.setState({value: nextProps.value});
     }
     if (nextProps.debounce !== this.props.debounce) {
       this._finalizeOnChange();
