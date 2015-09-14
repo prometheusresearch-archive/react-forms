@@ -4,13 +4,10 @@
 
 import autobind             from 'autobind-decorator';
 import React, {PropTypes}   from 'react';
+import Component            from './Component';
 import Input                from './Input';
 import ErrorList            from './ErrorList';
-import Component            from './Component';
-
-function Label({label}) {
-  return label && <label>{label}</label>;
-}
+import Label                from './Label';
 
 export default class Field extends Component {
 
@@ -18,13 +15,14 @@ export default class Field extends Component {
     ...Component.propTypes,
     label: PropTypes.string,
     children: PropTypes.element,
+    Input: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     Label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     ErrorList: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
   static defaultProps = {
-    children: <Input type="text" />,
+    Input,
     Label,
     ErrorList,
     Self: 'div',
@@ -36,14 +34,17 @@ export default class Field extends Component {
   }
 
   render() {
-    let {Self, ErrorList, Label, children} = this.props;
+    let {Self, ErrorList, Label, Input, label, children} = this.props;
     let {dirty} = this.state;
-    let {schema, value, params} = this.formValue;
+    let {schema = {}, value, params = {}} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;
-    children = React.cloneElement(
-      React.Children.only(children),
-      {value, onChange: this.onChange});
-    let label = this.props.label || schema.label;
+    if (!children) {
+      children = <Input value={value} onChange={this.onChange} />;
+    } else {
+      children = React.cloneElement(
+        React.Children.only(children),
+        {value, onChange: this.onChange});
+    }
     return (
       <Self onBlur={this.onBlur}>
         <Label label={label} schema={schema} />
