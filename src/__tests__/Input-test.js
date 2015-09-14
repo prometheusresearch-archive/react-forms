@@ -5,7 +5,7 @@
 import React      from 'react';
 import Input      from '../Input';
 
-describe.only('<Input/>', function() {
+describe('<Input/>', function() {
 
   it('renders into "input" DOM component by default', function() {
     let renderer = TestUtils.createRenderer();
