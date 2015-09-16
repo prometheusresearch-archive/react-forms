@@ -46,7 +46,7 @@ export default class Field extends Component {
     let label = this.props.label || schema.label;
     return (
       <Self onBlur={this.onBlur}>
-        <Label label={label} schema={schema} />
+        {Label({label, schema})}
         {children}
         {showErrors &&
           <ErrorList formValue={this.formValue} />}

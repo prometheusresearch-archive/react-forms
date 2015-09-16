@@ -4,14 +4,18 @@
 
 import React from 'react';
 
-export default function Error({error, label, noLabel, complete}) {
-  if (!label && error.schema) {
-    label = error.schema.label;
-  }
-  if (label && complete && !noLabel) {
-    return <div>{error.schema.label}: {error.message}</div>;
-  } else {
-    return <div>{error.message}</div>;
+export default class Error extends React.Component {
+
+  render() {
+    let {error, label, noLabel, complete} = this.props;
+    if (!label && error.schema) {
+      label = error.schema.label;
+    }
+    if (label && complete && !noLabel) {
+      return <div>{error.schema.label}: {error.message}</div>;
+    } else {
+      return <div>{error.message}</div>;
+    }
   }
 }
 
