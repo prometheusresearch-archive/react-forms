@@ -270,7 +270,7 @@ Rendering forms
 ~~~~~~~~~~~~~~~
 
 Finally we can render our *Family form* by simply using ``Form`` component with
-out ``Family`` schema:
+our ``Family`` schema:
 
 .. jsx::
 
