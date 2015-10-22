@@ -1,9 +1,9 @@
-BIN 					= ./node_modules/.bin
-TESTS 				= $(shell find ./src -path '**/__tests__/*-test.js')
-SRC   				= $(shell find ./src -name '*.js' -not -path '*/__tests__/*')
+BIN           = ./node_modules/.bin
+TESTS         = $(shell find ./src -path '**/__tests__/*-test.js')
+SRC           = $(shell find ./src -name '*.js' -not -path '*/__tests__/*')
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --compilers js:babel/register --require ./src/__tests__/setup.js
-MOCHA					= NODE_ENV=test node $(BIN)/mocha $(MOCHA_OPTIONS)
+MOCHA         = NODE_ENV=test node $(BIN)/mocha $(MOCHA_OPTIONS)
 
 build:
 	@$(BIN)/webpack --config webpack.build.config.js
