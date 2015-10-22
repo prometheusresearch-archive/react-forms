@@ -132,7 +132,6 @@
     "wrap-regex": 0,                      // Require regex literals to be wrapped in parentheses (off by default)
 
     "no-var": 2,                              // Require let or const instead of var (off by default)
-    "generator-star-spacing": [2, "before"],  // Enforce the spacing around the * in generator functions (off by default)
 
     "max-depth": [2, 3],              // Specify the maximum depth that blocks can be nested (off by default)
     "max-len": [2, 100, 2],           // Specify the maximum length of a line in your program (off by default)
@@ -142,7 +141,7 @@
     "no-plusplus": 0,                 // Disallow use of unary operators, ++ and -- (off by default)
 
     "react/display-name": 0,
-    "react/jsx-quotes": [2, "double", "avoid-escape"],
+    "jsx-quotes": [2, "prefer-double"],
     "react/jsx-no-undef": 2,
     "react/jsx-sort-props": 0,
     "react/jsx-uses-react": 2,
