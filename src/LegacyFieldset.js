@@ -12,9 +12,9 @@ import Component          from './Component';
 export default class LegacyFieldset extends React.Component {
 
   static propTypes = {
-    ...Component.propTypes,
     children: PropTypes.node,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    formValue: PropTypes.object,
   };
 
   static defaultProps = {

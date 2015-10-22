@@ -10,7 +10,7 @@ import compileValidator from './compileValidator';
  */
 export default function JSONSchema(schema, options) {
   let validate = compileValidator(schema, options);
-  return function JSONSchema__validate(obj) {
+  return function validator(obj) {
     let result = validate(obj);
     let errors = validate.errors;
     return result ? [] : errors;
