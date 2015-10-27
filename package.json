@@ -50,7 +50,6 @@
     "invariant": "^2.1.0",
     "jsonpointer": "^1.1.0",
     "lodash": "^3.9.3",
-    "memoize-decorator": "^1.0.2",
-    "xtend": "^4.0.0"
+    "memoize-decorator": "^1.0.2"
   }
 }
