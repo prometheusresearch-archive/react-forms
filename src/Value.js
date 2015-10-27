@@ -3,10 +3,9 @@
  */
 
 import memoize                    from 'memoize-decorator';
-import clone                      from 'lodash/lang/cloneDeep';
 import selectValue                from 'lodash/object/get';
-import set                        from 'lodash/object/set';
 import emptyFunction              from 'empty/function';
+import update                     from 'immupdate';
 import makeKeyPath                from './keyPath';
 import {Schema,
         select as selectSchema}   from './Schema';
@@ -27,11 +26,11 @@ export class Value {
   }
 
   update(value, quiet) {
-    let rootValue = clone(this._root.value);
+    let rootValue;
     if (this.keyPath.length === 0) {
       rootValue = value;
     } else {
-      rootValue = set(rootValue, this.keyPath, value);
+      rootValue = update(this._root.value, this.keyPath.join('.'), value);
     }
     let nextRoot = createValue(
       this._root.schema,
