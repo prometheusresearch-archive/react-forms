@@ -205,4 +205,40 @@ describe('Value', function() {
     assert.deepEqual(value.select('e').completeErrorList, []);
   });
 
+  describe('update()', function() {
+
+    let schema = object({
+      a: object({
+        b: string({isRequired: true})
+      }, {isRequired: true}),
+      c: array(string(), {minItems: 1}),
+      e: string({isRequired: true})
+    });
+
+    it('allows to update root value', function() {
+      let value = Value(schema, {});
+      let nextValue = value.update({a: 1});
+      assert.deepEqual(nextValue.value, {a: 1});
+    });
+
+    it('allows to update scalar value', function() {
+      let value = Value(schema, {});
+      let nextValue = value.select('e').update('UPDATED');
+      assert.deepEqual(nextValue.value, {e: 'UPDATED'});
+    });
+
+    it('allows to update scalar value deep inside object', function() {
+      let value = Value(schema, {});
+      let nextValue = value.select('a.b').update('UPDATED');
+      assert.deepEqual(nextValue.value, {a: {b: 'UPDATED'}});
+    });
+
+    it('allows to update scalar value deep inside array', function() {
+      let value = Value(schema, {});
+      let nextValue = value.select('c.0').update('UPDATED');
+      assert.deepEqual(nextValue.value, {c: ['UPDATED']});
+    });
+
+  });
+
 });
