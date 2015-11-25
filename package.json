@@ -22,7 +22,7 @@
     "url": "https://github.com/prometheusresearch/react-forms/issues"
   },
   "peerDependencies": {
-    "react": "^0.14.0-rc1 || >= 0.13.0, < 0.15.0"
+    "react": "^0.14.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -36,7 +36,7 @@
     "mocha": "^2.3.2",
     "node-libs-browser": "^0.5.2",
     "power-assert": "^1.0.0",
-    "react": "^0.14.0-rc1 || >= 0.13.0, < 0.15.0",
+    "react": "^0.14.0",
     "sinon": "^1.16.1",
     "tape": "^2.13.4",
     "webpack": "^1.9.12"
