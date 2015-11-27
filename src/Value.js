@@ -38,7 +38,7 @@ export class Value {
       this._root.onChange,
       this._root.params);
     if (!quiet) {
-      this._root.onChange(nextRoot);
+      this._root.onChange(nextRoot, this.keyPath);
     }
     return nextRoot;
   }
