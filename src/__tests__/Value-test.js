@@ -32,8 +32,11 @@ describe('Value', function() {
     let value = Value(schema);
     assert.deepEqual(value.select('a').schema, schema.properties.a);
     assert.deepEqual(value.select('a.b').schema, schema.properties.a.properties.b);
+    assert.deepEqual(value.select(['a', 'b']).schema, schema.properties.a.properties.b);
     assert.deepEqual(value.select('c').schema, schema.properties.c);
     assert.deepEqual(value.select('c.0').schema, schema.properties.c.items);
+    assert.deepEqual(value.select(['c', '0']).schema, schema.properties.c.items);
+    assert.deepEqual(value.select(['c', 0]).schema, schema.properties.c.items);
     assert.deepEqual(value.select('c.1').schema, schema.properties.c.items);
     assert.deepEqual(value.select('c.2').schema, schema.properties.c.items);
     assert.deepEqual(value.select('e').schema, schema.properties.e);
