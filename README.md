@@ -28,7 +28,7 @@ state. Some might put form value in a Flux store instead.
         firstName: {type: 'string'},
         lastName: {type: 'string'}
       }
-    })
+    }
 
     class Form extends React.Component {
 
@@ -37,7 +37,7 @@ state. Some might put form value in a Flux store instead.
         this.state = {formValue: Value(schema, props.value, this.onChange)}
       }
 
-      onChange = (nextFormValue) => {
+      onChange(nextFormValue) {
         this.setState({formValue: nextFormValue})
       }
 
