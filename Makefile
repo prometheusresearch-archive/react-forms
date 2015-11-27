@@ -23,9 +23,16 @@ ci:
 version-major version-minor version-patch: lint test build
 	@npm version $(@:version-%=%)
 
-publish:
-	git push --tags origin HEAD:master
-	npm publish
+_publish-git:
+	VERSION=`node -e 'console.log(require("./package.json").version)'`; \
+		git tag $$VERSION; \
+		git push --tags origin HEAD:master
+
+_publish-npm: build
+	VERSION=`node -e 'console.log(require("./package.json").version)'`; \
+		npm publish --tag $$VERSION
+
+publish: _publish-git _publish-npm
 
 clean:
 	@rm -rf lib/
