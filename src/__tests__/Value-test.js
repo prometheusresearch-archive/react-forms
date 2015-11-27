@@ -7,6 +7,12 @@ import {object, array, string} from '../Schema';
 
 describe('Value', function() {
 
+  it('works without schema', function() {
+    let value = Value();
+    assert.deepEqual(value.select('a').parent, value);
+    assert.deepEqual(value.select('a.b').parent, value.select('a'));
+  });
+
   it('allows to access parent value', function() {
     let schema = object({
       a: object({
@@ -209,6 +215,12 @@ describe('Value', function() {
   });
 
   describe('update()', function() {
+
+    it('works without schema', function() {
+      let value = Value();
+      let nextValue = value.select('a.0.b').update(42);
+      assert.deepEqual(nextValue.value, {a: [{b: 42}]});
+    });
 
     let schema = object({
       a: object({
