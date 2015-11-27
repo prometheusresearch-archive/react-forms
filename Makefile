@@ -4,6 +4,7 @@ SRC           = $(shell find ./src -name '*.js' -not -path '*/__tests__/*')
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --compilers js:babel/register --require ./src/__tests__/setup.js
 MOCHA         = NODE_ENV=test node $(BIN)/mocha $(MOCHA_OPTIONS)
+VERSION       = $(shell node -e 'console.log(require("./package.json").version)')
 
 build:
 	@$(BIN)/webpack --config webpack.build.config.js
@@ -24,15 +25,13 @@ version-major version-minor version-patch: lint test build
 	@npm version $(@:version-%=%)
 
 _publish-git:
-	VERSION=`node -e 'console.log(require("./package.json").version)'`; \
-		git tag $$VERSION; \
-		git push --tags origin HEAD:master
+	git tag $(VERSION)
+	git push --tags origin HEAD:master
 
-_publish-npm: build
-	VERSION=`node -e 'console.log(require("./package.json").version)'`; \
-		npm publish --tag $$VERSION
+_publish-beta-npm: build
+	npm publish --tag beta
 
-publish: _publish-git _publish-npm
+publish: _publish-git _publish-beta-npm
 
 clean:
 	@rm -rf lib/
