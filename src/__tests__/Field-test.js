@@ -21,7 +21,9 @@ describe('<Field />', function() {
 
   function assertInput(renderer, Component = Input) {
     let result = renderer.getRenderOutput();
-    let input = result.props.children[1];
+    let input = result.props.children[1].props.children;
+    assert(input);
+    assert(input.type === Component);
     return input
   }
 
@@ -33,10 +35,10 @@ describe('<Field />', function() {
 
   function assertErrorList(renderer, Component = ErrorList) {
     let result = renderer.getRenderOutput();
-    let input = result.props.children[2];
-    assert(input);
-    assert(input.type === Component);
-    return input
+    let errorList = result.props.children[2];
+    assert(errorList);
+    assert(errorList.type === Component);
+    return errorList
   }
 
   it('renders an input with value', function() {
@@ -130,8 +132,11 @@ describe('<Field />', function() {
     function Custom(props) {
       return <div />;
     }
+    let CustomField = Field.style({
+      Root: Custom
+    });
     renderer.render(
-      <Field Self={Custom} formValue={formValue} />
+      <CustomField formValue={formValue} />
     );
     let self = renderer.getRenderOutput();
     assert(self);
@@ -163,30 +168,6 @@ describe('<Field />', function() {
     );
     let input = assertInput(renderer, Custom);
     assert(input.props.x === '1');
-  });
-
-  it('virtualizes rendering of label component', function() {
-    let renderer = TestUtils.createRenderer();
-    let formValue = {};
-    function Custom(props) {
-      return <div />;
-    }
-    renderer.render(
-      <Field Label={Custom} formValue={formValue} />
-    );
-    assertLabel(renderer, Custom);
-  });
-
-  it('virtualizes rendering of error list component', function() {
-    let renderer = TestUtils.createRenderer();
-    let formValue = {params: {forceShowErrors: true}};
-    function Custom(props) {
-      return <div />;
-    }
-    renderer.render(
-      <Field ErrorList={Custom} formValue={formValue} />
-    );
-    assertErrorList(renderer, Custom);
   });
 
 });

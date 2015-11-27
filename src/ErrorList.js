@@ -3,20 +3,15 @@
  */
 
 import React, {PropTypes} from 'react';
-import Component          from './Component';
-import Error              from './Error';
+import * as ReactStylesheet from 'react-stylesheet';
+import Component from './Component';
+import Error from './Error';
 
+@ReactStylesheet.styleable
 export default class ErrorList extends Component {
 
   static propTypes = {
     ...Component.propTypes,
-
-    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    /**
-     * Component which is used to render error items.
-     */
-    Error: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
     /**
      * If component should render errors from all the subvalues.
@@ -33,13 +28,14 @@ export default class ErrorList extends Component {
     label: PropTypes.string
   };
 
-  static defaultProps = {
-    Error,
-    Self: 'div'
-  };
+  static stylesheet = ReactStylesheet.createStylesheet({
+    Error: Error,
+    Root: 'div',
+  });
 
   render() {
-    let {Self, Error, noLabel, complete, schemaType, ...props} = this.props;
+    let {noLabel, complete, schemaType, ...props} = this.props;
+    let {Root, Error} = this.stylesheet;
     let errorList = complete ?
       this.formValue.completeErrorList :
       this.formValue.errorList;
@@ -58,6 +54,6 @@ export default class ErrorList extends Component {
         complete={complete}
         />
     );
-    return <Self {...props}>{items}</Self>;
+    return <Root {...props}>{items}</Root>;
   }
 }

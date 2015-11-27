@@ -17,4 +17,3 @@ export default function Error({error, label, noLabel, complete}) {
     return <div>{error.message}</div>;
   }
 }
-

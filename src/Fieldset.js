@@ -3,22 +3,22 @@
  */
 
 import React, {PropTypes} from 'react';
-import Component          from './Component';
+import * as ReactStylesheet from 'react-stylesheet';
+import Component from './Component';
 
+@ReactStylesheet.styleable
 export default class Fieldset extends Component {
 
   static propTypes = {
     ...Component.propTypes,
     children: PropTypes.node,
-    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
-  static defaultProps = {
-    Self: 'div'
-  };
+  static stylesheet = ReactStylesheet.createStylesheet({
+    Root: 'div',
+  });
 
   render() {
-    let {Self, ...props} = this.props;
-    return <Self {...props} />;
+    return <this.stylesheet.Root {...this.props} />;
   }
 }

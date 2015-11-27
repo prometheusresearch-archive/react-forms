@@ -2,13 +2,15 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import autobind             from 'autobind-decorator';
-import React, {PropTypes}   from 'react';
-import Component            from './Component';
-import Input                from './Input';
-import ErrorList            from './ErrorList';
-import Label                from './Label';
+import autobind from 'autobind-decorator';
+import React, {PropTypes} from 'react';
+import * as ReactStylesheet from 'react-stylesheet';
+import Component from './Component';
+import Input from './Input';
+import ErrorList from './ErrorList';
+import Label from './Label';
 
+@ReactStylesheet.styleable
 export default class Field extends Component {
 
   static propTypes = {
@@ -16,17 +18,18 @@ export default class Field extends Component {
     label: PropTypes.string,
     children: PropTypes.element,
     Input: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    Label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    ErrorList: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
   static defaultProps = {
     Input,
-    Label,
-    ErrorList,
-    Self: 'div',
   };
+
+  static stylesheet = ReactStylesheet.createStylesheet({
+    Root: 'div',
+    ErrorList: ErrorList,
+    Label: Label,
+    InputWrapper: 'div',
+  });
 
   constructor(props) {
     super(props);
@@ -34,7 +37,8 @@ export default class Field extends Component {
   }
 
   render() {
-    let {Self, ErrorList, Label, Input, label, children} = this.props;
+    let {Input, label, children} = this.props;
+    let {Root, ErrorList, Label, InputWrapper} = this.stylesheet;
     let {dirty} = this.state;
     let {schema = {}, value, params = {}} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;
@@ -46,12 +50,14 @@ export default class Field extends Component {
         {value, onChange: this.onChange});
     }
     return (
-      <Self onBlur={this.onBlur}>
+      <Root onBlur={this.onBlur}>
         <Label label={label} schema={schema} />
-        {children}
+        <InputWrapper>
+          {children}
+        </InputWrapper>
         {showErrors &&
           <ErrorList formValue={this.formValue} />}
-      </Self>
+      </Root>
     );
   }
 

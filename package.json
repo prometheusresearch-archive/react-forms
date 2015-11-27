@@ -50,6 +50,7 @@
     "invariant": "^2.1.0",
     "jsonpointer": "^1.1.0",
     "lodash": "^3.9.3",
-    "memoize-decorator": "^1.0.2"
+    "memoize-decorator": "^1.0.2",
+    "react-stylesheet": "^0.6.0"
   }
 }

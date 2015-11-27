@@ -13,14 +13,14 @@ import emptyFunction      from 'empty/function';
 export default class Input extends React.Component {
 
   static propTypes = {
-    Self: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     debounce: PropTypes.number,
     value: PropTypes.any,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
-    Self: 'input',
+    Component: 'input',
     debounce: 100,
     onChange: emptyFunction
   };
@@ -35,12 +35,12 @@ export default class Input extends React.Component {
   }
 
   render() {
-    let {Self, debounce: debounceEnabled, value, ...props} = this.props;
+    let {Component, debounce: debounceEnabled, value, ...props} = this.props;
     if (debounceEnabled) {
       value = this.state.value;
     }
     return (
-      <Self
+      <Component
         {...props}
         value={value}
         onChange={this.onChange}
