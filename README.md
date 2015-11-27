@@ -6,21 +6,46 @@ rendering and validation.
 
 ## Installation
 
-While the version described in this document is not yet released on npm, you can
-install it directly from GitHub repository:
+To use version documented here you need to install 2.0.0-beta tag from npm:
 
-    % npm install prometheusresearch/react-forms
+    % npm install react-forms@2.0.0-beta
 
 ## Usage
 
 React Forms doesn't provide any `<Form />` component implementation, instead it
-provides utilities which makes implementing form components a joy.
+provides utilities which make implementing form components an easy task.
 
 This is the example where form value is managed as a part of local component
-state. Some might put form value in a Flux store instead.
+state. Some might put form value in a Flux/Redux store instead.
 
     import React from 'react'
     import {Fieldset, Field, Value} from 'react-forms'
+
+    class Form extends React.Component {
+
+      constructor(props) {
+        super(props)
+        let formValue = Value(null, props.value, this.onChange)
+        this.state = {formValue}
+      }
+
+      onChange = (formValue) => {
+        this.setState({formValue})
+      }
+
+      render() {
+        return (
+          <Fieldset formValue={this.state.formValue}>
+            <Field select="firstName" label="First name" />
+            <Field select="lastName" label="Last name" />
+          </Fieldset>
+        )
+      }
+    }
+
+### Validation
+
+React Forms can validate form value using JSON schema:
 
     let schema = {
       type: 'object',
@@ -28,34 +53,13 @@ state. Some might put form value in a Flux store instead.
         firstName: {type: 'string'},
         lastName: {type: 'string'}
       }
-    })
-
-    class Form extends React.Component {
-
-      constructor(props) {
-        super(props)
-        this.state = {formValue: Value(schema, props.value, this.onChange)}
-      }
-
-      onChange = (nextFormValue) => {
-        this.setState({formValue: nextFormValue})
-      }
-
-      render() {
-        return (
-          <Fieldset formValue={this.state.formValue}>
-            <Field
-              select="firstName"
-              label="First name"
-              />
-            <Field
-              select="lastName"
-              label="Last name"
-              />
-          </Fieldset>
-        )
-      }
     }
+
+Simply pass it as a first argument to `Value` factory function:
+
+    let formValue = Value(schema, initialValue, onChange)
+
+The `<Field />` will automatically renders validation errors if any.
 
 ### Customizing form fields
 
