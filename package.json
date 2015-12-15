@@ -18,7 +18,7 @@
     "forms"
   ],
   "peerDependencies": {
-    "react": ">=0.12.0, <0.14.0",
+    "react": ">=0.12.0, <0.15.0",
     "immutable": "^3.4.0"
   },
   "devDependencies": {
@@ -27,7 +27,7 @@
     "jsxhint": "^0.6.0",
     "mocha": "^1.18.2",
     "mochify": "^1.1.0",
-    "react": ">=0.12.0, <0.14.0",
+    "react": ">=0.12.0, <0.15.0",
     "sinon": "^1.9.1"
   },
   "browserify": {
