@@ -8,6 +8,7 @@ describe('keyPath()', function() {
 
   it('converts strings to key path', function() {
     assert.deepEqual(keyPath('a'), ['a']);
+    assert.deepEqual(keyPath('a10'), ['a10']);
     assert.deepEqual(keyPath('0'), [0]);
     assert.deepEqual(keyPath('a.b'), ['a', 'b']);
     assert.deepEqual(keyPath('a.b.c'), ['a', 'b', 'c']);

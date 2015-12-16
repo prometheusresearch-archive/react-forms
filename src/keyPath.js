@@ -6,7 +6,7 @@ import isString  from 'lodash/lang/isString';
 import isArray   from 'lodash/lang/isArray';
 import invariant from 'invariant';
 
-const IS_NUMBER = /[0-9]+/;
+const IS_NUMBER = /^[0-9]+$/;
 
 function tryParseInt(v) {
   if (typeof v === 'string' && IS_NUMBER.exec(v)) {
