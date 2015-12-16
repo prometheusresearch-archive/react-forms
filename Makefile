@@ -26,7 +26,7 @@ version-major version-minor version-patch: lint test build
 
 _publish-git:
 	git tag $(VERSION)
-	git push --tags origin HEAD:master
+	git push --tags origin HEAD:develop
 
 _publish-beta-npm: build
 	npm publish --tag beta
