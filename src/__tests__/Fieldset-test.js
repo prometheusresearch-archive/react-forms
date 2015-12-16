@@ -21,7 +21,7 @@ describe('<Fieldset />', function() {
     assert(instance.formValue === formValue);
   });
 
-  it('allows to select from form value passed via props', function() {
+  it('does not select from form value passed via props', function() {
 
     let formValue = {
       ['a']: {},
@@ -30,14 +30,7 @@ describe('<Fieldset />', function() {
 
       select(keyPath) {
         keyPath = keyPath.join('.');
-        switch(keyPath) {
-          case 'a':
-            return formValue.a;
-          case '1':
-            return formValue[1];
-          case 'a.b':
-            return formValue['a.b'];
-        }
+        return formValue[keyPath];
       }
     };
 
@@ -50,34 +43,7 @@ describe('<Fieldset />', function() {
         />
     );
 
-    assert(instance.formValue === formValue.a);
-
-    instance = TestUtils.renderIntoDocument(
-      <Fieldset
-        formValue={formValue}
-        select={1}
-        />
-    );
-
-    assert(instance.formValue === formValue[1]);
-
-    instance = TestUtils.renderIntoDocument(
-      <Fieldset
-        formValue={formValue}
-        select={['a', 'b']}
-        />
-    );
-
-    assert(instance.formValue === formValue['a.b']);
-
-    instance = TestUtils.renderIntoDocument(
-      <Fieldset
-        formValue={formValue}
-        select={['a.b']}
-        />
-    );
-
-    assert(instance.formValue === formValue['a.b']);
+    assert(instance.formValue === formValue);
   });
 
   it('passes formValue via context', function() {

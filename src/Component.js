@@ -54,15 +54,19 @@ export default class Component extends React.Component {
   }
 
   get formValue() {
-    let formValue = this.props.formValue || this.context.formValue;
-
     invariant(
-      formValue,
+      this.props.formValue || this.context.formValue,
       'A form component <%s /> should receive form value via props ' +
       'or be used as a part of element hierarchy which ' +
-      'includes <Form /> component in its ancestors',
+      'provides form value via context.',
       this.constructor.displayName || this.constructor.name
     );
+
+    if (this.props.formValue) {
+      return this.props.formValue;
+    }
+
+    let formValue = this.context.formValue;
 
     let select = this.props.select || this.props.selectFormValue;
     // We check for select !== true to keep compatability we eariler

@@ -65,34 +65,7 @@ describe('<Component />', function() {
         />
     );
 
-    assert(instance.formValue === formValue.a);
-
-    instance = TestUtils.renderIntoDocument(
-      <FormComponent
-        formValue={formValue}
-        select={1}
-        />
-    );
-
-    assert(instance.formValue === formValue[1]);
-
-    instance = TestUtils.renderIntoDocument(
-      <FormComponent
-        formValue={formValue}
-        select={['a', 'b']}
-        />
-    );
-
-    assert(instance.formValue === formValue['a.b']);
-
-    instance = TestUtils.renderIntoDocument(
-      <FormComponent
-        formValue={formValue}
-        select={['a.b']}
-        />
-    );
-
-    assert(instance.formValue === formValue['a.b']);
+    assert(instance.formValue === formValue);
   });
 
   it('allows to access form value passed via context', function() {
