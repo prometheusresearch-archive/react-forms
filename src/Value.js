@@ -14,7 +14,7 @@ export class Value {
 
   select(key) {
     let keyPath = this.keyPath.concat(makeKeyPath(key));
-    return new ValueLeaf(this._root, keyPath);
+    return new ValueBranch(this._root, keyPath);
   }
 
   set(value, quiet) {
@@ -62,7 +62,7 @@ class ValueRoot extends Value {
   }
 }
 
-class ValueLeaf extends Value {
+class ValueBranch extends Value {
 
   constructor(root, keyPath) {
     super();
@@ -96,7 +96,7 @@ class ValueLeaf extends Value {
     } else {
       let keyPath = this.keyPath.slice();
       keyPath.pop();
-      return new ValueLeaf(
+      return new ValueBranch(
         this._root,
         keyPath
       );
