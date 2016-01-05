@@ -68,12 +68,20 @@ class ValueBranch extends Value {
     super();
     this._root = root;
     this.keyPath = keyPath;
-    this.schema = selectSchema(root.schema, keyPath);
-    this.value = selectValue(root.value, keyPath);
   }
 
   get params() {
     return this._root.params;
+  }
+
+  @memoize
+  get schema() {
+    return selectSchema(this._root.schema, this.keyPath);
+  }
+
+  @memoize
+  get value() {
+    return selectValue(this._root.value, this.keyPath);
   }
 
   @memoize
