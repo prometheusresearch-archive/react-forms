@@ -20,13 +20,13 @@ state. Some might put form value in a Flux/Redux store instead.
 
 ```js
 import React from 'react'
-import {Fieldset, Field, Value} from 'react-forms'
+import {Fieldset, Field, createValue} from 'react-forms'
 
 class Form extends React.Component {
 
   constructor(props) {
     super(props)
-    let formValue = Value(null, props.value, this.onChange)
+    let formValue = createValue({value: props.value, onChange: this.onChange})
     this.state = {formValue}
   }
 
@@ -59,10 +59,10 @@ let schema = {
 }
 ```
 
-Simply pass it as a first argument to `Value` factory function:
+Simply pass it to `createValue` function:
 
 ```js
-let formValue = Value(schema, initialValue, onChange)
+let formValue = createValue({schema, initialValue, onChange})
 ```
 
 The `<Field />` will automatically renders validation errors if any.
@@ -193,7 +193,7 @@ class FamilyForm extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {formValue: Value(schema, value, this.onChange)}
+    this.state = {formValue: createValue({schema, value, this.onChange})}
   }
 
   onChange = (nextFormValue) => {
