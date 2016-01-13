@@ -10,11 +10,25 @@ import makeKeyPath                from './keyPath';
 import {Schema,
         select as selectSchema}   from './Schema';
 
+function filterErrorListByKeyPath(errorList, keyPath) {
+  let field = ['data'].concat(keyPath).join('.');
+  return errorList.filter(error => error.field === field);
+}
+
 export class Value {
 
   select(key) {
     let keyPath = this.keyPath.concat(makeKeyPath(key));
-    return new ValueBranch(this._root, keyPath);
+    return new ValueBranch(this.root, keyPath);
+  }
+
+  @memoize
+  get errorList() {
+    let validateErrorList = filterErrorListByKeyPath(
+      this.root.completeErrorList, this.keyPath);
+    let externalErrorList = filterErrorListByKeyPath(
+      this.root.externalErrorList, this.keyPath);
+    return validateErrorList.concat(externalErrorList);
   }
 
   set(value, quiet) {
@@ -25,40 +39,87 @@ export class Value {
     return this.update(value, quiet);
   }
 
-  update(value, quiet) {
-    let rootValue;
-    if (this.keyPath.length === 0) {
-      rootValue = value;
-    } else {
-      rootValue = update(this._root.value, this.keyPath.join('.'), value);
-    }
-    let nextRoot = createValue(
-      this._root.schema,
-      rootValue,
-      this._root.onChange,
-      this._root.params);
+  _createRoot(update) {
+    let values = {
+      schema: this.root.schema,
+      value: this.root.value,
+      onChange: this.root.onChange,
+      params: this.root.params,
+      errorList: this.root.errorList,
+      externalErrorList: this.root.externalErrorList,
+    };
+    return new ValueRoot({...values, ...update});
+  }
+
+  updateParams(params, quiet) {
+    params = {...this.root.params, ...params};
+    let nextRoot = this._createRoot({params});
     if (!quiet) {
-      this._root.onChange(nextRoot, this.keyPath);
+      this.root.onChange(nextRoot, this.keyPath);
     }
-    return nextRoot;
+    return nextRoot.select(this.keyPath);
+  }
+
+  update(valueUpdate, quiet) {
+    let value;
+    if (this.keyPath.length === 0) {
+      value = valueUpdate;
+    } else {
+      value = update(this.root.value, this.keyPath.join('.'), valueUpdate);
+    }
+    let errorList = validate(this.root.schema, value);
+    let nextRoot = this._createRoot({value, errorList});
+    if (!quiet) {
+      this.root.onChange(nextRoot, this.keyPath);
+    }
+    return nextRoot.select(this.keyPath);
+  }
+
+  addError(error, quiet) {
+    error = {
+      ...error,
+      field: ['data'].concat(this.keyPath).join('.'),
+    };
+    let externalErrorList = this.root.externalErrorList.concat(error);
+    let nextRoot = this._createRoot({externalErrorList});
+    if (!quiet) {
+      this.root.onChange(nextRoot, this.keyPath);
+    }
+    return nextRoot.select(this.keyPath);
+  }
+
+  removeError(error, quiet) {
+    let idx = this.root.externalErrorList.indexOf(error);
+    if (idx > -1) {
+      let externalErrorList = this.root.externalErrorList.slice(0);
+      externalErrorList.splice(idx, 1);
+      let nextRoot = this._createRoot({externalErrorList});
+      if (!quiet) {
+        this.root.onChange(nextRoot, this.keyPath);
+      }
+      return nextRoot.select(this.keyPath);
+    } else {
+      return this;
+    }
   }
 }
 
 class ValueRoot extends Value {
 
-  keyPath = [];
-  parent = null;
-
-  constructor(schema, value, onChange, params, errorList) {
+  constructor({schema, value, onChange, params, errorList, externalErrorList}) {
     super();
-    this._root = this;
+    this.parent = null;
     this.keyPath = [];
     this.schema = schema;
     this.value = value;
     this.onChange = onChange;
     this.params = params;
-    this.errorList = errorList.filter(error => error.field === 'data');
     this.completeErrorList = errorList;
+    this.externalErrorList = externalErrorList;
+  }
+
+  get root() {
+    return this;
   }
 }
 
@@ -66,46 +127,46 @@ class ValueBranch extends Value {
 
   constructor(root, keyPath) {
     super();
-    this._root = root;
+    this.root = root;
     this.keyPath = keyPath;
   }
 
   get params() {
-    return this._root.params;
+    return this.root.params;
   }
 
   @memoize
   get schema() {
-    return selectSchema(this._root.schema, this.keyPath);
+    return selectSchema(this.root.schema, this.keyPath);
   }
 
   @memoize
   get value() {
-    return selectValue(this._root.value, this.keyPath);
+    return selectValue(this.root.value, this.keyPath);
   }
 
-  @memoize
-  get errorList() {
-    let errorKeyPath = `data.${this.keyPath.join('.')}`;
-    return this._root.completeErrorList.filter(error => error.field === errorKeyPath);
+  get externalErrorList() {
+    return this.root.externalErrorList;
   }
 
   @memoize
   get completeErrorList() {
     let errorKeyPath = `data.${this.keyPath.join('.')}`;
     let length = errorKeyPath.length;
-    return this._root.completeErrorList
-      .filter(error => error.field.slice(0, length) === errorKeyPath);
+    return this.root.completeErrorList
+      .filter(error => error.field.slice(0, length) === errorKeyPath)
+      .concat(this.root.externalErrorList
+        .filter(error => error.field.slice(0, length) === errorKeyPath));
   }
 
   get parent() {
     if (this.keyPath.length === 1) {
-      return this._root;
+      return this.root;
     } else {
       let keyPath = this.keyPath.slice();
       keyPath.pop();
       return new ValueBranch(
-        this._root,
+        this.root,
         keyPath
       );
     }
@@ -150,14 +211,16 @@ export function isValue(maybeValue) {
 /**
  * Create a new root value.
  */
-export default function createValue(
+export function createValue({
     schema,
     value = {},
     onChange = emptyFunction,
     params = {},
-    errorList = null) {
+    errorList = null,
+    externalErrorList = [],
+  } = {}) {
   if (errorList === null) {
     errorList = validate(schema, value);
   }
-  return new ValueRoot(schema, value, onChange, params, errorList);
+  return new ValueRoot({schema, value, onChange, params, errorList, externalErrorList});
 }

@@ -2,13 +2,13 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import Value                   from '../Value';
+import {createValue} from '../Value';
 import {object, array, string} from '../Schema';
 
-describe('Value', function() {
+describe('createValue', function() {
 
   it('works without schema', function() {
-    let value = Value();
+    let value = createValue();
     assert.deepEqual(value.select('a').parent, value);
     assert.deepEqual(value.select('a.b').parent, value.select('a'));
   });
@@ -19,7 +19,7 @@ describe('Value', function() {
         b: string()
       })
     });
-    let value = Value(schema);
+    let value = createValue({schema});
     assert(value.parent === null);
     assert.deepEqual(value.select('a').parent, value);
     assert.deepEqual(value.select('a.b').parent, value.select('a'));
@@ -35,7 +35,7 @@ describe('Value', function() {
       }),
       e: string()
     });
-    let value = Value(schema);
+    let value = createValue({schema});
     assert.deepEqual(value.select('a').schema, schema.properties.a);
     assert.deepEqual(value.select('a.b').schema, schema.properties.a.properties.b);
     assert.deepEqual(value.select(['a', 'b']).schema, schema.properties.a.properties.b);
@@ -56,7 +56,7 @@ describe('Value', function() {
       c: array(string(), {minItems: 1}),
       e: string({isRequired: true})
     });
-    let value = Value(schema);
+    let value = createValue({schema});
 
     assert.deepEqual(value.errorList, []);
     assert.deepEqual(value.completeErrorList,  [
@@ -110,7 +110,7 @@ describe('Value', function() {
       c: array(string(), {minItems: 1}),
       e: string({isRequired: true})
     });
-    let value = Value(schema, {a: {b: 'b'}, c: ['s'], e: 'e'});
+    let value = createValue({schema, value: {a: {b: 'b'}, c: ['s'], e: 'e'}});
 
     assert.deepEqual(value.errorList, []);
     assert.deepEqual(value.completeErrorList, []);
@@ -142,7 +142,7 @@ describe('Value', function() {
       c: array(string(), {minItems: 1}),
       e: string({isRequired: true})
     });
-    let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
+    let value = createValue({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
 
     assert.deepEqual(value.errorList, []);
     assert.deepEqual(value.completeErrorList, [
@@ -182,7 +182,7 @@ describe('Value', function() {
       c: array(string(), {minItems: 1}),
       e: string({isRequired: true})
     });
-    let value = Value(schema, {a: {b: 'b'}, c: ['s', 1], e: 'e'});
+    let value = createValue({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
 
     assert.deepEqual(value.errorList, []);
     assert.deepEqual(value.completeErrorList, [
@@ -217,8 +217,8 @@ describe('Value', function() {
   describe('update()', function() {
 
     it('works without schema', function() {
-      let value = Value();
-      let nextValue = value.select('a.0.b').update(42);
+      let value = createValue();
+      let nextValue = value.select('a.0.b').update(42).root;
       assert.deepEqual(nextValue.value, {a: [{b: 42}]});
     });
 
@@ -231,26 +231,26 @@ describe('Value', function() {
     });
 
     it('allows to update root value', function() {
-      let value = Value(schema, {});
-      let nextValue = value.update({a: 1});
+      let value = createValue({schema, value: {}});
+      let nextValue = value.update({a: 1}).root;
       assert.deepEqual(nextValue.value, {a: 1});
     });
 
     it('allows to update scalar value', function() {
-      let value = Value(schema, {});
-      let nextValue = value.select('e').update('UPDATED');
+      let value = createValue({schema, value: {}});
+      let nextValue = value.select('e').update('UPDATED').root;
       assert.deepEqual(nextValue.value, {e: 'UPDATED'});
     });
 
     it('allows to update scalar value deep inside object', function() {
-      let value = Value(schema, {});
-      let nextValue = value.select('a.b').update('UPDATED');
+      let value = createValue({schema, value: {}});
+      let nextValue = value.select('a.b').update('UPDATED').root;
       assert.deepEqual(nextValue.value, {a: {b: 'UPDATED'}});
     });
 
     it('allows to update scalar value deep inside array', function() {
-      let value = Value(schema, {});
-      let nextValue = value.select('c.0').update('UPDATED');
+      let value = createValue({schema, value: {}});
+      let nextValue = value.select('c.0').update('UPDATED').root;
       assert.deepEqual(nextValue.value, {c: ['UPDATED']});
     });
 
