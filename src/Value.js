@@ -18,8 +18,12 @@ function filterErrorListByKeyPath(errorList, keyPath) {
 export class Value {
 
   select(key) {
-    let keyPath = this.keyPath.concat(makeKeyPath(key));
-    return new ValueBranch(this.root, keyPath);
+    let keyPath = makeKeyPath(key);
+    if (keyPath.length === 0) {
+      return this;
+    } else {
+      return new ValueBranch(this.root, this.keyPath.concat(keyPath));
+    }
   }
 
   @memoize
