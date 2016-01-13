@@ -78,7 +78,7 @@ export default class Field extends Component {
     } else {
       value = e;
     }
-    this.setState({dirty: true});
     this.formValue.update(value);
+    this.setState({dirty: true});
   }
 }
