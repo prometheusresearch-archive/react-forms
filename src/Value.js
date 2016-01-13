@@ -15,6 +15,15 @@ function filterErrorListByKeyPath(errorList, keyPath) {
   return errorList.filter(error => error.field === field);
 }
 
+function filterErrorListByKeyPathPrefix(errorList, keyPath) {
+  if (keyPath.length === 0) {
+    return errorList;
+  }
+  let field = ['data'].concat(keyPath).join('.');
+  let length = field.length;
+  return errorList.filter(error => error.field.slice(0, length) === field)
+}
+
 export class Value {
 
   select(key) {
@@ -29,9 +38,18 @@ export class Value {
   @memoize
   get errorList() {
     let validateErrorList = filterErrorListByKeyPath(
-      this.root.completeErrorList, this.keyPath);
+      this.root._errorList, this.keyPath);
     let externalErrorList = filterErrorListByKeyPath(
-      this.root.externalErrorList, this.keyPath);
+      this.root._externalErrorList, this.keyPath);
+    return validateErrorList.concat(externalErrorList);
+  }
+
+  @memoize
+  get completeErrorList() {
+    let validateErrorList = filterErrorListByKeyPathPrefix(
+      this.root._errorList, this.keyPath);
+    let externalErrorList = filterErrorListByKeyPathPrefix(
+      this.root._externalErrorList, this.keyPath);
     return validateErrorList.concat(externalErrorList);
   }
 
@@ -43,21 +61,21 @@ export class Value {
     return this.update(value, quiet);
   }
 
-  _createRoot(update) {
+  createRoot(update) {
     let values = {
       schema: this.root.schema,
       value: this.root.value,
       onChange: this.root.onChange,
       params: this.root.params,
-      errorList: this.root.errorList,
-      externalErrorList: this.root.externalErrorList,
+      errorList: this.root._errorList,
+      externalErrorList: this.root._externalErrorList,
     };
     return new ValueRoot({...values, ...update});
   }
 
   updateParams(params, quiet) {
     params = {...this.root.params, ...params};
-    let nextRoot = this._createRoot({params});
+    let nextRoot = this.createRoot({params});
     if (!quiet) {
       this.root.onChange(nextRoot, this.keyPath);
     }
@@ -72,7 +90,7 @@ export class Value {
       value = update(this.root.value, this.keyPath.join('.'), valueUpdate);
     }
     let errorList = validate(this.root.schema, value);
-    let nextRoot = this._createRoot({value, errorList});
+    let nextRoot = this.createRoot({value, errorList});
     if (!quiet) {
       this.root.onChange(nextRoot, this.keyPath);
     }
@@ -84,8 +102,8 @@ export class Value {
       ...error,
       field: ['data'].concat(this.keyPath).join('.'),
     };
-    let externalErrorList = this.root.externalErrorList.concat(error);
-    let nextRoot = this._createRoot({externalErrorList});
+    let externalErrorList = this.root._externalErrorList.concat(error);
+    let nextRoot = this.createRoot({externalErrorList});
     if (!quiet) {
       this.root.onChange(nextRoot, this.keyPath);
     }
@@ -93,11 +111,11 @@ export class Value {
   }
 
   removeError(error, quiet) {
-    let idx = this.root.externalErrorList.indexOf(error);
+    let idx = this.root._externalErrorList.indexOf(error);
     if (idx > -1) {
-      let externalErrorList = this.root.externalErrorList.slice(0);
+      let externalErrorList = this.root._externalErrorList.slice(0);
       externalErrorList.splice(idx, 1);
-      let nextRoot = this._createRoot({externalErrorList});
+      let nextRoot = this.createRoot({externalErrorList});
       if (!quiet) {
         this.root.onChange(nextRoot, this.keyPath);
       }
@@ -118,8 +136,8 @@ class ValueRoot extends Value {
     this.value = value;
     this.onChange = onChange;
     this.params = params;
-    this.completeErrorList = errorList;
-    this.externalErrorList = externalErrorList;
+    this._errorList = errorList;
+    this._externalErrorList = externalErrorList;
   }
 
   get root() {
@@ -147,20 +165,6 @@ class ValueBranch extends Value {
   @memoize
   get value() {
     return selectValue(this.root.value, this.keyPath);
-  }
-
-  get externalErrorList() {
-    return this.root.externalErrorList;
-  }
-
-  @memoize
-  get completeErrorList() {
-    let errorKeyPath = `data.${this.keyPath.join('.')}`;
-    let length = errorKeyPath.length;
-    return this.root.completeErrorList
-      .filter(error => error.field.slice(0, length) === errorKeyPath)
-      .concat(this.root.externalErrorList
-        .filter(error => error.field.slice(0, length) === errorKeyPath));
   }
 
   get parent() {
