@@ -22,7 +22,8 @@ export default class Input extends React.Component {
   static defaultProps = {
     Component: 'input',
     debounce: 100,
-    onChange: emptyFunction
+    onChange: emptyFunction,
+    onBlur: emptyFunction,
   };
 
   constructor(props) {
@@ -97,7 +98,8 @@ export default class Input extends React.Component {
   }
 
   @autobind
-  onBlur() {
+  onBlur(e) {
+    this.props.onBlur(e);
     if (this._expectedValue !== undefined) {
       this._finalizeOnChange();
       this._cancelOnChange();
