@@ -3,11 +3,10 @@
  */
 
 import React, {PropTypes} from 'react';
-import * as ReactStylesheet from 'react-stylesheet';
+import * as Stylesheet from 'react-stylesheet';
 import Component from './Component';
 import Error from './Error';
 
-@ReactStylesheet.styleable
 export default class ErrorList extends Component {
 
   static propTypes = {
@@ -28,14 +27,14 @@ export default class ErrorList extends Component {
     label: PropTypes.string
   };
 
-  static stylesheet = ReactStylesheet.createStylesheet({
+  static stylesheet = Stylesheet.create({
     Error: Error,
     Root: 'div',
   });
 
   render() {
     let {noLabel, complete, schemaType, ...props} = this.props;
-    let {Root, Error} = this.stylesheet;
+    let {Root, Error} = this.props.stylesheet || this.constructor.stylesheet;
     let errorList = complete ?
       this.formValue.completeErrorList :
       this.formValue.errorList;

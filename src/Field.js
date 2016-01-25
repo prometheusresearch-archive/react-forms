@@ -4,13 +4,12 @@
 
 import autobind from 'autobind-decorator';
 import React, {PropTypes} from 'react';
-import * as ReactStylesheet from 'react-stylesheet';
+import * as Stylesheet from 'react-stylesheet';
 import Component from './Component';
 import Input from './Input';
 import ErrorList from './ErrorList';
 import Label from './Label';
 
-@ReactStylesheet.styleable
 export default class Field extends Component {
 
   static propTypes = {
@@ -24,7 +23,7 @@ export default class Field extends Component {
     Input,
   };
 
-  static stylesheet = ReactStylesheet.createStylesheet({
+  static stylesheet = Stylesheet.create({
     Root: 'div',
     ErrorList: ErrorList,
     Label: Label,
@@ -38,7 +37,7 @@ export default class Field extends Component {
 
   render() {
     let {Input, label, children} = this.props;
-    let {Root, ErrorList, Label, InputWrapper} = this.stylesheet;
+    let {Root, ErrorList, Label, InputWrapper} = this.props.stylesheet || this.constructor.stylesheet;
     let {dirty} = this.state;
     let {schema = {}, value, params = {}} = this.formValue;
     let showErrors = dirty || params.forceShowErrors;

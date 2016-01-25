@@ -3,10 +3,9 @@
  */
 
 import React, {PropTypes} from 'react';
-import * as ReactStylesheet from 'react-stylesheet';
+import * as Stylesheet from 'react-stylesheet';
 import Component from './Component';
 
-@ReactStylesheet.styleable
 export default class Fieldset extends Component {
 
   static propTypes = {
@@ -14,11 +13,12 @@ export default class Fieldset extends Component {
     children: PropTypes.node,
   };
 
-  static stylesheet = ReactStylesheet.createStylesheet({
+  static stylesheet = Stylesheet.create({
     Root: 'div',
   });
 
   render() {
-    return <this.stylesheet.Root {...this.props} />;
+    let {Root} = this.props.stylesheet || this.constructor.stylesheet;
+    return <Root {...this.props} />;
   }
 }
