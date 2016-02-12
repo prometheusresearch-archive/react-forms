@@ -91,9 +91,15 @@ export default class Input extends React.Component {
 
   @autobind
   onChange(e) {
-    let value = e && e.target && 'value' in e.target ?
-      e.target.value :
-      e;
+    let value;
+    if (e && e.target && 'value' in e.target) {
+      value = e.target.value;
+      if (value === '') {
+        value = undefined;
+      }
+    } else {
+      value = e;
+    }
     this._scheduleOnChange(value);
   }
 
