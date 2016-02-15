@@ -95,7 +95,7 @@ export default class Input extends React.Component {
     if (e && e.target && 'value' in e.target) {
       value = e.target.value;
       if (value === '') {
-        value = undefined;
+        value = null;
       }
     } else {
       value = e;
