@@ -72,7 +72,7 @@ export default class Field extends Component {
       e.stopPropagation();
       value = e.target.value;
       if (value === '') {
-        value = undefined;
+        value = null;
       }
     } else {
       value = e;
