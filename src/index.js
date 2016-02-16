@@ -14,6 +14,6 @@ export ErrorList      from './ErrorList';
 
 export function Value(schema, value, onChange, params, errorList) {
   console.error("`import {Value} from 'react-forms'` is deprecated, \
-                 change it to 'import {createvalue} from `'react-forms'`");
+                 change it to 'import {createValue} from `'react-forms'`");
   return createValue({schema, value, onChange, params, errorList});
 }
