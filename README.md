@@ -69,34 +69,42 @@ The `<Field />` will automatically renders validation errors if any.
 
 ### Customizing form fields
 
+All components in React Forms conform to [React Stylesheet][] API. That means
+that for injecting customization one needs `react-stylesheet` package to be
+installed:
+
+    % npm install react-stylesheet
+
 Customizing label rendering:
 
 ```js
 import React from 'react'
+import {style} from 'react-stylesheet'
 import {Field as BaseField, Label as BaseLabel} from 'react-forms'
 
 function Label({label, schema}) {
   return <BaseLabel className="my-label" label={label} schema={schema} />
 }
 
-function Field(props) {
-  return <BaseField {...props} Label={Label} />
-}
+let Field = style(BaseField, {
+  Label: Label
+})
 ```
 
 Customizing error list rendering:
 
 ```js
 import React from 'react'
+import {style} from 'react-stylesheet'
 import {Field as BaseField, ErrorList as BaseErrorList} from 'react-forms'
 
 function ErrorList({formValue}) {
   return <ErrorList className="my-error-list" formValue={formValue} />
 }
 
-function Field(props) {
-  return <BaseField {...props} ErrorList={ErrorList} />
-}
+let Field = style(BaseField, {
+  ErrorList: ErrorList
+})
 ```
 
 Form field with custom input component:
