@@ -231,4 +231,5 @@ React Forms is free software created by [Prometheus Research, LLC][] and is
 released under the MIT license.
 
 [React]: http://facebook.github.io/react/
+[React Stylesheet]: https://github.com/prometheusresearch/react-stylesheet
 [Prometheus Research, LLC]: http://prometheusresearch.com
