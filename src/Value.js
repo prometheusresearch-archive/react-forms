@@ -143,6 +143,16 @@ class ValueRoot extends Value {
   get root() {
     return this;
   }
+
+  /**
+   * Set schema.
+   *
+   * This method performs re-validation.
+   */
+  setSchema(schema) {
+    let errorList = validate(schema, this.value);
+    return this.createRoot({schema, errorList});
+  }
 }
 
 class ValueBranch extends Value {

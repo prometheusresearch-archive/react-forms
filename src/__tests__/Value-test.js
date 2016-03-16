@@ -256,4 +256,19 @@ describe('createValue', function() {
 
   });
 
+  describe('setSchema()', function() {
+    let schema1 = {type: 'object', properties: {a: {type: 'number'}}};
+    let schema2 = {type: 'object', properties: {a: {type: 'string'}}};
+
+    let value = createValue({schema: schema1, value: {a: 'string!'}});
+    assert.deepEqual(value.schema, schema1);
+    assert.deepEqual(value.value, {a: 'string!'});
+    assert(value.completeErrorList.length === 1);
+
+    value = value.setSchema(schema2);
+    assert.deepEqual(value.schema, schema2);
+    assert.deepEqual(value.value, {a: 'string!'});
+    assert(value.completeErrorList.length === 0);
+  });
+
 });
