@@ -11,9 +11,3 @@ export WithFormValue  from './WithFormValue';
 export * as Schema    from './Schema';
 export Input          from './Input';
 export ErrorList      from './ErrorList';
-
-export function Value(schema, value, onChange, params, errorList) {
-  console.error("`import {Value} from 'react-forms'` is deprecated, \
-                 change it to 'import {createValue} from `'react-forms'`");
-  return createValue({schema, value, onChange, params, errorList});
-}
