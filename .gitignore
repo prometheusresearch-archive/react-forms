@@ -1,3 +1,5 @@
 node_modules
 bower_components
 lib/
+coverage/
+.nyc_output/
