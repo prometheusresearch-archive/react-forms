@@ -7,6 +7,9 @@
   "scripts": {
     "test": "make test"
   },
+  "eslintConfig": {
+    "extends": "prometheusresearch"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/prometheusresearch/react-forms.git"
@@ -35,6 +38,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-1": "^6.5.0",
     "eslint": "^2.4.0",
+    "eslint-config-prometheusresearch": "^0.1.2",
     "eslint-plugin-react": "^4.2.3",
     "jsdom": "^6.3.0",
     "mocha": "^2.3.2",
