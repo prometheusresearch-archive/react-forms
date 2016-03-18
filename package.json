@@ -12,11 +12,11 @@
   },
   "nyc": {
     "exclude": [
+      "*.js",
       "lib/*.js",
-      "**/__tests__/*.js",
-      "**/__tests__/fixtures/*.js",
       "coverage/*.js",
-      "*.js"
+      "**/__tests__/*.js",
+      "**/__tests__/fixtures/*.js"
     ]
   },
   "eslintConfig": {
