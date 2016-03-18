@@ -1,11 +1,11 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2016, Prometheus Research, LLC
  */
 
-import React      from 'react';
-import TestUtils  from 'react/lib/ReactTestUtils';
-import Error      from '../Error';
-import ErrorList  from '../ErrorList';
+import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
+import Error from '../Error';
+import ErrorList from '../ErrorList';
 
 describe('<ErrorList />', function() {
 
