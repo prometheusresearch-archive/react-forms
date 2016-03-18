@@ -1,7 +1,7 @@
 React Forms
 ===========
 
-[![Travis build status](https://img.shields.io/travis/prometheusresearch/react-forms/master.svg)](https://travis-ci.org/prometheusresearch/react-forms)
+[![Travis build status](https://img.shields.io/travis/prometheusresearch/react-forms/develop.svg)](https://travis-ci.org/prometheusresearch/react-forms)
 
 React Forms library provides a set of tools for [React][] to handle form
 rendering and validation.
