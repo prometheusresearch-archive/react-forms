@@ -125,7 +125,6 @@ Implementing form field component from scratch:
 import React from 'react'
 import {WithFormValue} from 'react-forms'
 
-@WithFormValue
 class Field extends React.Component {
 
   render() {
@@ -140,6 +139,8 @@ class Field extends React.Component {
 
   onChange = (e) => this.props.formValue.update(e.target.value)
 }
+
+Field = WithFormValue(Field);
 ```
 
 ## Pattern for reusable forms
