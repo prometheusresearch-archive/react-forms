@@ -53,14 +53,6 @@ export class Value {
     return validateErrorList.concat(externalErrorList);
   }
 
-  set(value, quiet) {
-    console.warn(// eslint-disable-line no-console
-      'Value.prototype.set(value) is deprecated, ' +
-      'use Value.prototype.update(value) instead'
-    );
-    return this.update(value, quiet);
-  }
-
   createRoot(update) {
     let values = {
       schema: this.root.schema,
