@@ -1,9 +1,0 @@
-{
-  "presets": ["es2015", "stage-1", "react"],
-  "plugins": ["babel-plugin-transform-decorators-legacy"],
-  "env": {
-    "test": {
-      "plugins": ["babel-plugin-espower"]
-    }
-  }
-}
