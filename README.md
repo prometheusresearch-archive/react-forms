@@ -191,8 +191,11 @@ itself for rendering.
 
 ```js
 let schema = {
-  mother: IndividualFieldset.schema,
-  father: IndividualFieldset.schema
+  type: 'object',
+  properties: {
+    mother: IndividualFieldset.schema,
+    father: IndividualFieldset.schema
+  }
 }
 
 let value = {
