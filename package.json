@@ -5,10 +5,12 @@
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "main": "lib/react-forms.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test-cov"
   },
   "babel": {
-    "presets": ["prometheusresearch"]
+    "presets": [
+      "prometheusresearch"
+    ]
   },
   "nyc": {
     "exclude": [
@@ -44,6 +46,7 @@
     "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
     "babel-preset-prometheusresearch": "^0.1.0",
+    "coveralls": "^2.11.8",
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",
     "jsdom": "^6.3.0",

@@ -26,6 +26,9 @@ test-cov::
 report-cov::
 	@$(BIN)/nyc report --reporter html
 
+report-cov-coveralls::
+	@$(BIN)/nyc report --reporter=text-lcov | $(BIN)/coveralls
+
 ci:
 	@NODE_ENV=test $(BIN)/babel-node $(MOCHA) --watch -- $(TESTS)
 
