@@ -6,9 +6,9 @@ rendering and validation.
 
 ## Installation
 
-To use version documented here you need to install 2.0.0-beta tag from npm:
+To use version documented here you need to install `beta` tag from npm:
 
-    % npm install react-forms@2.0.0-beta1
+    % npm install react-forms@beta
 
 ## Usage
 
