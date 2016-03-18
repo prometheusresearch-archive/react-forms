@@ -1,14 +1,13 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2016, Prometheus Research, LLC
  */
 
-import React      from 'react';
-import sinon      from 'sinon';
-import Field      from '../Field';
-import Input      from '../Input';
-import Label      from '../Label';
-import ErrorList  from '../ErrorList';
-import {style}    from 'react-stylesheet';
+import React from 'react';
+import Field from '../Field';
+import Input from '../Input';
+import Label from '../Label';
+import ErrorList from '../ErrorList';
+import {style} from 'react-stylesheet';
 
 describe('<Field />', function() {
 
@@ -42,8 +41,13 @@ describe('<Field />', function() {
     return errorList
   }
 
+  let renderer;
+
+  beforeEach(function() {
+    renderer = TestUtils.createRenderer();
+  });
+
   it('renders an input with value', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {value: 'hello', params: {}};
     renderer.render(
       <Field formValue={formValue} />
@@ -53,7 +57,6 @@ describe('<Field />', function() {
   });
 
   it('reacts on onChange (DOM event passed) from input by updating the formValue', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {value: 'hello', params: {}, update: sinon.spy()};
     renderer.render(
       <Field formValue={formValue} />
@@ -68,8 +71,23 @@ describe('<Field />', function() {
     assert(formValue.update.firstCall.args[0] === 'changed!');
   });
 
+
+  it('normalizes an empty string from DOM event to null', function() {
+    let formValue = {value: 'hello', params: {}, update: sinon.spy()};
+    renderer.render(
+      <Field formValue={formValue} />
+    );
+    let input;
+    input = assertInput(renderer);
+    assert(input.props.value === 'hello');
+    let event = {target: {value: ''}, stopPropagation: sinon.spy()};
+    input.props.onChange(event);
+    assert(event.stopPropagation.calledOnce);
+    assert(formValue.update.calledOnce);
+    assert(formValue.update.firstCall.args[0] === null);
+  });
+
   it('reacts on onChange (value passed) from input by updating the formValue', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {value: 'hello', params: {}, update: sinon.spy()};
     renderer.render(
       <Field formValue={formValue} />
@@ -84,7 +102,6 @@ describe('<Field />', function() {
   });
 
   it('renders a label', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {value: 'hello', params: {}, schema: {}};
     renderer.render(
       <Field formValue={formValue} label="Label" />
@@ -95,7 +112,6 @@ describe('<Field />', function() {
   });
 
   it('does not show error list if not dirty', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {};
     renderer.render(
       <Field formValue={formValue} label="Label" />
@@ -104,7 +120,6 @@ describe('<Field />', function() {
   });
 
   it('renders an error list if it becomes dirty', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {};
     renderer.render(
       <Field formValue={formValue} label="Label" />
@@ -118,7 +133,6 @@ describe('<Field />', function() {
   });
 
   it('renders an error list if forced', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {params: {forceShowErrors: true}};
     renderer.render(
       <Field formValue={formValue} label="Label" />
@@ -128,7 +142,6 @@ describe('<Field />', function() {
   });
 
   it('virtualizes rendering of self component', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {};
     function Custom(props) {
       return <div />;
@@ -145,7 +158,6 @@ describe('<Field />', function() {
   });
 
   it('virtualizes rendering of input component', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {};
     function Custom(props) {
       return <div />;
@@ -157,7 +169,6 @@ describe('<Field />', function() {
   });
 
   it('virtualizes rendering of input component (via children element)', function() {
-    let renderer = TestUtils.createRenderer();
     let formValue = {};
     function Custom(props) {
       return <div />;

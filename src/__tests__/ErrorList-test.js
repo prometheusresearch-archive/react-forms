@@ -1,13 +1,28 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2016, Prometheus Research, LLC
  */
 
-import React      from 'react';
-import TestUtils  from 'react/lib/ReactTestUtils';
-import Error      from '../Error';
-import ErrorList  from '../ErrorList';
+import React from 'react';
+import TestUtils from 'react/lib/ReactTestUtils';
+import Error from '../Error';
+import ErrorList from '../ErrorList';
 
 describe('<ErrorList />', function() {
+
+  let renderer;
+
+  beforeEach(function() {
+    renderer = TestUtils.createRenderer();
+  });
+
+  it('renders into null', function() {
+    let formValue = {
+      errorList: []
+    };
+
+    renderer.render(<ErrorList formValue={formValue} />);
+    assert(renderer.getRenderOutput() === null);
+  });
 
   it('renders a list of errors', function() {
 
@@ -16,7 +31,6 @@ describe('<ErrorList />', function() {
         {field: 'data.a', message: 'error'}
       ]
     };
-    let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList formValue={formValue} />);
     let tree = renderer.getRenderOutput();
     assert(tree.type === 'div');
@@ -32,7 +46,6 @@ describe('<ErrorList />', function() {
         {field: 'data.a', message: 'error'}
       ]
     };
-    let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete formValue={formValue} />);
     let tree = renderer.getRenderOutput();
     assert(tree.type === 'div');
@@ -48,7 +61,6 @@ describe('<ErrorList />', function() {
         {field: 'data.a', message: 'error', schema: {label: 'A'}}
       ]
     };
-    let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete formValue={formValue} />);
     let tree = renderer.getRenderOutput();
     assert(tree.type === 'div');
@@ -64,7 +76,6 @@ describe('<ErrorList />', function() {
         {field: 'data.b', message: 'error', schema: {type: 'string'}}
       ]
     };
-    let renderer = TestUtils.createRenderer();
     renderer.render(<ErrorList complete schemaType={{object: true}} formValue={formValue} />);
     let tree = renderer.getRenderOutput();
     assert(tree.type === 'div');

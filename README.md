@@ -6,9 +6,9 @@ rendering and validation.
 
 ## Installation
 
-To use version documented here you need to install 2.0.0-beta tag from npm:
+To use version documented here you need to install `beta` tag from npm:
 
-    % npm install react-forms@2.0.0-beta1
+    % npm install react-forms@beta
 
 ## Usage
 
@@ -125,7 +125,6 @@ Implementing form field component from scratch:
 import React from 'react'
 import {WithFormValue} from 'react-forms'
 
-@WithFormValue
 class Field extends React.Component {
 
   render() {
@@ -140,6 +139,8 @@ class Field extends React.Component {
 
   onChange = (e) => this.props.formValue.update(e.target.value)
 }
+
+Field = WithFormValue(Field);
 ```
 
 ## Pattern for reusable forms

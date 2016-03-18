@@ -21,7 +21,7 @@ function filterErrorListByKeyPathPrefix(errorList, keyPath) {
   }
   let field = ['data'].concat(keyPath).join('.');
   let length = field.length;
-  return errorList.filter(error => error.field.slice(0, length) === field)
+  return errorList.filter(error => error.field.slice(0, length) === field);
 }
 
 export class Value {
@@ -51,14 +51,6 @@ export class Value {
     let externalErrorList = filterErrorListByKeyPathPrefix(
       this.root._externalErrorList, this.keyPath);
     return validateErrorList.concat(externalErrorList);
-  }
-
-  set(value, quiet) {
-    console.warn(// eslint-disable-line no-console
-      'Value.prototype.set(value) is deprecated, ' +
-      'use Value.prototype.update(value) instead'
-    );
-    return this.update(value, quiet);
   }
 
   createRoot(update) {
