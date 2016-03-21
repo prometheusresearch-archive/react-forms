@@ -1,0 +1,20 @@
+{
+  "name": "react-forms-examples",
+  "version": "1.0.0",
+  "description": "example app for react-forms",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "raw-loader": "^0.5.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "history": "^2.0.1",
+    "react-dom": "^0.14.7"
+  }
+}
