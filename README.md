@@ -101,7 +101,7 @@ import {style} from 'react-stylesheet'
 import {Field as BaseField, ErrorList as BaseErrorList} from 'react-forms'
 
 function ErrorList({formValue}) {
-  return <ErrorList className="my-error-list" formValue={formValue} />
+  return <BaseErrorList className="my-error-list" formValue={formValue} />
 }
 
 let Field = style(BaseField, {
