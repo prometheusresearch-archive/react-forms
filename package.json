@@ -47,6 +47,7 @@
     "babel-loader": "^6.2.4",
     "babel-preset-prometheusresearch": "^0.1.0",
     "coveralls": "^2.11.8",
+    "doctoc": "^1.0.0",
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",
     "jsdom": "^6.3.0",

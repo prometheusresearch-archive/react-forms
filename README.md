@@ -6,6 +6,19 @@ React Forms
 React Forms library provides a set of tools for [React][] to handle form
 rendering and validation.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Validation](#validation)
+  - [Customizing form fields](#customizing-form-fields)
+- [Pattern for reusable forms](#pattern-for-reusable-forms)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 
 To use version documented here you need to install `beta` tag from npm:

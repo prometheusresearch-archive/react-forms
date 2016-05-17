@@ -14,6 +14,9 @@ build:
 watch:
 	@$(BIN)/webpack --config webpack.build.config.js --watch
 
+doctoc:
+	@$(BIN)/doctoc --title '**Table of Contents**' ./README.md
+
 lint::
 	@$(BIN)/eslint $(SRC)
 
