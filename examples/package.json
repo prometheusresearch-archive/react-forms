@@ -10,10 +10,14 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "css-loader": "^0.23.1",
+    "null-loader": "^0.1.1",
     "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "bootstrap": "^3.3.6",
     "history": "^2.0.1",
     "react-dom": "^0.14.7"
   }
