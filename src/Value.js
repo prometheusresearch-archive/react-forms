@@ -3,9 +3,9 @@
  */
 
 import memoize                    from 'memoize-decorator';
-import selectValue                from 'lodash/object/get';
+import selectValue                from 'lodash/get';
 import emptyFunction              from 'empty/function';
-import update                     from 'immupdate';
+import { updateKey }      from 'immupdate';
 import makeKeyPath                from './keyPath';
 import {Schema,
         select as selectSchema}   from './Schema';
@@ -79,7 +79,7 @@ export class Value {
     if (this.keyPath.length === 0) {
       value = valueUpdate;
     } else {
-      value = update(this.root.value, this.keyPath.join('.'), valueUpdate);
+      value = updateKey(this.root.value, this.keyPath.join('.'), valueUpdate);
     }
     let errorList = validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});

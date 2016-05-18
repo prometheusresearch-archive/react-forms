@@ -2,8 +2,8 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import isString  from 'lodash/lang/isString';
-import isArray   from 'lodash/lang/isArray';
+import isString  from 'lodash/isString';
+import isArray   from 'lodash/isArray';
 import invariant from 'invariant';
 
 const IS_NUMBER = /^[0-9]+$/;

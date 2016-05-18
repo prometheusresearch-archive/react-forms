@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "history": "^2.0.1",
-    "react-dom": "^0.14.7"
+    "history": "^2.1.1",
+    "react-dom": "^15.0.2"
   }
 }
