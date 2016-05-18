@@ -194,7 +194,7 @@ function cache(obj, key, value) {
   Object.defineProperty(obj, key, {...NON_ENUMERABLE_PROP, value});
 }
 
-function validate(schema, value) {
+export function validate(schema, value) {
   if (!schema) {
     return [];
   }
