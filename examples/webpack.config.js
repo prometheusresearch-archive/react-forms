@@ -28,14 +28,16 @@ module.exports = {
   ],
 
   module: {
-    loaders: [{
-      test: /\.js(x)?$/,
-      include: [src, path.join(__dirname, './src'),
-        path.join(__dirname, '../dist')],
-      loaders: ['babel'],
-    },
-    // { test: /\.css$/, loader: 'style!css?sourceMap' },
-    { test: /\.json$/, loaders: ['json'] },
+    loaders: [
+      {
+        test: /\.js(x)?$/,
+        include: [src, path.join(__dirname, './src'),
+          path.join(__dirname, '../dist')],
+        loaders: ['babel'],
+      },
+      { test: /\.css$/, loader: 'style!css?sourceMap' },
+      { test: /\.json$/, loaders: ['json'] },
+      { test: /\.(png|svg|eot|ttf|woff|woff2)$/, loaders: ['null'] },
     ],
   },
 

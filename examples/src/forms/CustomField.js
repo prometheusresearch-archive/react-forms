@@ -29,12 +29,15 @@ export default class CustomField extends React.Component {
       <div>
         <h2>Customizing label rendering:</h2>
         <CustomFieldForm value={value} onChange={this.onChange}/>
-        <p>{JSON.stringify(value)}</p>
-
+        <div className="well well-sm" style={{marginTop: 20}}>
+          <code>{JSON.stringify(value)}</code>
+        </div>
 
         <h2>Customizing error list rendering:</h2>
         <CustomErrorList value={valueErr} onChange={this.onChangeCustomErr}/>
-        <p>{JSON.stringify(valueErr)}</p>
+        <div className="well well-sm" style={{marginTop: 20}}>
+          <code>{JSON.stringify(valueErr)}</code>
+        </div>
       </div>
     );
   }

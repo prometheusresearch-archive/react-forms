@@ -3,6 +3,8 @@ import { createHistory } from 'history';
 
 import forms from './forms';
 
+require("bootstrap/dist/css/bootstrap.css");
+
 const history = createHistory();
 
 export default class Examples extends React.Component {
@@ -38,19 +40,21 @@ export default class Examples extends React.Component {
     const { selected } = this.state;
 
     return (
-      <div className="NavBar-links">
+      <ul className="nav navbar-nav">
         {
           Object.keys(forms).map(exampleName => {
             return (
-              <a href={`#${exampleName}`} key={ exampleName }
-                className={ selected === exampleName ? 'selected' : '' }
-              >
-                { forms[exampleName].title }
-              </a>
+              <li key={ exampleName }>
+                <a href={`#${exampleName}`}
+                  className={ selected === exampleName ? 'selected' : '' }
+                >
+                  { forms[exampleName].title }
+                </a>
+              </li>
             );
           })
         }
-      </div>
+      </ul>
     );
   }
 
@@ -61,13 +65,13 @@ export default class Examples extends React.Component {
     return (
       <div>
         <div>
-          <div className="NavBar">
-            <div className="NavBar-wrapper">
+          <nav className="navbar navbar-default navbar-static-top">
+            <div className="container">
               { this.renderNavBarExamples() }
             </div>
-          </div>
+          </nav>
 
-          <div className="Examples">
+          <div className="container">
             <h2> { title } </h2>
             <p dangerouslySetInnerHTML={{ __html: description }} />
             <div className="Example">

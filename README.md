@@ -20,6 +20,7 @@ rendering and validation.
   - [Howto Guides](#howto-guides)
     - [Customizing form fields](#customizing-form-fields)
     - [Pattern for reusable forms](#pattern-for-reusable-forms)
+- [Examples](#examples)
 - [Credits](#credits)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -281,6 +282,17 @@ class FamilyForm extends React.Component {
   }
 }
 ```
+
+## Examples
+
+Examples are located at `examples` folder. To run.
+
+```js
+cd examples
+npm install
+npm start
+```
+open http://localhost:4000 in browser
 
 ## Credits
 
