@@ -38,6 +38,12 @@ You would probably also need a module bundler such as [Browserify][] or
 React Forms doesn't provide any `<Form />` component, instead it makes
 implementing form components an easy task.
 
+Note that examples are written using ES2015 syntax. You would probably use
+[Babel][] with `es2015` and `react` presets enabled to compile code to ES5 which
+is compatible with most of the current runtimes.
+
+### Basic form component.
+
 This is the example where form value is managed as a part of local component
 state. Some might put form value in a Flux/Redux store instead.
 
@@ -286,4 +292,5 @@ released under the MIT license.
 [Prometheus Research, LLC]: http://prometheusresearch.com
 [JSON schema]: http://json-schema.org/documentation.html
 [Browserify]: http://browserify.org/
-[Webpack]:https://webpack.github.io/docs/
+[Webpack]: https://webpack.github.io/docs/
+[Babel]: http://babeljs.io/
