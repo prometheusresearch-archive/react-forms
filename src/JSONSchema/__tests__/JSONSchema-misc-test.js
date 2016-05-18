@@ -343,6 +343,57 @@ describe('JSONSchema custom test cases', function() {
     assert(validate.errors[0].message === 'custom error message');
   })
 
+  it('custom format function with custom error locations', function() {
+    let validate = validator({
+      type: 'object',
+      format(value) {
+        if (value.foo !== value.bar) {
+          return {field: 'foo', message: 'foo should be equal to bar'};
+        } else {
+          return true;
+        }
+      },
+      properties: {
+        foo: {type: 'number'},
+        bar: {type: 'number'}
+      }
+    });
+
+    assert(!validate({foo: 1, bar: 2}));
+    assert(validate.errors);
+    assert(validate.errors.length === 1);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'foo should be equal to bar');
+  })
+
+  it('custom format function with custom error locations', function() {
+    let validate = validator({
+      type: 'object',
+      format(value) {
+        if (value.foo !== value.bar) {
+          return [{field: 'foo', message: 'foo should be equal to bar'}, 'oops'];
+        } else {
+          return true;
+        }
+      },
+      properties: {
+        foo: {type: 'number'},
+        bar: {type: 'number'}
+      }
+    });
+
+    assert(!validate({foo: 1, bar: 2}));
+    assert(validate.errors);
+    assert(validate.errors.length === 2);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'foo should be equal to bar');
+    assert(validate.errors[1]);
+    assert(validate.errors[1].field === 'data');
+    assert(validate.errors[1].message === 'oops');
+  })
+
   it('custom format function accept current node as second argument', function() {
     let touchedNodes = [];
     let schema = {

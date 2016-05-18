@@ -168,33 +168,61 @@ function compile(schema, cache, root, opts = {}) {
     function error(msg, prop, value, schema) {
       validate('errors++');
       if (reporter === true) {
+        let errNameSym = formatName(prop || name);
         validate('if (validate.errors === null) validate.errors = []');
         if (verbose) {
           validate(
             'validate.errors.push({field:%s,message:%s,value:%s,schema:%s})',
-            formatName(prop || name), JSON.stringify(msg), value || name, schema || nodeSym
+            errNameSym, JSON.stringify(msg), value || name, schema || nodeSym
           );
         } else {
           validate(
             'validate.errors.push({field:%s,message:%s,schema:%s})',
-            formatName(prop || name), JSON.stringify(msg), schema || nodeSym
+            errNameSym, JSON.stringify(msg), schema || nodeSym
           );
         }
       }
     }
-    function errorFromSym(sym, schema) {
+
+    function errorFromError(sym) {
+      validate('errors++');
+      if (reporter === true) {
+        validate('if (validate.errors === null) validate.errors = []');
+        let errorMessage = sym + '.message';
+        let errorName = `${formatName(name)} + '.' + ${sym + '.field'}`;
+        validate(
+          'validate.errors.push({field:%s,message:%s,schema:%s})',
+          errorName, errorMessage, nodeSym
+        );
+      }
+    }
+
+    function errorFromErrorArray(sym) {
+      validate('errors = errors + %s.length', sym);
+      if (reporter === true) {
+        validate('for (var i = 0; i < %s.length; i++) {', sym);
+        validate('  if (typeof %s[i] === "object") {', sym);
+        errorFromError(sym + '[i]');
+        validate('  } else if (typeof %s[i] === "string") {', sym);
+        errorFromSym(sym + '[i]');
+        validate('  }');
+        validate('}');
+      }
+    }
+
+    function errorFromSym(sym) {
       validate('errors++');
       if (reporter === true) {
         validate('if (validate.errors === null) validate.errors = []');
         if (verbose) {
           validate(
             'validate.errors.push({field:%s,message:%s,value:%s,schema:%s})',
-            formatName(name), sym, name, schema || nodeSym
+            formatName(name), sym, name, nodeSym
           );
         } else {
           validate(
             'validate.errors.push({field:%s,message:%s,schema:%s})',
-            formatName(name), sym, schema || nodeSym
+            formatName(name), sym, nodeSym
           );
         }
       }
@@ -284,6 +312,10 @@ function compile(schema, cache, root, opts = {}) {
         error(`must be ${node.format} format`);
         validate('} else if (typeof %s === "string") {', r);
         errorFromSym(r);
+        validate('} else if (Array.isArray(%s)) {', r);
+        errorFromErrorArray(r);
+        validate('} else if (typeof %s === "object") {', r);
+        errorFromError(r);
         validate('}');
       } else {
         validate('if (!%s.test(%s)) {', n, dataSym);
