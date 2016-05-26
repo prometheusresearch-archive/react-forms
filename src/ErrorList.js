@@ -33,8 +33,8 @@ export default class ErrorList extends Component {
   });
 
   render() {
-    let {noLabel, complete, schemaType, ...props} = this.props;
-    let {Root, Error} = this.props.stylesheet || this.constructor.stylesheet;
+    let {noLabel, complete, schemaType, stylesheet, ...props} = this.props;
+    let {Root, Error} = stylesheet || this.constructor.stylesheet;
     let errorList = complete ?
       this.formValue.completeErrorList :
       this.formValue.errorList;
