@@ -10,6 +10,20 @@ import makeKeyPath                from './keyPath';
 import {Schema,
         select as selectSchema}   from './Schema';
 
+let suppressUpdateContextual = false;
+
+/**
+ * Suppress any onChange notifications during the execution of the callback.
+ */
+export function suppressUpdate(tx) {
+  suppressUpdateContextual = true;
+  try {
+    return tx();
+  } finally {
+    suppressUpdateContextual = false;
+  }
+}
+
 function filterErrorListByKeyPath(errorList, keyPath) {
   let field = ['data'].concat(keyPath).join('.');
   return errorList.filter(error => error.field === field);
@@ -65,16 +79,16 @@ export class Value {
     return new ValueRoot({...values, ...update});
   }
 
-  updateParams(params, quiet) {
+  updateParams(params, suppressUpdate) {
     params = {...this.root.params, ...params};
     let nextRoot = this.createRoot({params});
-    if (!quiet) {
+    if (!suppressUpdate && !suppressUpdateContextual) {
       this.root.onChange(nextRoot, this.keyPath);
     }
     return nextRoot.select(this.keyPath);
   }
 
-  update(valueUpdate, quiet) {
+  update(valueUpdate, suppressUpdate) {
     let value;
     if (this.keyPath.length === 0) {
       value = valueUpdate;
@@ -83,32 +97,48 @@ export class Value {
     }
     let errorList = validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});
-    if (!quiet) {
+    if (!suppressUpdate && !suppressUpdateContextual) {
       this.root.onChange(nextRoot, this.keyPath);
     }
     return nextRoot.select(this.keyPath);
   }
 
-  addError(error, quiet) {
+  updateError(error, suppressUpdate) {
+    let field = ['data'].concat(this.keyPath).join('.');
+    let externalErrorList;
+    if (Array.isArray(error)) {
+      externalErrorList = error.map(error => ({...error, field}));
+    } else {
+      externalErrorList = [{...error, field}];
+    }
+
+    let nextRoot = this.createRoot({externalErrorList});
+    if (!suppressUpdate && !suppressUpdateContextual) {
+      this.root.onChange(nextRoot, this.keyPath);
+    }
+    return nextRoot.select(this.keyPath);
+  }
+
+  addError(error, suppressUpdate) {
     error = {
       ...error,
       field: ['data'].concat(this.keyPath).join('.'),
     };
     let externalErrorList = this.root._externalErrorList.concat(error);
     let nextRoot = this.createRoot({externalErrorList});
-    if (!quiet) {
+    if (!suppressUpdate && !suppressUpdateContextual) {
       this.root.onChange(nextRoot, this.keyPath);
     }
     return nextRoot.select(this.keyPath);
   }
 
-  removeError(error, quiet) {
+  removeError(error, suppressUpdate) {
     let idx = this.root._externalErrorList.indexOf(error);
     if (idx > -1) {
       let externalErrorList = this.root._externalErrorList.slice(0);
       externalErrorList.splice(idx, 1);
       let nextRoot = this.createRoot({externalErrorList});
-      if (!quiet) {
+      if (!suppressUpdate && !suppressUpdateContextual) {
         this.root.onChange(nextRoot, this.keyPath);
       }
       return nextRoot.select(this.keyPath);
