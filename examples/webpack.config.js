@@ -51,4 +51,7 @@ module.exports = {
     quiet: true,
   },
 
+  node: {
+    console: 'mock'
+  }
 };
