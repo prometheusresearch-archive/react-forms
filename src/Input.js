@@ -4,7 +4,7 @@
 
 import autobind           from 'autobind-decorator';
 import React, {PropTypes} from 'react';
-import debounce           from 'lodash/function/debounce';
+import debounce           from 'lodash/debounce';
 import emptyFunction      from 'empty/function';
 
 /**

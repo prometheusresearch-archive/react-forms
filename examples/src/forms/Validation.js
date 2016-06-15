@@ -21,7 +21,9 @@ export default class Validation extends React.Component {
     return (
       <div>
         <Form value={value} onChange={this.onChange}/>
-        <p>{JSON.stringify(value)}</p>
+        <div className="well well-sm" style={{marginTop: 20}}>
+          <code>{JSON.stringify(value)}</code>
+        </div>
       </div>
     );
   }
