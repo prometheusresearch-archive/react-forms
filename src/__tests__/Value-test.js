@@ -2,7 +2,7 @@
  * @copyright 2016, Prometheus Research, LLC
  */
 
-import {createValue, isValue} from '../Value';
+import {createValue, isValue, suppressUpdate} from '../Value';
 import {object, array, string} from '../Schema';
 
 describe('Value', function() {
@@ -412,6 +412,49 @@ describe('Value', function() {
 
   });
 
+  describe('.updateError()', function() {
+
+    it('updates a list of errors', function() {
+      let onChange = sinon.spy();
+      let value = createValue({onChange});
+      assert(value.completeErrorList.length === 0);
+      value = value.updateError({message: 'message'});
+      assert(value.completeErrorList.length === 1);
+      assert(value.errorList.length === 1);
+      let error = value.errorList[0];
+      assert(error.message === 'message');
+      assert(onChange.calledOnce);
+
+      value = value.updateError({message: 'message'});
+      assert(value.completeErrorList.length === 1);
+    });
+
+    it('updates a lisr of errors at branch', function() {
+      let onChange = sinon.spy();
+      let value = createValue({onChange}).select('a.b');
+      assert(value.completeErrorList.length === 0);
+      value = value.updateError({message: 'message'});
+      assert.deepEqual(value.keyPath, ['a', 'b']);
+      assert(value.completeErrorList.length === 1);
+      assert(value.errorList.length === 1);
+      assert(value.root.completeErrorList.length === 1);
+      assert(value.root.errorList.length === 0);
+      let error = value.errorList[0];
+      assert(error.message === 'message');
+      assert(onChange.calledOnce);
+    });
+
+    it('updates a list of errors (quiet)', function() {
+      let onChange = sinon.spy();
+      let value = createValue({onChange});
+      value = value.updateError({message: 'message'}, true);
+      assert(value.completeErrorList.length === 1);
+      assert(value.errorList.length === 1);
+      assert(onChange.callCount === 0);
+    });
+
+  });
+
   describe('.updateParams()', function() {
 
     it('updates params', function() {
@@ -433,6 +476,18 @@ describe('Value', function() {
       assert(onChange.callCount === 0);
     });
 
+  });
+
+  describe('suppressing updates', function() {
+
+    it('suppresses updates during updating value', function() {
+      let onChange = sinon.spy();
+      let value = createValue({onChange});
+      let nextValue = suppressUpdate(() =>
+        value.select('a.0.b').update(42).root)
+      assert.deepEqual(nextValue.value, {a: [{b: 42}]});
+      assert(onChange.callCount === 0);
+    });
   });
 
 });
