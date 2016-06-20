@@ -2,10 +2,10 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import autobind           from 'autobind-decorator';
+import autobind from 'autobind-decorator';
 import React, {PropTypes} from 'react';
-import debounce           from 'lodash/function/debounce';
-import emptyFunction      from 'empty/function';
+import debounce from 'lodash/debounce';
+import noop from 'lodash/noop';
 
 /**
  * Input component with debounce.
@@ -22,8 +22,8 @@ export default class Input extends React.Component {
   static defaultProps = {
     Component: 'input',
     debounce: 100,
-    onChange: emptyFunction,
-    onBlur: emptyFunction,
+    onChange: noop,
+    onBlur: noop,
   };
 
   constructor(props) {

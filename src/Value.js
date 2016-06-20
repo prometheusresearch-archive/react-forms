@@ -2,13 +2,12 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import memoize                    from 'memoize-decorator';
-import selectValue                from 'lodash/object/get';
-import emptyFunction              from 'empty/function';
-import update                     from 'immupdate';
-import makeKeyPath                from './keyPath';
-import {Schema,
-        select as selectSchema}   from './Schema';
+import memoize from 'memoize-decorator';
+import selectValue  from 'lodash/get';
+import noop from 'lodash/noop';
+import {updateKey as update} from 'immupdate';
+import makeKeyPath from './keyPath';
+import {Schema, select as selectSchema} from './Schema';
 
 let suppressUpdateContextual = false;
 
@@ -254,7 +253,7 @@ export function isValue(maybeValue) {
 export function createValue({
     schema,
     value = {},
-    onChange = emptyFunction,
+    onChange = noop,
     params = {},
     errorList = null,
     externalErrorList = [],
