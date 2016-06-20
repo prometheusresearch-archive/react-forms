@@ -294,6 +294,7 @@ describe('Value', function() {
     it('allows to update scalar value deep inside array', function() {
       let value = createValue({schema, value: {}});
       let nextValue = value.select('c.0').update('UPDATED').root;
+      assert(Array.isArray(nextValue.value.c));
       assert.deepEqual(nextValue.value, {c: ['UPDATED']});
     });
 

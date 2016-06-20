@@ -5,8 +5,8 @@
 import memoize from 'memoize-decorator';
 import selectValue  from 'lodash/get';
 import noop from 'lodash/noop';
-import {updateKey as update} from 'immupdate';
 import makeKeyPath from './keyPath';
+import update from './update';
 import {Schema, select as selectSchema} from './Schema';
 
 let suppressUpdateContextual = false;
@@ -92,7 +92,7 @@ export class Value {
     if (this.keyPath.length === 0) {
       value = valueUpdate;
     } else {
-      value = update(this.root.value, this.keyPath.join('.'), valueUpdate);
+      value = update(this.root.value, this.keyPath, valueUpdate);
     }
     let errorList = validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});

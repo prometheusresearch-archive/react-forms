@@ -66,7 +66,6 @@
     "empty": "^0.10.1",
     "generate-function": "^2.0.0",
     "generate-object-property": "^1.1.0",
-    "immupdate": "^0.2.0",
     "invariant": "^2.2.1",
     "jsonpointer": "^3.0.0",
     "lodash": "^4.0.0",
