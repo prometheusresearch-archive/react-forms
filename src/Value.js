@@ -95,7 +95,7 @@ export class Value {
     if (this.keyPath.length === 0) {
       value = valueUpdate;
     } else {
-      value = update(this.root.value, this.keyPath, valueUpdate, this.schema);
+      value = update(this.root.value, this.keyPath, valueUpdate, this.root.schema);
     }
     let errorList = validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});
