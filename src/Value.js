@@ -34,7 +34,10 @@ function filterErrorListByKeyPathPrefix(errorList, keyPath) {
   }
   let field = ['data'].concat(keyPath).join('.');
   let length = field.length;
-  return errorList.filter(error => error.field.slice(0, length) === field);
+  return errorList.filter(error =>
+    error.field === field ||
+    error.field.slice(0, length) === field && error.field[length] === '.'
+  );
 }
 
 export class Value {

@@ -67,6 +67,32 @@ describe('Value', function() {
       assert.deepEqual(value.select('e').schema, schema.properties.e);
     });
 
+    it('allows to select all errors and sub errors', function() {
+      let schema = object({
+        a: object({
+          b: string({isRequired: true}),
+          c: string({isRequired: true}),
+        }),
+        aa: object({
+          b: string({isRequired: true}),
+          c: string({isRequired: true}),
+        }),
+      });
+      let value = createValue({schema, value: {a: {}, aa: {}}});
+      assert.deepEqual(value.select('a').completeErrorList, [
+        {field: 'data.a.b', message: 'is required',
+         schema: schema.properties.a.properties.b},
+        {field: 'data.a.c', message: 'is required',
+         schema: schema.properties.a.properties.c},
+      ]);
+      assert.deepEqual(value.select('aa').completeErrorList, [
+        {field: 'data.aa.b', message: 'is required',
+         schema: schema.properties.a.properties.b},
+        {field: 'data.aa.c', message: 'is required',
+         schema: schema.properties.a.properties.c},
+      ]);
+    });
+
     it('propagates errors when selecting subvalues (through objects)', function() {
       let schema = object({
         a: object({
