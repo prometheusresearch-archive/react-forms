@@ -2,7 +2,7 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import update from '../update';
+import {update} from '../update';
 
 describe('react-forms', function() {
 
@@ -48,6 +48,42 @@ describe('react-forms', function() {
       assert.deepEqual(update([0], [0], 1), [1]);
       assert.deepEqual(update([0], [1], 1), [0, 1]);
 
+    });
+
+    it('executes onUpdate hooks', function() {
+      let schema = {
+        onUpdate(value, {key, schema}) {
+          return {...value, tag: 'data', key};
+        },
+        properties: {
+          a: {
+            onUpdate(value, {key, schema}) {
+              return {...value, tag: 'a', key};
+            },
+            properties: {
+              b: {
+                onUpdate(value, {key, schema}) {
+                  assert(key === undefined);
+                  return value + '!';
+                }
+              }
+            }
+          }
+        }
+      };
+
+      assert.deepEqual(
+        update({}, ['a', 'b'], 'ok', schema),
+        {
+          a: {
+            b: 'ok!',
+            key: 'b',
+            tag: 'a'
+          },
+          key: 'a',
+          tag: 'data',
+        }
+      );
     });
 
   });
