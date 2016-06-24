@@ -7,7 +7,7 @@ import selectValue  from 'lodash/get';
 import noop from 'lodash/noop';
 import makeKeyPath from './keyPath';
 import {update} from './update';
-import {Schema, select as selectSchema} from './Schema';
+import * as Schema from './Schema';
 
 let suppressUpdateContextual = false;
 
@@ -97,7 +97,7 @@ export class Value {
     } else {
       value = update(this.root.value, this.keyPath, valueUpdate, this.root.schema);
     }
-    let errorList = validate(this.root.schema, value);
+    let errorList = Schema.validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});
     if (!suppressUpdate && !suppressUpdateContextual) {
       this.root.onChange(nextRoot, this.keyPath);
@@ -174,7 +174,7 @@ class ValueRoot extends Value {
    * This method performs re-validation.
    */
   setSchema(schema) {
-    let errorList = validate(schema, this.value);
+    let errorList = Schema.validate(schema, this.value);
     return this.createRoot({schema, errorList});
   }
 }
@@ -193,7 +193,7 @@ class ValueBranch extends Value {
 
   @memoize
   get schema() {
-    return selectSchema(this.root.schema, this.keyPath);
+    return Schema.select(this.root.schema, this.keyPath);
   }
 
   @memoize
@@ -216,33 +216,6 @@ class ValueBranch extends Value {
 
 }
 
-const NON_ENUMERABLE_PROP = {
-  enumerable: false,
-  writable: true,
-  configurable: true
-};
-
-function cache(obj, key, value) {
-  Object.defineProperty(obj, key, {...NON_ENUMERABLE_PROP, value});
-}
-
-export function validate(schema, value) {
-  if (!schema) {
-    return [];
-  }
-  if (value.__schema === schema && value.__errorList) {
-    return value.__errorList;
-  } else {
-    if (schema.__validator === undefined) {
-      cache(schema, '__validator', Schema(schema, {formats: schema.formats}));
-    }
-    let errorList = schema.__validator(value);
-    cache(value, '__schema', schema);
-    cache(value, '__errorList', errorList);
-    return errorList;
-  }
-}
-
 /**
  * Check if value is a form value.
  */
@@ -262,7 +235,7 @@ export function createValue({
     externalErrorList = [],
   } = {}) {
   if (errorList === null) {
-    errorList = validate(schema, value);
+    errorList = Schema.validate(schema, value);
   }
   return new ValueRoot({schema, value, onChange, params, errorList, externalErrorList});
 }

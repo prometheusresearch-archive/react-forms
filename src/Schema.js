@@ -53,6 +53,33 @@ export function array(items, params) {
 export let string = _generateSchemaBuilder('string');
 export let number = _generateSchemaBuilder('number');
 
+const NON_ENUMERABLE_PROP = {
+  enumerable: false,
+  writable: true,
+  configurable: true
+};
+
+function cache(obj, key, value) {
+  Object.defineProperty(obj, key, {...NON_ENUMERABLE_PROP, value});
+}
+
+export function validate(schema, value) {
+  if (!schema) {
+    return [];
+  }
+  if (value.__schema === schema && value.__errorList) {
+    return value.__errorList;
+  } else {
+    if (schema.__validator === undefined) {
+      cache(schema, '__validator', Schema(schema, {formats: schema.formats}));
+    }
+    let errorList = schema.__validator(value);
+    cache(value, '__schema', schema);
+    cache(value, '__errorList', errorList);
+    return errorList;
+  }
+}
+
 export function select(schema, keyPath) {
   for (let i = 0, len = keyPath.length; i < len; i++) {
     if (!schema) {
