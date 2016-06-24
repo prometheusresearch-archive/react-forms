@@ -2,14 +2,8 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import invariant from 'invariant';
-
 import isNumber from 'lodash/isNumber';
-import toInteger from 'lodash/toInteger';
 import isArray from 'lodash/isArray';
-import isEmpty from 'lodash/isEmpty';
-import isPlainObject from 'lodash/isPlainObject';
-import keys from 'lodash/keys';
 
 export function update(obj, keyPath = [], value, schema) {
   return _update(obj, keyPath, 0, value, schema);
