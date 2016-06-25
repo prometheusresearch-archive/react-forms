@@ -2,11 +2,8 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import React from 'react';
-
 import {atom} from 'derivable';
 import selectValue  from 'lodash/get';
-import forEach from 'lodash/forEach';
 
 import * as Schema from './Schema';
 import {update as updateValue} from './update';
