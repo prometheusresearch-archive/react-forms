@@ -8,7 +8,7 @@ import {atom} from 'derivable';
 
 import reactive from '../reactive';
 
-describe.only('reactive', function() {
+describe('reactive', function() {
 
   function markup(element) {
     return element.innerHTML.replace(/ data-reactid="[^"]+"/, '');

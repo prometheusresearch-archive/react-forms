@@ -5,8 +5,8 @@
 import {atom} from 'derivable';
 import selectValue  from 'lodash/get';
 
-import * as Schema from './Schema';
-import {update as updateValue} from './update';
+import * as Schema from '../Schema';
+import {update as updateValue} from '../update';
 
 export function create(schema, value = {}) {
   value = atom(value);

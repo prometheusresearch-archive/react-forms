@@ -2,7 +2,7 @@
  * @copyright 2016-present, Prometheus Research, LLC
  */
 
-import {object, array, string} from '../Schema';
+import {object, array, string} from '../../Schema';
 import {create, select, update} from '../Subscription';
 
 describe('Subscription', function() {
