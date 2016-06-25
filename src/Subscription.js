@@ -11,7 +11,7 @@ import forEach from 'lodash/forEach';
 import * as Schema from './Schema';
 import {update as updateValue} from './update';
 
-export function create(schema, value) {
+export function create(schema, value = {}) {
   value = atom(value);
   let errorList = value.derive(value => Schema.validate(schema, value));
   return new Cursor(null, schema, value, errorList, []);
@@ -40,7 +40,7 @@ export function select(cursor, ...key) {
 
 export function update(cursor, value) {
   let nextValue;
-  if (this.keyPath.length === 0) {
+  if (cursor.keyPath.length === 0) {
     nextValue = value;
   } else {
     nextValue = updateValue(
@@ -50,7 +50,7 @@ export function update(cursor, value) {
       cursor.root.schema,
     );
   }
-  this.root.value.set(nextValue);
+  cursor.root.value.set(nextValue);
   return cursor;
 }
 
@@ -64,54 +64,4 @@ class Cursor {
     this.keyPath = keyPath;
   }
 
-}
-
-export class View extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.subscriptions = {};
-    forEach(props, (v, k) => {
-      if (k === 'children' || v == null) {
-        return;
-      }
-      if (this.props[k] == null) {
-        this.subscriptions[k] = v.reactor(v => this.setState({k: v}));
-      }
-    });
-  }
-
-  render() {
-    return this.props.children(this.state);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    forEach(nextProps, (v, k) => {
-      if (k === 'children' || v == null) {
-        return;
-      }
-      if (v == null) {
-        return;
-      } else if (this.props[k] == null) {
-        this.subscriptions[k] = v.reactor(v => this.setState({k: v}));
-      } else if (v !== this.props[k]) {
-        this.subscriptions[k].stop();
-        this.subscriptions[k] = v.reactor(v => this.setState({k: v}));
-      }
-    });
-    forEach(this.props, (v, k) => {
-      if (k === 'children') {
-        return;
-      }
-      if (nextProps[k] == null) {
-        this.subscriptions[k].stop();
-        delete this.subscriptions[k];
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    forEach(this.subscriptions, s => s.stop());
-    this.subscriptions = {};
-  }
 }
