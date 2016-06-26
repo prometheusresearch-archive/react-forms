@@ -16,6 +16,7 @@
     "exclude": [
       "*.js",
       "lib/*.js",
+      "lib/**/*.js",
       "coverage/*.js",
       "examples/**/*.js",
       "**/__tests__/*.js",
