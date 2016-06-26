@@ -8,7 +8,7 @@ import Component from '../Component';
 import Error from '../Error';
 import reactive from './reactive';
 
-class ErrorListBase extends Component {
+export class ErrorListBase extends Component {
 
   static displayName = 'ErrorList';
 

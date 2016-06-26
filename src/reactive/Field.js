@@ -11,7 +11,7 @@ import Label from '../Label';
 import ErrorList from './ErrorList';
 import reactive from './reactive';
 
-class FieldBase extends Component {
+export class FieldBase extends Component {
 
   static displayName = 'Field';
 
