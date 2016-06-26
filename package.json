@@ -43,7 +43,7 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5",
+    "babel-cli": "^6.8.0",
     "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
     "babel-preset-prometheusresearch": "^0.1.0",
