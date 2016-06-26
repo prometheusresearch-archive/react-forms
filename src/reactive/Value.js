@@ -2,7 +2,6 @@
  * @copyright 2016-present, Prometheus Research, LLC
  */
 
-import memoize from 'memoize-decorator';
 import {atom, derivation} from 'derivable';
 import selectValue  from 'lodash/get';
 
@@ -97,7 +96,6 @@ class Value {
       filterErrorListByKeyPath(errorList));
   }
 
-  @memoize
   get root() {
     let root = this;
     while (root.parent) {

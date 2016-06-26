@@ -2,7 +2,6 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import autobind from 'autobind-decorator';
 import React, {PropTypes} from 'react';
 import debounce from 'lodash/debounce';
 import noop from 'lodash/noop';
@@ -91,8 +90,7 @@ export default class Input extends React.Component {
     }
   }
 
-  @autobind
-  onChange(e) {
+  onChange = (e) => {
     let value;
     if (e && e.target && 'value' in e.target) {
       value = e.target.value;
@@ -103,15 +101,14 @@ export default class Input extends React.Component {
       value = e;
     }
     this._scheduleOnChange(value);
-  }
+  };
 
-  @autobind
-  onBlur(e) {
+  onBlur = (e) => {
     this.props.onBlur(e);
     if (this._expectedValue !== undefined) {
       this._finalizeOnChange();
       this._cancelOnChange();
     }
-  }
+  };
 
 }

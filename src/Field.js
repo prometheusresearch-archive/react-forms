@@ -2,7 +2,6 @@
  * @copyright 2015-present, Prometheus Research, LLC
  */
 
-import autobind from 'autobind-decorator';
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
 
@@ -61,13 +60,11 @@ export default class Field extends Component {
     );
   }
 
-  @autobind
-  onBlur() {
+  onBlur = () => {
     this.setState({dirty: true});
-  }
+  };
 
-  @autobind
-  onChange(e) {
+  onChange = (e) => {
     let value;
     if (e && e.target && e.target.value !== undefined) {
       e.stopPropagation();
@@ -80,5 +77,5 @@ export default class Field extends Component {
     }
     this.formValue.update(value);
     this.setState({dirty: true});
-  }
+  };
 }
