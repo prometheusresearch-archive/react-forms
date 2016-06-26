@@ -2,6 +2,7 @@
  * @copyright 2016-present, Prometheus Research, LLC
  */
 
+import memoize from 'memoize-decorator';
 import {atom, derivation} from 'derivable';
 import selectValue  from 'lodash/get';
 
@@ -33,7 +34,7 @@ export function select(cursor, ...key) {
       selectValue(value, key));
   }
   return new Value(
-    cursor.root,
+    cursor,
     schema,
     value,
     cursor._errorList,
@@ -55,14 +56,14 @@ export function update(cursor, value) {
       cursor.root.schema,
     );
   }
-  cursor.root.value.set(nextValue);
+  cursor.parent.value.set(nextValue);
   return cursor;
 }
 
 class Value {
 
-  constructor(root, schema, value, errorList, externalErrorList, params, keyPath) {
-    this.root = root || this;
+  constructor(parent, schema, value, errorList, externalErrorList, params, keyPath) {
+    this.parent = parent;
     this.schema = schema;
     this.value = value;
     this._errorList = errorList;
@@ -84,6 +85,15 @@ class Value {
         this._externalErrorList, this.keyPath);
       return errorList.concat(externalErrorList);
     });
+  }
+
+  @memoize
+  get root() {
+    let root = this;
+    while (root.parent) {
+      root = root.parent;
+    }
+    return root;
   }
 
   select(keyPath) {
