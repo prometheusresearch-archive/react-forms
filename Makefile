@@ -9,7 +9,8 @@ NYC_OPTIONS   = --all --require babel-core/register
 NYC           = $(BIN)/nyc $(NYC_OPTIONS)
 VERSION       = $(shell node -e 'console.log(require("./package.json").version)')
 
-build: $(LIB)
+build:
+	@$(MAKE) -j8 $(LIB)
 
 doctoc:
 	@$(BIN)/doctoc --title '**Table of Contents**' ./README.md
