@@ -10,8 +10,8 @@ describe('react-forms', function() {
     assert(ReactForms.Fieldset);
     assert(ReactForms.Field);
     assert(ReactForms.createValue);
-    assert(ReactForms.WithFormValue);
     assert(ReactForms.withFormValue);
+    assert(ReactForms.reactive);
     assert(ReactForms.validate);
     assert(ReactForms.Schema);
     assert(ReactForms.Input);

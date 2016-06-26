@@ -10,7 +10,7 @@ export * as Schema from '../Schema';
 export Input from '../Input';
 
 export ErrorList from './ErrorList';
-export {createValue, suppressUpdate} from './Value';
+export {create as createValue, suppressUpdate} from './Value';
 export withFormValue from '../withFormValue';
 export Field from './Field';
 

@@ -11,7 +11,7 @@ import {update as updateValue} from '../update';
 export function create(schema, value = {}) {
   value = atom(value);
   let errorList = value.derive(value => Schema.validate(schema, value));
-  return new Cursor(null, schema, value, errorList, []);
+  return new Value(null, schema, value, errorList, []);
 }
 
 export function select(cursor, ...key) {
@@ -26,7 +26,7 @@ export function select(cursor, ...key) {
       selectValue(value, key));
   }
   let errorList = cursor.errorList; // TODO: select it too!
-  return new Cursor(
+  return new Value(
     cursor.root,
     schema,
     value,
@@ -51,7 +51,7 @@ export function update(cursor, value) {
   return cursor;
 }
 
-class Cursor {
+class Value {
 
   constructor(root, schema, value, errorList, keyPath) {
     this.root = root || this;

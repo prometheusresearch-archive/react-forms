@@ -227,7 +227,7 @@ export function isValue(maybeValue) {
 /**
  * Create a new root value.
  */
-export function createValue({
+export function create({
     schema,
     value = {},
     onChange = noop,

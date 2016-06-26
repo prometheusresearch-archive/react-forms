@@ -3,9 +3,9 @@
  */
 
 import {object, array, string} from '../../Schema';
-import {create, select, update} from '../Subscription';
+import {create, select, update} from '../Value';
 
-describe('Subscription', function() {
+describe('react-forms/reactive/Value', function() {
 
   describe('create()', function() {
 
