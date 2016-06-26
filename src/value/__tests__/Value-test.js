@@ -2,7 +2,7 @@
  * @copyright 2016, Prometheus Research, LLC
  */
 
-import {createValue, isValue, suppressUpdate} from '../Value';
+import {create, isValue, suppressUpdate} from '../Value';
 import {object, array, string} from '../../Schema';
 
 describe('Value', function() {
@@ -10,16 +10,16 @@ describe('Value', function() {
   describe('isValue(maybeValue)', function() {
 
     it('returns true if value is passed and false otherwise', function() {
-      assert(isValue(createValue()));
+      assert(isValue(create()));
       assert(!isValue({}));
     });
 
   });
 
-  describe('createValue(spec)', function() {
+  describe('create(spec)', function() {
 
     it('works without schema', function() {
-      let value = createValue();
+      let value = create();
       assert.deepEqual(value.select('a').parent, value);
       assert.deepEqual(value.select('a.b').parent, value.select('a'));
     });
@@ -34,7 +34,7 @@ describe('Value', function() {
           b: string()
         })
       });
-      let value = createValue({schema});
+      let value = create({schema});
       assert(value.parent === null);
       assert.deepEqual(value.select('a').parent, value);
       assert.deepEqual(value.select('a.b').parent, value.select('a'));
@@ -54,7 +54,7 @@ describe('Value', function() {
         }),
         e: string()
       });
-      let value = createValue({schema});
+      let value = create({schema});
       assert.deepEqual(value.select('a').schema, schema.properties.a);
       assert.deepEqual(value.select('a.b').schema, schema.properties.a.properties.b);
       assert.deepEqual(value.select(['a', 'b']).schema, schema.properties.a.properties.b);
@@ -78,7 +78,7 @@ describe('Value', function() {
           c: string({isRequired: true}),
         }),
       });
-      let value = createValue({schema, value: {a: {}, aa: {}}});
+      let value = create({schema, value: {a: {}, aa: {}}});
       assert.deepEqual(value.select('a').completeErrorList, [
         {field: 'data.a.b', message: 'is required',
          schema: schema.properties.a.properties.b},
@@ -101,7 +101,7 @@ describe('Value', function() {
         c: array(string(), {minItems: 1}),
         e: string({isRequired: true})
       });
-      let value = createValue({schema});
+      let value = create({schema});
 
       assert.deepEqual(value.errorList, []);
       assert.deepEqual(value.completeErrorList,  [
@@ -149,7 +149,7 @@ describe('Value', function() {
 
     it('propagates value', function() {
       let v = {a: {b: 'b'}, c: ['s'], e: 'e'};
-      let value = createValue({value: v});
+      let value = create({value: v});
 
       assert.deepEqual(value.value, v);
       assert.deepEqual(value.select('a').value, v.a);
@@ -162,7 +162,7 @@ describe('Value', function() {
 
     it('propagates params', function() {
       let params = {a: 1};
-      let value = createValue({params});
+      let value = create({params});
 
       assert.deepEqual(value.params, params);
       assert.deepEqual(value.select('a').params, params);
@@ -177,7 +177,7 @@ describe('Value', function() {
         c: array(string(), {minItems: 1}),
         e: string({isRequired: true})
       });
-      let value = createValue({schema, value: {a: {b: 'b'}, c: ['s'], e: 'e'}});
+      let value = create({schema, value: {a: {b: 'b'}, c: ['s'], e: 'e'}});
 
       assert.deepEqual(value.errorList, []);
       assert.deepEqual(value.completeErrorList, []);
@@ -209,7 +209,7 @@ describe('Value', function() {
         c: array(string(), {minItems: 1}),
         e: string({isRequired: true})
       });
-      let value = createValue({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
+      let value = create({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
 
       assert.deepEqual(value.errorList, []);
       assert.deepEqual(value.completeErrorList, [
@@ -249,7 +249,7 @@ describe('Value', function() {
         c: array(string(), {minItems: 1}),
         e: string({isRequired: true})
       });
-      let value = createValue({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
+      let value = create({schema, value: {a: {b: 'b'}, c: ['s', 1], e: 'e'}});
 
       assert.deepEqual(value.errorList, []);
       assert.deepEqual(value.completeErrorList, [
@@ -286,7 +286,7 @@ describe('Value', function() {
   describe('.update()', function() {
 
     it('works without schema', function() {
-      let value = createValue();
+      let value = create();
       let nextValue = value.select('a.0.b').update(42).root;
       assert.deepEqual(nextValue.value, {a: [{b: 42}]});
     });
@@ -300,25 +300,25 @@ describe('Value', function() {
     });
 
     it('allows to update root value', function() {
-      let value = createValue({schema, value: {}});
+      let value = create({schema, value: {}});
       let nextValue = value.update({a: 1}).root;
       assert.deepEqual(nextValue.value, {a: 1});
     });
 
     it('allows to update scalar value', function() {
-      let value = createValue({schema, value: {}});
+      let value = create({schema, value: {}});
       let nextValue = value.select('e').update('UPDATED').root;
       assert.deepEqual(nextValue.value, {e: 'UPDATED'});
     });
 
     it('allows to update scalar value deep inside object', function() {
-      let value = createValue({schema, value: {}});
+      let value = create({schema, value: {}});
       let nextValue = value.select('a.b').update('UPDATED').root;
       assert.deepEqual(nextValue.value, {a: {b: 'UPDATED'}});
     });
 
     it('allows to update scalar value deep inside array', function() {
-      let value = createValue({schema, value: {}});
+      let value = create({schema, value: {}});
       let nextValue = value.select('c.0').update('UPDATED').root;
       assert(Array.isArray(nextValue.value.c));
       assert.deepEqual(nextValue.value, {c: ['UPDATED']});
@@ -332,7 +332,7 @@ describe('Value', function() {
       let schema1 = {type: 'object', properties: {a: {type: 'number'}}};
       let schema2 = {type: 'object', properties: {a: {type: 'string'}}};
 
-      let value = createValue({schema: schema1, value: {a: 'string!'}});
+      let value = create({schema: schema1, value: {a: 'string!'}});
       assert.deepEqual(value.schema, schema1);
       assert.deepEqual(value.value, {a: 'string!'});
       assert(value.completeErrorList.length === 1);
@@ -349,7 +349,7 @@ describe('Value', function() {
 
     it('adds a new error at root', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       assert(value.completeErrorList.length === 0);
       value = value.addError({message: 'message'});
       assert(value.completeErrorList.length === 1);
@@ -361,7 +361,7 @@ describe('Value', function() {
 
     it('adds a new error at branch', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange}).select('a.b');
+      let value = create({onChange}).select('a.b');
       assert(value.completeErrorList.length === 0);
       value = value.addError({message: 'message'});
       assert.deepEqual(value.keyPath, ['a', 'b']);
@@ -376,7 +376,7 @@ describe('Value', function() {
 
     it('adds a new error (quiet)', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       value = value.addError({message: 'message'}, true);
       assert(value.completeErrorList.length === 1);
       assert(value.errorList.length === 1);
@@ -389,7 +389,7 @@ describe('Value', function() {
 
     it('removes an error from root', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       assert(value.completeErrorList.length === 0);
       value = value.addError({message: 'message'});
       assert(value.completeErrorList.length === 1);
@@ -403,14 +403,14 @@ describe('Value', function() {
 
     it('returns self if no error is found to remove', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       assert(value === value.removeError({}));
       assert(onChange.callCount === 0);
     });
 
     it('removes an error from branch', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange}).select('a.b');
+      let value = create({onChange}).select('a.b');
       assert(value.completeErrorList.length === 0);
       value = value.addError({message: 'message'});
       assert.deepEqual(value.keyPath, ['a', 'b']);
@@ -430,7 +430,7 @@ describe('Value', function() {
 
     it('removes an error (quiet)', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       value = value.addError({message: 'message'}, true);
       let error = value.errorList[0];
       value = value.removeError(error, true);
@@ -443,7 +443,7 @@ describe('Value', function() {
 
     it('updates a list of errors', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       assert(value.completeErrorList.length === 0);
       value = value.updateError({message: 'message'});
       assert(value.completeErrorList.length === 1);
@@ -458,7 +458,7 @@ describe('Value', function() {
 
     it('updates a lisr of errors at branch', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange}).select('a.b');
+      let value = create({onChange}).select('a.b');
       assert(value.completeErrorList.length === 0);
       value = value.updateError({message: 'message'});
       assert.deepEqual(value.keyPath, ['a', 'b']);
@@ -473,7 +473,7 @@ describe('Value', function() {
 
     it('updates a list of errors (quiet)', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       value = value.updateError({message: 'message'}, true);
       assert(value.completeErrorList.length === 1);
       assert(value.errorList.length === 1);
@@ -486,7 +486,7 @@ describe('Value', function() {
 
     it('updates params', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange}).select('a.b');
+      let value = create({onChange}).select('a.b');
       assert.deepEqual(value.params, {});
       value = value.updateParams({a: 1});
       assert.deepEqual(value.keyPath, ['a', 'b']);
@@ -498,7 +498,7 @@ describe('Value', function() {
 
     it('updates params (quiet)', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange}).select('a.b');
+      let value = create({onChange}).select('a.b');
       value = value.updateParams({a: 1}, true);
       assert(onChange.callCount === 0);
     });
@@ -509,7 +509,7 @@ describe('Value', function() {
 
     it('suppresses updates during updating value', function() {
       let onChange = sinon.spy();
-      let value = createValue({onChange});
+      let value = create({onChange});
       let nextValue = suppressUpdate(() =>
         value.select('a.0.b').update(42).root)
       assert.deepEqual(nextValue.value, {a: [{b: 42}]});
