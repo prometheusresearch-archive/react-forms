@@ -9,6 +9,7 @@ import noop from 'lodash/noop';
 import makeKeyPath from './keyPath';
 import {update} from './update';
 import * as Schema from './Schema';
+import applyDecorator from './applyDecorator';
 
 let suppressUpdateContextual = false;
 
@@ -52,7 +53,6 @@ export class Value {
     }
   }
 
-  @memoize
   get errorList() {
     let validateErrorList = filterErrorListByKeyPath(
       this.root._errorList, this.keyPath);
@@ -61,7 +61,6 @@ export class Value {
     return validateErrorList.concat(externalErrorList);
   }
 
-  @memoize
   get completeErrorList() {
     let validateErrorList = filterErrorListByKeyPathPrefix(
       this.root._errorList, this.keyPath);
@@ -151,6 +150,10 @@ export class Value {
   }
 }
 
+applyDecorator(Value.prototype, 'errorList', memoize);
+applyDecorator(Value.prototype, 'completeErrorList', memoize);
+
+
 class ValueRoot extends Value {
 
   constructor({schema, value, onChange, params, errorList, externalErrorList}) {
@@ -192,12 +195,10 @@ class ValueBranch extends Value {
     return this.root.params;
   }
 
-  @memoize
   get schema() {
     return Schema.select(this.root.schema, this.keyPath);
   }
 
-  @memoize
   get value() {
     return selectValue(this.root.value, this.keyPath);
   }
@@ -216,6 +217,9 @@ class ValueBranch extends Value {
   }
 
 }
+
+applyDecorator(ValueBranch.prototype, 'schema', memoize);
+applyDecorator(ValueBranch.prototype, 'value', memoize);
 
 /**
  * Check if value is a form value.

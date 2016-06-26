@@ -2,10 +2,12 @@
  * @copyright 2016-present, Prometheus Research, LLC
  */
 
+import memoize from 'memoize-decorator';
 import {atom, derivation} from 'derivable';
 import selectValue  from 'lodash/get';
 
 import * as Schema from '../Schema';
+import applyDecorator from '../applyDecorator';
 import {update as updateValue} from '../update';
 
 export function create({
@@ -129,6 +131,8 @@ class Value {
   }
 
 }
+
+applyDecorator(Value.prototype, 'root', memoize);
 
 function filterErrorListByKeyPath(errorList, keyPath) {
   let field = ['data'].concat(keyPath).join('.');
