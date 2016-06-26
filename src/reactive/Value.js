@@ -32,13 +32,12 @@ export function select(cursor, ...key) {
     value = cursor.value.derive(value =>
       selectValue(value, key));
   }
-  let errorList = cursor.errorList; // TODO: select it too!
   return new Value(
     cursor.root,
     schema,
     value,
-    errorList,
-    cursor.externalErrorList,
+    cursor._errorList,
+    cursor._externalErrorList,
     cursor.params,
     keyPath,
   );
