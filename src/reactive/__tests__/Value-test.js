@@ -11,7 +11,7 @@ describe('react-forms/reactive/Value', function() {
 
     it('initializes value with {} if no init value is provided', function() {
       let formValue = create();
-      assert.deepEqual(formValue.value.get(), {});
+      assert.deepEqual(formValue.value, {});
     });
 
   });
@@ -36,35 +36,35 @@ describe('react-forms/reactive/Value', function() {
       });
 
       assert.deepEqual(
-        select(formValue, 'scalar').value.get(),
+        select(formValue, 'scalar').value,
         'scalar'
       );
       assert.deepEqual(
-        select(formValue, 'object').value.get(),
+        select(formValue, 'object').value,
         {scalar: 'object.scalar'}
       );
       assert.deepEqual(
-        select(formValue, 'object', 'scalar').value.get(),
+        select(formValue, 'object', 'scalar').value,
         'object.scalar'
       );
       assert.deepEqual(
-        select(select(formValue, 'object'), 'scalar').value.get(),
+        select(select(formValue, 'object'), 'scalar').value,
         'object.scalar'
       );
       assert.deepEqual(
-        select(formValue, 'array').value.get(),
+        select(formValue, 'array').value,
         ['array.0', 'array.1'],
       );
       assert.deepEqual(
-        select(formValue, 'array', 0).value.get(),
+        select(formValue, 'array', 0).value,
         'array.0'
       );
       assert.deepEqual(
-        select(formValue, 'array', 1).value.get(),
+        select(formValue, 'array', 1).value,
         'array.1'
       );
       assert.deepEqual(
-        select(select(formValue, 'array'), 0).value.get(),
+        select(select(formValue, 'array'), 0).value,
         'array.0'
       );
     });
@@ -98,27 +98,27 @@ describe('react-forms/reactive/Value', function() {
 
       let effects;
 
-      formValue.value.react(value => {
+      formValue._value.react(value => {
         effects.push({value, tag: 'root'});
       }, {skipFirst: true});
 
-      scalar.value.react(value => {
+      scalar._value.react(value => {
         effects.push({value, tag: 'scalar'});
       }, {skipFirst: true});
 
-      object.value.react(value => {
+      object._value.react(value => {
         effects.push({value, tag: 'object'});
       }, {skipFirst: true});
 
-      objectScalar.value.react(value => {
+      objectScalar._value.react(value => {
         effects.push({value, tag: 'objectScalar'});
       }, {skipFirst: true});
 
-      array.value.react(value => {
+      array._value.react(value => {
         effects.push({value, tag: 'array'});
       }, {skipFirst: true});
 
-      arrayFirst.value.react(value => {
+      arrayFirst._value.react(value => {
         effects.push({value, tag: 'arrayFirst'});
       }, {skipFirst: true});
 

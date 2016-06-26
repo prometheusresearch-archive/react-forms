@@ -27,10 +27,10 @@ export function select(cursor, ...key) {
   let schema = Schema.select(cursor.schema, key);
   let value;
   if (schema && schema.select) {
-    value = cursor.root.value.derive(value =>
+    value = cursor.root._value.derive(value =>
       schema.select(value, keyPath, schema));
   } else {
-    value = cursor.value.derive(value =>
+    value = cursor._value.derive(value =>
       selectValue(value, key));
   }
   return new Value(
@@ -39,7 +39,7 @@ export function select(cursor, ...key) {
     value,
     cursor._errorList,
     cursor._externalErrorList,
-    cursor.params,
+    cursor._params,
     keyPath,
   );
 }
@@ -50,13 +50,13 @@ export function update(cursor, value) {
     nextValue = value;
   } else {
     nextValue = updateValue(
-      cursor.root.value.get(),
+      cursor.root._value.get(),
       cursor.keyPath,
       value,
       cursor.root.schema,
     );
   }
-  cursor.parent.value.set(nextValue);
+  cursor.root._value.set(nextValue);
   return cursor;
 }
 
@@ -65,10 +65,10 @@ class Value {
   constructor(parent, schema, value, errorList, externalErrorList, params, keyPath) {
     this.parent = parent;
     this.schema = schema;
-    this.value = value;
+    this._value = value;
     this._errorList = errorList;
     this._externalErrorList = externalErrorList;
-    this.params = params;
+    this._params = params;
     this.keyPath = keyPath;
 
     this.errorList = derivation(() => {
@@ -85,6 +85,14 @@ class Value {
         this._externalErrorList, this.keyPath);
       return errorList.concat(externalErrorList);
     });
+  }
+
+  get value() {
+    return this._value.get();
+  }
+
+  get params() {
+    return this._params.get();
   }
 
   @memoize

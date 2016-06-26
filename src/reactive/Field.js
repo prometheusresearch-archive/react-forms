@@ -43,9 +43,9 @@ export class FieldBase extends Component {
     let {Root, ErrorList, Label, InputWrapper} = this.props.stylesheet || this.constructor.stylesheet;
     let {dirty} = this.state;
     let {schema = {}, value, params} = this.formValue;
-    let showErrors = dirty || params.get().forceShowErrors;
+    let showErrors = dirty || params.forceShowErrors;
     if (!children) {
-      children = <Input value={value.get()} onChange={this.onChange} />;
+      children = <Input value={value} onChange={this.onChange} />;
     } else {
       children = React.cloneElement(
         React.Children.only(children),
