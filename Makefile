@@ -1,7 +1,7 @@
 BIN           = ./node_modules/.bin
 TESTS         = $(shell find ./src -path '**/__tests__/*-test.js')
 SRC           = $(shell find ./src -name '*.js' -not -path '*/__tests__/*')
-LIB					  = $(SRC:./src/%.js=./lib/%.js)
+LIB           = $(SRC:./src/%.js=./lib/%.js)
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --require ./src/__tests__/setup.js
 MOCHA         = $(BIN)/_mocha $(MOCHA_OPTIONS)
