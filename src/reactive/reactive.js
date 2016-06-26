@@ -19,7 +19,7 @@ class RenderReactor extends Reactor {
 
 }
 
-function check(d) {
+function trackValues(d) {
   return derivation(function() {
     let results = [];
     for (let i = 0; i < d._parents.length; i++) {
@@ -49,7 +49,7 @@ export default function reactive(Component) {
         let d = derivation(() => super.render());
         let elem = d.get();
         this.reactor = new RenderReactor(this);
-        check(d).reactor(this.reactor);
+        trackValues(d).reactor(this.reactor);
         this.reactor.start();
         return elem;
       }
@@ -73,7 +73,7 @@ export default function reactive(Component) {
         let d = derivation(() => Component(this.props, this.context));
         let elem = d.get();
         this.reactor = new RenderReactor(this);
-        check(d).reactor(this.reactor);
+        trackValues(d).reactor(this.reactor);
         this.reactor.start();
         return elem;
       }
