@@ -42,8 +42,8 @@ export class FieldBase extends Component {
     let {Input, label, children} = this.props;
     let {Root, ErrorList, Label, InputWrapper} = this.props.stylesheet || this.constructor.stylesheet;
     let {dirty} = this.state;
-    let {schema = {}, value, params = {}} = this.formValue;
-    let showErrors = dirty || params.forceShowErrors;
+    let {schema = {}, value, params} = this.formValue;
+    let showErrors = dirty || params.get().forceShowErrors;
     if (!children) {
       children = <Input value={value.get()} onChange={this.onChange} />;
     } else {

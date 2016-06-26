@@ -50,7 +50,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('renders an input with value', function() {
-      let formValue = {value: {get: () => 'hello'}, params: {}};
+      let formValue = {
+        value: {get: () => 'hello'},
+        params: {get: () => ({})}
+      };
       renderer.render(
         <Field formValue={formValue} />
       );
@@ -59,7 +62,11 @@ describe('react-forms/reactive', function() {
     });
 
     it('reacts on onChange (DOM event passed) from input by updating the formValue', function() {
-      let formValue = {value: {get: () => 'hello'}, params: {}, update: sinon.spy()};
+      let formValue = {
+        value: {get: () => 'hello'},
+        params: {get: () => ({})},
+        update: sinon.spy()
+      };
       renderer.render(
         <Field formValue={formValue} />
       );
@@ -75,7 +82,11 @@ describe('react-forms/reactive', function() {
 
 
     it('normalizes an empty string from DOM event to null', function() {
-      let formValue = {value: {get: () => 'hello'}, params: {}, update: sinon.spy()};
+      let formValue = {
+        value: {get: () => 'hello'},
+        params: {get: () => ({})},
+        update: sinon.spy()
+      };
       renderer.render(
         <Field formValue={formValue} />
       );
@@ -90,7 +101,11 @@ describe('react-forms/reactive', function() {
     });
 
     it('reacts on onChange (value passed) from input by updating the formValue', function() {
-      let formValue = {value: {get: () => 'hello'}, params: {}, update: sinon.spy()};
+      let formValue = {
+        value: {get: () => 'hello'},
+        params: {get: () => ({})},
+        update: sinon.spy()
+      };
       renderer.render(
         <Field formValue={formValue} />
       );
@@ -104,7 +119,11 @@ describe('react-forms/reactive', function() {
     });
 
     it('renders a label', function() {
-      let formValue = {value: {get: () => 'hello'}, params: {}, schema: {}};
+      let formValue = {
+        value: {get: () => 'hello'},
+        params: {get: () => ({})},
+        schema: {}
+      };
       renderer.render(
         <Field formValue={formValue} label="Label" />
       );
@@ -114,7 +133,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('does not show error list if not dirty', function() {
-      let formValue = {value: {get: () => undefined}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({})},
+      };
       renderer.render(
         <Field formValue={formValue} label="Label" />
       );
@@ -122,7 +144,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('renders an error list if it becomes dirty', function() {
-      let formValue = {value: {get: () => undefined}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({})},
+      };
       renderer.render(
         <Field formValue={formValue} label="Label" />
       );
@@ -135,7 +160,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('renders an error list if forced', function() {
-      let formValue = {value: {get: () => undefined}, params: {forceShowErrors: true}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({forceShowErrors: true})}
+      };
       renderer.render(
         <Field formValue={formValue} label="Label" />
       );
@@ -144,7 +172,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('virtualizes rendering of self component', function() {
-      let formValue = {value: {get: () => undefined}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({})},
+      };
       function Custom(props) {
         return <div />;
       }
@@ -160,7 +191,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('virtualizes rendering of input component', function() {
-      let formValue = {value: {get: () => undefined}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({})},
+      };
       function Custom(props) {
         return <div />;
       }
@@ -171,7 +205,10 @@ describe('react-forms/reactive', function() {
     });
 
     it('virtualizes rendering of input component (via children element)', function() {
-      let formValue = {value: {get: () => undefined}};
+      let formValue = {
+        value: {get: () => undefined},
+        params: {get: () => ({})},
+      };
       function Custom(props) {
         return <div />;
       }
