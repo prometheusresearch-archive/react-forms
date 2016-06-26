@@ -4,6 +4,7 @@
 
 import React from 'react';
 import {derivation, Reactor} from 'derivable';
+import {eqArray} from '../equality';
 
 class RenderReactor extends Reactor {
 
@@ -18,18 +19,6 @@ class RenderReactor extends Reactor {
 
 }
 
-function eq(a, b) {
-  if (a.length !== b.length) {
-    return false;
-  }
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
 function check(d) {
   return derivation(function() {
     let results = [];
@@ -37,7 +26,7 @@ function check(d) {
       results.push(d._parents[i].get());
     }
     return results;
-  }).withEquality(eq);
+  }).withEquality(eqArray);
 }
 
 export default function reactive(Component) {
