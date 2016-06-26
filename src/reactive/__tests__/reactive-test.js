@@ -45,6 +45,40 @@ describe('react-forms/reactive', function() {
     let ReactiveClassBased = reactive(ClassBased);
     let ReactiveFunctional = reactive(Functional);
 
+    it('preserves displayName for class based components', function() {
+      class X extends React.Component {
+        render() {
+          return null;
+        }
+      }
+      assert(reactive(X).displayName === 'X');
+    });
+
+    it('preserves displayName for class based components with custom displayName', function() {
+      class X extends React.Component {
+        static displayName = 'Y';
+        render() {
+          return null;
+        }
+      }
+      assert(reactive(X).displayName === 'Y');
+    });
+
+    it('preserves displayName for functional components', function() {
+      function X() {
+        return null;
+      }
+      assert(reactive(X).displayName === 'X');
+    });
+
+    it('preserves displayName for functional components with custom displayName', function() {
+      function X() {
+        return null;
+      }
+      X.displayName = 'Y';
+      assert(reactive(X).displayName === 'Y');
+    });
+
     [ReactiveClassBased, ReactiveFunctional].forEach(function(ReactiveHello) {
 
       describe(ReactiveHello.displayName || ReactiveHello.name, function() {
