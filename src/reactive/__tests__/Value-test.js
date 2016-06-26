@@ -10,7 +10,7 @@ describe('react-forms/reactive/Value', function() {
   describe('create()', function() {
 
     it('initializes value with {} if no init value is provided', function() {
-      let formValue = create(null);
+      let formValue = create();
       assert.deepEqual(formValue.value.get(), {});
     });
 
@@ -26,10 +26,13 @@ describe('react-forms/reactive/Value', function() {
     });
 
     it('allows to select parts of the value', function() {
-      let formValue = create(schema, {
-        scalar: 'scalar',
-        object: {scalar: 'object.scalar'},
-        array: ['array.0', 'array.1'],
+      let formValue = create({
+        schema,
+        value: {
+          scalar: 'scalar',
+          object: {scalar: 'object.scalar'},
+          array: ['array.0', 'array.1'],
+        }
       });
 
       assert.deepEqual(
@@ -78,12 +81,14 @@ describe('react-forms/reactive/Value', function() {
     });
 
     it('updates value', function() {
-      let formValue = create(schema, {
-        scalar: 'scalar',
-        object: {scalar: 'object.scalar'},
-        array: ['array.0', 'array.1'],
+      let formValue = create({
+        schema,
+        value: {
+          scalar: 'scalar',
+          object: {scalar: 'object.scalar'},
+          array: ['array.0', 'array.1'],
+        }
       });
-
 
       let scalar = select(formValue, 'scalar');
       let object = select(formValue, 'object');

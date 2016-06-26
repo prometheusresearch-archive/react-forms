@@ -8,7 +8,10 @@ import selectValue  from 'lodash/get';
 import * as Schema from '../Schema';
 import {update as updateValue} from '../update';
 
-export function create(schema, value = {}) {
+export function create({
+  schema,
+  value = {}
+} = {}) {
   value = atom(value);
   let errorList = value.derive(value => Schema.validate(schema, value));
   return new Value(null, schema, value, errorList, []);
