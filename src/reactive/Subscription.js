@@ -1,5 +1,5 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2016-present, Prometheus Research, LLC
  */
 
 import {atom} from 'derivable';
@@ -59,6 +59,14 @@ class Cursor {
     this.value = value;
     this.errorList = errorList;
     this.keyPath = keyPath;
+  }
+
+  select(keyPath) {
+    return select(this, ...keyPath);
+  }
+
+  update(value) {
+    return update(this, value);
   }
 
 }

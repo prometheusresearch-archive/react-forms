@@ -5,9 +5,10 @@
 import memoize from 'memoize-decorator';
 import selectValue  from 'lodash/get';
 import noop from 'lodash/noop';
-import makeKeyPath from './keyPath';
-import {update} from './update';
-import * as Schema from './Schema';
+
+import makeKeyPath from '../keyPath';
+import {update} from '../update';
+import * as Schema from '../Schema';
 
 let suppressUpdateContextual = false;
 

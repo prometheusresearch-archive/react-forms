@@ -1,10 +1,10 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2015-present, Prometheus Research, LLC
  */
 
 import React, {PropTypes} from 'react';
-import invariant          from 'invariant';
-import keyPath            from './keyPath';
+import invariant from 'invariant';
+import keyPath from './keyPath';
 
 export const ContextTypes = {
   formValue: PropTypes.object

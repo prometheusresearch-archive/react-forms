@@ -5,10 +5,11 @@
 import autobind from 'autobind-decorator';
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
-import Component from './Component';
-import Input from './Input';
+
+import Component from '../Component';
+import Input from '../Input';
+import Label from '../Label';
 import ErrorList from './ErrorList';
-import Label from './Label';
 
 export default class Field extends Component {
 

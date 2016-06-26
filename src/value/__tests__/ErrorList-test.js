@@ -4,7 +4,7 @@
 
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Error from '../Error';
+import Error from '../../Error';
 import ErrorList from '../ErrorList';
 
 describe('<ErrorList />', function() {

@@ -4,15 +4,16 @@
 
 import React          from 'react';
 import TestUtils      from 'react/lib/ReactTestUtils';
-import WithFormValue  from '../WithFormValue';
-import Fieldset       from '../Fieldset';
 
-describe('WithFormValue', function() {
+import Fieldset       from '../Fieldset';
+import withFormValue  from '../withFormValue';
+
+describe('withFormValue', function() {
 
   it('injects formValue via props', function() {
     let instance;
 
-    @WithFormValue
+    @withFormValue
     class FormComponent extends React.Component {
       render() {
         instance = this;

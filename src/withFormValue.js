@@ -2,10 +2,10 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import React         from 'react';
+import React from 'react';
 import FormComponent from './Component';
 
-export default function WithFormValue(Component) {
+export default function withFormValue(Component) {
 
   let displayName = Component.displayName || Component.name;
 

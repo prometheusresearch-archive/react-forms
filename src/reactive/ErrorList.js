@@ -4,10 +4,13 @@
 
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
-import Component from './Component';
-import Error from './Error';
+import Component from '../Component';
+import Error from '../Error';
+import reactive from './reactive';
 
-export default class ErrorList extends Component {
+class ErrorListBase extends Component {
+
+  static displayName = 'ErrorList';
 
   static propTypes = {
     ...Component.propTypes,
@@ -36,8 +39,8 @@ export default class ErrorList extends Component {
     let {noLabel, complete, schemaType, stylesheet, ...props} = this.props;
     let {Root, Error} = stylesheet || this.constructor.stylesheet;
     let errorList = complete ?
-      this.formValue.completeErrorList :
-      this.formValue.errorList;
+      this.formValue.completeErrorList.get() :
+      this.formValue.errorList.get();
     if (schemaType !== undefined) {
       errorList = errorList.filter(error =>
         error.schema ? schemaType[error.schema.type] : schemaType.none);
@@ -56,3 +59,7 @@ export default class ErrorList extends Component {
     return <Root {...props}>{items}</Root>;
   }
 }
+
+let ErrorList = reactive(ErrorListBase);
+
+export default ErrorList;

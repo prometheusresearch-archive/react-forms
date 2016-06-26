@@ -3,11 +3,12 @@
  */
 
 import React from 'react';
-import Field from '../Field';
-import Input from '../Input';
-import Label from '../Label';
-import ErrorList from '../ErrorList';
 import {style} from 'react-stylesheet';
+
+import Input from '../../Input';
+import Label from '../../Label';
+import Field from '../Field';
+import ErrorList from '../ErrorList';
 
 describe('<Field />', function() {
 

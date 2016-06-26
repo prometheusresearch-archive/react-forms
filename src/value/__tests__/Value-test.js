@@ -3,7 +3,7 @@
  */
 
 import {createValue, isValue, suppressUpdate} from '../Value';
-import {object, array, string} from '../Schema';
+import {object, array, string} from '../../Schema';
 
 describe('Value', function() {
 

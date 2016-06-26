@@ -11,6 +11,7 @@ describe('react-forms', function() {
     assert(ReactForms.Field);
     assert(ReactForms.createValue);
     assert(ReactForms.WithFormValue);
+    assert(ReactForms.withFormValue);
     assert(ReactForms.Schema);
     assert(ReactForms.Input);
     assert(ReactForms.ErrorList);
