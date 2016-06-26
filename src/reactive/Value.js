@@ -91,7 +91,7 @@ class Value {
     this._params = params;
 
     this._completeErrorList = derivation(() =>
-      this._validationErrorList.concat(this._externalErrorList));
+      this._validationErrorList.get().concat(this._externalErrorList.get()));
     this._errorList = this._completeErrorList.derive(errorList =>
       filterErrorListByKeyPath(errorList));
   }
