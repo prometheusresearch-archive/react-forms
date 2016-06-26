@@ -18,29 +18,41 @@ export function create({
   value = atom(value);
   params = atom(params);
   externalErrorList = atom(externalErrorList);
-  let errorList = value.derive(value => Schema.validate(schema, value));
-  return new Value(null, schema, value, errorList, externalErrorList, params, []);
-}
-
-export function select(cursor, ...key) {
-  let keyPath = cursor.keyPath.concat(key);
-  let schema = Schema.select(cursor.schema, key);
-  let value;
-  if (schema && schema.select) {
-    value = cursor.root._value.derive(value =>
-      schema.select(value, keyPath, schema));
-  } else {
-    value = cursor._value.derive(value =>
-      selectValue(value, key));
-  }
+  let validationErrorList= value.derive(value => Schema.validate(schema, value));
   return new Value(
-    cursor,
+    null,
+    [],
     schema,
     value,
-    cursor._errorList,
-    cursor._externalErrorList,
-    cursor._params,
+    validationErrorList,
+    externalErrorList,
+    params
+  );
+}
+
+export function select(parent, ...key) {
+  let keyPath = parent.keyPath.concat(key);
+  let schema = Schema.select(parent.schema, key);
+  let value;
+  if (schema && schema.select) {
+    value = parent.root._value.derive(value =>
+      schema.select(value, keyPath, schema));
+  } else {
+    value = parent._value.derive(value =>
+      selectValue(value, key));
+  }
+  let validationErrorList = parent._validationErrorList.derive(errorList =>
+    filterErrorListByKeyPathPrefix(errorList, keyPath));
+  let externalErrorList = parent._externalErrorList.derive(errorList =>
+    filterErrorListByKeyPathPrefix(errorList, keyPath));
+  return new Value(
+    parent,
     keyPath,
+    schema,
+    value,
+    validationErrorList,
+    externalErrorList,
+    parent._params,
   );
 }
 
@@ -62,37 +74,27 @@ export function update(cursor, value) {
 
 class Value {
 
-  constructor(parent, schema, value, errorList, externalErrorList, params, keyPath) {
+  constructor(
+    parent,
+    keyPath,
+    schema,
+    value,
+    validationErrorList,
+    externalErrorList,
+    params
+  ) {
     this.parent = parent;
+    this.keyPath = keyPath;
     this.schema = schema;
     this._value = value;
-    this._errorList = errorList;
+    this._validationErrorList = validationErrorList;
     this._externalErrorList = externalErrorList;
     this._params = params;
-    this.keyPath = keyPath;
 
-    this.errorList = derivation(() => {
-      let errorList = filterErrorListByKeyPath(
-        this._errorList, this.keyPath);
-      let externalErrorList = filterErrorListByKeyPath(
-        this._externalErrorList, this.keyPath);
-      return errorList.concat(externalErrorList);
-    });
-    this.completeErrorList = derivation(() => {
-      let errorList = filterErrorListByKeyPathPrefix(
-        this._errorList, this.keyPath);
-      let externalErrorList = filterErrorListByKeyPathPrefix(
-        this._externalErrorList, this.keyPath);
-      return errorList.concat(externalErrorList);
-    });
-  }
-
-  get value() {
-    return this._value.get();
-  }
-
-  get params() {
-    return this._params.get();
+    this._completeErrorList = derivation(() =>
+      this._validationErrorList.concat(this._externalErrorList));
+    this._errorList = this._completeErrorList.derive(errorList =>
+      filterErrorListByKeyPath(errorList));
   }
 
   @memoize
@@ -102,6 +104,22 @@ class Value {
       root = root.parent;
     }
     return root;
+  }
+
+  get errorList() {
+    return this._errorList.get();
+  }
+
+  get completeErrorList() {
+    return this._completeErrorList.get();
+  }
+
+  get value() {
+    return this._value.get();
+  }
+
+  get params() {
+    return this._params.get();
   }
 
   select(keyPath) {

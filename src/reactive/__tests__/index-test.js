@@ -1,12 +1,12 @@
 /**
- * @copyright 2016, Prometheus Research, LLC
+ * @copyright 2016-present, Prometheus Research, LLC
  */
 
 import * as ReactForms from '../index';
 
-describe('react-forms', function() {
+describe('react-forms/reactive', function() {
 
-  it('exports stable API', function() {
+  it('API', function() {
     assert(ReactForms.Fieldset);
     assert(ReactForms.Field);
     assert(ReactForms.createValue);

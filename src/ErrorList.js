@@ -1,16 +1,14 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2015-present, Prometheus Research, LLC
  */
 
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
-import Component from '../Component';
-import Error from '../Error';
-import reactive from './reactive';
 
-export class ErrorListBase extends Component {
+import Component from './Component';
+import Error from './Error';
 
-  static displayName = 'ErrorList';
+export default class ErrorList extends Component {
 
   static propTypes = {
     ...Component.propTypes,
@@ -39,8 +37,8 @@ export class ErrorListBase extends Component {
     let {noLabel, complete, schemaType, stylesheet, ...props} = this.props;
     let {Root, Error} = stylesheet || this.constructor.stylesheet;
     let errorList = complete ?
-      this.formValue.completeErrorList.get() :
-      this.formValue.errorList.get();
+      this.formValue.completeErrorList :
+      this.formValue.errorList;
     if (schemaType !== undefined) {
       errorList = errorList.filter(error =>
         error.schema ? schemaType[error.schema.type] : schemaType.none);
@@ -59,7 +57,3 @@ export class ErrorListBase extends Component {
     return <Root {...props}>{items}</Root>;
   }
 }
-
-let ErrorList = reactive(ErrorListBase);
-
-export default ErrorList;

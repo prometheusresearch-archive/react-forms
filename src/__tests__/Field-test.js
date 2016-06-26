@@ -5,8 +5,8 @@
 import React from 'react';
 import {style} from 'react-stylesheet';
 
-import Input from '../../Input';
-import Label from '../../Label';
+import Input from '../Input';
+import Label from '../Label';
 import Field from '../Field';
 import ErrorList from '../ErrorList';
 
