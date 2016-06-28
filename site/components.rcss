@@ -1,0 +1,70 @@
+Root {
+}
+
+Heading {
+  position: relative;
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+Heading:prop(level == 1) {
+  font-size: 3rem;
+}
+Heading:prop(level == 2) {
+  font-size: 2.25rem;
+}
+Heading:prop(level == 3) {
+  font-size: 1.5rem;
+}
+
+HeadingRef {
+  base: a;
+  position: relative;
+  top: -5em;
+  width: 0;
+  height: 0;
+}
+
+Paragraph {
+  base: p;
+  line-height: 1.6;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+Code {
+  base: code;
+
+  display: block;
+  white-space: pre;
+  padding: 1em 1.5em;
+
+  font-family: Menlo, Monaco, monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+
+  color: #000;
+  background: #eee;
+}
+
+InlineCode {
+  base: code;
+  font-family: Menlo, Monaco, monospace;
+  font-size: 80%;
+
+  color: #000;
+  background: #eee;
+  padding: 2px 2px;
+}
+
+Link {
+  base: a;
+  color: #000000;
+  background: #FFFF00;
+  text-decoration: none;
+  padding: 2px 2px;
+}
+Link:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,36 @@
+NoteRoot {
+  position: relative;
+  padding: 20px 20px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background: #f4f4f4;
+  color: #000;
+}
+
+NoteHeader {
+  margin-left: -20px;
+  font-size: 0.875rem;
+}
+
+NoteIcon {
+  display: inline-block;
+  cursor: default;
+  user-select: none;
+  font-size: 0.65rem;
+  -webkit-user-select: none;
+  padding: 5px 10px;
+  background: #DDD;
+  color: #999;
+  vertical-align: middle;
+}
+
+NoteTitle {
+  display: inline-block;
+  font-weight: bold;
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+
+NoteContent {
+  font-size: 0.875rem;
+}

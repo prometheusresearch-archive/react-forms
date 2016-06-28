@@ -1,0 +1,12 @@
+{
+  components: "./site/components",
+  directives: {
+
+    note: {
+      children: 'required',
+      line: 'optional',
+      component: './site/Note',
+    },
+
+  }
+}

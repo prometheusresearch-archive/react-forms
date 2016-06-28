@@ -1,0 +1,74 @@
+@import 'https://fonts.googleapis.com/css?family=PT+Sans:400,700';
+
+Base {
+  margin: 0 auto;
+  width: 900px;
+  font-family: 'PT Sans', sans-serif;
+}
+
+SidebarRoot {
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+  width: 200px;
+}
+
+SidebarWrapper {
+  padding: 25px 10px;
+}
+
+SidebarTitle {
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-bottom: 1em;
+}
+
+Main {
+  display: inline-block;
+  height: 100%;
+  width: 600px;
+  margin-left: 200px;
+}
+
+Header {
+  padding: 20px;
+}
+
+HeaderTitle {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+HeaderSub {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+Content {
+  padding: 20px;
+}
+
+ToCPageItemRoot {
+  margin-bottom: 1em;
+}
+
+ToCPageItemLink {
+  base: sitegen?Link;
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: #000;
+}
+
+ToCPageItemSectionList {
+
+}
+
+ToCSectionItemRoot {
+}
+
+ToCSectionItemLink {
+  base: sitegen?Link;
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: #000;
+}
