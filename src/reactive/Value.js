@@ -7,6 +7,7 @@ import {atom, derivation} from 'derivable';
 import selectValue  from 'lodash/get';
 
 import * as Schema from '../Schema';
+import toKeyPath from '../keyPath';
 import applyDecorator from '../applyDecorator';
 import {update as updateValue} from '../update';
 
@@ -123,6 +124,7 @@ class Value {
   }
 
   select(keyPath) {
+    keyPath = toKeyPath(keyPath);
     return select(this, ...keyPath);
   }
 
