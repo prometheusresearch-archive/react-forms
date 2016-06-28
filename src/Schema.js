@@ -3,6 +3,7 @@
  */
 
 import JSONSchema from './JSONSchema';
+import toKeyPath from './keyPath';
 
 /**
  * Create a React Forms schema validator.
@@ -81,6 +82,7 @@ export function validate(schema, value) {
 }
 
 export function select(schema, keyPath) {
+  keyPath = toKeyPath(keyPath);
   for (let i = 0, len = keyPath.length; i < len; i++) {
     if (!schema) {
       return schema;
