@@ -20,7 +20,7 @@ export function create({
   value = atom(value);
   params = atom(params);
   externalErrorList = atom(externalErrorList);
-  let validationErrorList= value.derive(value => Schema.validate(schema, value));
+  let validationErrorList = value.derive(value => Schema.validate(schema, value));
   return new Value(
     null,
     [],
@@ -96,7 +96,7 @@ class Value {
     this._completeErrorList = derivation(() =>
       this._validationErrorList.get().concat(this._externalErrorList.get()));
     this._errorList = this._completeErrorList.derive(errorList =>
-      filterErrorListByKeyPath(errorList));
+      filterErrorListByKeyPath(errorList, this.keyPath));
   }
 
   get root() {
