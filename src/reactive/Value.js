@@ -10,6 +10,7 @@ import * as Schema from '../Schema';
 import toKeyPath from '../keyPath';
 import applyDecorator from '../applyDecorator';
 import {update as updateValue} from '../update';
+import {eqArray} from '../equality';
 
 export function create({
   schema,
@@ -93,10 +94,15 @@ class Value {
     this._externalErrorList = externalErrorList;
     this._params = params;
 
-    this._completeErrorList = derivation(() =>
-      this._validationErrorList.get().concat(this._externalErrorList.get()));
-    this._errorList = this._completeErrorList.derive(errorList =>
-      filterErrorListByKeyPath(errorList, this.keyPath));
+    this._completeErrorList = derivation(() => {
+      let validationErrorList = this._validationErrorList.get();
+      let externalErrorList = this._externalErrorList.get();
+      return validationErrorList.concat(externalErrorList);
+    }).withEquality(eqArray);
+    this._errorList = derivation(() => {
+      let completeErrorList = this._completeErrorList.get();
+      return filterErrorListByKeyPath(completeErrorList, this.keyPath);
+    }).withEquality(eqArray);
   }
 
   get root() {
