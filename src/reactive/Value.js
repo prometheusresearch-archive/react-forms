@@ -3,7 +3,7 @@
  */
 
 import memoize from 'memoize-decorator';
-import {atom, derivation} from 'derivable';
+import {atom, derivation, isDerivable} from 'derivable';
 import selectValue  from 'lodash/get';
 
 import * as Schema from '../Schema';
@@ -16,21 +16,50 @@ export function create({
   schema,
   value = {},
   params = {},
+  errorList,
   externalErrorList = [],
+  onChange,
 } = {}) {
-  value = atom(value);
-  params = atom(params);
-  externalErrorList = atom(externalErrorList);
-  let validationErrorList = value.derive(value => Schema.validate(schema, value));
-  return new Value(
+
+  if (!isDerivable(value)) {
+    value = atom(value);
+  }
+
+  if (!isDerivable(params)) {
+    params = atom(params);
+  }
+
+  if (errorList == null) {
+    errorList = value.derive(value => Schema.validate(schema, value));
+  } else if (!isDerivable(errorList)) {
+    errorList = atom(errorList);
+  }
+
+  if (onChange == null) {
+    onChange = (nextValue, keyPath) =>
+      updateValue(
+        value.get(),
+        keyPath,
+        nextValue,
+        schema
+      );
+  }
+
+  if (!isDerivable(externalErrorList)) {
+    externalErrorList = atom(externalErrorList);
+  }
+
+  let formValue = new Value(
     null,
     [],
     schema,
     value,
-    validationErrorList,
+    errorList,
     externalErrorList,
-    params
+    params,
+    onChange
   );
+  return formValue;
 }
 
 export function select(parent, ...key) {
@@ -56,21 +85,12 @@ export function select(parent, ...key) {
     validationErrorList,
     externalErrorList,
     parent._params,
+    parent._onChange,
   );
 }
 
 export function update(cursor, value) {
-  let nextValue;
-  if (cursor.keyPath.length === 0) {
-    nextValue = value;
-  } else {
-    nextValue = updateValue(
-      cursor.root._value.get(),
-      cursor.keyPath,
-      value,
-      cursor.root.schema,
-    );
-  }
+  let nextValue = cursor._onChange(value, cursor.keyPath);
   cursor.root._value.set(nextValue);
   return cursor;
 }
@@ -84,7 +104,8 @@ class Value {
     value,
     validationErrorList,
     externalErrorList,
-    params
+    params,
+    onChange,
   ) {
     this.parent = parent;
     this.keyPath = keyPath;
@@ -93,6 +114,7 @@ class Value {
     this._validationErrorList = validationErrorList;
     this._externalErrorList = externalErrorList;
     this._params = params;
+    this._onChange = onChange;
 
     this._completeErrorList = derivation(() => {
       let validationErrorList = this._validationErrorList.get();
