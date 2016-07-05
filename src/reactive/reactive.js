@@ -4,6 +4,7 @@
 
 import React from 'react';
 import {derivation, Reactor} from 'derivable';
+import isArray from 'lodash/isArray';
 import {eqArray} from '../equality';
 
 class RenderReactor extends Reactor {
@@ -23,7 +24,11 @@ function trackValues(d) {
   return derivation(function() {
     let results = [];
     for (let i = 0; i < d._parents.length; i++) {
-      results.push(d._parents[i].get());
+      if (isArray(d._parents[i])) {
+        results.push(d._parents[i][0].get());
+      } else {
+        results.push(d._parents[i].get());
+      }
     }
     return results;
   }).withEquality(eqArray);
