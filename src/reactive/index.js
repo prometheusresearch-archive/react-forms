@@ -2,6 +2,7 @@
  * @copyright 2016-present, Prometheus Research, LLC
  */
 
+export {update} from '../update';
 export {validate} from '../Schema';
 export * as Schema from '../Schema';
 export Fieldset from '../Fieldset';

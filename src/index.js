@@ -5,7 +5,7 @@
 import withFormValue from './withFormValue';
 
 export {validate} from './Schema';
-export update from './update';
+export {update} from './update';
 export Fieldset from './Fieldset';
 export * as Schema from './Schema';
 export Input from './Input';

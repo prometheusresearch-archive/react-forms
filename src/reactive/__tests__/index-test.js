@@ -13,6 +13,7 @@ describe('react-forms/reactive', function() {
     assert(ReactForms.withFormValue);
     assert(ReactForms.reactive);
     assert(ReactForms.validate);
+    assert(ReactForms.update);
     assert(ReactForms.Schema);
     assert(ReactForms.Input);
     assert(ReactForms.ErrorList);
