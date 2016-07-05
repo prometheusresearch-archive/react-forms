@@ -42,8 +42,8 @@ export default function reactive(Component) {
 
       static displayName = Component.displayName || Component.name;
 
-      constructor(props) {
-        super(props);
+      constructor(props, context) {
+        super(props, context);
         this.reactor = null;
       }
 
