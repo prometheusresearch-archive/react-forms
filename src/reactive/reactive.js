@@ -59,6 +59,13 @@ export default function reactive(Component) {
         return elem;
       }
 
+      componentWillUnmount(...args) {
+        this.reactor.stop();
+        if (super.componentWillUnmount) {
+          super.componentWillUnmount(...args);
+        }
+      }
+
     };
   } else {
 
@@ -82,6 +89,11 @@ export default function reactive(Component) {
         this.reactor.start();
         return elem;
       }
+
+      componentWillUnmount() {
+        this.reactor.stop();
+      }
+
     };
   }
 }
