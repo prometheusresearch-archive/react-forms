@@ -36,13 +36,10 @@ export function create({
   }
 
   if (onChange == null) {
-    onChange = (nextValue, keyPath) =>
-      updateValue(
-        value.get(),
-        keyPath,
-        nextValue,
-        schema
-      );
+    onChange = (update, keyPath) => {
+      let nextValue = updateValue(value.get(), keyPath, update, schema);
+      value.set(nextValue);
+    };
   }
 
   if (!isDerivable(externalErrorList)) {
@@ -90,8 +87,7 @@ export function select(parent, ...key) {
 }
 
 export function update(cursor, value) {
-  let nextValue = cursor._onChange(value, cursor.keyPath);
-  cursor.root._value.set(nextValue);
+  cursor._onChange(value, cursor.keyPath);
   return cursor;
 }
 
