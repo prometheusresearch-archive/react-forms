@@ -64,7 +64,7 @@ function cache(obj, key, value) {
   Object.defineProperty(obj, key, {...NON_ENUMERABLE_PROP, value});
 }
 
-export function validate(schema, value) {
+export function validate(schema, value, options) {
   if (!schema) {
     return [];
   }
@@ -72,7 +72,11 @@ export function validate(schema, value) {
     return value.__errorList;
   } else {
     if (schema.__validator === undefined) {
-      cache(schema, '__validator', Schema(schema, {formats: schema.formats}));
+      cache(
+        schema,
+        '__validator',
+        Schema(schema, {...options, formats: schema.formats})
+      );
     }
     let errorList = schema.__validator(value);
     cache(value, '__schema', schema);
