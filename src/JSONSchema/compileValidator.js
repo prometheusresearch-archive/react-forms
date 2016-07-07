@@ -12,6 +12,32 @@ import Format       from './Format';
 const HTTP_REF = /^https?:\/\//;
 const SPLIT_NAME = /[\[\]]/;
 
+const DEFAULT_ERROR_MESSAGES = {
+  IS_REQUIRED: 'is required',
+  DOES_NOT_CONFORM_TO_FORMAT: 'does not conform to: ',
+  INVALID: 'invalid',
+  IS_THE_WRONG_TYPE: 'is the wrong type',
+  MUST_BE_UNIQUE: 'must be unique',
+  HAS_ADDITIONAL_ITEMS: 'has additional items',
+  HAS_ADDITIONAL_PROPERTIES: 'has additional properties',
+  MUST_BE_AN_ENUM_VALUE: 'must be an enum value',
+  DEPENDENCIES_NOT_SET: 'dependencies not set',
+  REFERENCED_SCHEMA_DOES_NOT_MATCH: 'referenced schema does not match',
+  NEGATIVE_SCHEMA_MATCHES: 'negative schema matches',
+  PATTERN_MISMATCH: 'pattern mismatch',
+  NO_SCHEMAS_MATCH: 'no schemas match',
+  NO_OR_MORE_THAN_ONE_SCHEMAS_MATCH: 'no (or more than one) schemas match',
+  HAS_A_REMAINDER: 'has a remainder',
+  HAS_MORE_PROPERTIES_THAN_ALLOWED: 'has more properties than allowed',
+  HAS_LESS_PROPERTIES_THAN_ALLOWED: 'has less properties than allowed',
+  HAS_MORE_ITEMS_THAN_ALLOWED: 'has more items than allowed',
+  HAS_LESS_ITEMS_THAN_ALLOWED: 'has less items than allowed',
+  HAS_LONGER_LENGTH_THAN_ALLOWED: 'has longer length than allowed',
+  HAS_LESS_LENGTH_THAN_ALLOWED: 'has less length than allowed',
+  IS_LESS_THAN_MINIMUM: 'is less than minimum',
+  IS_MORE_THAN_MAXIMUM: 'is more than maximum',
+};
+
 function getSchemaByRef(obj, additionalSchemas, ptr) {
   if (HTTP_REF.test(ptr)) {
     return null;
@@ -147,6 +173,7 @@ let types = {
 };
 
 function compile(schema, cache, root, opts = {}) {
+  let messages = opts.messages || DEFAULT_ERROR_MESSAGES;
   let reporter = opts.reporter;
   let formats = {...Format, ...opts.formats};
   let scope = {formats, ...Runtime};
@@ -242,7 +269,7 @@ function compile(schema, cache, root, opts = {}) {
       } else {
         validate('if (%s === undefined) {', dataSym);
       }
-      error('is required');
+      error(messages.IS_REQUIRED);
       validate('} else {');
     } else {
       if (node.type === 'object' && (undefinedAsObject || nullAsObject)) { // eslint-disable-line no-lonely-if,max-len
@@ -280,14 +307,14 @@ function compile(schema, cache, root, opts = {}) {
     if (valid !== 'true') {
       indent++;
       validate('if (!(%s)) {', valid);
-      error('is the wrong type');
+      error(messages.IS_THE_WRONG_TYPE);
       validate('} else {');
     }
 
     if (tuple) {
       if (node.additionalItems === false) {
         validate('if (%s.length > %d) {', dataSym, node.items.length);
-        error('has additional items');
+        error(messages.HAS_ADDITIONAL_ITEMS);
         validate('}');
       } else if (node.additionalItems) {
         let i = genloop();
@@ -316,13 +343,13 @@ function compile(schema, cache, root, opts = {}) {
         let r = gensym('result');
         validate('var %s = %s(%s, %s)', r, n, dataSym, nodeSym);
         validate('if (%s === false) {', r);
-        error(`must be ${node.format} format`);
+        error(messages.INVALID);
         validate('} else if (%s !== true) {', r);
         errorFrom(r);
         validate('}');
       } else {
         validate('if (!%s.test(%s)) {', n, dataSym);
-        error(`must be ${node.format} format`);
+        error(messages.DOES_NOT_CONFORM_TO_FORMAT + node.format);
         validate('}');
       }
       if (type !== 'string' && formats[node.format]) {
@@ -338,7 +365,7 @@ function compile(schema, cache, root, opts = {}) {
           validate('if (%s === undefined) {', genobj(dataSym, req));
         }
         let reqSchema = genobj(nodeSym, 'properties') + ' ? ' + genobj(genobj(nodeSym, 'properties'), req) + ' : undefined'; // eslint-disable-line max-len
-        error('is required', genobj(name, req), undefined, reqSchema);
+        error(messages.IS_REQUIRED, genobj(name, req), undefined, reqSchema);
         validate('missing++');
         validate('}');
       };
@@ -357,7 +384,7 @@ function compile(schema, cache, root, opts = {}) {
         validate('if (%s) {', types.array(dataSym));
       }
       validate('if (!arrayIsUnique(%s)) {', dataSym);
-      error('must be unique');
+      error(messages.MUST_BE_UNIQUE);
       validate('}');
       if (type !== 'array') {
         validate('}');
@@ -378,7 +405,7 @@ function compile(schema, cache, root, opts = {}) {
         };
 
       validate('if (%s) {', node.enum.map(compare).join(' && ') || 'false');
-      error('must be an enum value');
+      error(messages.MUST_BE_AN_ENUM_VALUE);
       validate('}');
     }
 
@@ -402,7 +429,7 @@ function compile(schema, cache, root, opts = {}) {
             'if (%s !== undefined && !(%s)) {',
             genobj(dataSym, key), deps.map(exists).join(' && ') || 'true'
           );
-          error('dependencies not set');
+          error(messages.DEPENDENCIES_NOT_SET);
           validate('}');
         }
         if (typeof deps === 'object') {
@@ -449,7 +476,7 @@ function compile(schema, cache, root, opts = {}) {
           );
         }
         error(
-          'has additional properties', null,
+          messages.HAS_ADDITIONAL_PROPERTIES, null,
           `${JSON.stringify(name + '.')} + ${keys}[${i}]`
         );
       } else {
@@ -481,7 +508,7 @@ function compile(schema, cache, root, opts = {}) {
         let n = gensym('ref');
         scope[n] = fn;
         validate('if (!(%s(%s))) {', n, dataSym);
-        error('referenced schema does not match');
+        error(messages.REFERENCED_SCHEMA_DOES_NOT_MATCH);
         validate('}');
       }
     }
@@ -491,7 +518,7 @@ function compile(schema, cache, root, opts = {}) {
       validate('var %s = errors', prev);
       visit(name, dataSym, node.not, false, filter);
       validate('if (%s === errors) {', prev);
-      error('negative schema matches');
+      error(messages.NEGATIVE_SCHEMA_MATCHES);
       validate('} else {');
       validate('errors = %s', prev);
       validate('}');
@@ -547,7 +574,7 @@ function compile(schema, cache, root, opts = {}) {
         validate('if (%s) {', types.string(dataSym));
       }
       validate('if (!(%s.test(%s))) {', p, dataSym);
-      error('pattern mismatch');
+      error(messages.PATTERN_MISMATCH);
       validate('}');
       if (type !== 'string') {
         validate('}');
@@ -578,7 +605,7 @@ function compile(schema, cache, root, opts = {}) {
         }
       });
       validate('if (%s !== errors) {', prev);
-      error('no schemas match');
+      error(messages.NO_SCHEMAS_MATCH);
       validate('}');
     }
 
@@ -599,7 +626,7 @@ function compile(schema, cache, root, opts = {}) {
       });
 
       validate('if (%s !== 1) {', passes);
-      error('no (or more than one) schemas match');
+      error(messages.NO_OR_MORE_THAN_ONE_SCHEMAS_MATCH);
       validate('}');
     }
 
@@ -618,7 +645,7 @@ function compile(schema, cache, root, opts = {}) {
         validate('if (%s % %d) {', dataSym, node.multipleOf);
       }
 
-      error('has a remainder');
+      error(messages.HAS_A_REMAINDER);
       validate('}');
 
       if (type !== 'number' && type !== 'integer') {
@@ -632,7 +659,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (Object.keys(%s).length > %d) {', dataSym, node.maxProperties);
-      error('has more properties than allowed');
+      error(messages.HAS_MORE_PROPERTIES_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'object') {
@@ -646,7 +673,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (Object.keys(%s).length < %d) {', dataSym, node.minProperties);
-      error('has less properties than allowed');
+      error(messages.HAS_LESS_PROPERTIES_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'object') {
@@ -660,7 +687,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (%s.length > %d) {', dataSym, node.maxItems);
-      error('has more items than allowed');
+      error(messages.HAS_MORE_ITEMS_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'array') {
@@ -674,7 +701,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (%s.length < %d) {', dataSym, node.minItems);
-      error('has less items than allowed');
+      error(messages.HAS_LESS_ITEMS_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'array') {
@@ -688,7 +715,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (%s.length > %d) {', dataSym, node.maxLength);
-      error('has longer length than allowed');
+      error(messages.HAS_LONGER_LENGTH_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'string') {
@@ -702,7 +729,7 @@ function compile(schema, cache, root, opts = {}) {
       }
 
       validate('if (%s.length < %d) {', dataSym, node.minLength);
-      error('has less length than allowed');
+      error(messages.HAS_LESS_LENGTH_THAN_ALLOWED);
       validate('}');
 
       if (type !== 'string') {
@@ -712,13 +739,13 @@ function compile(schema, cache, root, opts = {}) {
 
     if (node.minimum !== undefined) {
       validate('if (%s %s %d) {', dataSym, node.exclusiveMinimum ? '<=' : '<', node.minimum);
-      error('is less than minimum');
+      error(messages.IS_LESS_THAN_MINIMUM);
       validate('}');
     }
 
     if (node.maximum !== undefined) {
       validate('if (%s %s %d) {', dataSym, node.exclusiveMaximum ? '>=' : '>', node.maximum);
-      error('is more than maximum');
+      error(messages.IS_MORE_THAN_MAXIMUM);
       validate('}');
     }
 
