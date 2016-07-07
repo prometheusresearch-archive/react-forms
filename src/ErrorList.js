@@ -1,5 +1,6 @@
 /**
  * @copyright 2015-present, Prometheus Research, LLC
+ * @flow
  */
 
 import React, {PropTypes} from 'react';

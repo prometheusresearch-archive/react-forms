@@ -1,10 +1,23 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
+ * @flow
  */
 
 import React from 'react';
 
-export default function Error({error, label, noLabel, complete}) {
+type Props = {
+  error: {
+    schema: {
+      label?: string;
+    };
+    message: string;
+  };
+  label?: string;
+  noLabel?: boolean;
+  complete?: boolean;
+};
+
+export default function Error({error, label, noLabel, complete}: Props) {
   if (!error) {
     return <noscript />;
   }

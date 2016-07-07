@@ -1,6 +1,9 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
+ * @flow
  */
+
+import type {KeyPath, LooseKeyPath} from './keyPath';
 
 import memoize from 'memoize-decorator';
 import selectValue  from 'lodash/get';
@@ -16,7 +19,7 @@ let suppressUpdateContextual = false;
 /**
  * Suppress any onChange notifications during the execution of the callback.
  */
-export function suppressUpdate(tx) {
+export function suppressUpdate(tx: Function) {
   suppressUpdateContextual = true;
   try {
     return tx();
@@ -44,7 +47,15 @@ function filterErrorListByKeyPathPrefix(errorList, keyPath) {
 
 export class Value {
 
-  select(key) {
+  root: ValueRoot;
+  keyPath: KeyPath;
+  params: mixed;
+  value: mixed;
+  schema: mixed;
+  onChange: (formValue: ValueRoot, keyPath: KeyPath) => void;
+  parent: ?Value;
+
+  select(key: LooseKeyPath): Value {
     let keyPath = makeKeyPath(key);
     if (keyPath.length === 0) {
       return this;
@@ -53,7 +64,7 @@ export class Value {
     }
   }
 
-  get errorList() {
+  get errorList(): FormErrorList {
     let validateErrorList = filterErrorListByKeyPath(
       this.root._errorList, this.keyPath);
     let externalErrorList = filterErrorListByKeyPath(
@@ -61,7 +72,7 @@ export class Value {
     return validateErrorList.concat(externalErrorList);
   }
 
-  get completeErrorList() {
+  get completeErrorList(): FormErrorList {
     let validateErrorList = filterErrorListByKeyPathPrefix(
       this.root._errorList, this.keyPath);
     let externalErrorList = filterErrorListByKeyPathPrefix(
@@ -69,7 +80,7 @@ export class Value {
     return validateErrorList.concat(externalErrorList);
   }
 
-  createRoot(update) {
+  createRoot(update: ValueInit) {
     let values = {
       schema: this.root.schema,
       value: this.root.value,
@@ -81,7 +92,7 @@ export class Value {
     return new ValueRoot({...values, ...update});
   }
 
-  updateParams(params, suppressUpdate) {
+  updateParams(params: mixed, suppressUpdate?: boolean) {
     params = {...this.root.params, ...params};
     let nextRoot = this.createRoot({params});
     if (!suppressUpdate && !suppressUpdateContextual) {
@@ -90,7 +101,7 @@ export class Value {
     return nextRoot.select(this.keyPath);
   }
 
-  update(valueUpdate, suppressUpdate) {
+  update(valueUpdate: mixed, suppressUpdate?: boolean) {
     let value;
     if (this.keyPath.length === 0) {
       value = valueUpdate;
@@ -105,7 +116,7 @@ export class Value {
     return nextRoot.select(this.keyPath);
   }
 
-  updateError(error, suppressUpdate) {
+  updateError(error: FormError, suppressUpdate?: boolean) {
     let field = ['data'].concat(this.keyPath).join('.');
     let externalErrorList;
     if (Array.isArray(error)) {
@@ -121,7 +132,7 @@ export class Value {
     return nextRoot.select(this.keyPath);
   }
 
-  addError(error, suppressUpdate) {
+  addError(error: FormError, suppressUpdate?: boolean) {
     error = {
       ...error,
       field: ['data'].concat(this.keyPath).join('.'),
@@ -134,7 +145,7 @@ export class Value {
     return nextRoot.select(this.keyPath);
   }
 
-  removeError(error, suppressUpdate) {
+  removeError(error: FormError, suppressUpdate?: boolean) {
     let idx = this.root._externalErrorList.indexOf(error);
     if (idx > -1) {
       let externalErrorList = this.root._externalErrorList.slice(0);
@@ -153,10 +164,19 @@ export class Value {
 applyDecorator(Value.prototype, 'errorList', memoize);
 applyDecorator(Value.prototype, 'completeErrorList', memoize);
 
+type FormError = {
+  message: string;
+  field: string;
+};
+
+type FormErrorList = Array<FormError>;
 
 class ValueRoot extends Value {
 
-  constructor({schema, value, onChange, params, errorList, externalErrorList}) {
+  _errorList: FormErrorList;
+  _externalErrorList: FormErrorList;
+
+  constructor({schema, value, onChange, params, errorList, externalErrorList}: ValueInitComplete) {
     super();
     this.parent = null;
     this.keyPath = [];
@@ -168,7 +188,7 @@ class ValueRoot extends Value {
     this._externalErrorList = externalErrorList;
   }
 
-  get root() {
+  get root(): ValueRoot {
     return this;
   }
 
@@ -177,7 +197,7 @@ class ValueRoot extends Value {
    *
    * This method performs re-validation.
    */
-  setSchema(schema) {
+  setSchema(schema: mixed) {
     let errorList = Schema.validate(schema, this.value);
     return this.createRoot({schema, errorList});
   }
@@ -185,25 +205,25 @@ class ValueRoot extends Value {
 
 class ValueBranch extends Value {
 
-  constructor(root, keyPath) {
+  constructor(root: ValueRoot, keyPath: KeyPath) {
     super();
     this.root = root;
     this.keyPath = keyPath;
   }
 
-  get params() {
+  get params(): mixed {
     return this.root.params;
   }
 
-  get schema() {
+  get schema(): mixed {
     return Schema.select(this.root.schema, this.keyPath);
   }
 
-  get value() {
+  get value(): mixed {
     return selectValue(this.root.value, this.keyPath);
   }
 
-  get parent() {
+  get parent(): ?Value {
     if (this.keyPath.length === 1) {
       return this.root;
     } else {
@@ -224,9 +244,27 @@ applyDecorator(ValueBranch.prototype, 'value', memoize);
 /**
  * Check if value is a form value.
  */
-export function isValue(maybeValue) {
+export function isValue(maybeValue: any): boolean {
   return maybeValue instanceof Value;
 }
+
+type ValueInit = {
+  schema?: mixed;
+  value?: mixed;
+  onChange?: Function;
+  errorList?: FormErrorList;
+  externalErrorList?: FormErrorList;
+  params?: mixed;
+};
+
+type ValueInitComplete = {
+  schema: mixed;
+  value: mixed;
+  onChange: Function;
+  errorList: FormErrorList;
+  externalErrorList: FormErrorList;
+  params: mixed;
+};
 
 /**
  * Create a new root value.
@@ -238,7 +276,7 @@ export function create({
     params = {},
     errorList = null,
     externalErrorList = [],
-  } = {}) {
+  }: ValueInit = {}) {
   if (errorList === null) {
     errorList = Schema.validate(schema, value);
   }

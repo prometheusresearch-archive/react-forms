@@ -52,6 +52,7 @@
     "doctoc": "^1.0.0",
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",
+    "flow-bin": "^0.28.0",
     "jsdom": "^6.3.0",
     "mocha": "^2.3.2",
     "node-libs-browser": "^1.0.0",

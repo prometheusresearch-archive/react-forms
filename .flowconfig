@@ -1,0 +1,14 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/\.store/flow-typed@.*/.*\.js
+<PROJECT_ROOT>/node_modules/\.store/fbjs@.*/.*\.js.flow
+<PROJECT_ROOT>/node_modules/\.store/fbjs@.*/.*\.js
+<PROJECT_ROOT>/node_modules/\.store/commoner@.*/.*\.js
+<PROJECT_ROOT>/node_modules/\.store/reactdown@.*/.*\.js.flow
+
+[include]
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+unsafe.enable_getters_and_setters=true
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
