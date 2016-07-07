@@ -77,6 +77,7 @@ export class Value {
       params: this.root.params,
       errorList: this.root._errorList,
       externalErrorList: this.root._externalErrorList,
+      validate: this.root.validate,
     };
     return new ValueRoot({...values, ...update});
   }
@@ -97,7 +98,7 @@ export class Value {
     } else {
       value = update(this.root.value, this.keyPath, valueUpdate, this.root.schema);
     }
-    let errorList = Schema.validate(this.root.schema, value);
+    let errorList = this.root.validate(this.root.schema, value);
     let nextRoot = this.createRoot({value, errorList});
     if (!suppressUpdate && !suppressUpdateContextual) {
       this.root.onChange(nextRoot, this.keyPath);
@@ -156,7 +157,7 @@ applyDecorator(Value.prototype, 'completeErrorList', memoize);
 
 class ValueRoot extends Value {
 
-  constructor({schema, value, onChange, params, errorList, externalErrorList}) {
+  constructor({schema, value, onChange, params, errorList, externalErrorList, validate}) {
     super();
     this.parent = null;
     this.keyPath = [];
@@ -166,6 +167,7 @@ class ValueRoot extends Value {
     this.params = params;
     this._errorList = errorList;
     this._externalErrorList = externalErrorList;
+    this.validate = validate;
   }
 
   get root() {
@@ -178,7 +180,7 @@ class ValueRoot extends Value {
    * This method performs re-validation.
    */
   setSchema(schema) {
-    let errorList = Schema.validate(schema, this.value);
+    let errorList = this.validate(schema, this.value);
     return this.createRoot({schema, errorList});
   }
 }
@@ -238,9 +240,14 @@ export function create({
     params = {},
     errorList = null,
     externalErrorList = [],
+    validate = (schema, value) => Schema.validate(schema, value),
   } = {}) {
   if (errorList === null) {
-    errorList = Schema.validate(schema, value);
+    errorList = validate(schema, value);
   }
-  return new ValueRoot({schema, value, onChange, params, errorList, externalErrorList});
+  return new ValueRoot({
+    schema, value, onChange, params,
+    errorList, externalErrorList,
+    validate,
+  });
 }

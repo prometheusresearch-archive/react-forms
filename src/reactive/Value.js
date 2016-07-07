@@ -19,6 +19,7 @@ export function create({
   errorList,
   externalErrorList = [],
   onChange,
+  validate = (schema, value) => Schema.validate(schema, value),
 } = {}) {
 
   if (!isDerivable(value)) {
@@ -30,7 +31,7 @@ export function create({
   }
 
   if (errorList == null) {
-    errorList = value.derive(value => Schema.validate(schema, value));
+    errorList = value.derive(value => validate(schema, value));
   } else if (!isDerivable(errorList)) {
     errorList = atom(errorList);
   }
