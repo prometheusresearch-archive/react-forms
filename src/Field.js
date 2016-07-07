@@ -54,8 +54,10 @@ export default class Field extends Component {
         <InputWrapper>
           {children}
         </InputWrapper>
-        {showErrors &&
-          <ErrorList formValue={this.formValue} />}
+        <ErrorList
+          hideNonForced={!showErrors}
+          formValue={this.formValue}
+          />
       </Root>
     );
   }

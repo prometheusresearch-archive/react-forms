@@ -4,6 +4,7 @@
 
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
+import some from 'lodash/some';
 
 import Component from './Component';
 import Error from './Error';
@@ -17,6 +18,11 @@ export default class ErrorList extends Component {
      * If component should render errors from all the subvalues.
      */
     complete: PropTypes.bool,
+
+    /**
+     * Show errors.
+     */
+    hideNonForced: PropTypes.bool,
 
     /**
      * Restrict schema types
@@ -34,7 +40,10 @@ export default class ErrorList extends Component {
   });
 
   render() {
-    let {noLabel, complete, schemaType, stylesheet, ...props} = this.props;
+    let {
+      noLabel, hideNonForced, complete, schemaType, stylesheet,
+      ...props
+    } = this.props;
     let {Root, Error} = stylesheet || this.constructor.stylesheet;
     let errorList = complete ?
       this.formValue.completeErrorList :
@@ -42,6 +51,9 @@ export default class ErrorList extends Component {
     if (schemaType !== undefined) {
       errorList = errorList.filter(error =>
         error.schema ? schemaType[error.schema.type] : schemaType.none);
+    }
+    if (hideNonForced) {
+      errorList = errorList.filter(error => error.force);
     }
     if (errorList.length === 0) {
       return null;

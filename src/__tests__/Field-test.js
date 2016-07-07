@@ -28,12 +28,6 @@ describe('<Field />', function() {
     return input
   }
 
-  function assertNoErrorList(renderer) {
-    let result = renderer.getRenderOutput();
-    let errorList = result.props.children[2];
-    assert(!errorList);
-  }
-
   function assertErrorList(renderer, Component = ErrorList) {
     let result = renderer.getRenderOutput();
     let errorList = result.props.children[2];
@@ -117,7 +111,9 @@ describe('<Field />', function() {
     renderer.render(
       <Field formValue={formValue} label="Label" />
     );
-    assertNoErrorList(renderer);
+    let errorList = assertErrorList(renderer);
+    assert(errorList.props.formValue === formValue);
+    assert(errorList.props.hideNonForced);
   });
 
   it('renders an error list if it becomes dirty', function() {
@@ -125,12 +121,17 @@ describe('<Field />', function() {
     renderer.render(
       <Field formValue={formValue} label="Label" />
     );
-    assertNoErrorList(renderer);
-    let self = renderer.getRenderOutput();
+    let self;
+    let errorList;
+    errorList = assertErrorList(renderer);
+    assert(errorList.props.formValue === formValue);
+    assert(errorList.props.hideNonForced);
+    self = renderer.getRenderOutput();
     assert(self.props.onBlur);
     self.props.onBlur();
-    let errorList = assertErrorList(renderer);
+    errorList = assertErrorList(renderer);
     assert(errorList.props.formValue === formValue);
+    assert(!errorList.props.hideNonForced);
   });
 
   it('renders an error list if forced', function() {
@@ -140,6 +141,7 @@ describe('<Field />', function() {
     );
     let errorList = assertErrorList(renderer);
     assert(errorList.props.formValue === formValue);
+    assert(!errorList.props.hideNonForced);
   });
 
   it('virtualizes rendering of self component', function() {
