@@ -343,6 +343,56 @@ describe('JSONSchema custom test cases', function() {
     assert(validate.errors[0].message === 'custom error message');
   })
 
+  it('custom format function (inline) with custom error reporting', function() {
+    let validate = validator({
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string',
+          format(s) {
+            if (s !== 'as') {
+              return 'custom error message'
+            }
+            return true;
+          }
+        }
+      }
+    });
+
+    assert(!validate({foo:''}), 'should be "as"')
+    assert(validate.errors);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'custom error message');
+  })
+
+  it('custom format function (inline) with custom metadata', function() {
+    let validate = validator({
+      type: 'object',
+      properties: {
+        foo: {
+          type: 'string',
+          format(s) {
+            if (s !== 'as') {
+              return {
+                message: 'custom error message',
+                force: true,
+              };
+            }
+            return true;
+          }
+        }
+      }
+    });
+
+    assert(!validate({foo:''}), 'should be "as"')
+    assert(validate.errors);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'custom error message');
+    assert(validate.errors[0].force);
+  })
+
   it('custom format function with custom error locations', function() {
     let validate = validator({
       type: 'object',
@@ -367,7 +417,36 @@ describe('JSONSchema custom test cases', function() {
     assert(validate.errors[0].message === 'foo should be equal to bar');
   })
 
-  it('custom format function with custom error locations', function() {
+  it('custom format function with custom error meta', function() {
+    let validate = validator({
+      type: 'object',
+      format(value) {
+        if (value.foo !== value.bar) {
+          return {
+            field: 'foo',
+            message: 'foo should be equal to bar',
+            force: true,
+          };
+        } else {
+          return true;
+        }
+      },
+      properties: {
+        foo: {type: 'number'},
+        bar: {type: 'number'}
+      }
+    });
+
+    assert(!validate({foo: 1, bar: 2}));
+    assert(validate.errors);
+    assert(validate.errors.length === 1);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'foo should be equal to bar');
+    assert(validate.errors[0].force);
+  })
+
+  it('custom format function with custom errors locations', function() {
     let validate = validator({
       type: 'object',
       format(value) {
@@ -389,6 +468,37 @@ describe('JSONSchema custom test cases', function() {
     assert(validate.errors[0]);
     assert(validate.errors[0].field === 'data.foo');
     assert(validate.errors[0].message === 'foo should be equal to bar');
+    assert(validate.errors[1]);
+    assert(validate.errors[1].field === 'data');
+    assert(validate.errors[1].message === 'oops');
+  })
+
+  it('custom format function with custom errors meta', function() {
+    let validate = validator({
+      type: 'object',
+      format(value) {
+        if (value.foo !== value.bar) {
+          return [
+            {field: 'foo', message: 'foo should be equal to bar', force: true},
+            'oops'
+          ];
+        } else {
+          return true;
+        }
+      },
+      properties: {
+        foo: {type: 'number'},
+        bar: {type: 'number'}
+      }
+    });
+
+    assert(!validate({foo: 1, bar: 2}));
+    assert(validate.errors);
+    assert(validate.errors.length === 2);
+    assert(validate.errors[0]);
+    assert(validate.errors[0].field === 'data.foo');
+    assert(validate.errors[0].message === 'foo should be equal to bar');
+    assert(validate.errors[0].force);
     assert(validate.errors[1]);
     assert(validate.errors[1].field === 'data');
     assert(validate.errors[1].message === 'oops');

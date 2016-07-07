@@ -6,6 +6,7 @@
 import genobj       from 'generate-object-property';
 import genfun       from 'generate-function';
 import jsonpointer  from 'jsonpointer';
+import isArray      from 'lodash/isArray';
 import Format       from './Format';
 
 const HTTP_REF = /^https?:\/\//;
@@ -43,6 +44,58 @@ function getSchemaByRef(obj, additionalSchemas, ptr) {
     return other || null;
   }
 }
+
+let Runtime = {
+
+  errorFromError(errors, schema, keyPath, error) {
+    let field = error.field ? keyPath + '.' + error.field : keyPath;
+    errors.push({
+      ...error,
+      field,
+      schema
+    });
+  },
+
+  errorFromErrorList(errors, schema, keyPath, errorList) {
+    for (let i = 0; i < errorList.length; i++) {
+      let error = errorList[i];
+      if (typeof error === 'object') {
+        Runtime.errorFromError(errors, schema, keyPath, error);
+      } else if (typeof error === 'string') {
+        Runtime.errorFromString(errors, schema, keyPath, error);
+      }
+    }
+  },
+
+  errorFromString(errors, schema, keyPath, error) {
+    errors.push({field: keyPath, message: error, schema});
+  },
+
+  errorFrom(errors, schema, keyPath, error) {
+    let typeOf = typeof error;
+    if (typeOf === 'string') {
+      Runtime.errorFromString(errors, schema, keyPath, error);
+    } else if (isArray(error)) {
+      Runtime.errorFromErrorList(errors, schema, keyPath, error);
+    } else if (typeOf === 'object') {
+      Runtime.errorFromError(errors, schema, keyPath, error);
+    }
+  },
+
+  arrayIsUnique(array) {
+    let list = [];
+    for (let i = 0; i < array.length; i++) {
+      list.push(typeof array[i] === 'object' ? JSON.stringify(array[i]) : array[i]);
+    }
+    for (let i = 1; i < list.length; i++) {
+      if (list.indexOf(list[i]) !== i) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+};
 
 function formatName(field) {
   field = field.replace(/\[/g, '[\u0001').split(SPLIT_NAME);
@@ -93,23 +146,10 @@ let types = {
   },
 };
 
-function unique(array) {
-  let list = [];
-  for (let i = 0; i < array.length; i++) {
-    list.push(typeof array[i] === 'object' ? JSON.stringify(array[i]) : array[i]);
-  }
-  for (let i = 1; i < list.length; i++) {
-    if (list.indexOf(list[i]) !== i) {
-      return false;
-    }
-  }
-  return true;
-}
-
 function compile(schema, cache, root, opts = {}) {
   let reporter = opts.reporter;
   let formats = {...Format, ...opts.formats};
-  let scope = {unique, formats};
+  let scope = {formats, ...Runtime};
   let verbose = opts ? !!opts.verbose : false;
   let undefinedAsObject = opts ? !!opts.undefinedAsObject : false;
   let nullAsObject = opts ? !!opts.nullAsObject : false;
@@ -184,47 +224,14 @@ function compile(schema, cache, root, opts = {}) {
       }
     }
 
-    function errorFromError(sym) {
+    function errorFrom(sym) {
       validate('errors++');
       if (reporter === true) {
         validate('if (validate.errors === null) validate.errors = []');
-        let errorMessage = sym + '.message';
-        let errorName = `${formatName(name)} + '.' + ${sym + '.field'}`;
         validate(
-          'validate.errors.push({field:%s,message:%s,schema:%s})',
-          errorName, errorMessage, nodeSym
+          'errorFrom(validate.errors, %s, %s, %s)',
+          nodeSym, formatName(name), sym
         );
-      }
-    }
-
-    function errorFromErrorArray(sym) {
-      validate('errors = errors + %s.length', sym);
-      if (reporter === true) {
-        validate('for (var i = 0; i < %s.length; i++) {', sym);
-        validate('  if (typeof %s[i] === "object") {', sym);
-        errorFromError(sym + '[i]');
-        validate('  } else if (typeof %s[i] === "string") {', sym);
-        errorFromSym(sym + '[i]');
-        validate('  }');
-        validate('}');
-      }
-    }
-
-    function errorFromSym(sym) {
-      validate('errors++');
-      if (reporter === true) {
-        validate('if (validate.errors === null) validate.errors = []');
-        if (verbose) {
-          validate(
-            'validate.errors.push({field:%s,message:%s,value:%s,schema:%s})',
-            formatName(name), sym, name, nodeSym
-          );
-        } else {
-          validate(
-            'validate.errors.push({field:%s,message:%s,schema:%s})',
-            formatName(name), sym, nodeSym
-          );
-        }
       }
     }
 
@@ -308,14 +315,10 @@ function compile(schema, cache, root, opts = {}) {
       if (typeof scope[n] === 'function') {
         let r = gensym('result');
         validate('var %s = %s(%s, %s)', r, n, dataSym, nodeSym);
-        validate('if (!%s) {', r);
+        validate('if (%s === false) {', r);
         error(`must be ${node.format} format`);
-        validate('} else if (typeof %s === "string") {', r);
-        errorFromSym(r);
-        validate('} else if (Array.isArray(%s)) {', r);
-        errorFromErrorArray(r);
-        validate('} else if (typeof %s === "object") {', r);
-        errorFromError(r);
+        validate('} else if (%s !== true) {', r);
+        errorFrom(r);
         validate('}');
       } else {
         validate('if (!%s.test(%s)) {', n, dataSym);
@@ -353,7 +356,7 @@ function compile(schema, cache, root, opts = {}) {
       if (type !== 'array') {
         validate('if (%s) {', types.array(dataSym));
       }
-      validate('if (!(unique(%s))) {', dataSym);
+      validate('if (!arrayIsUnique(%s)) {', dataSym);
       error('must be unique');
       validate('}');
       if (type !== 'array') {
