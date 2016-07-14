@@ -9,12 +9,12 @@ export Fieldset from '../Fieldset';
 export Input from '../Input';
 
 export {create as createValue} from './Value';
-export reactive from './reactive';
+export {reactive} from 'react-derivable';
 
+import {reactive} from 'react-derivable';
 import withFormValueBase from '../withFormValue';
 import ErrorListBase from '../ErrorList';
 import FieldBase from '../Field';
-import reactive from './reactive';
 
 export function withFormValue(Component) {
   return withFormValueBase(reactive(Component));
