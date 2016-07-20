@@ -30,18 +30,6 @@
     "react": ">=0.12.0, <0.15.0",
     "sinon": "^1.9.1"
   },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true,
-          "target": "es5",
-          "stripTypes": true
-        }
-      ]
-    ]
-  },
   "author": "Prometheus Research",
   "license": "MIT",
   "bugs": {
