@@ -143,6 +143,10 @@ let types = {
     return 'true';
   },
 
+  enum() {
+    return 'true';
+  },
+
   null(name) {
     return `${name} === null`;
   },
