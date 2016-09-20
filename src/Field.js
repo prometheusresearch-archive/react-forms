@@ -71,9 +71,6 @@ export default class Field extends Component {
     if (e && e.target && e.target.value !== undefined) {
       e.stopPropagation();
       value = e.target.value;
-      if (value === '') {
-        value = null;
-      }
     } else {
       value = e;
     }
