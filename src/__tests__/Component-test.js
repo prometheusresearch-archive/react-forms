@@ -3,7 +3,7 @@
  */
 
 import React     from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-addons-test-utils';
 import Component from '../Component';
 
 const ReactHasContextSupport = !!/^0\.14\.\d/.exec(React.version);
