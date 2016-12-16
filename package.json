@@ -64,14 +64,14 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "derivable": "^1.0.0-beta9",
+    "derivable": "1.0.0-beta11",
     "generate-function": "^2.0.0",
     "generate-object-property": "^1.1.0",
     "invariant": "^2.2.1",
     "jsonpointer": "^3.0.0",
     "lodash": "^4.0.0",
     "memoize-decorator": "^1.0.2",
-    "react-derivable": "^0.1.0",
+    "react-derivable": "^0.2.0",
     "react-stylesheet": "^0.7.0"
   }
 }
