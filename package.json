@@ -1,6 +1,6 @@
 {
   "name": "react-forms",
-  "version": "2.0.0-beta34",
+  "version": "2.0.0-beta35",
   "description": "Forms library for React",
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "main": "lib/index.js",
@@ -73,6 +73,6 @@
     "lodash": "^4.0.0",
     "memoize-decorator": "^1.0.2",
     "react-derivable": "^0.2.0",
-    "react-stylesheet": "^0.7.0"
+    "react-stylesheet": "^1.0.0"
   }
 }
