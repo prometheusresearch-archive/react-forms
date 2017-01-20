@@ -16,7 +16,7 @@ rendering and validation.
     - [`<Field />`](#field-)
     - [`<Fieldset />`](#fieldset-)
     - [`createValue({schema, value, onChange})`](#createvalueschema-value-onchange)
-    - [`WithFormValue(Component)`](#withformvaluecomponent)
+    - [`withFormValue(Component)`](#withformvaluecomponent)
   - [Howto Guides](#howto-guides)
     - [Customizing form fields](#customizing-form-fields)
     - [Pattern for reusable forms](#pattern-for-reusable-forms)
@@ -117,7 +117,7 @@ let formValue = createValue({value, onChange, schema})
 
 #### `createValue({schema, value, onChange})`
 
-#### `WithFormValue(Component)`
+#### `withFormValue(Component)`
 
 ### Howto Guides
 
@@ -177,7 +177,7 @@ Implementing form field component from scratch:
 
 ```js
 import React from 'react'
-import {WithFormValue} from 'react-forms'
+import {withFormValue} from 'react-forms'
 
 class Field extends React.Component {
 
@@ -194,7 +194,7 @@ class Field extends React.Component {
   onChange = (e) => this.props.formValue.update(e.target.value)
 }
 
-Field = WithFormValue(Field);
+Field = withFormValue(Field);
 ```
 
 #### Pattern for reusable forms
