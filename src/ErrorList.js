@@ -40,8 +40,8 @@ export default class ErrorList extends Component {
   });
 
   render() {
-    let {
-      noLabel, hideNonForced, complete, schemaType, stylesheet,
+    // eslint-disable-next-line no-unused-vars
+    let { noLabel, hideNonForced, complete, schemaType, stylesheet, formValue, select, label,
       ...props
     } = this.props;
     let {Root, Error} = stylesheet || this.constructor.stylesheet;

@@ -19,7 +19,8 @@ export default class Fieldset extends Component {
 
   render() {
     let {Root} = this.props.stylesheet || this.constructor.stylesheet;
-    let {stylesheet, formValue, select, selectFormValue, ...props} = this.props
+    // eslint-disable-next-line no-unused-vars
+    let {stylesheet, formValue, select, selectFormValue, ...props} = this.props;
     return <Root {...props} />;
   }
 }
