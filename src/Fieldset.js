@@ -19,6 +19,7 @@ export default class Fieldset extends Component {
 
   render() {
     let {Root} = this.props.stylesheet || this.constructor.stylesheet;
-    return <Root {...this.props} />;
+    let {stylesheet, formValue, select, selectFormValue, ...props} = this.props
+    return <Root {...props} />;
   }
 }
