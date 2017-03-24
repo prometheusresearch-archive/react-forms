@@ -19,6 +19,6 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "history": "^2.0.1",
-    "react-dom": "^0.14.7"
+    "react-dom": "^15.4.2"
   }
 }
