@@ -7,7 +7,6 @@ import * as Stylesheet from 'react-stylesheet';
 import Component from './Component';
 
 export default class Fieldset extends Component {
-
   static propTypes = {
     ...Component.propTypes,
     children: PropTypes.node,
@@ -18,7 +17,15 @@ export default class Fieldset extends Component {
   });
 
   render() {
-    let {Root} = this.props.stylesheet || this.constructor.stylesheet;
-    return <Root {...this.props} />;
+    const {
+      stylesheet = this.constructor.stylesheet,
+      // just destructure those props away so they don't end up in DOM
+      formValue: _formValue,
+      select: _select,
+      selectFormValue: _selectFormValue,
+      ...props
+    } = this.props;
+    const {Root} = stylesheet;
+    return <Root {...props} />;
   }
 }
