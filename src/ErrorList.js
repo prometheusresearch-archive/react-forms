@@ -4,7 +4,6 @@
 
 import React, {PropTypes} from 'react';
 import * as Stylesheet from 'react-stylesheet';
-import some from 'lodash/some';
 
 import Component from './Component';
 import Error from './Error';
