@@ -1,6 +1,6 @@
 {
   "name": "react-forms",
-  "version": "2.0.0-beta35",
+  "version": "2.0.0-beta36",
   "description": "Forms library for React",
   "homepage": "http://prometheusresearch.github.io/react-forms/",
   "main": "lib/index.js",
