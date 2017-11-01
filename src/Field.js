@@ -2,10 +2,11 @@
  * @copyright 2015-present, Prometheus Research, LLC
  */
 
-import React, {PropTypes} from 'react';
+import React from 'react';
 import * as Stylesheet from 'react-stylesheet';
 
 import Component from './Component';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Label from './Label';
 import ErrorList from './ErrorList';
