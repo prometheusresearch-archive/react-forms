@@ -1,5 +1,5 @@
 language: node_js
 node_js:
-- stable
+- lts/*
 before_install: npm install -g npm@latest
 after_success: make report-cov-coveralls

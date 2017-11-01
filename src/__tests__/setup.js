@@ -2,10 +2,10 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import assert     from 'power-assert';
-import jsdom      from 'jsdom';
-import sinon      from 'sinon';
-import TestUtils  from 'react-addons-test-utils';
+import assert    from 'power-assert';
+import jsdom     from 'jsdom';
+import sinon     from 'sinon';
+import TestUtils from 'react-dom/test-utils';
 
 let document = jsdom.jsdom('<!doctype html><html><body></body></html>');
 let window = document.defaultView;
